@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<base target="_top">
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LabControl</title>
 <meta name="theme-color" content="#1d4ed8">
 <style>
 :root{
@@ -148,7 +149,7 @@ body.modo-tv{background:#0b1220;color:#e5e7eb;font-size:clamp(14px,1.25vw,30px)}
 .tv-error{display:grid;place-items:center;min-height:100vh;font-size:1.6em;padding:2em;text-align:center}
 </style>
 </head>
-<body data-modo="<?= modo ?>" data-tv="<?= tvToken ?>">
+<body>
 <div id="app"></div>
 <div id="modal-raiz"></div>
 <div id="toast" aria-live="polite"></div>
@@ -157,8 +158,11 @@ body.modo-tv{background:#0b1220;color:#e5e7eb;font-size:clamp(14px,1.25vw,30px)}
 /* =========================================================
  * LabControl — cliente
  * ========================================================= */
-var MODO = document.body.dataset.modo || 'app';
-var TV_TOKEN = document.body.dataset.tv || '';
+var API_URL = 'https://script.google.com/macros/s/AKfycbw4XTOl_DnmS8frzSZsebhZ42c3BCERqGyVWPxPYL9YhoE39g0ZIGJpHLVSa7o1uT0h/exec';
+var _tvParam = '';
+try { _tvParam = new URLSearchParams(location.search).get('tv') || ''; } catch (e) { }
+var TV_TOKEN = _tvParam.replace(/[^a-zA-Z0-9]/g, '');
+var MODO = TV_TOKEN ? 'tv' : 'app';
 var S = {
   token: null, usuario: null, config: {}, msgs: {}, turno: null, notifEmail: false,
   vista: 'inicio', param: null, datos: null, sug: null, modal: false,
@@ -220,21 +224,19 @@ function toast(msg, tipo) {
 
 /* ---------- Comunicación con Apps Script ---------- */
 function api(accion, datos) {
-  return new Promise(function (ok, ko) {
-    if (!window.google || !google.script || !google.script.run) {
-      ko(new Error('Abre esta página desde la URL de la aplicación web de Apps Script.'));
-      return;
-    }
-    google.script.run
-      .withSuccessHandler(function (txt) {
-        var r = jparse(txt, null);
-        if (!r) return ko(new Error('Respuesta inválida del servidor.'));
-        if (r.ok) return ok(r.data);
-        if (r.error === 'SESION') { cerrarLocal(); return ko(new Error('Tu sesión expiró. Ingresa nuevamente.')); }
-        ko(new Error(r.error));
-      })
-      .withFailureHandler(function (e) { ko(new Error((e && e.message) || 'Error de conexión.')); })
-      .api(S.token, accion, datos || {});
+  return fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ token: S.token, accion: accion, datos: datos || {} }),
+    redirect: 'follow'
+  }).then(function (resp) { return resp.text(); }, function () {
+    throw new Error('No se pudo conectar con el servidor. Revisa tu conexión a internet.');
+  }).then(function (txt) {
+    var r = jparse(txt, null);
+    if (!r) throw new Error('Respuesta inválida del servidor.');
+    if (r.ok) return r.data;
+    if (r.error === 'SESION') { cerrarLocal(); throw new Error('Tu sesión expiró. Ingresa nuevamente.'); }
+    throw new Error(r.error);
   });
 }
 
@@ -639,7 +641,7 @@ function vAdmin(d) {
     var rolesLib = String(c.roles_liberar_tercero).split(','), rolesRes = String(c.roles_restaurar_equipo).split(',');
     var chk = function (nombre, sel) { return '<div class="checks">' + ['ANALISTA', 'REVISOR', 'JEFATURA'].map(function (r) { return '<label><input type="checkbox" name="' + nombre + '" value="' + r + '"' + (sel.indexOf(r) >= 0 ? ' checked' : '') + '> ' + ROL_TXT[r] + '</label>'; }).join('') + '</div>'; };
     h += '<div class="card"><form data-f="config"><div class="form-grid"><label>Nombre del laboratorio<input name="nombre_laboratorio" value="' + esc(c.nombre_laboratorio) + '"></label>' +
-      '<label>Zona horaria<input name="zona_horaria" value="' + esc(c.zona_horaria) + '"></label><label>Actualización automática (segundos)<input name="segundos_refresco" type="number" min="10" max="120" value="' + esc(c.segundos_refresco) + '"></label></div>' +
+      '<label>Zona horaria<input name="zona_horaria" value="' + esc(c.zona_horaria) + '"></label><label>Dirección pública de la app<input name="url_frontend" value="' + esc(c.url_frontend || '') + '" placeholder="https://usuario.github.io/LabCC/"></label><label>Actualización automática (segundos)<input name="segundos_refresco" type="number" min="10" max="120" value="' + esc(c.segundos_refresco) + '"></label></div>' +
       '<fieldset><legend>Pueden liberar equipos registrados por otro analista</legend>' + chk('roles_liberar_tercero', rolesLib) + '</fieldset>' +
       '<fieldset><legend>Pueden devolver un equipo a estado operativo</legend>' + chk('roles_restaurar_equipo', rolesRes) + '</fieldset>' +
       '<label>Avisos por correo (solo dentro del turno del destinatario)<select name="notif_email_activo"><option value="NO"' + (c.notif_email_activo !== 'SI' ? ' selected' : '') + '>Desactivados</option><option value="SI"' + (c.notif_email_activo === 'SI' ? ' selected' : '') + '>Activados</option></select></label>' +
@@ -972,7 +974,7 @@ var FORM = {
   mensaje: function (d) { return api('guardarMensaje', { clave: d.clave, titulo: d.titulo, texto: d.texto, boton: d.boton, activo: !!d.activo }).then(function () { return cargarYo().then(function () { return 'Mensaje guardado.'; }); }); },
   config: function (d) {
     return api('guardarConfig', {
-      nombre_laboratorio: d.nombre_laboratorio, zona_horaria: d.zona_horaria, segundos_refresco: d.segundos_refresco,
+      nombre_laboratorio: d.nombre_laboratorio, zona_horaria: d.zona_horaria, url_frontend: d.url_frontend, segundos_refresco: d.segundos_refresco,
       roles_liberar_tercero: lista(d.roles_liberar_tercero).join(','), roles_restaurar_equipo: lista(d.roles_restaurar_equipo).join(','),
       notif_email_activo: d.notif_email_activo
     }).then(function () { return cargarYo().then(function () { return 'Configuración guardada.'; }); });
