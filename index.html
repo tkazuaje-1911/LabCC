@@ -7,7 +7,8 @@
 <meta name="theme-color" content="#f2f4f7">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 :root{
   --ground:#f2f4f7;--surface:#fff;--raised:#eceef2;--border:#e1e5ea;--rule:#eef0f3;--control:#cfd5dc;
@@ -264,6 +265,9 @@ body.modo-tv{background:#0b0f14;color:#e6e9ed;font-size:clamp(14px,1.25vw,30px);
 .tv-eq.verde .e{color:#5fd69a}.tv-eq.rojo .e{color:#ff8097}.tv-eq.amarillo .e{color:#f5c75a}
 .tv-eq .d{color:#b4bcc6;font-size:.9em}
 .tv-error{display:grid;place-items:center;min-height:100vh;font-size:1.6em;padding:2em;text-align:center}
+#sync{position:fixed;top:0;left:0;right:0;height:2px;z-index:70;background:var(--hue);opacity:0;transition:opacity 150ms ease;pointer-events:none}
+#sync.on{opacity:.9}
+.diag{width:100%;font-size:13px}.diag td,.diag th{padding:6px 8px}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:1ms!important;transition-duration:1ms!important}
 }
@@ -287,7 +291,8 @@ var S = {
   token: null, usuario: null, config: {}, msgs: {}, turno: null, notifEmail: false,
   vista: 'inicio', param: null, datos: null, sug: null, modal: false,
   avisos: [], filtroEq: 'TODOS', buscaEq: '', encTab: 'recibidos', adminTab: 'usuarios',
-  retro: null, usuariosEnc: null, encDest: null, _res: null
+  retro: null, usuariosEnc: null, encDest: null, _res: null,
+  vcache: {}, diag: [], _json: null, _min: 0
 };
 var ROL_TXT = { ANALISTA: 'Analista', REVISOR: 'Revisor', JEFATURA: 'Jefatura' };
 var AREA_TXT = { MP: 'Materias Primas', PT: 'Producto Terminado', AMBAS: 'Ambas áreas' };
@@ -357,21 +362,86 @@ function toast(msg, tipo) {
 }
 
 /* ---------- Comunicación con Apps Script ---------- */
-function api(accion, datos) {
-  return fetch(API_URL, {
+var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1 };
+var enCurso = {};
+/** Clave y solicitud de lectura de la pantalla actual (o de la indicada). */
+function claveVista(v, p) {
+  v = v || S.vista; p = p === undefined ? S.param : p;
+  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '');
+}
+function pedidoVista(v, p) {
+  v = v || S.vista; p = p === undefined ? S.param : p;
+  if (v === 'inicio') return { accion: 'inicio', datos: {} };
+  if (v === 'equipos') return { accion: 'equipos', datos: {} };
+  if (v === 'equipo') return { accion: 'equipo', datos: { id: p } };
+  if (v === 'reservas') return { accion: 'reservas', datos: {} };
+  if (v === 'encargos') return { accion: 'encargos', datos: { todos: S.encTab === 'todos' } };
+  if (v === 'admin') return { accion: 'adminDatos', datos: {} };
+  if (v === 'perfil') return { accion: 'yo', datos: {} };
+  return null;
+}
+function anotar(accion, t0, ok) {
+  S.diag.unshift({ a: accion, ms: Date.now() - t0, ok: ok, t: Date.now() });
+  if (S.diag.length > 30) S.diag.length = 30;
+}
+/**
+ * Una solicitud al servidor.
+ * - Lecturas idénticas en curso se comparten (sin solicitudes duplicadas).
+ * - Tras una acción que escribe, el servidor devuelve en el mismo viaje los datos frescos
+ *   de la pantalla actual ("luego"). El resultado de la acción sigue esperando la
+ *   confirmación del servidor: nada se muestra como hecho antes de tiempo.
+ */
+function api(accion, datos, opts) {
+  opts = opts || {}; datos = datos || {};
+  var lect = !!LECTURAS[accion];
+  var k = lect ? accion + JSON.stringify(datos) : null;
+  if (k && enCurso[k]) return enCurso[k];
+  var luego = opts.luego !== undefined ? opts.luego : (!lect && accion !== 'logout' && S.usuario ? pedidoVista() : null);
+  var claveLuego = luego ? (opts.claveLuego || claveVista()) : null;
+  var cuerpo = { token: S.token, accion: accion, datos: datos };
+  if (luego) cuerpo.luego = luego;
+  var t0 = Date.now();
+  var pr = fetch(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-    body: JSON.stringify({ token: S.token, accion: accion, datos: datos || {} }),
+    body: JSON.stringify(cuerpo),
     redirect: 'follow'
   }).then(function (resp) { return resp.text(); }, function () {
+    anotar(accion, t0, false);
     throw new Error('No se pudo conectar con el servidor. Revisa tu conexión a internet.');
   }).then(function (txt) {
     var r = jparse(txt, null);
+    anotar(accion, t0, !!(r && r.ok));
     if (!r) throw new Error('Respuesta inválida del servidor.');
-    if (r.ok) return r.data;
+    if (r.ok) {
+      if (r.luego && r.luego.ok && claveLuego) guardarVista(claveLuego, r.luego.data, true);
+      return r.data;
+    }
     if (r.error === 'SESION') { cerrarLocal(); throw new Error('Tu sesión expiró. Ingresa nuevamente.'); }
     throw new Error(r.error);
   });
+  if (k) { enCurso[k] = pr; var fin = function () { delete enCurso[k]; }; pr.then(fin, fin); }
+  return pr;
+}
+function guardarVista(key, d, deLuego) {
+  S.vcache[key] = { d: d, t: Date.now(), luego: !!deLuego };
+}
+function persistente() { try { return !!localStorage.getItem('lc_token'); } catch (e) { return false; } }
+/** Copia local de Inicio y Equipos para mostrar la app al instante al volver a abrirla. */
+function guardarSnap() {
+  try {
+    var v = {};
+    ['inicio|', 'equipos|'].forEach(function (k) { if (S.vcache[k]) v[k] = { d: S.vcache[k].d }; });
+    store.set('lc_snap', JSON.stringify({ token: S.token, usuario: S.usuario, config: S.config, msgs: S.msgs, v: v }), persistente());
+  } catch (e) { }
+}
+var syncTimer = null;
+function sync(on) {
+  var el = document.getElementById('sync');
+  if (!el) return;
+  clearTimeout(syncTimer);
+  if (on) syncTimer = setTimeout(function () { el.classList.add('on'); }, 250);
+  else el.classList.remove('on');
 }
 
 /* ---------- Modal ---------- */
@@ -451,47 +521,92 @@ function render() {
   app.innerHTML = shell();
   iniciarPolling();
 }
+/** Reemplaza solo los bloques que cambiaron, para no rehacer toda la pantalla por un dato. */
+function parchar(viejo, nuevo, prof) {
+  var a = Array.prototype.slice.call(viejo.childNodes), b = Array.prototype.slice.call(nuevo.childNodes);
+  if (a.length !== b.length) { while (viejo.firstChild) viejo.removeChild(viejo.firstChild); b.forEach(function (n) { viejo.appendChild(n); }); return; }
+  for (var i = 0; i < a.length; i++) {
+    if (a[i].isEqualNode(b[i])) continue;
+    if (prof > 0 && a[i].nodeType === 1 && b[i].nodeType === 1 && a[i].cloneNode(false).isEqualNode(b[i].cloneNode(false))) parchar(a[i], b[i], prof - 1);
+    else viejo.replaceChild(b[i], a[i]);
+  }
+}
 function pintar() {
-  if (!$('#contenido')) return render();
-  $('#contenido').innerHTML = contenido();
+  var cont = $('#contenido');
+  if (!cont) return render();
+  var t = document.createElement('template');
+  t.innerHTML = contenido();
+  parchar(cont, t.content, 4);
+  S._json = S.datos ? JSON.stringify(S.datos) : null;
+  S._min = Math.floor(Date.now() / 60000);
   document.querySelectorAll('[data-a="ir"]').forEach(function (b) { b.classList.toggle('act', b.dataset.v === vistaNav()); });
 }
 function ir(vista, param) {
-  S.vista = vista; S.param = param || null; S.datos = null;
+  S.vista = vista; S.param = param || null;
+  var c = S.vcache[claveVista()];
+  S.datos = c ? c.d : null; // la última versión conocida se ve al instante y se refresca enseguida
   if (!$('#contenido')) render(); else pintar();
   window.scrollTo(0, 0);
   return cargar();
 }
 function cargar(silencioso) {
-  var v = S.vista, p = S.param, pr;
-  if (v === 'inicio') pr = Promise.all([api('inicio'), api('equipos')]).then(function (r) { r[0].equipos = r[1].equipos; return r[0]; });
-  else if (v === 'equipos') pr = api('equipos');
-  else if (v === 'equipo') pr = api('equipo', { id: p });
-  else if (v === 'reservas') pr = api('reservas');
-  else if (v === 'encargos') pr = api('encargos', { todos: S.encTab === 'todos' });
-  else if (v === 'admin') pr = api('adminDatos');
-  else if (v === 'perfil') pr = api('yo');
-  else if (v === 'retro') pr = asegurarSug().then(function () { return {}; });
-  else pr = Promise.resolve({});
+  var v = S.vista, p = S.param, key = claveVista(), ped = pedidoVista();
+  var c = S.vcache[key];
+  if (c && c.luego && Date.now() - c.t < 5000) { // recién llegada junto con la acción: no se vuelve a pedir
+    c.luego = false;
+    aplicar(v, p, key, c.d, silencioso);
+    return Promise.resolve();
+  }
+  var pr;
+  if (v === 'retro') pr = asegurarSug().then(function () { return {}; });
+  else if (!ped) pr = Promise.resolve({});
+  else pr = api(ped.accion, ped.datos);
+  if (v === 'inicio') pr = pr.then(function (d) { // servidores anteriores no envían la lista de equipos con Inicio
+    if (d.equipos) return d;
+    return api('equipos').then(function (x) { d.equipos = x.equipos; return d; });
+  });
+  if (S.datos) sync(true);
   return pr.then(function (d) {
-    if (S.vista !== v || S.param !== p) return;
-    S.datos = d;
-    if (d && d.config) S.config = d.config;
-    if (d && d.mensajes) S.msgs = d.mensajes;
-    if (v === 'inicio' && d.avisos && d.avisos.length) {
-      d.avisos.forEach(function (a) { S.avisos.push(a); toast(a.texto); });
-    }
-    if (silencioso) {
-      var foco = document.activeElement;
-      if (S.modal || (foco && $('#contenido') && $('#contenido').contains(foco) && /INPUT|SELECT|TEXTAREA/.test(foco.tagName))) return;
-    }
-    pintar();
+    sync(false);
+    if (v !== 'retro') guardarVista(key, d);
+    aplicar(v, p, key, d, silencioso);
   }).catch(function (e) {
-    if (!silencioso) { toast(e.message, 'error'); if (S.token) pintar(); }
+    sync(false);
+    if (!silencioso) { toast(e.message, 'error'); if (S.token && S.usuario) pintar(); }
   });
 }
+function aplicar(v, p, key, d, silencioso) {
+  var nuevosAvisos = false;
+  if (d && d.avisos && d.avisos.length) { // avisos recién entregados por el servidor: una sola vez
+    d.avisos.forEach(function (a) { S.avisos.push(a); toast(a.texto); });
+    d.avisos = []; nuevosAvisos = true;
+  }
+  if (v === 'inicio' && d && d.usuario) S.usuario = d.usuario;
+  if (d && d.config) S.config = d.config;
+  if (d && d.mensajes && !Array.isArray(d.mensajes)) S.msgs = d.mensajes;
+  if (v === 'inicio' && d && d.equipos) guardarVista('equipos|', { equipos: d.equipos, ahora: new Date().toISOString() });
+  if (v === 'inicio' || v === 'equipos') guardarSnap();
+  if (puede('ANALISTA', 'JEFATURA') && !S.sug && (v === 'inicio' || v === 'equipos')) {
+    setTimeout(function () { if (S.token && !S.sug) asegurarSug().catch(function () { }); }, 1200); // el formulario de ocupación abre sin esperar
+  }
+  if (S.vista !== v || S.param !== p || claveVista() !== key) return;
+  if (S.usuario && S.usuario.debe_cambiar_clave) { render(); return; }
+  var json = JSON.stringify(d);
+  var mismo = !nuevosAvisos && S._json === json && S._min === Math.floor(Date.now() / 60000) && S.datos;
+  S.datos = d;
+  if (mismo) return; // nada cambió: la pantalla no se toca
+  if (silencioso) {
+    var foco = document.activeElement;
+    if (S.modal || (foco && $('#contenido') && $('#contenido').contains(foco) && /INPUT|SELECT|TEXTAREA/.test(foco.tagName))) return;
+  }
+  pintar();
+}
 function asegurarSug() {
-  if (S.sug) return Promise.resolve(S.sug);
+  if (S.sug) {
+    // Se usan las sugerencias ya cargadas y se actualizan en segundo plano si quedaron viejas.
+    if (S.sugVieja) { S.sugVieja = false; api('sugerencias').then(function (s) { S.sug = s; }).catch(function () { S.sugVieja = true; }); }
+    return Promise.resolve(S.sug);
+  }
   return api('sugerencias').then(function (s) { S.sug = s; return s; });
 }
 
@@ -836,6 +951,15 @@ function vAdmin(d) {
   return h;
 }
 
+function diagHtml() {
+  var l = S.diag.filter(function (x) { return x.ok; });
+  if (!l.length) return '<p class="sub">Aún no hay mediciones.</p>';
+  var ms = l.map(function (x) { return x.ms; }).sort(function (a, b) { return a - b; });
+  var med = ms[Math.floor(ms.length / 2)];
+  return '<p><b class="num">' + med + ' ms</b> <span class="sub">mediana de ' + ms.length + ' solicitudes · la más lenta ' + ms[ms.length - 1] + ' ms</span></p>' +
+    '<table class="diag"><thead><tr><th>Acción</th><th class="num">ms</th></tr></thead><tbody>' +
+    S.diag.slice(0, 8).map(function (x) { return '<tr><td>' + esc(x.a) + (x.ok ? '' : ' · error') + '</td><td class="num">' + x.ms + '</td></tr>'; }).join('') + '</tbody></table>';
+}
 function vPerfil(d) {
   var u = d.usuario;
   var h = '<div class="cab"><div><h1>' + esc(u.nombre) + '</h1><p class="sub">' + esc(u.email) + '</p></div></div><div class="grid">';
@@ -846,6 +970,7 @@ function vPerfil(d) {
   h += '<div class="card"><h3>Notificaciones</h3><p class="sub">Los avisos dentro de la app aparecen al ingresar durante tu turno. Nunca se envían fuera de él.</p>' +
     (d.notif_email_activo ? '<label class="inline-check"><input type="checkbox" data-a="prefEmail"' + (u.notif_email ? ' checked' : '') + '> Recibir también un correo (solo en mi turno)</label>' : '<p class="sub">Jefatura no ha activado los avisos por correo.</p>') + '</div>';
   h += '<div class="card">' + vCambioClave(false) + '</div>';
+  h += '<div class="card"><h2>Velocidad de conexión</h2><p class="sub">Tiempo de respuesta del servidor en este dispositivo. Útil si la app se siente lenta.</p>' + diagHtml() + '</div>';
   h += '</div><div class="acciones" style="justify-content:flex-start"><button class="btn sec" data-a="salir">Cerrar sesión</button></div>';
   return h;
 }
@@ -1017,7 +1142,7 @@ var ACC = {
           return confirmar('Se detectaron posibles cruces de horario:\n\n' + r.advertencias.join('\n') + '\n\n¿Guardar de todas formas?', 'Guardar igual', 'Revisar cruces').then(function (ok) { if (ok) return enviar(true); });
         }
         toast(r.creados + ' registro(s) guardado(s).');
-        S.retro = [filaRetroVacia()]; S.sug = null;
+        S.retro = [filaRetroVacia()]; S.sugVieja = true;
         asegurarSug().then(pintar);
       });
     };
@@ -1050,7 +1175,7 @@ var ACC = {
       cargar();
     }).catch(function (e) { el.disabled = false; toast(e.message, 'error'); });
   },
-  encTab: function (ds) { S.encTab = ds.t; S.datos = null; pintar(); cargar(); },
+  encTab: function (ds) { S.encTab = ds.t; var c = S.vcache[claveVista()]; S.datos = c ? c.d : null; pintar(); cargar(); },
   adminTab: function (ds) { S.adminTab = ds.t; pintar(); },
   formUsuario: function (ds) { formUsuario(ds.id); },
   formClave: function (ds) {
@@ -1094,12 +1219,14 @@ function lista(v) { return v === undefined ? [] : (Array.isArray(v) ? v : [v]); 
 
 var FORM = {
   login: function (d) {
-    return api('login', { email: d.email, clave: d.clave }).then(function (r) {
+    return api('login', { email: d.email, clave: d.clave }, { luego: { accion: 'inicio', datos: {} }, claveLuego: 'inicio|' }).then(function (r) {
       S.token = r.token; S.usuario = r.usuario;
       store.set('lc_token', r.token, !!d.recordar);
       store.set('lc_recordar', d.recordar ? '1' : '', true);
-      return cargarYo();
-    }).then(function () { if (S.usuario.debe_cambiar_clave) render(); else { render(); ir('inicio'); } });
+      S.vista = 'inicio'; S.param = null;
+      if (S.usuario.debe_cambiar_clave) { render(); return; }
+      render(); return ir('inicio');
+    });
   },
   cambioClave: function (d) {
     if (d.nueva !== d.repetir) throw new Error('Las claves nuevas no coinciden.');
@@ -1125,7 +1252,7 @@ var FORM = {
         if (r && r.requiereConfirmacion) {
           return confirmar(r.advertencia, 'Ocupar igual', 'Reserva cercana').then(function (ok) { return ok ? enviar(true) : 'silencio'; });
         }
-        cerrarModal(); toast('Equipo ocupado.'); S.sug = null; cargar(); return 'silencio';
+        cerrarModal(); toast('Equipo ocupado.'); S.sugVieja = true; cargar(); return 'silencio';
       });
     };
     return enviar(false);
@@ -1227,12 +1354,14 @@ document.addEventListener('keydown', function (ev) { if (ev.key === 'Escape' && 
 function cargarYo() {
   return api('yo').then(function (d) {
     S.usuario = d.usuario; S.config = d.config; S.msgs = d.mensajes; S.notifEmail = d.notif_email_activo;
+    guardarVista('perfil|', d);
     return d;
   });
 }
 function cerrarLocal() {
   S.token = null; S.usuario = null; S.datos = null; S.sug = null; S.avisos = []; S.retro = null;
-  store.del('lc_token');
+  S.vcache = {}; S._json = null;
+  store.del('lc_token'); store.del('lc_snap');
   cerrarModal(); render();
 }
 function iniciarPolling() {
@@ -1279,14 +1408,29 @@ function iniciarTV() {
 /* ---------- Arranque ---------- */
 function boot() {
   if (MODO === 'tv') { iniciarTV(); return; }
+  var s = document.createElement('div'); s.id = 'sync'; s.setAttribute('aria-hidden', 'true'); document.body.appendChild(s);
   S.token = store.get('lc_token');
   if (!S.token) { render(); return; }
-  $('#app').innerHTML = cargandoHtml();
-  cargarYo().then(function () {
+  S.vista = 'inicio'; S.param = null;
+  var snap = jparse(store.get('lc_snap'), null);
+  if (snap && snap.token === S.token && snap.usuario && !snap.usuario.debe_cambiar_clave) {
+    S.usuario = snap.usuario; S.config = snap.config || {}; S.msgs = snap.msgs || {};
+    Object.keys(snap.v || {}).forEach(function (k) { S.vcache[k] = { d: snap.v[k].d, t: 0 }; });
+    S.datos = S.vcache['inicio|'] ? S.vcache['inicio|'].d : null;
+    render(); // última versión conocida, al instante; se refresca a continuación
+    cargar();
+    return;
+  }
+  $('#app').innerHTML = '<main style="max-width:1240px;margin:0 auto;padding:24px 16px">' + cargandoHtml() + '</main>';
+  api('inicio').then(function (d) {
+    if (d.equipos) guardarVista('inicio|', d, true);
+    S.usuario = d.usuario;
     render();
-    iniciarPolling();
     if (!S.usuario.debe_cambiar_clave) ir('inicio');
-  }).catch(function () { cerrarLocal(); });
+  }).catch(function (e) {
+    if (!S.token) return; // la sesión expiró: ya se muestra el ingreso
+    $('#app').innerHTML = '<div class="login"><div class="card"><div class="marca">' + MARCA + 'LabControl</div><p>' + esc(e.message) + '</p><button class="btn" onclick="location.reload()">Reintentar</button></div></div>';
+  });
 }
 boot();
 </script>
