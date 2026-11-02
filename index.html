@@ -4,7 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LabControl</title>
-<meta name="theme-color" content="#f2f4f7">
+<meta name="theme-color" content="#1d5fbf">
+<meta name="description" content="LabControl: equipos, verificaciones diarias, turnos y encargos del laboratorio de control de calidad.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LabControl">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -53,7 +61,7 @@ main{flex:1;min-width:0;padding:20px 16px 96px;max-width:1240px;margin:0 auto;wi
 .marca{display:flex;align-items:center;gap:10px;font-weight:600;font-size:15px;letter-spacing:-.01em}
 .marca-svg{width:28px;height:28px;flex-shrink:0;display:block}
 @media(min-width:900px){
-  .side{display:flex;flex-direction:column;width:244px;flex-shrink:0;border-right:1px solid var(--border);position:sticky;top:0;height:100vh;padding:20px 12px 14px;overflow-y:auto}
+  .side{display:flex;flex-direction:column;width:260px;flex-shrink:0;border-right:1px solid var(--border);position:sticky;top:0;height:100vh;padding:20px 12px 14px;overflow-y:auto}
   .side .marca{padding:0 8px 16px}
   .ambito{margin:0 0 4px;padding:9px 10px;border:1px solid var(--border);background:var(--surface);border-radius:var(--r-ctl);line-height:17px}
   .ambito b{display:block;font-size:13px;font-weight:600}
@@ -91,6 +99,8 @@ main{flex:1;min-width:0;padding:20px 16px 96px;max-width:1240px;margin:0 auto;wi
 .rojo{background:var(--bad-bg);color:var(--bad-ink)}.rojo i{background:var(--bad)}
 .amarillo{background:var(--warn-bg);color:var(--warn-ink);box-shadow:inset 0 0 0 1px var(--warn-line)}.amarillo i{background:var(--warn)}
 .gris{background:var(--neu-bg);color:var(--neu-ink)}
+.info{background:var(--hue-s);color:#164a96}
+.hecho{background:var(--neu-bg);color:var(--text)}
 .azul{background:var(--neu-bg);color:var(--neu-ink)}
 .alerta{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);border-radius:var(--r-ctl);padding:8px 10px;font-size:13px;line-height:18px;margin-top:6px}
 .alerta.roja{background:var(--bad-bg);border-color:#f7c9c4;color:var(--bad-ink)}
@@ -124,7 +134,7 @@ main{flex:1;min-width:0;padding:20px 16px 96px;max-width:1240px;margin:0 auto;wi
 .leyenda{display:flex;gap:14px;align-items:center;color:var(--muted);font-size:12px;flex-wrap:wrap}
 .leyenda span{display:inline-flex;align-items:center;gap:6px}
 .sw{display:inline-block;width:14px;height:8px;border-radius:2px}
-.sw-uso{background:var(--hue)}
+.sw-uso{background:var(--warn)}
 .sw-res{background:var(--hue-s);box-shadow:inset 0 0 0 1px var(--hue)}
 .sw-ahora{width:2px;height:12px;background:var(--text);border-radius:0}
 .eq-fila{display:grid;gap:8px 16px;padding:14px 16px;border-bottom:1px solid var(--rule);align-items:start;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"id est" "uso uso" "tira tira" "acc acc"}
@@ -143,7 +153,7 @@ main{flex:1;min-width:0;padding:20px 16px 96px;max-width:1240px;margin:0 auto;wi
 .eq-quien b{font-weight:500}
 .tira{position:relative;height:20px;border-radius:3px;background:var(--rule)}
 .tira i{position:absolute;top:0;bottom:0;display:block;font-style:normal}
-.t-uso{background:var(--hue);border-radius:2px}
+.t-uso{background:var(--warn);border-radius:2px}
 .t-res{background:var(--hue-s);box-shadow:inset 0 0 0 1px var(--hue);border-radius:2px}
 .t-ahora{width:2px;margin-left:-1px;background:var(--text)}
 @container (min-width:520px){
@@ -271,6 +281,120 @@ body.modo-tv{background:#0b0f14;color:#e6e9ed;font-size:clamp(14px,1.25vw,30px);
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:1ms!important;transition-duration:1ms!important}
 }
+/* ===== v0.3: iconos, navegación, tarjetas de equipo, verificaciones, inicio ===== */
+.skip{position:absolute;left:8px;top:-60px;z-index:100;background:var(--primary);color:#fff;padding:8px 12px;border-radius:var(--r-ctl);transition:top 120ms ease}
+.skip:focus{top:8px}
+main:focus{outline:0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ico{display:inline-flex;width:18px;height:18px;flex-shrink:0}
+.ico svg{width:100%;height:100%;display:block}
+.btn .ico{width:16px;height:16px;margin-left:-2px}
+.h-ico{display:flex;align-items:center;gap:10px}
+.h-ico .ico{width:24px;height:24px;color:var(--muted)}
+.cnt{margin-left:auto;min-width:20px;height:20px;padding:0 6px;border-radius:999px;background:var(--hue);color:#fff;font-size:12px;line-height:20px;text-align:center;font-weight:500;font-variant-numeric:tabular-nums}
+.nav-item>span:not(.cnt):not(.sr):not(.cnt-w):not(.ico){flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bottom button{position:relative}
+.bottom .cnt{position:absolute;top:4px;left:calc(50% + 4px);margin:0;min-width:18px;height:18px;line-height:18px;font-size:11px;padding:0 5px;flex:none}
+.bottom button>span:not(.cnt):not(.sr):not(.cnt-w):not(.ico){flex:none}
+.nav-item .ico,.bottom .ico{width:20px;height:20px}
+@media(min-width:900px){.nav-item .ico{width:16px;height:16px}.nav-item.act .ico{color:var(--hue)}}
+.bottom button.act .ico{color:var(--hue)}
+.marca-svg{border-radius:8px}
+
+/* Estados de equipo: verde disponible · amarillo en uso · rojo no operativo */
+.est-verde{--c:var(--ok)}.est-amarillo{--c:var(--warn)}.est-rojo{--c:var(--bad)}
+.leyenda-est{display:flex;gap:16px;flex-wrap:wrap;align-items:center;color:var(--muted);font-size:13px;margin:0 0 14px}
+.leyenda-est span{display:inline-flex;align-items:center;gap:6px}
+.leyenda-est i{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block}
+.eqs{display:grid;align-items:start;gap:var(--gap);grid-template-columns:repeat(auto-fill,minmax(272px,1fr));margin-bottom:20px}
+.eqc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);display:flex;flex-direction:column;min-width:0;transition:border-color 140ms ease}
+.eqc.sel{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text)}
+.eqc-cab{display:flex;align-items:center;gap:12px;width:100%;padding:14px 14px 8px;background:none;border:0;text-align:left;border-radius:var(--r-card) var(--r-card) 0 0}
+.eqc-ico{width:44px;height:44px;flex-shrink:0;color:var(--c,var(--control));transition:color 200ms ease}
+.eqc-ico svg{width:100%;height:100%;display:block;stroke-width:1.5}
+.eqc-id{flex:1;min-width:0}
+.eqc-id b{display:block;font-family:var(--mono);font-size:14px;line-height:20px;font-weight:500}
+.eqc-id small{display:block;color:var(--muted);font-size:12px;line-height:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eqc-sel{width:16px;height:16px;color:var(--faint);transition:transform 160ms var(--ease);flex-shrink:0}
+.eqc.sel .eqc-sel{transform:rotate(180deg)}
+.eqc-cuerpo{padding:0 14px 12px;display:flex;flex-direction:column;gap:6px;min-height:64px}
+.eqc-linea{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.eqc-t{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.eqc-quien{display:flex;align-items:center;gap:8px;min-width:0}
+.eqc-quien b{font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eqc-nota{color:var(--muted);font-size:12px;line-height:16px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.area{display:inline-flex;align-items:center;gap:4px;color:var(--muted);font-size:12px;white-space:nowrap}
+.area .ico{width:14px;height:14px}
+.eqc-acc{display:flex;gap:8px;padding:10px 14px 14px;border-top:1px solid var(--rule);margin-top:auto;flex-wrap:wrap}
+.eqc-acc .btn{flex:1;min-width:0}
+.eqc-det{padding:12px 14px 14px;border-top:1px solid var(--rule);background:var(--ground);border-radius:0 0 var(--r-card) var(--r-card);display:flex;flex-direction:column;gap:10px}
+.eqc-det dl.ficha{gap:4px 14px;font-size:13px}
+.eqc-det .acciones{margin:0;justify-content:flex-start}
+.eqc.est-amarillo .badge i{animation:pulso 2.2s ease-in-out infinite}
+@keyframes pulso{50%{opacity:.3}}
+.eqc.flash,.fila.flash{animation:flash 1.1s var(--ease)}
+@keyframes flash{from{background:var(--hue-s)}}
+@media(hover:hover) and (pointer:fine){.eqc:hover{border-color:var(--control)}.eqc.sel:hover{border-color:var(--text)}.eqc-cab:hover .eqc-id b{text-decoration:underline;text-underline-offset:3px}}
+.eqi{width:28px;height:28px;color:var(--c,var(--control));flex-shrink:0}.eqi svg{width:100%;height:100%;display:block;stroke-width:1.6}
+.kpi-l{display:flex;align-items:center;gap:6px}
+.kpi-l .ico{width:16px;height:16px;color:var(--c,var(--muted))}
+.fil-est{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+
+/* Inicio como panel de trabajo */
+.rapidos{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.tareas{display:grid;gap:var(--gap);grid-template-columns:repeat(auto-fit,minmax(290px,1fr));margin-bottom:16px;align-items:start}
+.tarea{display:flex;flex-direction:column;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:16px;min-width:0}
+.tarea-cab{display:flex;align-items:center;gap:10px}
+.tarea-cab h2{flex:1;font-size:15px}
+.tarea-cab .ico{width:20px;height:20px;color:var(--muted)}
+.tarea.pend .tarea-cab .ico{color:var(--hue)}
+.tarea p{margin:0}
+.nums{display:flex;gap:28px;flex-wrap:wrap}
+.nums div{display:flex;flex-direction:column}
+.nums b{font-size:30px;line-height:36px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.nums small{color:var(--muted);font-size:13px;line-height:18px}
+.tarea.pend .nums .p b{color:var(--hue)}
+.tarea .lista{border-radius:var(--r-ctl)}
+.tarea .acciones{margin:0;justify-content:flex-start}
+
+/* Verificaciones diarias */
+.fila .ic{width:22px;height:22px;color:var(--muted);flex-shrink:0}
+.fila .ic.hecho{color:var(--text);background:none}
+.fila .ic svg{width:100%;height:100%;display:block}
+.fila .botones{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.fila.vf{flex-wrap:wrap}
+.vacio-g{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;padding:28px 16px;border:1px dashed var(--control);border-radius:var(--r-card);color:var(--muted);font-size:13px}
+.vacio-g .ico{width:28px;height:28px;color:var(--faint)}
+.vacio-g b{color:var(--text);font-weight:500;font-size:14px}
+.vacio-g p{margin:0;max-width:46ch}
+.vacio-g .btn{margin-top:8px}
+.semana{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.semana b{font-weight:500;min-width:170px;text-align:center}
+.tabla-plan th,.tabla-plan td{white-space:nowrap}
+.tabla-plan td.nom{white-space:normal;min-width:170px}
+.tabla-plan select{height:34px;font-size:13px;min-width:132px;padding:0 8px}
+.tabla-plan .sinp select{border-style:dashed;border-color:var(--hue)}
+.tabla-plan input[type=checkbox]{width:18px;height:18px;accent-color:var(--primary);margin:0}
+.tabla-plan td.c{text-align:center}
+.celda-est{font-size:12px;color:var(--muted);margin-top:3px}
+.barra{height:8px;border-radius:4px;background:var(--rule);overflow:hidden;min-width:90px}
+.barra i{display:block;height:100%;background:var(--text);border-radius:4px}
+.dia-seg{display:grid;grid-template-columns:minmax(110px,150px) minmax(90px,1fr) auto;gap:8px 16px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--rule)}
+.dia-seg:last-child{border-bottom:0}
+@media(max-width:560px){.dia-seg{grid-template-columns:1fr auto}.dia-seg .barra{grid-column:1/-1;order:3}}
+
+.cnt-w{display:contents}
+.sec-t{margin:22px 0 10px;display:flex;align-items:baseline}
+.sec-t:first-child{margin-top:0}
+.fila .botones .btn .ico{width:14px;height:14px}
+/* Modo televisor: icono + texto + color */
+.tv-eq{position:relative}
+.tv-eq .ico{position:absolute;top:.7em;right:.8em;width:2.4em;height:2.4em}
+.tv-eq .ico svg{stroke-width:1.5}
+.tv-eq.verde .ico{color:#5fd69a}.tv-eq.rojo .ico{color:#ff8097}.tv-eq.amarillo .ico{color:#f5c75a}
+.tv-leyenda{display:flex;gap:1.6em;margin:0 0 1em;color:#b4bcc6;font-size:.95em}
+.tv-leyenda span{display:inline-flex;align-items:center;gap:.5em}
+.tv-leyenda i{width:.8em;height:.8em;border-radius:50%;display:inline-block}
 </style>
 </head>
 <body>
@@ -292,23 +416,53 @@ var S = {
   vista: 'inicio', param: null, datos: null, sug: null, modal: false,
   avisos: [], filtroEq: 'TODOS', buscaEq: '', encTab: 'recibidos', adminTab: 'usuarios',
   retro: null, usuariosEnc: null, encDest: null, _res: null,
-  vcache: {}, diag: [], _json: null, _min: 0
+  vcache: {}, diag: [], _json: null, _min: 0,
+  selEq: null, filtroEst: 'TODOS', verifTab: 'mis', verifSemana: '', verifDisp: null, verifDispKey: '', verifRes: null, encPend: 0, flash: {}
 };
 var ROL_TXT = { ANALISTA: 'Analista', REVISOR: 'Revisor', JEFATURA: 'Jefatura' };
 var AREA_TXT = { MP: 'Materias Primas', PT: 'Producto Terminado', AMBAS: 'Ambas áreas' };
 var DIAS = ['', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'];
-var EST = { DISPONIBLE: ['verde', 'Disponible'], OCUPADO: ['rojo', 'Ocupado'], NO_OPERATIVO: ['amarillo', 'No operativo'] };
+var EST = { DISPONIBLE: ['verde', 'Disponible'], OCUPADO: ['amarillo', 'Ocupado'], NO_OPERATIVO: ['rojo', 'No operativo'] };
 
+function L(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>'; }
 var ICO = {
-  home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
-  eq: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M7 20h10M12 16v4M7 9h4M7 12h7"/></svg>',
-  cal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/></svg>',
-  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/></svg>',
-  msg: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5h16v11H8l-4 4z"/></svg>',
-  cog: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
-  user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>',
-  mas: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/></svg>'
+  home: L('<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'),
+  /* equipos: HPLC = módulos apilados · disolutor = vasos con paletas */
+  hplc: L('<rect x="3" y="3" width="18" height="5" rx="1.2"/><rect x="3" y="9.5" width="18" height="5" rx="1.2"/><rect x="3" y="16" width="18" height="5" rx="1.2"/><path d="M6.2 5.5h.01M8.7 5.5h.01M13 5.5h5M6.2 12h.01M13 12h5M6.2 18.5h.01M8.7 18.5h.01M13 18.5h5"/>'),
+  dis: L('<rect x="3" y="2.5" width="18" height="3" rx="1"/><path d="M6.5 5.5v9M12 5.5v9M17.5 5.5v9M5 14.5h3M10.5 14.5h3M16 14.5h3M4.3 9v7.3a2.2 2.2 0 0 0 4.4 0V9M9.8 9v7.3a2.2 2.2 0 0 0 4.4 0V9M15.3 9v7.3a2.2 2.2 0 0 0 4.4 0V9M2.5 21.5h19"/>'),
+  eq: L('<rect x="3" y="3" width="18" height="5" rx="1.2"/><rect x="3" y="9.5" width="18" height="5" rx="1.2"/><rect x="3" y="16" width="18" height="5" rx="1.2"/><path d="M6.2 5.5h.01M6.2 12h.01M6.2 18.5h.01"/>'),
+  disp: L('<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>'),
+  ocup: L('<path d="M10 2h4M12 14l3-3"/><circle cx="12" cy="14" r="8"/>'),
+  noop: L('<circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/>'),
+  mp: L('<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/>'),
+  pt: L('<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>'),
+  act: L('<path d="M22 12h-4l-3 9L9 3l-3 9H2"/>'),
+  prod: L('<path d="M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z"/><circle cx="7.5" cy="7.5" r=".5"/>'),
+  lote: L('<path d="m12 2 10 5-10 5L2 7z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/>'),
+  ensayo: L('<path d="M14.5 2v17.5c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5V2M8.5 2h7M14.5 16h-5"/>'),
+  informe: L('<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4M10 9H8M16 13H8M16 17H8"/>'),
+  revision: L('<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z"/><path d="M14 2v4a2 2 0 0 0 2 2h4m-11 7 2 2 4-4"/>'),
+  verif: L('<path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="m9 14 2 2 4-4"/>'),
+  enc: L('<path d="M8 3 4 7l4 4M4 7h16M16 21l4-4-4-4M20 17H4"/>'),
+  bell: L('<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.9 1.9 0 0 0 3.4 0"/>'),
+  clock: L('<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>'),
+  stats: L('<path d="M3 3v16a2 2 0 0 0 2 2h16M18 17V9M13 17V5M8 17v-3"/>'),
+  hist: L('<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 7v5l4 2"/>'),
+  cal: L('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>'),
+  list: L('<path d="M9 6h11M9 12h11M9 18h11M4 6h.01M4 12h.01M4 18h.01"/>'),
+  msg: L('<path d="M4 5h16v11H8l-4 4z"/>'),
+  cog: L('<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>'),
+  user: L('<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>'),
+  mas: L('<circle cx="5" cy="12" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="19" cy="12" r="1.2"/>'),
+  plus: L('<path d="M5 12h14M12 5v14"/>'),
+  check: L('<path d="M20 6 9 17l-5-5"/>'),
+  chev: L('<path d="m6 9 6 6 6-6"/>'),
+  back: L('<path d="m12 19-7-7 7-7M19 12H5"/>'),
+  undo: L('<path d="M3 7v6h6M3 13a9 9 0 1 0 3-7.7"/>'),
+  flask: L('<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9V3"/>')
 };
+/** Icono en línea: tamaño y trazo uniformes. */
+function ic(n, c) { return '<span class="ico' + (c ? ' ' + c : '') + '" aria-hidden="true">' + ICO[n] + '</span>'; }
 
 /* ---------- Utilidades ---------- */
 function $(s) { return document.querySelector(s); }
@@ -333,7 +487,7 @@ function dur(ini, fin) {
 function aLocal(d) { function p(n) { return String(n).padStart(2, '0'); } return d.getFullYear() + '-' + p(d.getMonth() + 1) + '-' + p(d.getDate()) + 'T' + p(d.getHours()) + ':' + p(d.getMinutes()); }
 function deLocal(s) { if (!s) return ''; var d = new Date(s); return isNaN(d) ? '' : d.toISOString(); }
 function hoyYMD() { return aLocal(new Date()).slice(0, 10); }
-var MARCA = '<svg class="marca-svg" viewBox="0 0 28 28" aria-hidden="true"><rect width="28" height="28" rx="8" fill="#141414"/><path d="M5 19h4l3.2-10.5L15.4 19h2.2l1.6-4 1.6 4H23" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+var MARCA = '<svg class="marca-svg" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="116" fill="#1d5fbf"/><path d="M181 300h150l38 66c9 16-2 30-20 30H163c-18 0-29-14-20-30z" fill="#fff" opacity=".42"/><path d="M226 120v96l-84 150c-9 16 2 30 20 30h188c18 0 29-14 20-30l-84-150v-96M204 120h104" fill="none" stroke="#fff" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 function avatar(nombre, grande) {
   var n = String(nombre || '?').trim(), ini = (n.split(/\s+/).map(function (p) { return p.charAt(0); }).slice(0, 2).join('') || '?').toUpperCase();
   var hs = 0; for (var i = 0; i < n.length; i++) hs = (hs * 31 + n.charCodeAt(i)) % 360;
@@ -341,9 +495,46 @@ function avatar(nombre, grande) {
 }
 function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 function badge(e) { var x = EST[e]; return '<span class="badge ' + x[0] + '"><i></i>' + x[1] + '</span>'; }
-function chipEstadoEnc(e) { return e.estado === 'REVISADO' ? '<span class="badge verde"><i></i>Revisado</span>' : '<span class="badge amarillo"><i></i>Pendiente de revisión</span>'; }
+function chipEstadoEnc(e) { return e.estado === 'REVISADO' ? '<span class="badge hecho"><i></i>Revisado</span>' : '<span class="badge info"><i></i>Pendiente de revisión</span>'; }
 function rolesChips(roles) { return roles.map(function (r) { return '<span class="badge azul">' + ROL_TXT[r] + '</span>'; }).join(' '); }
 
+function vacioG(icono, titulo, texto, boton) {
+  return '<div class="vacio-g">' + ic(icono) + '<b>' + esc(titulo) + '</b>' + (texto ? '<p>' + esc(texto) + '</p>' : '') + (boton || '') + '</div>';
+}
+function ymdAdd(ymd, n) { var p = ymd.split('-'); return aLocal(new Date(+p[0], +p[1] - 1, +p[2] + n)).slice(0, 10); }
+function aFecha(ymd) { var p = ymd.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+function diaCorto(ymd) { var d = aFecha(ymd); return DIAS[d.getDay() || 7] + ' ' + d.getDate(); }
+function diaLargo(ymd) { return cap(aFecha(ymd).toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' })); }
+function diaMes(ymd) { return aFecha(ymd).toLocaleDateString('es-CL', { day: 'numeric', month: 'short' }).replace('.', ''); }
+/** Contador de pendientes junto a una opción del menú (datos reales; nada si no hay). */
+function cnt(k) {
+  var n = k === 'verif' ? (S.verifRes ? S.verifRes.pendientes : 0) : k === 'encargos' ? (S.encPend || 0) : 0;
+  return n > 0 ? '<span class="cnt">' + n + '<span class="sr"> pendientes</span></span>' : '';
+}
+function actualizarNav() {
+  document.querySelectorAll('[data-cnt]').forEach(function (w) { var h = cnt(w.dataset.cnt); if (w.innerHTML !== h) w.innerHTML = h; });
+}
+/** Contadores del menú a partir de lo que ya llegó del servidor, sin pedir nada más. */
+function contadores(v, d) {
+  if (!d) return;
+  if (v === 'inicio') { S.verifRes = d.verif || null; S.encPend = d.encargos ? d.encargos.length : 0; }
+  if (v === 'verif' && d.resumen) S.verifRes = d.resumen;
+}
+function tabsVerif() {
+  var t = [];
+  if (puede('ANALISTA')) t.push(['mis', 'Mis verificaciones']);
+  if (puede('JEFATURA')) t.push(['plan', 'Planificación'], ['seg', 'Seguimiento'], ['hist', 'Historial'], ['cat', 'Catálogo']);
+  return t;
+}
+function tabVerifAct() {
+  var t = tabsVerif();
+  if (!t.some(function (x) { return x[0] === S.verifTab; })) S.verifTab = t.length ? t[0][0] : 'mis';
+  return S.verifTab;
+}
+function iniciarDisp(d) {
+  var k = d.lunes + '|' + (d.plan ? d.plan.id + d.plan.generado_en : 'sin');
+  if (S.verifDispKey !== k) { S.verifDispKey = k; S.verifDisp = JSON.parse(JSON.stringify(d.disponibilidad || {})); }
+}
 function cargandoHtml() {
   var fila = '<div class="sk-fila"><span class="sk" style="width:10px;height:10px;border-radius:50%"></span><span class="sk" style="width:110px;height:14px"></span><span class="sk" style="flex:1;height:14px"></span><span class="sk" style="width:72px;height:22px;border-radius:999px"></span></div>';
   return '<div class="sk-wrap" role="status" aria-label="Cargando"><span class="sk" style="width:140px;height:28px;margin-bottom:10px"></span><span class="sk" style="width:260px;height:14px;margin-bottom:22px"></span>' +
@@ -362,12 +553,13 @@ function toast(msg, tipo) {
 }
 
 /* ---------- Comunicación con Apps Script ---------- */
-var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1 };
+var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1, verifMias: 1, verifPlan: 1 };
+var POLL = ['inicio', 'equipos', 'equipo', 'reservas', 'encargos', 'verif'];
 var enCurso = {};
 /** Clave y solicitud de lectura de la pantalla actual (o de la indicada). */
 function claveVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
-  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '');
+  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '') + (v === 'verif' ? '|' + (tabVerifAct() === 'mis' ? 'mis' : 'plan:' + (S.verifSemana || '')) : '');
 }
 function pedidoVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
@@ -378,6 +570,7 @@ function pedidoVista(v, p) {
   if (v === 'encargos') return { accion: 'encargos', datos: { todos: S.encTab === 'todos' } };
   if (v === 'admin') return { accion: 'adminDatos', datos: {} };
   if (v === 'perfil') return { accion: 'yo', datos: {} };
+  if (v === 'verif') return tabVerifAct() === 'mis' ? { accion: 'verifMias', datos: {} } : { accion: 'verifPlan', datos: { semana: S.verifSemana || '' } };
   return null;
 }
 function anotar(accion, t0, ok) {
@@ -487,28 +680,39 @@ function pedirMotivoLiberacion(ds) {
 
 /* ---------- Navegación ---------- */
 function navItems() {
-  var it = [['inicio', 'Inicio', ICO.home], ['equipos', 'Equipos', ICO.eq], ['reservas', 'Reservas HPLC', ICO.cal]];
-  if (puede('ANALISTA', 'JEFATURA')) { it.push(['encargos', 'Encargos', ICO.msg]); it.push(['retro', 'Registro disolutores', ICO.list]); }
+  var an = puede('ANALISTA', 'JEFATURA'), it = [['inicio', 'Inicio', ICO.home]];
+  if (an) { it.push(['verif', 'Verificaciones diarias', ICO.verif]); it.push(['encargos', 'Encargos entre turnos', ICO.enc]); it.push(['retro', 'Registro disolutores', ICO.dis]); }
+  it.push(['equipos', 'Equipos', ICO.hplc]); it.push(['reservas', 'Reservas HPLC', ICO.cal]);
   if (puede('JEFATURA')) it.push(['admin', 'Administración', ICO.cog]);
   it.push(['perfil', 'Mi perfil', ICO.user]);
   return it;
 }
 function vistaNav() { return S.vista === 'equipo' ? 'equipos' : S.vista; }
+var CORTO = { reservas: 'Reservas', verif: 'Verificaciones', encargos: 'Encargos' };
+/** Opciones de la barra inferior (teléfono): las de uso diario. El resto queda en «Más». */
+function bottomKeys() {
+  var por = {}; navItems().forEach(function (i) { por[i[0]] = 1; });
+  return por.verif ? ['inicio', 'verif', 'equipos', 'encargos'] : ['inicio', 'equipos', 'reservas'];
+}
 
 function shell() {
   var items = navItems(), v = vistaNav();
   var por = {}; items.forEach(function (i) { por[i[0]] = i; });
-  var nav = function (i) { return '<button class="nav-item' + (v === i[0] ? ' act' : '') + '" data-a="ir" data-v="' + i[0] + '"' + (v === i[0] ? ' aria-current="page"' : '') + '>' + i[2] + '<span>' + i[1] + '</span></button>'; };
-  var grupos = [['Laboratorio', ['inicio', 'equipos', 'reservas']], ['Trabajo', ['encargos', 'retro']], ['Gestión', ['admin']]];
+  var nav = function (i) {
+    return '<button class="nav-item' + (v === i[0] ? ' act' : '') + '" data-a="ir" data-v="' + i[0] + '"' + (v === i[0] ? ' aria-current="page"' : '') + '><span class="ico" aria-hidden="true">' + i[2] + '</span><span>' + i[1] + '</span><span class="cnt-w" data-cnt="' + i[0] + '">' + cnt(i[0]) + '</span></button>';
+  };
+  var grupos = [['', ['inicio']], ['Mi trabajo', ['verif', 'encargos', 'retro']], ['Laboratorio', ['equipos', 'reservas']], ['Gestión', ['admin']]];
   var side = grupos.map(function (g) {
     var its = g[1].filter(function (k) { return por[k]; }).map(function (k) { return nav(por[k]); });
-    return its.length ? '<div class="nav-grupo"><div class="nav-tit">' + g[0] + '</div>' + its.join('') + '</div>' : '';
+    return its.length ? '<div class="nav-grupo">' + (g[0] ? '<div class="nav-tit">' + g[0] + '</div>' : '') + its.join('') + '</div>' : '';
   }).join('');
-  var abajo = items.filter(function (i) { return ['inicio', 'equipos', 'reservas', 'encargos'].indexOf(i[0]) >= 0; });
-  var enMas = items.filter(function (i) { return abajo.indexOf(i) < 0; }).some(function (i) { return i[0] === v; });
-  var bottom = abajo.map(function (i) { return '<button data-a="ir" data-v="' + i[0] + '" class="' + (v === i[0] ? 'act' : '') + '">' + i[2] + '<span>' + (i[0] === 'reservas' ? 'Reservas' : i[1]) + '</span></button>'; }).join('') +
-    '<button data-a="menuMas" class="' + (enMas ? 'act' : '') + '">' + ICO.mas + '<span>Más</span></button>';
-  return '<div class="layout"><nav class="side" aria-label="Principal"><div class="marca">' + MARCA + 'LabControl</div>' +
+  var bk = bottomKeys();
+  var enMas = bk.indexOf(v) < 0;
+  var bottom = bk.map(function (k) {
+    var i = por[k];
+    return '<button data-a="ir" data-v="' + k + '" class="' + (v === k ? 'act' : '') + '"' + (v === k ? ' aria-current="page"' : '') + '><span class="ico" aria-hidden="true">' + i[2] + '</span><span>' + (CORTO[k] || i[1]) + '</span><span class="cnt-w" data-cnt="' + k + '">' + cnt(k) + '</span></button>';
+  }).join('') + '<button data-a="menuMas" class="' + (enMas ? 'act' : '') + '"><span class="ico" aria-hidden="true">' + ICO.mas + '</span><span>Más</span></button>';
+  return '<a class="skip" href="#contenido" data-a="saltar">Saltar al contenido</a><div class="layout"><nav class="side" aria-label="Principal"><div class="marca">' + MARCA + 'LabControl</div>' +
     '<div class="ambito"><b>' + esc((S.config && S.config.nombre_laboratorio) || 'Laboratorio') + '</b><small>Materias primas y producto terminado</small></div>' + side +
     '<button class="user-row' + (v === 'perfil' ? ' act' : '') + '" data-a="ir" data-v="perfil">' + avatar(S.usuario.nombre, true) + '<span><b>' + esc(S.usuario.nombre) + '</b><small>' + S.usuario.roles.map(function (r) { return ROL_TXT[r]; }).join(' · ') + '</small></span></button></nav>' +
     '<main id="contenido">' + contenido() + '</main><nav class="bottom" aria-label="Principal">' + bottom + '</nav></div>';
@@ -539,7 +743,11 @@ function pintar() {
   parchar(cont, t.content, 4);
   S._json = S.datos ? JSON.stringify(S.datos) : null;
   S._min = Math.floor(Date.now() / 60000);
-  document.querySelectorAll('[data-a="ir"]').forEach(function (b) { b.classList.toggle('act', b.dataset.v === vistaNav()); });
+  document.querySelectorAll('.side [data-a="ir"],.bottom [data-a="ir"]').forEach(function (b) {
+    var on = b.dataset.v === vistaNav(); b.classList.toggle('act', on);
+    if (on) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
+  actualizarNav();
 }
 function ir(vista, param) {
   S.vista = vista; S.param = param || null;
@@ -547,6 +755,10 @@ function ir(vista, param) {
   S.datos = c ? c.d : null; // la última versión conocida se ve al instante y se refresca enseguida
   if (!$('#contenido')) render(); else pintar();
   window.scrollTo(0, 0);
+  var it = navItems().filter(function (i) { return i[0] === vistaNav(); })[0];
+  document.title = (it ? it[1] + ' · ' : '') + 'LabControl';
+  var m = $('#contenido');
+  if (m) { m.setAttribute('tabindex', '-1'); try { m.focus({ preventScroll: true }); } catch (e) { } }
   return cargar();
 }
 function cargar(silencioso) {
@@ -582,6 +794,15 @@ function aplicar(v, p, key, d, silencioso) {
     d.avisos = []; nuevosAvisos = true;
   }
   if (v === 'inicio' && d && d.usuario) S.usuario = d.usuario;
+  contadores(v, d);
+  if ($('#contenido')) actualizarNav();
+  if (v === 'verif' && d && d.fechas) iniciarDisp(d);
+  if ((v === 'inicio' || v === 'equipos') && d && d.equipos && S.datos && S.datos.equipos) { // cambios de estado: destello breve en la tarjeta
+    var prev = {};
+    S.datos.equipos.forEach(function (e) { prev[e.id] = e.estado + (e.ocupacion ? e.ocupacion.id : ''); });
+    d.equipos.forEach(function (e) { if (prev[e.id] !== undefined && prev[e.id] !== e.estado + (e.ocupacion ? e.ocupacion.id : '')) S.flash[e.id] = 1; });
+    if (Object.keys(S.flash).length) setTimeout(function () { S.flash = {}; }, 1300);
+  }
   if (d && d.config) S.config = d.config;
   if (d && d.mensajes && !Array.isArray(d.mensajes)) S.msgs = d.mensajes;
   if (v === 'inicio' && d && d.equipos) guardarVista('equipos|', { equipos: d.equipos, ahora: new Date().toISOString() });
@@ -623,6 +844,7 @@ function contenido() {
     case 'encargos': return vEncargos(d);
     case 'admin': return vAdmin(d);
     case 'perfil': return vPerfil(d);
+    case 'verif': return vVerif(d);
   }
   return '';
 }
@@ -649,46 +871,229 @@ function vCambioClave(forzado) {
 
 
 function vInicio(d) {
-  var h = '';
-  var turno = d.turno ? '<span class="badge verde"><i></i>En turno</span><span class="sub">' + esc(d.turno.nombre) + ' · ' + d.turno.hora_inicio + '–' + d.turno.hora_fin + '</span>'
+  var h = '', an = puede('ANALISTA', 'JEFATURA');
+  var turno = d.turno ? '<span class="badge info"><i></i>En turno</span><span class="sub">' + esc(d.turno.nombre) + ' · ' + d.turno.hora_inicio + '–' + d.turno.hora_fin + '</span>'
     : '<span class="badge gris"><i></i>Fuera de turno</span><span class="sub">Los avisos llegan cuando comience tu turno.</span>';
-  h += '<header class="cab"><div><h1>Inicio</h1><div class="linea"><span class="sub">' + esc(cap(fecha(new Date().toISOString()))) + '</span>' + turno + '</div></div>' +
-    (puede('ANALISTA', 'JEFATURA') ? '<button class="btn" data-a="ir" data-v="equipos">Ocupar un equipo</button>' : '') + '</header>';
+  h += '<header class="cab"><div><h1>Hola, ' + esc(primerNombre()) + '</h1><div class="linea"><span class="sub">' + esc(cap(fecha(new Date().toISOString()))) + '</span>' + turno + '</div></div>' +
+    (an ? '<button class="btn" data-a="ir" data-v="equipos">' + ic('plus') + 'Ocupar un equipo</button>' : '') + '</header>';
   S.avisos.forEach(function (a, i) {
     if (a.tipo === 'ENCARGO' && d.encargos.length) return;
-    h += '<div class="aviso" role="status">' + ICO.msg + '<span>' + esc(a.texto) + '</span><button data-a="cerrarAviso" data-i="' + i + '">Cerrar</button></div>';
+    h += '<div class="aviso" role="status">' + ic('bell') + '<span>' + esc(a.texto) + '</span><button data-a="cerrarAviso" data-i="' + i + '">Cerrar</button></div>';
   });
-  if (puede('ANALISTA', 'JEFATURA') && d.encargos.length) {
-    h += '<section class="lista" style="margin-bottom:16px">' + d.encargos.map(function (e) {
-      return '<div class="fila">' + avatar(e.de, true) + '<div class="crece"><b>Encargo pendiente de ' + esc(e.de) + '</b><div class="sub">' + fh(e.creado_en) + ' · El detalle está en WhatsApp</div></div>' +
-        '<button class="btn chico" data-a="confirmarEnc" data-id="' + e.id + '">Confirmar revisión</button></div>';
-    }).join('') + '</section>';
+  // Lo que requiere acción, solo según los permisos de la persona
+  var t = '';
+  if (puede('ANALISTA') && d.verif) t += tarjetaVerif(d.verif);
+  if (an) t += tarjetaEncargos(d.encargos);
+  if (puede('JEFATURA') && d.verifJefatura) t += tarjetaPlan(d.verifJefatura);
+  if (t) h += '<div class="tareas">' + t + '</div>';
+  if (an) {
+    var hayHplc = (d.equipos || []).some(function (e) { return e.tipo === 'HPLC'; });
+    h += '<div class="rapidos">' + (hayHplc ? '<button class="btn sec chico" data-a="nuevaReserva">' + ic('cal') + 'Reservar HPLC</button>' : '') +
+      '<button class="btn sec chico" data-a="nuevoEncargo">' + ic('enc') + 'Dejar encargo</button><button class="btn sec chico" data-a="ir" data-v="retro">' + ic('dis') + 'Registrar disolutores</button></div>';
   }
-  var rs = d.resumen, tot = function (t) { return rs[t].DISPONIBLE + rs[t].OCUPADO + rs[t].NO_OPERATIVO; };
-  var noop = rs.HPLC.NO_OPERATIVO + rs.DISOLUTOR.NO_OPERATIVO;
+  var rs = d.resumen, tot = function (x) { return rs[x].DISPONIBLE + rs[x].OCUPADO + rs[x].NO_OPERATIVO; };
+  var enUso = rs.HPLC.OCUPADO + rs.DISOLUTOR.OCUPADO, noop = rs.HPLC.NO_OPERATIVO + rs.DISOLUTOR.NO_OPERATIVO;
   var nombresNoop = (d.equipos || []).filter(function (e) { return e.estado === 'NO_OPERATIVO'; }).map(function (e) { return e.codigo; }).join(', ');
   h += '<div class="kpis">' +
-    '<button class="kpi" data-a="filtrarIr" data-t="HPLC"><span class="kpi-l">HPLC disponibles</span><span class="kpi-v">' + rs.HPLC.DISPONIBLE + ' <small>de ' + tot('HPLC') + '</small></span><span class="kpi-s">' + rs.HPLC.OCUPADO + ' en uso</span></button>' +
-    '<button class="kpi" data-a="filtrarIr" data-t="DISOLUTOR"><span class="kpi-l">Disolutores disponibles</span><span class="kpi-v">' + rs.DISOLUTOR.DISPONIBLE + ' <small>de ' + tot('DISOLUTOR') + '</small></span><span class="kpi-s">' + rs.DISOLUTOR.OCUPADO + ' en uso</span></button>' +
-    '<div class="kpi"><span class="kpi-l">No operativos</span><span class="kpi-v">' + noop + '</span><span class="kpi-s">' + (noop ? esc(nombresNoop) : 'Sin incidencias abiertas') + '</span></div>' +
-    (puede('ANALISTA', 'JEFATURA') ? '<div class="kpi"><span class="kpi-l">Encargos por revisar</span><span class="kpi-v">' + d.encargos.length + '</span><span class="kpi-s">' + (d.encargos.length ? 'Confírmalos arriba' : 'Estás al día') + '</span></div>' : '') +
-    '</div>';
+    '<button class="kpi' + (rs.HPLC.DISPONIBLE ? ' est-verde' : '') + '" data-a="filtrarIr" data-t="HPLC"><span class="kpi-l">' + ic('hplc') + 'HPLC disponibles</span><span class="kpi-v">' + rs.HPLC.DISPONIBLE + ' <small>de ' + tot('HPLC') + '</small></span><span class="kpi-s">' + rs.HPLC.OCUPADO + ' en uso</span></button>' +
+    '<button class="kpi' + (rs.DISOLUTOR.DISPONIBLE ? ' est-verde' : '') + '" data-a="filtrarIr" data-t="DISOLUTOR"><span class="kpi-l">' + ic('dis') + 'Disolutores disponibles</span><span class="kpi-v">' + rs.DISOLUTOR.DISPONIBLE + ' <small>de ' + tot('DISOLUTOR') + '</small></span><span class="kpi-s">' + rs.DISOLUTOR.OCUPADO + ' en uso</span></button>' +
+    '<div class="kpi' + (enUso ? ' est-amarillo' : '') + '"><span class="kpi-l">' + ic('ocup') + 'En uso ahora</span><span class="kpi-v">' + enUso + '</span><span class="kpi-s">' + rs.HPLC.OCUPADO + ' HPLC · ' + rs.DISOLUTOR.OCUPADO + ' disolutores</span></div>' +
+    '<div class="kpi' + (noop ? ' est-rojo' : '') + '"><span class="kpi-l">' + ic('noop') + 'No operativos</span><span class="kpi-v">' + noop + '</span><span class="kpi-s">' + (noop ? esc(nombresNoop) : 'Sin incidencias abiertas') + '</span></div></div>';
   var libres = (d.equipos || []).filter(function (e) { return e.estado === 'DISPONIBLE'; });
   var aside = '';
   if (d.misReservas.length) {
     aside = '<div><h3>Mis próximas reservas</h3><div class="lista">' + d.misReservas.map(function (r) {
-      return '<div class="fila"><div class="crece"><b class="mono">' + esc(r.equipo || nombreEquipo(r.equipo_id) || 'HPLC') + '</b><div class="sub">' + fh(r.inicio) + ' – ' + hora(r.fin) + (r.ensayo ? ' · ' + esc(r.ensayo) : '') + '</div></div></div>';
+      return '<div class="fila"><span class="ic">' + ICO.cal + '</span><div class="crece"><b class="mono">' + esc(r.equipo || nombreEquipo(r.equipo_id) || 'HPLC') + '</b><div class="sub">' + fh(r.inicio) + ' – ' + hora(r.fin) + (r.ensayo ? ' · ' + esc(r.ensayo) : '') + '</div></div></div>';
     }).join('') + '</div></div>';
   }
   h += '<div class="dos' + (aside ? ' con-aside' : '') + '" style="margin-top:20px"><div>';
-  if (d.misEquipos.length) h += tablero('Mis equipos en uso', d.misEquipos, '', true);
+  if (d.misEquipos.length) h += '<h2 class="sec-t">Mis equipos en uso<span class="cuenta">' + d.misEquipos.length + '</span></h2><div class="eqs">' + d.misEquipos.map(tarjetaEq).join('') + '</div>';
   var otros = libres.slice(0, 8);
   h += '<section class="tablero"><div class="tablero-cab"><h2>Disponibles ahora<span class="cuenta">' + libres.length + '</span></h2><button class="btn ghost chico" data-a="ir" data-v="equipos">Ver todos los equipos</button></div>' +
     (otros.length ? otros.map(function (e) {
-      return '<div class="fila"><i class="pt pt-verde" style="margin:0"></i><div class="crece"><button class="eq-cod" data-a="ir" data-v="equipo" data-p="' + e.id + '">' + esc(e.codigo) + '</button> <span class="sub">' + esc(e.nombre) + (e.proxima_reserva ? ' · reserva ' + fh(e.proxima_reserva.inicio) : '') + '</span></div>' + botonesEq(e) + '</div>';
+      return '<div class="fila est-verde"><span class="eqi">' + (e.tipo === 'HPLC' ? ICO.hplc : ICO.dis) + '</span><div class="crece"><button class="eq-cod" data-a="ir" data-v="equipo" data-p="' + e.id + '">' + esc(e.codigo) + '</button> <span class="sub">' + esc(e.nombre) + (e.proxima_reserva ? ' · reserva ' + fh(e.proxima_reserva.inicio) : '') + '</span></div>' + botonesEq(e) + '</div>';
     }).join('') : '<div class="fila sub">Todos los equipos están en uso o fuera de servicio.</div>') + '</section>';
   h += '</div>' + aside + '</div>';
   return h;
+}
+
+function tarjetaVerif(v) {
+  var pend = v.pendientes, vacio = !v.total && !v.atrasadas;
+  var cuerpo = vacio ? '<p class="sub">No tienes verificaciones asignadas hoy. Jefatura las asigna cada semana a los analistas del turno día.</p>'
+    : '<div class="nums"><div class="p"><b>' + pend + '</b><small>Pendientes</small></div><div><b>' + v.realizadas + '</b><small>Realizadas</small></div>' +
+      (v.noRealizadas ? '<div><b>' + v.noRealizadas + '</b><small>No realizadas</small></div>' : '') + '</div>' +
+      (v.atrasadas ? '<p class="sub">Incluye ' + v.atrasadas + (v.atrasadas === 1 ? ' pendiente' : ' pendientes') + ' de días anteriores.</p>' : (pend === 0 ? '<p class="sub">Completaste las verificaciones de hoy.</p>' : ''));
+  return '<section class="tarea' + (pend ? ' pend' : '') + '"><div class="tarea-cab">' + ic('verif') + '<h2>Verificaciones diarias</h2>' + (pend ? '<span class="badge info">Por hacer</span>' : '') + '</div>' + cuerpo +
+    '<div class="acciones"><button class="btn' + (pend ? '' : ' sec') + '" data-a="ir" data-v="verif" data-tab="mis">Ver mis verificaciones</button></div></section>';
+}
+function tarjetaEncargos(enc) {
+  var n = enc.length;
+  return '<section class="tarea' + (n ? ' pend' : '') + '"><div class="tarea-cab">' + ic('enc') + '<h2>Encargos entre turnos</h2>' + (n ? '<span class="badge info">' + n + (n === 1 ? ' pendiente' : ' pendientes') + '</span>' : '') + '</div>' +
+    (n ? '<div class="lista">' + enc.map(function (e) {
+      return '<div class="fila">' + avatar(e.de) + '<div class="crece"><b>De ' + esc(e.de) + '</b><div class="sub">' + fh(e.creado_en) + ' · detalle por WhatsApp</div></div><button class="btn chico" data-a="confirmarEnc" data-id="' + e.id + '">Confirmar revisión</button></div>';
+    }).join('') + '</div>' : '<p class="sub">No tienes encargos pendientes. Estás al día.</p>') +
+    '<div class="acciones"><button class="btn sec chico" data-a="ir" data-v="encargos">Ver encargos</button><button class="btn ghost chico" data-a="nuevoEncargo">' + ic('plus') + 'Dejar encargo</button></div></section>';
+}
+function tarjetaPlan(j) {
+  var pub = j.plan === 'PUBLICADA', necesita = !pub || j.vencidas || j.sinPersonal;
+  var est = pub ? '<span class="badge hecho"><i></i>Publicada</span>' : j.plan === 'BORRADOR' ? '<span class="badge info"><i></i>Borrador</span>' : '<span class="badge info"><i></i>Sin planificar</span>';
+  var cuerpo = pub ? '<div class="nums"><div><b>' + (j.realizadas || 0) + '<small> / ' + (j.total || 0) + '</small></b><small>Realizadas hoy</small></div>' + (j.vencidas ? '<div class="p"><b>' + j.vencidas + '</b><small>Sin registrar de días anteriores</small></div>' : '') + '</div>'
+    : '<p class="sub">' + (j.plan === 'BORRADOR' ? 'Hay una propuesta lista. Revísala y publícala para que los analistas vean sus verificaciones.' : 'Esta semana aún no tiene planificación de verificaciones.') + '</p>';
+  return '<section class="tarea' + (necesita ? ' pend' : '') + '"><div class="tarea-cab">' + ic('cal') + '<h2>Planificación de verificaciones</h2>' + est + '</div>' + cuerpo +
+    (j.sinPersonal ? '<p class="sub">' + j.sinPersonal + (j.sinPersonal === 1 ? ' verificación quedó' : ' verificaciones quedaron') + ' sin personal disponible.</p>' : '') +
+    '<div class="acciones"><button class="btn' + (pub && !necesita ? ' sec' : '') + '" data-a="ir" data-v="verif" data-tab="plan">Abrir planificación</button></div></section>';
+}
+
+/* ---------- Verificaciones diarias ---------- */
+function ICO_NEXT() { return L('<path d="m12 5 7 7-7 7M5 12h14"/>'); }
+function itemVerif(a, acciones, conDia) {
+  var hecho = a.estado === 'REALIZADA', no = a.estado === 'NO_REALIZADA';
+  var partes = [];
+  if (a.procedimiento) partes.push(esc(a.procedimiento));
+  if (a.equipo) partes.push('Equipo ' + esc(a.equipo));
+  if (conDia) partes.push(esc(diaLargo(a.fecha)));
+  var estado = '';
+  if (hecho) estado = 'Realizada' + (a.registrado_por ? ' por ' + esc(a.registrado_por) : '') + (a.registrado_en ? ' · ' + hora(a.registrado_en) : '');
+  else if (no) estado = 'No realizada: ' + esc(a.motivo || 'sin motivo');
+  var der = '';
+  if (acciones && a.estado === 'PENDIENTE') der = '<div class="botones"><button class="btn chico" data-a="verifOk" data-id="' + a.id + '">' + ic('check') + 'Realizada</button><button class="btn sec chico" data-a="verifNo" data-id="' + a.id + '" data-nombre="' + esc(a.nombre) + '">No realizada</button></div>';
+  else if (acciones) der = '<span class="badge hecho"><i></i>' + (hecho ? 'Realizada' : 'No realizada') + '</span><button class="btn ghost chico" data-a="verifRev" data-id="' + a.id + '" aria-label="Revertir registro de ' + esc(a.nombre) + '">' + ic('undo') + 'Revertir</button>';
+  else der = hecho ? '<span class="badge hecho"><i></i>Realizada</span>' : no ? '<span class="badge hecho"><i></i>No realizada</span>' : '<span class="badge info"><i></i>Pendiente</span>';
+  return '<div class="fila vf' + (S.flash[a.id] ? ' flash' : '') + '"><span class="ic' + (hecho || no ? ' hecho' : '') + '">' + (hecho ? ICO.disp : no ? ICO.noop : ICO.verif) + '</span>' +
+    '<div class="crece"><b>' + esc(a.nombre) + '</b>' + (partes.length ? '<div class="sub">' + partes.join(' · ') + '</div>' : '') + (estado ? '<div class="sub">' + estado + '</div>' : '') + '</div>' + der + '</div>';
+}
+
+function vVerif(d) {
+  var tabs = tabsVerif(), t = tabVerifAct();
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('verif') + 'Verificaciones diarias</h1><p class="sub" style="margin:4px 0 0">' +
+    (t === 'mis' ? 'Tus verificaciones asignadas. Las asigna jefatura cada semana entre los analistas del turno día.' : 'Planificación semanal, cumplimiento y catálogo de verificaciones.') + '</p></div></header>';
+  if (tabs.length > 1) h += '<div class="tabs" role="tablist">' + tabs.map(function (x) { return '<button role="tab" aria-selected="' + (t === x[0]) + '" class="' + (t === x[0] ? 'act' : '') + '" data-a="verifTab" data-t="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  if (t === 'mis') return h + vVerifMis(d);
+  if (!d.fechas) return h + cargandoHtml();
+  if (t === 'plan') return h + vPlan(d);
+  if (t === 'seg') return h + vSeg(d);
+  if (t === 'hist') return h + vHist(d);
+  return h + vCat(d);
+}
+
+function vVerifMis(d) {
+  var r = d.resumen || {}, h = '';
+  if (!d.deHoy.length && !d.atrasadas.length && !d.proximas.length) {
+    return h + vacioG('verif', 'No tienes verificaciones asignadas', 'Jefatura las asigna cada semana a los analistas del turno día. Cuando publique la planificación, tus verificaciones aparecerán aquí.');
+  }
+  h += '<div class="kpis"><div class="kpi"><span class="kpi-l">Pendientes</span><span class="kpi-v">' + (r.pendientes || 0) + '</span><span class="kpi-s">' + (r.atrasadas ? r.atrasadas + ' de días anteriores' : 'de hoy') + '</span></div>' +
+    '<div class="kpi"><span class="kpi-l">Realizadas hoy</span><span class="kpi-v">' + (r.realizadas || 0) + '</span><span class="kpi-s">de ' + (r.total || 0) + ' asignadas</span></div>' +
+    '<div class="kpi"><span class="kpi-l">No realizadas hoy</span><span class="kpi-v">' + (r.noRealizadas || 0) + '</span><span class="kpi-s">con motivo registrado</span></div>' +
+    '<div class="kpi"><span class="kpi-l">Fecha</span><span class="kpi-v" style="font-size:20px;line-height:36px">' + esc(diaCorto(d.hoy)) + '</span><span class="kpi-s">' + esc(aFecha(d.hoy).toLocaleDateString('es-CL', { month: 'long' })) + '</span></div></div>';
+  if (d.atrasadas.length) h += '<h2 class="sec-t">Pendientes de días anteriores<span class="cuenta">' + d.atrasadas.length + '</span></h2><div class="lista">' + d.atrasadas.map(function (a) { return itemVerif(a, true, true); }).join('') + '</div>';
+  h += '<h2 class="sec-t">Hoy<span class="cuenta">' + d.deHoy.length + '</span></h2>';
+  h += d.deHoy.length ? '<div class="lista">' + d.deHoy.map(function (a) { return itemVerif(a, true, false); }).join('') + '</div>' : '<div class="vacio">No tienes verificaciones asignadas hoy.</div>';
+  if (d.proximas.length) h += '<h2 class="sec-t">Resto de la semana<span class="cuenta">' + d.proximas.length + '</span></h2><div class="lista">' + d.proximas.map(function (a) { return itemVerif(a, false, true); }).join('') + '</div>';
+  return h;
+}
+
+function semanaNav(d) {
+  var fin = ymdAdd(d.lunes, 6);
+  return '<div class="semana"><button class="btn sec chico" data-a="verifSem" data-d="-7" aria-label="Semana anterior">' + ic('back') + '</button><b>' + esc(diaMes(d.lunes)) + ' – ' + esc(diaMes(fin)) + '</b>' +
+    '<button class="btn sec chico" data-a="verifSem" data-d="7" aria-label="Semana siguiente"><span class="ico" aria-hidden="true">' + ICO_NEXT() + '</span></button><button class="btn ghost chico" data-a="verifSem" data-d="0">Esta semana</button></div>';
+}
+
+function vPlan(d) {
+  var plan = d.plan, edit = !plan || plan.estado === 'BORRADOR', h = semanaNav(d);
+  var activas = d.catalogo.filter(function (v) { return v.activo; });
+  var est = !plan ? '<span class="badge info"><i></i>Sin planificar</span>' : plan.estado === 'BORRADOR' ? '<span class="badge info"><i></i>Borrador · pendiente de aprobación</span>' : '<span class="badge hecho"><i></i>Publicada</span>';
+  var nota = plan ? (plan.estado === 'PUBLICADA' ? 'Publicada por ' + esc(plan.publicado_por) + ' · ' + fh(plan.publicado_en) : 'Generada por ' + esc(plan.generado_por) + ' · ' + fh(plan.generado_en)) : '';
+  var botones = '';
+  if (edit && activas.length) botones += '<button class="btn sec" data-a="verifGen">' + (plan ? 'Regenerar propuesta' : 'Generar propuesta') + '</button>';
+  if (plan && plan.estado === 'BORRADOR' && d.asignaciones.length) botones += '<button class="btn" data-a="verifPub" data-id="' + plan.id + '">' + ic('check') + 'Aprobar y publicar</button>';
+  h += '<div class="cab" style="align-items:center"><div class="linea" style="margin:0">' + est + (nota ? '<span class="sub">' + nota + '</span>' : '') + '</div><div class="acciones" style="margin:0">' + botones + '</div></div>';
+  if (!activas.length) return h + vacioG('verif', 'El catálogo está vacío', 'Agrega las verificaciones diarias que se deben realizar para poder planificarlas.', '<button class="btn" data-a="verifTab" data-t="cat">Ir al catálogo</button>');
+  var sinP = d.asignaciones.filter(function (a) { return !a.usuario_id; }).length;
+  if (sinP) h += '<div class="alerta" style="margin-bottom:12px"><b>' + sinP + (sinP === 1 ? ' verificación sin personal.' : ' verificaciones sin personal.') + '</b> Elige a alguien en la tabla o ajusta la disponibilidad y regenera la propuesta.</div>';
+  if (edit) {
+    h += '<h3 class="seccion" style="margin-top:8px">Disponibilidad del equipo</h3><p class="sub" style="margin:0 0 8px">Analistas del turno día de MP y PT. Ya se descartaron ausencias y días fuera de turno; ajusta lo que haga falta antes de generar.</p>';
+    if (!d.candidatos.length) h += vacioG('cal', 'No hay analistas con turno día asignado', 'Asigna turnos en Administración → Turnos.');
+    else {
+      h += '<div class="tabla-wrap"><table class="tabla-plan"><thead><tr><th>Analista</th>' + d.fechas.map(function (f) { return '<th class="c" style="text-align:center">' + esc(diaCorto(f)) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+        d.candidatos.map(function (u) {
+          return '<tr><td class="nom"><b>' + esc(u.nombre) + '</b> <span class="sub">' + (u.area_habitual === 'PT' ? 'PT' : 'MP') + '</span></td>' + d.fechas.map(function (f) {
+            var on = ((S.verifDisp && S.verifDisp[f]) || []).indexOf(u.id) >= 0;
+            return '<td class="c"><input type="checkbox" data-a="dispChk" data-u="' + u.id + '" data-dia="' + f + '"' + (on ? ' checked' : '') + ' aria-label="' + esc(u.nombre) + ' disponible el ' + esc(diaCorto(f)) + '"></td>';
+          }).join('') + '</tr>';
+        }).join('') + '</tbody></table></div>';
+    }
+  }
+  if (!plan) return h + '<div style="margin-top:14px">' + vacioG('verif', 'Aún no hay propuesta para esta semana', 'Revisa la disponibilidad y genera una propuesta. El reparto es equitativo, rota entre semanas y no se publica hasta que la apruebes.') + '</div>';
+  // Tabla de asignaciones: verificación × día
+  var ids = [], por = {}, nombres = {};
+  d.asignaciones.forEach(function (a) { if (ids.indexOf(a.verificacion_id) < 0) { ids.push(a.verificacion_id); nombres[a.verificacion_id] = a; } por[a.fecha + '|' + a.verificacion_id] = a; });
+  h += '<h3 class="seccion">Asignaciones</h3><div class="tabla-wrap"><table class="tabla-plan"><thead><tr><th>Verificación</th>' + d.fechas.map(function (f) { return '<th>' + esc(diaCorto(f)) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+    ids.map(function (vid) {
+      var v = nombres[vid];
+      return '<tr><td class="nom"><b>' + esc(v.nombre) + '</b>' + (v.equipo ? '<div class="sub">Equipo ' + esc(v.equipo) + '</div>' : '') + '</td>' + d.fechas.map(function (f) {
+        var a = por[f + '|' + vid];
+        if (!a) return '<td class="sub">—</td>';
+        var op = '<option value="">Sin asignar</option>' + a.elegibles.map(function (u) { return '<option value="' + u.id + '"' + (u.id === a.usuario_id ? ' selected' : '') + '>' + esc(u.nombre) + '</option>'; }).join('');
+        if (a.usuario_id && !a.elegibles.some(function (u) { return u.id === a.usuario_id; })) op += '<option value="' + a.usuario_id + '" selected>' + esc(a.usuario || '—') + '</option>';
+        var e2 = '';
+        if (plan.estado === 'PUBLICADA') e2 = a.estado === 'REALIZADA' ? '<div class="celda-est">Realizada</div>' : a.estado === 'NO_REALIZADA' ? '<div class="celda-est">No realizada</div>' : (a.fecha < d.hoy && a.usuario_id ? '<div class="celda-est">Sin registrar</div>' : '');
+        return '<td' + (a.usuario_id ? '' : ' class="sinp"') + '><select data-a="verifResp" data-id="' + a.id + '" data-actual="' + a.usuario_id + '" aria-label="Responsable de ' + esc(v.nombre) + ' el ' + esc(diaCorto(f)) + '">' + op + '</select>' + e2 + '</td>';
+      }).join('') + '</tr>';
+    }).join('') + '</tbody></table></div>';
+  if (plan.estado === 'PUBLICADA') h += '<p class="sub" style="margin-top:8px">Los cambios de responsable en una planificación publicada quedan registrados en el historial de auditoría.</p>';
+  return h;
+}
+
+function vSeg(d) {
+  var h = semanaNav(d), plan = d.plan;
+  if (!plan) return h + vacioG('stats', 'Esta semana no tiene planificación', 'El seguimiento aparece cuando se publica la planificación.');
+  if (plan.estado !== 'PUBLICADA') return h + vacioG('stats', 'La planificación está en borrador', 'Cuando la publiques verás el cumplimiento día a día.', '<button class="btn" data-a="verifTab" data-t="plan">Ir a la planificación</button>');
+  var c = d.cumplimiento, venc = d.asignaciones.filter(function (a) { return a.usuario_id && a.estado === 'PENDIENTE' && a.fecha < d.hoy; });
+  var nor = d.asignaciones.filter(function (a) { return a.estado === 'NO_REALIZADA'; });
+  h += '<div class="kpis"><div class="kpi"><span class="kpi-l">Cumplimiento semanal</span><span class="kpi-v">' + (c.pct === null ? '—' : c.pct + '<small>%</small>') + '</span><span class="kpi-s">' + c.realizadas + ' de ' + c.total + ' realizadas</span></div>' +
+    '<div class="kpi"><span class="kpi-l">No realizadas</span><span class="kpi-v">' + nor.length + '</span><span class="kpi-s">con motivo</span></div>' +
+    '<div class="kpi"><span class="kpi-l">Sin registrar</span><span class="kpi-v">' + venc.length + '</span><span class="kpi-s">de días anteriores</span></div>' +
+    '<div class="kpi"><span class="kpi-l">Sin personal</span><span class="kpi-v">' + d.asignaciones.filter(function (a) { return !a.usuario_id; }).length + '</span><span class="kpi-s">sin responsable</span></div></div>';
+  h += '<h3 class="seccion">Por día</h3><div class="lista">' + c.dias.map(function (x) {
+    return '<div class="dia-seg"><b>' + esc(diaLargo(x.fecha)) + '</b><div class="barra" role="img" aria-label="' + (x.pct === null ? 'Sin verificaciones' : x.pct + '% realizado') + '"><i style="width:' + (x.pct || 0) + '%"></i></div><span class="sub">' +
+      (x.total ? x.realizadas + ' de ' + x.total + ' realizadas' + (x.noRealizadas ? ' · ' + x.noRealizadas + ' no realizadas' : '') : 'Sin responsables') + (x.sinPersonal ? ' · ' + x.sinPersonal + ' sin personal' : '') + '</span></div>';
+  }).join('') + '</div>';
+  var aten = venc.concat(nor);
+  if (aten.length) h += '<h3 class="seccion">Requieren atención</h3><div class="lista">' + aten.map(function (a) {
+    return '<div class="fila"><span class="ic hecho">' + (a.estado === 'NO_REALIZADA' ? ICO.noop : ICO.clock) + '</span><div class="crece"><b>' + esc(a.nombre) + '</b><div class="sub">' + esc(a.usuario || '—') + ' · ' + esc(diaLargo(a.fecha)) + (a.estado === 'NO_REALIZADA' ? ' · ' + esc(a.motivo || '') : ' · sin registrar') + '</div></div></div>';
+  }).join('') + '</div>';
+  return h;
+}
+
+function vHist(d) {
+  if (!d.historial.length) return semanaNav(d) + vacioG('hist', 'Aún no hay semanas anteriores publicadas', 'Aquí verás el cumplimiento de cada semana una vez que existan planificaciones publicadas.');
+  return '<p class="sub">Semanas anteriores publicadas, de la más reciente a la más antigua.</p><div class="tabla-wrap"><table><thead><tr><th>Semana del</th><th>Asignadas</th><th>Realizadas</th><th>No realizadas</th><th>Cumplimiento</th></tr></thead><tbody>' +
+    d.historial.map(function (x) { return '<tr><td>' + esc(fdia(x.semana)) + '</td><td class="num">' + x.total + '</td><td class="num">' + x.realizadas + '</td><td class="num">' + x.noRealizadas + '</td><td class="num">' + (x.pct === null ? '—' : x.pct + ' %') + '</td></tr>'; }).join('') + '</tbody></table></div>';
+}
+
+function vCat(d) {
+  var h = '<div class="acciones" style="justify-content:flex-start;margin:0 0 12px"><button class="btn" data-a="formVerifCat">' + ic('plus') + 'Nueva verificación</button></div>';
+  h += d.catalogo.length ? '<div class="lista">' + d.catalogo.map(function (v) {
+    var aut = v.autorizados.length ? v.autorizados.length + (v.autorizados.length === 1 ? ' analista autorizado' : ' analistas autorizados') : 'Cualquier analista';
+    return '<div class="fila"><span class="ic">' + ICO.verif + '</span><div class="crece"><b>' + esc(v.nombre) + '</b> ' + (v.activo ? '' : '<span class="badge gris">Inactiva</span>') +
+      '<div class="sub">' + [v.procedimiento ? esc(v.procedimiento) : '', v.equipo ? 'Equipo ' + esc(v.equipo) : '', aut].filter(Boolean).join(' · ') + '</div></div><button class="btn ghost chico" data-a="formVerifCat" data-id="' + v.id + '">Editar</button></div>';
+  }).join('') + '</div>' : vacioG('verif', 'El catálogo está vacío', 'Agrega las verificaciones que se hacen cada día (por ejemplo, balanzas, pHmetros o energía de lámpara de un HPLC).');
+  h += '<div class="card" style="margin-top:16px"><form data-f="diasVerif"><fieldset><legend>Días en que se realizan las verificaciones</legend><div class="checks">' +
+    [1, 2, 3, 4, 5, 6, 7].map(function (n) { return '<label><input type="checkbox" name="dias" value="' + n + '"' + (d.dias_operativos.indexOf(n) >= 0 ? ' checked' : '') + '> ' + DIAS[n] + '</label>'; }).join('') +
+    '</div></fieldset><div class="acciones" style="margin-top:0"><button class="btn sec chico">Guardar días</button></div></form></div>';
+  return h;
+}
+function formVerifCat(id) {
+  var d = S.datos, v = id ? d.catalogo.find(function (x) { return x.id === id; }) : { nombre: '', descripcion: '', procedimiento: '', equipo_id: '', autorizados: [], activo: true };
+  modal('<h2>' + (id ? 'Editar verificación' : 'Nueva verificación') + '</h2><form data-f="verifCat" autocomplete="off"><input type="hidden" name="id" value="' + esc(id || '') + '">' +
+    '<label>Nombre<input name="nombre" required maxlength="100" value="' + esc(v.nombre) + '" placeholder="Ej.: Verificación de balanza analítica" autofocus></label>' +
+    '<label>Descripción <span class="sub">(opcional)</span><input name="descripcion" maxlength="300" value="' + esc(v.descripcion) + '"></label>' +
+    '<div class="form-grid"><label>Procedimiento <span class="sub">(opcional)</span><input name="procedimiento" maxlength="120" value="' + esc(v.procedimiento) + '" placeholder="PO-012"></label>' +
+    '<label>Equipo asociado <span class="sub">(opcional)</span><select name="equipo_id"><option value="">Ninguno</option>' + d.equipos.map(function (e) { return '<option value="' + e.id + '"' + (e.id === v.equipo_id ? ' selected' : '') + '>' + esc(e.codigo + ' · ' + e.nombre) + '</option>'; }).join('') + '</select></label></div>' +
+    '<fieldset><legend>Analistas autorizados <span class="sub">(si no marcas a nadie, puede hacerla cualquiera)</span></legend><div class="checks">' +
+    d.analistas.map(function (a) { return '<label><input type="checkbox" name="autorizados" value="' + a.id + '"' + (v.autorizados.indexOf(a.id) >= 0 ? ' checked' : '') + '> ' + esc(a.nombre) + '</label>'; }).join('') + '</div></fieldset>' +
+    '<label class="inline-check"><input type="checkbox" name="activo" value="1"' + (v.activo ? ' checked' : '') + '> Verificación activa</label>' +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Guardar</button></div></form>');
 }
 
 function nombreEquipo(id) {
@@ -713,6 +1118,7 @@ function botonesEq(e) {
 }
 
 var LEYENDA = '<div class="leyenda"><span><i class="sw sw-uso"></i>En uso</span><span><i class="sw sw-res"></i>Reservado</span><span><i class="sw sw-ahora"></i>Ahora</span><span>Ventana de 12 h</span></div>';
+var LEYENDA_EST = '<div class="leyenda-est" aria-label="Significado de los colores"><span class="est-verde"><i></i>Disponible</span><span class="est-amarillo"><i></i>En uso</span><span class="est-rojo"><i></i>No operativo</span></div>';
 function tira(e) {
   var now = Date.now(), a = now - 4 * 36e5, b = now + 8 * 36e5, span = b - a, txt = [];
   var pos = function (t) { return Math.max(0, Math.min(100, (t - a) / span * 100)); };
@@ -730,56 +1136,81 @@ function tira(e) {
   s += '<i class="t-ahora" style="left:' + pos(now) + '%"></i>';
   return '<div class="tira" role="img" aria-label="' + esc(txt.join('. ') || 'Sin uso ni reservas en las próximas 12 horas') + '">' + s + '</div>';
 }
-function filaEq(e) {
-  var col = EST[e.estado][0], o = e.ocupacion, r = e.proxima_reserva, uso = '';
+function icoEq(e) { return e.tipo === 'HPLC' ? ICO.hplc : ICO.dis; }
+function areaChip(a) { return a === 'MP' || a === 'PT' ? '<span class="area">' + ic(a === 'MP' ? 'mp' : 'pt') + (a === 'MP' ? 'Materias Primas' : 'Producto Terminado') + '</span>' : ''; }
+/** Acciones que dependen del equipo (reservar, reportar, restaurar). */
+function accionesEq(e) {
+  var acc = '';
+  if (e.tipo === 'HPLC' && puede('ANALISTA', 'JEFATURA') && e.activo) acc += '<button class="btn sec chico" data-a="nuevaReserva" data-id="' + e.id + '">Reservar</button>';
+  if (puede('ANALISTA', 'JEFATURA') && e.estado !== 'NO_OPERATIVO') acc += '<button class="btn sec chico" data-a="reportar" ' + dsEq(e) + '>Reportar no operativo</button>';
+  if (e.estado === 'NO_OPERATIVO' && puedeRestaurar()) acc += '<button class="btn sec chico" data-a="restaurar" ' + dsEq(e) + '>Marcar operativo</button>';
+  return acc;
+}
+/** Tarjeta de equipo: icono teñido por estado + texto de estado + datos esenciales. */
+function tarjetaEq(e) {
+  var col = EST[e.estado][0], o = e.ocupacion, r = e.proxima_reserva, sel = S.selEq === e.id, r0 = '';
+  var cuerpo = '<div class="eqc-linea">' + badge(e.estado) + (o ? '<span class="eqc-t">' + dur(o.inicio) + '</span>' : '') + '</div>';
   if (o) {
-    uso = '<div class="eq-quien">' + avatar(o.usuario) + '<span><b>' + esc(o.usuario) + '</b> · ' + esc(o.producto) + (o.lotes ? ' <span class="mono-s">' + esc(o.lotes) + '</span>' : '') + '</span></div>' +
-      '<div class="sub">' + (o.ensayo ? esc(o.ensayo) + ' · ' : '') + o.area + ' · desde las ' + hora(o.inicio) + ' (' + dur(o.inicio) + ')</div>';
-  } else if (e.estado === 'NO_OPERATIVO' && e.incidencia) {
-    uso = '<div class="eq-quien"><b>' + esc(e.incidencia.descripcion) + '</b></div><div class="sub">Reportado por ' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div>';
+    cuerpo += '<div class="eqc-quien">' + avatar(o.usuario) + '<b>' + esc(o.usuario) + '</b></div><div class="eqc-linea">' + areaChip(o.area) + '<span class="eqc-t">desde las ' + hora(o.inicio) + '</span></div>';
+  } else if (e.estado === 'NO_OPERATIVO') {
+    cuerpo += '<div class="eqc-nota">' + (e.incidencia ? esc(e.incidencia.descripcion) : 'Fuera de servicio') + '</div>';
   } else {
-    uso = '<div class="eq-quien muted">Libre</div>' + (r ? '<div class="sub">Reserva de ' + esc(r.usuario) + ' · ' + fh(r.inicio) + '</div>' : '');
+    cuerpo += '<div class="eqc-nota">' + (r ? 'Reservado por ' + esc(r.usuario) + ' · ' + fh(r.inicio) : 'Libre para usar') + '</div>' + (e.area_uso === 'MP' || e.area_uso === 'PT' ? areaChip(e.area_uso) : '');
   }
-  if (e.advertencia) uso += '<div class="alerta roja">' + esc(e.advertencia) + '</div>';
-  return '<div class="eq-fila"><div class="eq-id"><i class="pt pt-' + col + '"></i><div><button class="eq-cod" data-a="ir" data-v="equipo" data-p="' + e.id + '">' + esc(e.codigo) + '</button><div class="sub">' + esc(e.nombre) + '</div></div></div>' +
-    '<div class="eq-est">' + badge(e.estado) + '</div><div class="eq-uso">' + uso + '</div><div class="eq-tira">' + tira(e) + '</div><div class="eq-acc">' + botonesEq(e) + '</div></div>';
+  if (e.advertencia) cuerpo += '<div class="alerta roja" style="margin:0">' + esc(e.advertencia) + '</div>';
+  var det = '';
+  if (sel) {
+    if (o) det += '<dl class="ficha"><dt>Producto</dt><dd>' + esc(o.producto) + '</dd>' + (o.lotes ? '<dt>Lotes</dt><dd>' + esc(o.lotes) + '</dd>' : '') + (o.ensayo ? '<dt>Ensayo</dt><dd>' + esc(o.ensayo) + '</dd>' : '') + '<dt>Inicio</dt><dd>' + fh(o.inicio) + '</dd></dl>';
+    else if (e.estado === 'NO_OPERATIVO' && e.incidencia) det += '<div class="alerta roja" style="margin:0"><b>' + esc(e.incidencia.descripcion) + '</b><div class="sub">Reportado por ' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div></div>';
+    det += tira(e) + LEYENDA;
+    var acc = accionesEq(e);
+    if (acc) det += '<div class="acciones">' + acc + '</div>';
+  }
+  return '<article class="eqc est-' + col + (sel ? ' sel' : '') + (S.flash[e.id] ? ' flash' : '') + '">' +
+    '<button class="eqc-cab" data-a="selEq" data-id="' + e.id + '" aria-expanded="' + (sel ? 'true' : 'false') + '"><span class="eqc-ico" aria-hidden="true">' + icoEq(e) + '</span>' +
+    '<span class="eqc-id"><b>' + esc(e.codigo) + '</b><small>' + esc(e.nombre) + '</small></span><span class="eqc-sel ico" aria-hidden="true">' + ICO.chev + '</span></button>' +
+    '<div class="eqc-cuerpo">' + cuerpo + '</div>' +
+    '<div class="eqc-acc">' + botonesEq(e) + '<button class="btn sec chico" data-a="ir" data-v="equipo" data-p="' + e.id + '">Consultar</button></div>' +
+    (det ? '<div class="eqc-det">' + det + '</div>' : '') + '</article>';
 }
-function tablero(titulo, equipos, vacio, leyenda) {
-  return '<section class="tablero"><div class="tablero-cab"><h2>' + titulo + '<span class="cuenta">' + equipos.length + '</span></h2>' + (leyenda ? LEYENDA : '') + '</div>' +
-    (equipos.length ? equipos.map(filaEq).join('') : '<div class="fila sub">' + vacio + '</div>') + '</section>';
+function seccionEq(titulo, icono, equipos) {
+  return '<section><h2 class="sec-t h-ico">' + ic(icono) + titulo + '<span class="cuenta">' + equipos.length + '</span></h2><div class="eqs">' + equipos.map(tarjetaEq).join('') + '</div></section>';
 }
-
 
 function vEquipos(d) {
   var q = norm(S.buscaEq);
-  var lista = d.equipos.filter(function (e) {
+  var base = d.equipos.filter(function (e) {
     if (S.filtroEq !== 'TODOS' && e.tipo !== S.filtroEq) return false;
     if (!q) return true;
     return norm([e.codigo, e.nombre, e.ocupacion && e.ocupacion.producto, e.ocupacion && e.ocupacion.usuario].join(' ')).indexOf(q) >= 0;
   });
-  var chips = [['TODOS', 'Todos'], ['HPLC', 'HPLC'], ['DISOLUTOR', 'Disolutores']].map(function (c) {
+  var n = { DISPONIBLE: 0, OCUPADO: 0, NO_OPERATIVO: 0 };
+  base.forEach(function (e) { n[e.estado]++; });
+  var lista = base.filter(function (e) { return S.filtroEst === 'TODOS' || e.estado === S.filtroEst; });
+  var chips = [['TODOS', 'Todos', ''], ['HPLC', 'HPLC', 'hplc'], ['DISOLUTOR', 'Disolutores', 'dis']].map(function (c) {
     return '<button class="chip ' + (S.filtroEq === c[0] ? 'act' : '') + '" data-a="filtroEq" data-t="' + c[0] + '">' + c[1] + '</button>';
   }).join('');
-  var h = '<header class="cab"><div><h1>Equipos</h1><p class="sub" style="margin:4px 0 0">Estado actual de HPLC y disolutores. Se actualiza solo.</p></div></header>' +
-    '<div class="cab" style="align-items:center;margin-bottom:14px"><div class="chips">' + chips + '</div>' +
-    '<input type="search" aria-label="Buscar equipo" placeholder="Buscar equipo, producto o analista" value="' + esc(S.buscaEq) + '" data-busca="eq" style="max-width:340px;width:100%"></div>';
-  if (!d.equipos.length) return h + '<div class="vacio">Aún no hay equipos registrados.' + (puede('JEFATURA') ? ' Agrégalos en Administración → Equipos.' : ' Jefatura debe agregarlos.') + '</div>';
-  if (!lista.length) return h + '<div class="vacio">Ningún equipo coincide con el filtro.</div>';
+  var chipsEst = [['TODOS', 'Todos los estados', base.length], ['DISPONIBLE', 'Disponibles', n.DISPONIBLE], ['OCUPADO', 'En uso', n.OCUPADO], ['NO_OPERATIVO', 'No operativos', n.NO_OPERATIVO]].map(function (c) {
+    return '<button class="chip ' + (S.filtroEst === c[0] ? 'act' : '') + '" data-a="filtroEst" data-t="' + c[0] + '">' + c[1] + ' <span class="num">' + c[2] + '</span></button>';
+  }).join('');
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('hplc') + 'Equipos</h1><p class="sub" style="margin:4px 0 0">Estado actual de HPLC y disolutores. Se actualiza solo.</p></div></header>' + LEYENDA_EST +
+    '<div class="cab" style="align-items:center;margin-bottom:10px"><div class="chips">' + chips + '</div>' +
+    '<input type="search" aria-label="Buscar equipo" placeholder="Buscar equipo, producto o analista" value="' + esc(S.buscaEq) + '" data-busca="eq" style="max-width:340px;width:100%"></div>' +
+    '<div class="chips" style="margin-bottom:16px">' + chipsEst + '</div>';
+  if (!d.equipos.length) return h + vacioG('hplc', 'Aún no hay equipos registrados', puede('JEFATURA') ? 'Agrégalos en Administración → Equipos.' : 'Jefatura debe agregarlos.');
+  if (!lista.length) return h + vacioG('hplc', 'Ningún equipo coincide', 'Cambia el filtro o la búsqueda para ver más equipos.');
   var hp = lista.filter(function (e) { return e.tipo === 'HPLC'; }), ds = lista.filter(function (e) { return e.tipo === 'DISOLUTOR'; });
-  if (hp.length) h += tablero('HPLC', hp, '', true);
-  if (ds.length) h += tablero('Disolutores', ds, '', !hp.length);
+  if (hp.length) h += seccionEq('HPLC', 'hplc', hp);
+  if (ds.length) h += seccionEq('Disolutores', 'dis', ds);
   return h;
 }
 
 function vEquipo(d) {
   var e = d.equipo, o = e.ocupacion;
   var carac = Object.keys(e.caracteristicas || {});
-  var acc = botonesEq(e);
-  if (e.tipo === 'HPLC' && puede('ANALISTA', 'JEFATURA') && e.activo) acc += '<button class="btn sec chico" data-a="nuevaReserva" data-id="' + e.id + '">Reservar</button>';
-  if (puede('ANALISTA', 'JEFATURA') && e.estado !== 'NO_OPERATIVO') acc += '<button class="btn sec chico" data-a="reportar" ' + dsEq(e) + '>Reportar no operativo</button>';
-  if (e.estado === 'NO_OPERATIVO' && puedeRestaurar()) acc += '<button class="btn sec chico" data-a="restaurar" ' + dsEq(e) + '>Marcar operativo</button>';
-  var h = '<button class="btn ghost chico" data-a="ir" data-v="equipos" style="padding-left:0">← Equipos</button>' +
-    '<div class="cab"><div><h1>' + esc(e.codigo) + ' · ' + esc(e.nombre) + '</h1><p class="sub">' + (e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor') + ' · ' + AREA_TXT[e.area_uso || 'AMBAS'] + (e.activo ? '' : ' · Desactivado') + '</p></div>' + badge(e.estado) + '</div>';
+  var acc = botonesEq(e) + accionesEq(e);
+  var h = '<button class="btn ghost chico" data-a="ir" data-v="equipos" style="padding-left:0">' + ic('back') + 'Equipos</button>' +
+    '<div class="cab" style="align-items:center"><div class="h-ico est-' + EST[e.estado][0] + '" style="gap:14px"><span class="eqc-ico" aria-hidden="true">' + icoEq(e) + '</span><div><h1>' + esc(e.codigo) + ' · ' + esc(e.nombre) + '</h1><p class="sub" style="margin:2px 0 0">' + (e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor') + ' · ' + AREA_TXT[e.area_uso || 'AMBAS'] + (e.activo ? '' : ' · Desactivado') + '</p></div></div>' + badge(e.estado) + '</div>';
   if (e.advertencia) h += '<div class="alerta roja" style="margin-bottom:12px">' + esc(e.advertencia) + '</div>';
   if (e.estado === 'NO_OPERATIVO' && e.incidencia) h += '<div class="alerta" style="margin-bottom:12px"><b>No operativo:</b> ' + esc(e.incidencia.descripcion) + '<div class="sub">' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div></div>';
   h += '<div class="acciones" style="justify-content:flex-start;margin:0 0 16px">' + acc + '</div>';
@@ -794,7 +1225,7 @@ function vEquipo(d) {
   h += '<h3 class="seccion">Incidencias</h3>' + (d.incidencias.length ? '<div class="lista">' + d.incidencias.map(function (i) {
     return '<div class="fila"><div class="crece"><b>' + esc(i.descripcion) + '</b><div class="sub">' + esc(i.reportado_por) + ' · ' + fh(i.reportado_en) +
       (i.estado === 'RESUELTA' ? ' · Resuelta por ' + esc(i.resuelto_por) + ' ' + fh(i.resuelto_en) + (i.nota_resolucion ? ': ' + esc(i.nota_resolucion) : '') : '') + '</div></div>' +
-      (i.estado === 'ABIERTA' ? '<span class="badge amarillo"><i></i>Abierta</span>' : '<span class="badge verde"><i></i>Resuelta</span>') + '</div>';
+      (i.estado === 'ABIERTA' ? '<span class="badge rojo"><i></i>Abierta</span>' : '<span class="badge hecho"><i></i>Resuelta</span>') + '</div>';
   }).join('') + '</div>' : '<div class="vacio">Sin incidencias registradas.</div>');
   h += '<h3 class="seccion">Historial de uso</h3>' + (d.historial.length ? '<div class="tabla-wrap"><table><thead><tr><th>Inicio</th><th>Término</th><th>Duración</th><th>Analista</th><th>Área</th><th>Producto / lotes</th><th>Ensayo</th><th>Notas</th></tr></thead><tbody>' +
     d.historial.map(function (x) {
@@ -814,10 +1245,10 @@ function filaReserva(r) {
 }
 
 function vReservas(d) {
-  var h = '<div class="cab"><div><h1>Reservas HPLC</h1><p class="sub">Las reservas no ocupan el equipo: la ocupación real se registra al iniciar el uso.</p></div>' +
-    (puede('ANALISTA', 'JEFATURA') && d.hplc.length ? '<button class="btn" data-a="nuevaReserva">Nueva reserva</button>' : '') + '</div>';
-  if (!d.hplc.length) return h + '<div class="vacio">No hay equipos HPLC registrados.</div>';
-  if (!d.reservas.length) return h + '<div class="vacio">No hay reservas próximas.</div>';
+  var h = '<div class="cab"><div><h1 class="h-ico">' + ic('cal') + 'Reservas HPLC</h1><p class="sub">Las reservas no ocupan el equipo: la ocupación real se registra al iniciar el uso.</p></div>' +
+    (puede('ANALISTA', 'JEFATURA') && d.hplc.length ? '<button class="btn" data-a="nuevaReserva">' + ic('plus') + 'Nueva reserva</button>' : '') + '</div>';
+  if (!d.hplc.length) return h + vacioG('hplc', 'No hay equipos HPLC registrados');
+  if (!d.reservas.length) return h + vacioG('cal', 'No hay reservas próximas', 'Las reservas nuevas de HPLC aparecerán aquí.');
   var grupos = {}, orden = [];
   d.reservas.forEach(function (r) { var k = new Date(r.inicio).toDateString(); if (!grupos[k]) { grupos[k] = []; orden.push(k); } grupos[k].push(r); });
   orden.forEach(function (k) { h += '<h3 class="seccion">' + esc(fecha(grupos[k][0].inicio)) + '</h3><div class="lista">' + grupos[k].map(filaReserva).join('') + '</div>'; });
@@ -832,7 +1263,7 @@ function filaRetroVacia(base) {
 function vRetro() {
   var dis = S.sug.equipos.filter(function (e) { return e.tipo === 'DISOLUTOR'; });
   if (!S.retro) S.retro = [filaRetroVacia()];
-  var h = '<div class="cab"><div><h1>Registro de disolutores</h1><p class="sub">Registra al final del turno los usos ya realizados. Quedan identificados como retrospectivos y no cambian el estado actual del equipo.</p></div></div>';
+  var h = '<div class="cab"><div><h1 class="h-ico">' + ic('dis') + 'Registro de disolutores</h1><p class="sub">Registra al final del turno los usos ya realizados. Quedan identificados como retrospectivos y no cambian el estado actual del equipo.</p></div></div>';
   if (!dis.length) return h + '<div class="vacio">No hay disolutores registrados.</div>';
   h += datalistsBase();
   h += S.retro.map(function (f, i) {
@@ -866,11 +1297,11 @@ function productoPorNombre(nombre) {
 function vEncargos(d) {
   var tabs = [['recibidos', 'Recibidos'], ['enviados', 'Enviados']];
   if (puede('JEFATURA')) tabs.push(['todos', 'Seguimiento general']);
-  var h = '<div class="cab"><div><h1>Encargos entre turnos</h1><p class="sub">El detalle se comunica por WhatsApp. LabControl registra la asignación y la confirmación de revisión.</p></div>' +
-    '<button class="btn" data-a="nuevoEncargo">Dejar encargo</button></div>' +
+  var h = '<div class="cab"><div><h1 class="h-ico">' + ic('enc') + 'Encargos entre turnos</h1><p class="sub">El detalle se comunica por WhatsApp. LabControl registra la asignación y la confirmación de revisión.</p></div>' +
+    '<button class="btn" data-a="nuevoEncargo">' + ic('plus') + 'Dejar encargo</button></div>' +
     '<div class="tabs">' + tabs.map(function (t) { return '<button class="' + (S.encTab === t[0] ? 'act' : '') + '" data-a="encTab" data-t="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
   var lista = S.encTab === 'todos' ? (d.todos || []) : d[S.encTab];
-  if (!lista.length) return h + '<div class="vacio">Sin encargos.</div>';
+  if (!lista.length) return h + vacioG('enc', S.encTab === 'recibidos' ? 'No tienes encargos recibidos' : S.encTab === 'enviados' ? 'No has dejado encargos' : 'Sin encargos registrados', 'Cuando alguien deje un encargo para el siguiente turno, aparecerá aquí.');
   return h + '<div class="lista">' + lista.map(function (e) {
     var titulo = S.encTab === 'recibidos' ? 'De ' + esc(e.de) : S.encTab === 'enviados' ? 'Para ' + esc(e.para) : esc(e.de) + ' → ' + esc(e.para);
     var accion = (S.encTab === 'recibidos' && e.estado === 'PENDIENTE') ? '<button class="btn chico" data-a="confirmarEnc" data-id="' + e.id + '">Confirmar revisión</button>' : chipEstadoEnc(e);
@@ -890,14 +1321,14 @@ function listaEncHtml(arr) {
   if (!arr.length) return '<div class="fila sub">Sin resultados.</div>';
   return arr.map(function (u) {
     return '<button class="fila click" data-a="encElegir" data-id="' + u.id + '" data-nombre="' + esc(u.nombre) + '" data-turno="' + (u.en_turno ? 1 : 0) + '"><div class="crece"><b>' + esc(u.nombre) + '</b><div class="sub">' + AREA_TXT[u.area_habitual] + (u.turnos.length ? ' · ' + esc(u.turnos.join(', ')) : ' · Sin turno asignado') + '</div></div>' +
-      (u.en_turno ? '<span class="badge verde"><i></i>En turno</span>' : '<span class="badge gris"><i></i>Fuera de turno</span>') + '</button>';
+      (u.en_turno ? '<span class="badge info"><i></i>En turno</span>' : '<span class="badge gris"><i></i>Fuera de turno</span>') + '</button>';
   }).join('');
 }
 
 /* ---------- Administración ---------- */
 function vAdmin(d) {
   var tabs = [['usuarios', 'Usuarios'], ['turnos', 'Turnos'], ['ausencias', 'Ausencias'], ['equipos', 'Equipos'], ['mensajes', 'Mensajes'], ['config', 'Configuración']];
-  var h = '<div class="cab"><div><h1>Administración</h1><p class="sub">Versión ' + esc(d.version) + '</p></div></div><div class="tabs">' +
+  var h = '<div class="cab"><div><h1 class="h-ico">' + ic('cog') + 'Administración</h1><p class="sub">Versión ' + esc(d.version) + '</p></div></div><div class="tabs">' +
     tabs.map(function (t) { return '<button class="' + (S.adminTab === t[0] ? 'act' : '') + '" data-a="adminTab" data-t="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
   var t = S.adminTab;
   if (t === 'usuarios') {
@@ -965,7 +1396,7 @@ function vPerfil(d) {
   var h = '<div class="cab"><div><h1>' + esc(u.nombre) + '</h1><p class="sub">' + esc(u.email) + '</p></div></div><div class="grid">';
   h += '<div class="card"><h3>Mi cuenta</h3><dl class="ficha"><dt>Roles</dt><dd>' + rolesChips(u.roles) + '</dd><dt>Área habitual</dt><dd>' + AREA_TXT[u.area_habitual] + '</dd>' +
     '<dt>Turnos</dt><dd>' + (d.turnos.length ? d.turnos.map(function (t) { return esc(t.nombre) + ' (' + t.hora_inicio + '–' + t.hora_fin + ')'; }).join('<br>') : 'Sin turno asignado') + '</dd>' +
-    '<dt>Ahora</dt><dd>' + (d.turno ? '<span class="badge verde"><i></i>En turno</span>' : '<span class="badge gris"><i></i>Fuera de turno</span>') + '</dd></dl>' +
+    '<dt>Ahora</dt><dd>' + (d.turno ? '<span class="badge info"><i></i>En turno</span>' : '<span class="badge gris"><i></i>Fuera de turno</span>') + '</dd></dl>' +
     '<p class="sub" style="margin-top:10px">Tu área habitual no limita tus análisis: puedes trabajar en MP y PT.</p></div>';
   h += '<div class="card"><h3>Notificaciones</h3><p class="sub">Los avisos dentro de la app aparecen al ingresar durante tu turno. Nunca se envían fuera de él.</p>' +
     (d.notif_email_activo ? '<label class="inline-check"><input type="checkbox" data-a="prefEmail"' + (u.notif_email ? ' checked' : '') + '> Recibir también un correo (solo en mi turno)</label>' : '<p class="sub">Jefatura no ha activado los avisos por correo.</p>') + '</div>';
@@ -1065,7 +1496,65 @@ function formEquipo(id) {
 
 /* ---------- Manejo de eventos ---------- */
 var ACC = {
-  ir: function (ds, el, ev) { if (ev) ev.preventDefault(); cerrarModal(); ir(ds.v, ds.p); },
+  ir: function (ds, el, ev) { if (ev) ev.preventDefault(); if (ds.tab) S.verifTab = ds.tab; cerrarModal(); ir(ds.v, ds.p); },
+  saltar: function (ds, el, ev) { if (ev) ev.preventDefault(); var m = $('#contenido'); if (m) m.focus(); },
+  selEq: function (ds) {
+    S.selEq = S.selEq === ds.id ? null : ds.id; pintar();
+    var b = document.querySelector('[data-a="selEq"][data-id="' + ds.id + '"]'); if (b) b.focus();
+  },
+  filtroEst: function (ds) { S.filtroEst = ds.t; pintar(); },
+  verifTab: function (ds) { S.verifTab = ds.t; var c = S.vcache[claveVista()]; S.datos = c ? c.d : null; pintar(); cargar(); },
+  verifSem: function (ds) {
+    var base = (S.datos && S.datos.lunes) || '';
+    S.verifSemana = ds.d === '0' || !base ? '' : ymdAdd(base, Number(ds.d));
+    var c = S.vcache[claveVista()]; S.datos = c ? c.d : null; pintar(); cargar();
+  },
+  dispChk: function (ds, el) {
+    var a = S.verifDisp[ds.dia] || (S.verifDisp[ds.dia] = []), i = a.indexOf(ds.u);
+    if (el.checked && i < 0) a.push(ds.u); else if (!el.checked && i >= 0) a.splice(i, 1);
+  },
+  verifGen: function (ds, el) {
+    var d = S.datos; if (!d || !d.fechas) return;
+    var go = function () {
+      el.disabled = true;
+      return api('generarPlan', { semana: d.lunes, disponibilidad: S.verifDisp }).then(function (r) {
+        toast('Propuesta generada: ' + r.asignaciones + ' asignaciones' + (r.sin_personal ? ', ' + r.sin_personal + ' sin personal.' : '.')); cargar();
+      });
+    };
+    (d.plan ? confirmar('Se reemplazará la propuesta actual, incluidos los cambios manuales que hayas hecho en ella.', 'Regenerar', 'Regenerar propuesta') : Promise.resolve(true))
+      .then(function (ok) { if (ok) return go(); }).catch(function (e) { toast(e.message, 'error'); }).then(function () { el.disabled = false; });
+  },
+  verifPub: function (ds, el) {
+    var d = S.datos;
+    confirmar('Los analistas verán sus verificaciones de la semana del ' + diaMes(d.lunes) + ' y podrán registrarlas.\nLos cambios posteriores quedan en el historial de auditoría.', 'Publicar', 'Aprobar y publicar la planificación').then(function (ok) {
+      if (!ok) return;
+      el.disabled = true;
+      return api('publicarPlan', { id: ds.id }).then(function () { toast('Planificación publicada.'); cargar(); });
+    }).catch(function (e) { toast(e.message, 'error'); }).then(function () { el.disabled = false; });
+  },
+  verifResp: function (ds, el) {
+    var uid = el.value, pub = S.datos && S.datos.plan && S.datos.plan.estado === 'PUBLICADA';
+    (pub ? confirmar('Esta planificación ya está publicada. El cambio quedará registrado en la auditoría.', 'Cambiar responsable', 'Cambiar responsable') : Promise.resolve(true)).then(function (ok) {
+      if (!ok) { el.value = ds.actual; return; }
+      return api('cambiarResponsable', { id: ds.id, usuario_id: uid }).then(function () { toast('Responsable actualizado.'); cargar(); });
+    }).catch(function (e) { el.value = ds.actual; toast(e.message, 'error'); cargar(); });
+  },
+  verifOk: function (ds, el) {
+    el.disabled = true;
+    api('registrarVerif', { id: ds.id, estado: 'REALIZADA' }).then(function () { S.flash[ds.id] = 1; setTimeout(function () { S.flash = {}; }, 1300); toast('Verificación registrada como realizada.'); cargar(); })
+      .catch(function (e) { el.disabled = false; toast(e.message, 'error'); cargar(); });
+  },
+  verifNo: function (ds) {
+    modal('<h2>No realizada</h2><p class="sub">' + esc(ds.nombre) + '</p><form data-f="verifNo"><input type="hidden" name="id" value="' + esc(ds.id) + '">' +
+      '<label>Motivo<textarea name="motivo" required maxlength="300" placeholder="Ej.: equipo en mantención, falta de patrón" autofocus></textarea></label>' +
+      '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Guardar</button></div></form>');
+  },
+  verifRev: function (ds) {
+    confirmar('La verificación volverá a quedar pendiente. El cambio queda en el historial.', 'Revertir', 'Revertir registro').then(function (ok) {
+      if (ok) return api('registrarVerif', { id: ds.id, estado: 'PENDIENTE' }).then(function () { toast('Registro revertido.'); cargar(); });
+    }).catch(function (e) { toast(e.message, 'error'); });
+  },
+  formVerifCat: function (ds) { formVerifCat(ds.id); },
   filtrarIr: function (ds) { S.filtroEq = ds.t; ir('equipos'); },
   filtroEq: function (ds) { S.filtroEq = ds.t; pintar(); },
   menuMas: function () {
@@ -1172,6 +1661,7 @@ var ACC = {
     api('confirmarEncargo', { id: ds.id }).then(function () {
       toast('Revisión confirmada.');
       S.avisos = S.avisos.filter(function (a) { return a.ref_id !== ds.id; });
+      S.encPend = Math.max(0, (S.encPend || 1) - 1);
       cargar();
     }).catch(function (e) { el.disabled = false; toast(e.message, 'error'); });
   },
@@ -1281,6 +1771,13 @@ var FORM = {
     return api('guardarEquipo', { id: d.id || '', codigo: d.codigo, nombre: d.nombre, tipo: d.tipo, marca: d.marca, modelo: d.modelo, area_uso: d.area_uso, caracteristicas: carac, activo: !!d.activo })
       .then(function () { S.sug = null; return 'Equipo guardado.'; });
   },
+  verifNo: function (d) { return api('registrarVerif', { id: d.id, estado: 'NO_REALIZADA', motivo: d.motivo }).then(function () { return 'Verificación registrada como no realizada.'; }); },
+  verifCat: function (d) {
+    return api('guardarVerificacion', { id: d.id || '', nombre: d.nombre, descripcion: d.descripcion, procedimiento: d.procedimiento, equipo_id: d.equipo_id, autorizados: lista(d.autorizados), activo: !!d.activo }).then(function () { return 'Verificación guardada.'; });
+  },
+  diasVerif: function (d) {
+    return api('guardarConfig', { dias_verificacion: lista(d.dias).join(',') }).then(function () { return 'Días guardados.'; });
+  },
   mensaje: function (d) { return api('guardarMensaje', { clave: d.clave, titulo: d.titulo, texto: d.texto, boton: d.boton, activo: !!d.activo }).then(function () { return cargarYo().then(function () { return 'Mensaje guardado.'; }); }); },
   config: function (d) {
     return api('guardarConfig', {
@@ -1294,13 +1791,13 @@ var FORM = {
 document.addEventListener('click', function (ev) {
   if (ev.target.dataset && ev.target.dataset.fondo) { ACC.cerrarModal(); return; }
   var el = ev.target.closest('[data-a]');
-  if (!el || el.tagName === 'INPUT') return;
+  if (!el || el.tagName === 'INPUT' || el.tagName === 'SELECT') return;
   var fn = ACC[el.dataset.a];
   if (fn) { if (el.tagName === 'A') ev.preventDefault(); fn(el.dataset, el, ev); }
 });
 document.addEventListener('change', function (ev) {
   var el = ev.target;
-  if (el.tagName === 'INPUT' && el.dataset.a && ACC[el.dataset.a]) ACC[el.dataset.a](el.dataset, el, ev);
+  if ((el.tagName === 'INPUT' || el.tagName === 'SELECT') && el.dataset.a && ACC[el.dataset.a]) ACC[el.dataset.a](el.dataset, el, ev);
   if (el.dataset.r !== undefined && el.dataset.k && S.retro) actualizarFilaRetro(el);
 });
 document.addEventListener('input', function (ev) {
@@ -1360,7 +1857,7 @@ function cargarYo() {
 }
 function cerrarLocal() {
   S.token = null; S.usuario = null; S.datos = null; S.sug = null; S.avisos = []; S.retro = null;
-  S.vcache = {}; S._json = null;
+  S.vcache = {}; S._json = null; S.verifRes = null; S.encPend = 0; S.selEq = null; S.verifDispKey = '';
   store.del('lc_token'); store.del('lc_snap');
   cerrarModal(); render();
 }
@@ -1368,12 +1865,12 @@ function iniciarPolling() {
   if (S._poll) return;
   S._poll = setInterval(function () {
     if (!S.token || !S.usuario || S.usuario.debe_cambiar_clave || document.hidden || S.modal) return;
-    if (['inicio', 'equipos', 'equipo', 'reservas', 'encargos'].indexOf(S.vista) < 0) return;
+    if (POLL.indexOf(S.vista) < 0) return;
     cargar(true);
   }, Math.max(10, (S.config && S.config.segundos_refresco) || 20) * 1000);
 }
 document.addEventListener('visibilitychange', function () {
-  if (!document.hidden && S.token && S.usuario && !S.modal && ['inicio', 'equipos', 'equipo', 'reservas', 'encargos'].indexOf(S.vista) >= 0) cargar(true);
+  if (!document.hidden && S.token && S.usuario && !S.modal && POLL.indexOf(S.vista) >= 0) cargar(true);
 });
 
 /* ---------- Modo televisor ---------- */
@@ -1384,13 +1881,14 @@ function pintarTV(d) {
     var col = EST[e.estado][0];
     var det = e.estado === 'OCUPADO' ? (e.area ? e.area + ' · ' : '') + (e.ensayo ? esc(e.ensayo) + ' · ' : '') + dur(e.inicio)
       : e.estado === 'DISPONIBLE' && e.proxima ? 'Reservado desde ' + hora(e.proxima) : '';
-    return '<div class="tv-eq ' + col + '"><div class="c">' + esc(e.codigo) + '</div><div class="e">' + EST[e.estado][1] + '</div><div class="d">' + det + '</div></div>';
+    return '<div class="tv-eq ' + col + '"><span class="ico" aria-hidden="true">' + icoEq(e) + '</span><div class="c">' + esc(e.codigo) + '</div><div class="e">' + EST[e.estado][1] + '</div><div class="d">' + det + '</div></div>';
   };
   var r = d.resumen;
   var hplc = d.equipos.filter(function (e) { return e.tipo === 'HPLC'; }), dis = d.equipos.filter(function (e) { return e.tipo === 'DISOLUTOR'; });
   $('#app').innerHTML = '<div class="tv"><div class="tv-cab"><h1>' + esc(d.laboratorio || 'LabControl') + '</h1><div class="tv-reloj" id="tv-reloj">' + reloj + '</div></div>' +
     '<div class="tv-res"><div>HPLC disponibles<b>' + r.HPLC.DISPONIBLE + ' / ' + hplc.length + '</b></div><div>Disolutores disponibles<b>' + r.DISOLUTOR.DISPONIBLE + ' / ' + dis.length + '</b></div>' +
-    '<div>No operativos<b>' + (r.HPLC.NO_OPERATIVO + r.DISOLUTOR.NO_OPERATIVO) + '</b></div><div>Usos activos MP<b>' + d.actividades.MP + '</b></div><div>Usos activos PT<b>' + d.actividades.PT + '</b></div></div>' +
+    '<div>No operativos<b>' + (r.HPLC.NO_OPERATIVO + r.DISOLUTOR.NO_OPERATIVO) + '</b></div><div>Usos activos MP<b>' + d.actividades.MP + '</b></div><div>Usos activos PT<b>' + d.actividades.PT + '</b></div>' + (d.verif && d.verif.total ? '<div>Verificaciones de hoy<b>' + d.verif.realizadas + ' / ' + d.verif.total + '</b></div>' : '') + '</div>' +
+    '<div class="tv-leyenda"><span><i style="background:#3fc07a"></i>Disponible</span><span><i style="background:#f0b429"></i>En uso</span><span><i style="background:#e5566f"></i>No operativo</span></div>' +
     (hplc.length ? '<h2>HPLC</h2><div class="tv-grid">' + hplc.map(tile).join('') + '</div>' : '') +
     (dis.length ? '<h2>Disolutores</h2><div class="tv-grid">' + dis.map(tile).join('') + '</div>' : '') + '</div>';
 }
@@ -1406,6 +1904,9 @@ function iniciarTV() {
 }
 
 /* ---------- Arranque ---------- */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
+  window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () { }); });
+}
 function boot() {
   if (MODO === 'tv') { iniciarTV(); return; }
   var s = document.createElement('div'); s.id = 'sync'; s.setAttribute('aria-hidden', 'true'); document.body.appendChild(s);
@@ -1417,6 +1918,7 @@ function boot() {
     S.usuario = snap.usuario; S.config = snap.config || {}; S.msgs = snap.msgs || {};
     Object.keys(snap.v || {}).forEach(function (k) { S.vcache[k] = { d: snap.v[k].d, t: 0 }; });
     S.datos = S.vcache['inicio|'] ? S.vcache['inicio|'].d : null;
+    contadores('inicio', S.datos);
     render(); // última versión conocida, al instante; se refresca a continuación
     cargar();
     return;
@@ -1425,6 +1927,7 @@ function boot() {
   api('inicio').then(function (d) {
     if (d.equipos) guardarVista('inicio|', d, true);
     S.usuario = d.usuario;
+    contadores('inicio', d);
     render();
     if (!S.usuario.debe_cambiar_clave) ir('inicio');
   }).catch(function (e) {
