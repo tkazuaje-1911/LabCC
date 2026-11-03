@@ -4,7 +4,7 @@
  * así el estado de los equipos siempre viene del servidor.
  * Estrategia: red primero para la página (siempre la versión más nueva si hay conexión),
  * copia guardada solo si no hay red. */
-const CACHE = 'labcontrol-v5';
+const CACHE = 'labcontrol-v7';
 const BASE = ['./', './index.html', './manifest.webmanifest', './favicon.svg', './favicon.ico', './icons/icon-192.png', './icons/icon-512.png', './icons/icon.svg'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(BASE)).then(() => self.skipWaiting()));
