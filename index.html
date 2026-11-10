@@ -71,6 +71,7 @@ main{flex:1;min-width:0;padding:20px 16px 96px;max-width:1240px;margin:0 auto;wi
   .nav-item{display:flex;align-items:center;gap:10px;width:100%;height:32px;margin-bottom:2px;padding:0 10px;background:none;border:0;border-radius:var(--r-ctl);text-align:left;color:var(--muted);transition:background-color 120ms ease,color 120ms ease}
   .nav-item svg{width:16px;height:16px}
   .nav-item.act{background:#e5e8ed;color:var(--text);font-weight:500}
+  .nav-item.salir{margin-top:2px;color:var(--muted)}
   .user-row{margin-top:auto;display:flex;align-items:center;gap:10px;width:100%;padding:8px;background:none;border:0;border-radius:var(--r-ctl);text-align:left;transition:background-color 120ms ease}
   .user-row b{display:block;font-size:13px;font-weight:500;line-height:17px}
   .user-row small{display:block;color:var(--muted);font-size:12px;line-height:16px}
@@ -258,23 +259,6 @@ legend{font-weight:500;font-size:14px;margin-bottom:6px;padding:0}
 .login .nota{margin-top:18px;color:var(--muted);font-size:12px;line-height:17px}
 
 /* ===== Modo televisor ===== */
-body.modo-tv{background:#0b0f14;color:#e6e9ed;font-size:clamp(14px,1.25vw,30px);line-height:1.35}
-.tv{padding:2vw}
-.tv-cab{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.6vw}
-.tv-cab h1{font-size:2em;color:#fff;font-weight:600;line-height:1.2}
-.tv-reloj{font-size:2.4em;font-weight:500;color:#fff;font-variant-numeric:tabular-nums}
-.tv-res{display:grid;grid-template-columns:repeat(auto-fit,minmax(12em,1fr));gap:1vw;margin-bottom:1.6vw}
-.tv-res div{background:#111821;border-radius:.5em;padding:.8em 1em;color:#b4bcc6}
-.tv-res b{display:block;font-size:2em;color:#fff;font-weight:500;font-variant-numeric:tabular-nums}
-.tv h2{font-size:1.2em;color:#b4bcc6;font-weight:500;margin:1.2em 0 .6em}
-.tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(13em,1fr));gap:1vw}
-.tv-eq{border-radius:.5em;padding:.8em 1em;background:#111821;border-left:.35em solid #374151}
-.tv-eq.verde{border-left-color:#3fc07a}.tv-eq.rojo{border-left-color:#e5566f}.tv-eq.amarillo{border-left-color:#f0b429}
-.tv-eq .c{font-size:1.5em;font-weight:500;color:#fff;font-family:var(--mono)}
-.tv-eq .e{font-weight:500;font-size:1em;margin:.2em 0}
-.tv-eq.verde .e{color:#5fd69a}.tv-eq.rojo .e{color:#ff8097}.tv-eq.amarillo .e{color:#f5c75a}
-.tv-eq .d{color:#b4bcc6;font-size:.9em}
-.tv-error{display:grid;place-items:center;min-height:100vh;font-size:1.6em;padding:2em;text-align:center}
 #sync{position:fixed;top:0;left:0;right:0;height:2px;z-index:70;background:var(--hue);opacity:0;transition:opacity 150ms ease;pointer-events:none}
 #sync.on{opacity:.9}
 .diag{width:100%;font-size:13px}.diag td,.diag th{padding:6px 8px}
@@ -388,13 +372,6 @@ main:focus{outline:0}
 .sec-t:first-child{margin-top:0}
 .fila .botones .btn .ico{width:14px;height:14px}
 /* Modo televisor: icono + texto + color */
-.tv-eq{position:relative}
-.tv-eq .ico{position:absolute;top:.7em;right:.8em;width:2.4em;height:2.4em}
-.tv-eq .ico svg{stroke-width:1.5}
-.tv-eq.verde .ico{color:#5fd69a}.tv-eq.rojo .ico{color:#ff8097}.tv-eq.amarillo .ico{color:#f5c75a}
-.tv-leyenda{display:flex;gap:1.6em;margin:0 0 1em;color:#b4bcc6;font-size:.95em}
-.tv-leyenda span{display:inline-flex;align-items:center;gap:.5em}
-.tv-leyenda i{width:.8em;height:.8em;border-radius:50%;display:inline-block}
 /* ===== v0.4: identidad magenta, dashboard, mapas, análisis y planificador ===== */
 body{background:var(--ground)}
 .info{background:var(--rosa-p);color:var(--mag-ink)}
@@ -629,6 +606,179 @@ fieldset legend{font-weight:600;font-size:13px;color:var(--muted);padding:8px 0 
 .perm-f span b{display:block;font-size:14px;line-height:20px}
 .perm-f span small{display:block;color:var(--muted);font-size:13px;line-height:18px}
 @media print{.side,.bottom,.tabs,.no-imp,.skip,#toast,.cab .btn{display:none!important}.layout{display:block!important}main#contenido{padding:0!important;margin:0!important;max-width:none!important}body{background:#fff!important}.ind-card,.kpis{break-inside:avoid;box-shadow:none}}
+/* ===== v0.6: microinteracciones y entrada de pantallas (ligeras, solo transform/opacity) ===== */
+:root{--r-card:12px;--r-ctl:8px;--sombra-s:0 1px 2px rgba(122,17,80,.04),0 2px 8px rgba(15,20,25,.04)}
+.card,.lista,.kpis,.tabla-wrap,.ind-card,.turn-tabla{box-shadow:var(--sombra-s)}
+#contenido.entra>*{animation:entra 260ms var(--ease) both}
+#contenido.entra>*:nth-child(2){animation-delay:30ms}#contenido.entra>*:nth-child(3){animation-delay:60ms}
+#contenido.entra>*:nth-child(4){animation-delay:90ms}#contenido.entra>*:nth-child(5){animation-delay:120ms}
+#contenido.entra>*:nth-child(n+6){animation-delay:150ms}
+@keyframes entra{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.bottom button .ico{position:relative;z-index:0}
+.bottom button .ico::before{content:"";position:absolute;inset:-4px -14px;border-radius:999px;background:var(--rosa-p);z-index:-1;opacity:0;transform:scaleX(.6);transition:opacity 200ms var(--ease),transform 240ms var(--ease)}
+.bottom button.act .ico::before{opacity:1;transform:none}
+.bottom button{transition:color 150ms ease,transform 160ms var(--ease)}
+.fila.click{transition:background-color 150ms ease}
+.fila.click:active{background:var(--rosa-p)}
+.badge{transition:background-color 300ms ease,color 300ms ease}
+select,input,textarea{transition:border-color 150ms ease,box-shadow 150ms ease}
+@media(hover:hover) and (pointer:fine){
+  .fila.click:hover{background:#fbf6f9}
+  .card.click:hover,.eqc:hover{box-shadow:0 4px 16px rgba(122,17,80,.08)}
+}
+@media(prefers-reduced-motion:reduce){#contenido.entra>*{animation:none}}
+/* ===== v0.6: panel de televisor (claro / oscuro) ===== */
+:root{
+  --tv-bg:#eef1f6;--tv-bg2:#fbeaf3;--tv-card:#ffffff;--tv-ink:#101828;--tv-muted:#556070;--tv-line:#dfe4eb;--tv-brand:#A31968;
+  --tv-ok:#16794a;--tv-ok-bg:#e3f5ea;--tv-ok-line:#9fdcb8;
+  --tv-uso:#b45309;--tv-uso-bg:#fff3d6;--tv-uso-line:#f6c967;
+  --tv-bad:#c0262d;--tv-bad-bg:#fde8e8;--tv-bad-line:#f3a7a7;
+  --tv-sombra:0 1px 2px rgba(16,24,40,.06),0 4px 14px rgba(16,24,40,.05);
+}
+html[data-tv-tema="oscuro"]{
+  --tv-bg:#0b111b;--tv-bg2:#1a0f19;--tv-card:#131b27;--tv-ink:#eef2f7;--tv-muted:#9aa7b6;--tv-line:#243041;--tv-brand:#f06bb5;
+  --tv-ok:#4ad08b;--tv-ok-bg:rgba(74,208,139,.12);--tv-ok-line:rgba(74,208,139,.45);
+  --tv-uso:#f5bd45;--tv-uso-bg:rgba(245,189,69,.13);--tv-uso-line:rgba(245,189,69,.5);
+  --tv-bad:#ff7088;--tv-bad-bg:rgba(255,112,136,.13);--tv-bad-line:rgba(255,112,136,.5);
+  --tv-sombra:none;color-scheme:dark;
+}
+body.modo-tv{background:var(--tv-bg);background-image:radial-gradient(120% 60% at 100% 0,var(--tv-bg2),transparent 60%);background-attachment:fixed;color:var(--tv-ink);font-size:clamp(14px,1.2vw,32px);line-height:1.35;transition:background-color 400ms ease,color 400ms ease;min-height:100vh}
+.tv{padding:1.6em 2em 2em;transition:transform 2s ease}
+.tv-cab{display:flex;align-items:center;gap:1.2em;margin-bottom:1.2em}
+.tv-marca{display:flex;align-items:center;gap:.8em;flex:1;min-width:0}
+.tv-marca .marca-svg{width:2.6em;height:2.6em}
+.tv-marca h1{font-size:1.7em;line-height:1.15;font-weight:600;letter-spacing:-.015em;color:var(--tv-ink);margin:0}
+.tv-marca small{display:block;font-size:.85em;color:var(--tv-muted);font-weight:500;margin-top:.15em}
+.tv-vivo{display:inline-flex;align-items:center;gap:.5em;height:2.2em;padding:0 .9em;border-radius:999px;background:var(--tv-card);border:1px solid var(--tv-line);color:var(--tv-muted);font-size:.85em;font-weight:500;white-space:nowrap}
+.tv-vivo i{width:.65em;height:.65em;border-radius:50%;background:var(--tv-ok);box-shadow:0 0 0 0 var(--tv-ok-line);animation:tvLatido 2.4s ease-in-out infinite}
+.tv-vivo.viejo{color:var(--tv-uso);border-color:var(--tv-uso-line);background:var(--tv-uso-bg)}
+.tv-vivo.viejo i{background:var(--tv-uso);animation:none}
+@keyframes tvLatido{50%{opacity:.35}}
+.tv-tema{display:inline-flex;align-items:center;gap:.45em;height:2.2em;padding:0 .9em;border-radius:999px;border:1px solid var(--tv-line);background:var(--tv-card);color:var(--tv-ink);font:inherit;font-size:.85em;font-weight:500;cursor:pointer;transition:background-color 200ms ease,transform 160ms var(--ease)}
+.tv-tema:active{transform:scale(.96)}
+.tv-tema svg{width:1.2em;height:1.2em}
+.tv-hora{text-align:right;line-height:1.05}
+.tv-reloj{font-size:2.6em;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--tv-ink)}
+.tv-fecha{font-size:.85em;color:var(--tv-muted);margin-top:.25em}
+.tv-res{display:grid;grid-template-columns:repeat(auto-fit,minmax(10.5em,1fr));gap:.8em;margin-bottom:1.3em}
+.tv-k{display:flex;align-items:center;gap:.8em;background:var(--tv-card);border:1px solid var(--tv-line);border-radius:.8em;padding:.8em 1em;box-shadow:var(--tv-sombra);transition:background-color 400ms ease,border-color 400ms ease}
+.tv-k .anillo{width:2.8em;height:2.8em;flex-shrink:0}
+.tv-k .anillo circle{fill:none;stroke-width:4}
+.tv-k .anillo .pista{stroke:var(--tv-line)}
+.tv-k .anillo .valor{stroke:var(--c,var(--tv-ok));stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 800ms var(--ease)}
+.tv-k .kic{width:2.4em;height:2.4em;flex-shrink:0;display:grid;place-items:center;border-radius:.7em;background:var(--bg,var(--tv-bg));color:var(--c,var(--tv-muted))}
+.tv-k .kic svg{width:1.4em;height:1.4em}
+.tv-k span{display:flex;flex-direction:column;min-width:0;color:var(--tv-muted);font-size:.85em;line-height:1.25}
+.tv-k b{font-size:2em;line-height:1.1;font-weight:600;color:var(--tv-ink);font-variant-numeric:tabular-nums;letter-spacing:-.02em;transition:opacity 300ms ease}
+.tv-k b small{font-size:.55em;font-weight:500;color:var(--tv-muted);letter-spacing:0}
+.tv-k b.cambia{animation:tvNum 600ms var(--ease)}
+@keyframes tvNum{from{opacity:.2;transform:translateY(.15em)}to{opacity:1;transform:none}}
+.tv-sec{display:flex;align-items:center;gap:.7em;margin:1.2em 0 .7em}
+.tv-sec h2{font-size:1.15em;font-weight:600;color:var(--tv-ink);margin:0}
+.tv-sec .ico{width:1.4em;height:1.4em;color:var(--tv-muted)}
+.tv-sec .tv-cnt{color:var(--tv-muted);font-size:.9em;font-weight:500}
+.tv-leyenda{display:flex;gap:1.4em;margin-left:auto;color:var(--tv-muted);font-size:.85em;flex-wrap:wrap}
+.tv-leyenda span{display:inline-flex;align-items:center;gap:.45em}
+.tv-leyenda i{width:.75em;height:.75em;border-radius:50%;display:inline-block}
+.tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(12.5em,1fr));gap:.8em}
+.tv-eq{position:relative;overflow:hidden;border-radius:.8em;padding:.8em 1em .85em 1.25em;background:var(--tv-card);border:1px solid var(--tv-line);box-shadow:var(--tv-sombra);transition:background-color 700ms ease,border-color 700ms ease,opacity 400ms ease}
+.tv-eq::before{content:"";position:absolute;left:0;top:0;bottom:0;width:.32em;background:var(--c);transition:background-color 700ms ease}
+.tv-eq.st-ok{--c:var(--tv-ok)}
+.tv-eq.st-uso{--c:var(--tv-uso);background:var(--tv-uso-bg);border-color:var(--tv-uso-line)}
+.tv-eq.st-bad{--c:var(--tv-bad);background:var(--tv-bad-bg);border-color:var(--tv-bad-line)}
+.tv-eq-top{display:flex;align-items:center;justify-content:space-between;gap:.5em}
+.tv-eq .c{display:flex;align-items:baseline;gap:.15em;min-width:0;color:var(--tv-ink);line-height:1;white-space:nowrap}
+.tv-eq .c small{font-size:.95em;font-weight:500;color:var(--tv-muted);letter-spacing:.01em}
+.tv-eq .c span{font-size:2.3em;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.tv-eq .tipo{width:1.7em;height:1.7em;color:var(--tv-muted);opacity:.8;flex-shrink:0}
+.tv-eq .tipo svg{width:100%;height:100%;stroke-width:1.5}
+.tv-pill{display:inline-flex;align-items:center;gap:.4em;margin:.35em 0 .3em;padding:.2em .65em .2em .45em;border-radius:999px;font-weight:600;font-size:.95em;color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);transition:color 700ms ease,background-color 700ms ease}
+.tv-pill svg{width:1.15em;height:1.15em;stroke-width:2.2}
+.tv-eq .d{color:var(--tv-muted);font-size:.88em;min-height:1.3em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tv-eq.st-uso .d,.tv-eq.st-bad .d{color:var(--tv-ink);opacity:.8}
+.tv-eq-mid{display:flex;align-items:center;gap:.5em;flex-wrap:wrap}
+.tv-nuevo{font-size:.72em;font-weight:600;padding:.15em .55em;border-radius:999px;background:var(--tv-brand);color:#fff;letter-spacing:.02em}
+.tv-eq.cambio{animation:tvCambio 1.8s var(--ease) 1}
+@keyframes tvCambio{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--c) 55%,transparent)}70%{box-shadow:0 0 0 .7em color-mix(in srgb,var(--c) 0%,transparent)}100%{box-shadow:var(--tv-sombra)}}
+.tv-aviso{display:flex;align-items:center;gap:.6em;margin:0 0 1em;padding:.6em 1em;border-radius:.7em;background:var(--tv-uso-bg);border:1px solid var(--tv-uso-line);color:var(--tv-ink);font-size:.9em}
+.tv-error{display:grid;place-items:center;min-height:100vh;font-size:1.6em;padding:2em;text-align:center;color:var(--tv-ink)}
+@media(max-width:700px){.tv{padding:1em}.tv-cab{flex-wrap:wrap}.tv-hora{order:-1;width:100%;text-align:left}.tv-leyenda{margin-left:0;width:100%}}
+@media(prefers-reduced-motion:reduce){.tv-vivo i{animation:none}.tv-eq.cambio,.tv-k b.cambia{animation:none}.tv{transition:none}}
+/* ===== v0.6: barra superior con «Cerrar sesión» siempre visible ===== */
+.col{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{position:sticky;top:0;z-index:15;display:flex;align-items:center;gap:8px;min-height:52px;padding:6px max(12px,env(safe-area-inset-right)) 6px max(16px,env(safe-area-inset-left));padding-top:calc(6px + env(safe-area-inset-top));background:color-mix(in srgb,var(--ground) 88%,transparent);backdrop-filter:saturate(1.4) blur(8px);-webkit-backdrop-filter:saturate(1.4) blur(8px);border-bottom:1px solid var(--border)}
+.tb-marca{flex:1;min-width:0;font-size:15px}
+.tb-marca .marca-svg{width:26px;height:26px}
+.tb-user{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 8px;background:none;border:0;border-radius:999px;color:var(--text);font-size:13px;font-weight:500;transition:background-color 150ms ease}
+.tb-user .av{width:28px;height:28px;font-size:11px}
+.tb-salir{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 12px;border-radius:999px;border:1px solid var(--control);background:var(--surface);color:var(--bad-ink);font-size:13px;font-weight:500;white-space:nowrap;transition:background-color 150ms ease,border-color 150ms ease,transform 160ms var(--ease)}
+.tb-salir .ico{width:18px;height:18px}
+.tb-salir:hover{background:var(--bad-bg);border-color:#f2b8b2}
+.tb-salir:active{transform:scale(.97)}
+@media(max-width:420px){.tb-user span{display:none}}
+@media(min-width:900px){
+  .topbar{padding:8px 40px;min-height:56px;justify-content:flex-end}
+  .tb-marca{display:none}
+  .tb-user:hover{background:var(--raised)}
+  main{padding-top:24px}
+}
+/* ===== v0.6: asignación semanal de turnos ===== */
+:root{--dia:#b45309;--dia-bg:#fef3c7;--noche:#4338ca;--noche-bg:#e0e7ff}
+p.nota{color:var(--muted);font-size:12px;line-height:17px;margin-top:16px}
+.turn-barra{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.turn-rango{display:flex;flex-direction:column;align-items:center;line-height:1.25;min-width:180px}
+.turn-rango small{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.turn-ir{margin:0;font-size:12px;color:var(--muted);font-weight:500}
+.turn-ir input{height:34px;margin-top:4px;width:auto}
+.turn-estado{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.turn-res{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px;margin-bottom:14px}
+.turn-k{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--r-card);background:var(--surface);border:1px solid var(--border)}
+.turn-k .ico{width:22px;height:22px}
+.turn-k span{display:flex;flex-direction:column;font-size:12px;color:var(--muted);line-height:16px}
+.turn-k b{font-size:22px;line-height:26px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums;transition:transform 200ms var(--ease)}
+.turn-k.dia .ico{color:var(--dia)}.turn-k.noche .ico{color:var(--noche)}.turn-k.ninguno .ico,.turn-k.otro .ico{color:var(--faint)}
+.turn-av{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 12px}
+.turn-tabla{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden}
+.turn-th{display:grid;grid-template-columns:1fr minmax(150px,240px);gap:12px;padding:8px 16px;font-size:12px;font-weight:500;color:var(--muted);background:var(--raised);text-transform:uppercase;letter-spacing:.05em}
+.turn-fila{display:grid;grid-template-columns:1fr minmax(150px,240px);gap:12px;align-items:center;padding:10px 16px;border-top:1px solid var(--rule);position:relative;transition:background-color 200ms ease}
+.turn-fila::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:3px;border-radius:0 3px 3px 0;background:transparent;transition:background-color 200ms ease}
+.turn-fila.t-dia::before{background:var(--dia)}.turn-fila.t-noche::before{background:var(--noche)}.turn-fila.t-otro::before{background:var(--faint)}
+.turn-fila.cambio{background:var(--hue-s)}
+.turn-quien{display:flex;align-items:flex-start;gap:10px;min-width:0}
+.turn-quien .av{width:32px;height:32px;font-size:12px;margin-top:1px}
+.turn-quien b{display:block;font-weight:500}
+.turn-quien small{display:block;color:var(--muted);font-size:12px;line-height:16px}
+.turn-quien em{font-style:normal;color:var(--mag-ink);font-weight:500}
+.turn-excs{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.turn-exc{font-size:11px;line-height:18px;padding:0 7px;border-radius:999px;background:var(--neu-bg);color:var(--neu-ink)}
+.turn-exc.t-dia{background:var(--dia-bg);color:var(--dia)}.turn-exc.t-noche{background:var(--noche-bg);color:var(--noche)}.turn-exc.aus{background:var(--bad-bg);color:var(--bad-ink)}
+.turn-sel{display:flex;align-items:center;gap:8px}
+.turn-pto{display:inline-flex;width:20px;height:20px;flex-shrink:0;color:var(--faint)}
+.turn-pto svg{width:100%;height:100%}
+.t-dia .turn-pto{color:var(--dia)}.t-noche .turn-pto{color:var(--noche)}
+.turn-sel select{flex:1;min-width:0;height:44px;font-weight:500}
+.t-dia .turn-sel select{border-color:#f3c77a}.t-noche .turn-sel select{border-color:#a5b4fc}
+.turn-acc{position:sticky;bottom:calc(64px + env(safe-area-inset-bottom));z-index:5;margin:14px 0 0}
+.turn-acc-in{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:10px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid var(--border);border-radius:var(--r-card);box-shadow:0 6px 20px rgba(15,20,25,.08)}
+.turn-herr{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 10px}
+.turn-msg{flex:1;font-size:13px;color:var(--muted);min-width:0}
+.enlace{background:none;border:0;padding:0;color:var(--hue);font-weight:500;text-decoration:underline;text-underline-offset:2px}
+.turn-guardar{height:44px;padding:0 18px}
+.turn-det{margin-top:18px}
+.turn-det summary{cursor:pointer;font-weight:600;font-size:14px;padding:6px 0;list-style-position:inside}
+.turn-pie{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:16px;padding:12px 14px;border:1px dashed var(--control);border-radius:var(--r-card)}
+.turn-link{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-4px 0 14px;font-size:13px;color:var(--muted)}
+.turn-link .ico{width:18px;height:18px}
+.turn-link b{color:var(--text)}
+@media(max-width:560px){
+  .turn-th{display:none}
+  .turn-fila{grid-template-columns:1fr;gap:8px}
+  .turn-acc-in{padding:8px}
+  .turn-guardar{flex:1 1 100%}
+  .turn-msg{flex-basis:100%;text-align:center;order:2}
+  .turn-herr .btn{flex:1 1 auto}
+}
+@media(min-width:900px){.turn-acc{bottom:12px}}
 </style>
 </head>
 <body>
@@ -651,7 +801,7 @@ var S = {
   avisos: [], filtroEq: 'TODOS', buscaEq: '', encTab: 'recibidos', adminTab: 'usuarios',
   retro: null, usuariosEnc: null, encDest: null, _res: null,
   vcache: {}, diag: [], _json: null, _min: 0,
-  selEq: null, filtroEst: 'TODOS', verifTab: 'mis', verifSemana: '', verifDisp: null, verifDispKey: '', verifRes: null, encPend: 0, flash: {}, anSel: null, mapaFaltan: [], infArea: 'TODAS', infEst: 'ENTREGADO', infRes: null, indPre: '30', indDesde: '', indHasta: '', indModo: 'resumen', indAnio: ''
+  selEq: null, filtroEst: 'TODOS', verifTab: 'mis', verifSemana: '', verifDisp: null, verifDispKey: '', verifRes: null, encPend: 0, flash: {}, anSel: null, mapaFaltan: [], infArea: 'TODAS', infEst: 'ENTREGADO', infRes: null, indPre: '30', indDesde: '', indHasta: '', indModo: 'resumen', indAnio: '', turnSem: '', turnEd: null
 };
 var ROL_TXT = { ANALISTA: 'Analista', REVISOR: 'Revisor', JEFATURA: 'Jefatura' };
 var AREA_TXT = { MP: 'Materias Primas', PT: 'Producto Terminado', AMBAS: 'Ambas áreas' };
@@ -660,6 +810,10 @@ var EST = { DISPONIBLE: ['verde', 'Disponible'], OCUPADO: ['amarillo', 'Ocupado'
 
 function L(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>'; }
 var ICO = {
+  sol: L('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'),
+  luna: L('<path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/>'),
+  turnos: L('<rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/><circle cx="9" cy="14.5" r="1.6"/><path d="M13 14.5h4"/>'),
+  salir: L('<path d="M9 21H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4"/><path d="m16 17 5-5-5-5M21 12H9"/>'),
   home: L('<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'),
   /* equipos: HPLC = módulos apilados · disolutor = vasos con paletas */
   hplc: L('<rect x="3" y="3" width="18" height="5" rx="1.2"/><rect x="3" y="9.5" width="18" height="5" rx="1.2"/><rect x="3" y="16" width="18" height="5" rx="1.2"/><path d="M6.2 5.5h.01M8.7 5.5h.01M13 5.5h5M6.2 12h.01M13 12h5M6.2 18.5h.01M8.7 18.5h.01M13 18.5h5"/>'),
@@ -808,13 +962,13 @@ function toast(msg, tipo) {
 }
 
 /* ---------- Comunicación con Apps Script ---------- */
-var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1, verifMias: 1, verifPlan: 1, analisisLista: 1, informesLista: 1, indicadores: 1, usoAnual: 1 };
+var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1, verifMias: 1, verifPlan: 1, analisisLista: 1, informesLista: 1, indicadores: 1, usoAnual: 1, turnosSemana: 1 };
 var POLL = ['inicio', 'equipos', 'equipo', 'reservas', 'encargos', 'verif', 'ocup', 'hplc', 'dis', 'mp', 'pt', 'informes'];
 var enCurso = {};
 /** Clave y solicitud de lectura de la pantalla actual (o de la indicada). */
 function claveVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
-  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '') + (v === 'indicadores' ? '|' + S.indModo + '|' + S.indAnio + '|' + S.indDesde + '|' + S.indHasta : '') + (v === 'verif' ? '|' + (tabVerifAct() === 'mis' ? 'mis' : 'plan:' + (S.verifSemana || '')) : '');
+  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '') + (v === 'indicadores' ? '|' + S.indModo + '|' + S.indAnio + '|' + S.indDesde + '|' + S.indHasta : '') + (v === 'verif' ? '|' + (tabVerifAct() === 'mis' ? 'mis' : 'plan:' + (S.verifSemana || '')) : '') + (v === 'turnos' ? '|' + (S.turnSem || '') : '');
 }
 function pedidoVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
@@ -828,6 +982,7 @@ function pedidoVista(v, p) {
   if (v === 'reservas') return { accion: 'reservas', datos: {} };
   if (v === 'encargos') return { accion: 'encargos', datos: { todos: S.encTab === 'todos' } };
   if (v === 'admin') return { accion: 'adminDatos', datos: {} };
+  if (v === 'turnos') return { accion: 'turnosSemana', datos: { semana: S.turnSem || '' } };
   if (v === 'perfil') return { accion: 'yo', datos: {} };
   if (v === 'verif') return tabVerifAct() === 'mis' ? { accion: 'verifMias', datos: {} } : { accion: 'verifPlan', datos: { semana: S.verifSemana || '' } };
   return null;
@@ -947,12 +1102,12 @@ function navItems() {
   if (an) { it.push(['encargos', 'Encargos entre turnos', ICO.enc]); it.push(['retro', 'Registro disolutores', ICO.dis]); }
   if (perm('indicadores')) it.push(['indicadores', 'Indicadores', ICO.stats]);
   if (perm('ocupancia')) { it.push(['equipos', 'Equipos', ICO.hplc]); it.push(['reservas', 'Reservas HPLC', ICO.cal]); }
-  if (puede('JEFATURA')) it.push(['admin', 'Administración', ICO.cog]);
+  if (puede('JEFATURA')) { it.push(['turnos', 'Asignación de turnos', ICO.turnos]); it.push(['admin', 'Administración', ICO.cog]); }
   it.push(['perfil', 'Mi perfil', ICO.user]);
   return it;
 }
 function vistaNav() { return S.vista === 'equipo' ? 'equipos' : (S.vista === 'hplc' || S.vista === 'dis') ? 'ocup' : S.vista; }
-var CORTO = { reservas: 'Reservas', verif: 'Tareas', encargos: 'Encargos', mp: 'Mat. primas', pt: 'Prod. term.', ocup: 'Ocupancia', informes: 'Informes', indicadores: 'Indicadores' };
+var CORTO = { reservas: 'Reservas', verif: 'Tareas', encargos: 'Encargos', mp: 'Mat. primas', pt: 'Prod. term.', ocup: 'Ocupancia', informes: 'Informes', indicadores: 'Indicadores', turnos: 'Turnos' };
 /** Opciones de la barra inferior (teléfono): las de uso diario. El resto queda en «Más». */
 function bottomKeys() {
   var por = {}; navItems().forEach(function (i) { por[i[0]] = 1; });
@@ -968,7 +1123,7 @@ function shell() {
   var nav = function (i) {
     return '<button class="nav-item' + (v === i[0] ? ' act' : '') + '" data-a="ir" data-v="' + i[0] + '"' + (v === i[0] ? ' aria-current="page"' : '') + '><span class="ico" aria-hidden="true">' + i[2] + '</span><span>' + i[1] + '</span><span class="cnt-w" data-cnt="' + i[0] + '">' + cnt(i[0]) + '</span></button>';
   };
-  var grupos = [['', ['inicio']], ['Laboratorio', ['ocup', 'mp', 'pt']], ['Mi trabajo', ['verif', 'informes', 'encargos', 'retro']], ['Equipos', ['equipos', 'reservas']], ['Gestión', ['indicadores', 'admin']]];
+  var grupos = [['', ['inicio']], ['Laboratorio', ['ocup', 'mp', 'pt']], ['Mi trabajo', ['verif', 'informes', 'encargos', 'retro']], ['Equipos', ['equipos', 'reservas']], ['Gestión', ['turnos', 'indicadores', 'admin']]];
   var side = grupos.map(function (g) {
     var its = g[1].filter(function (k) { return por[k]; }).map(function (k) { return nav(por[k]); });
     return its.length ? '<div class="nav-grupo">' + (g[0] ? '<div class="nav-tit">' + g[0] + '</div>' : '') + its.join('') + '</div>' : '';
@@ -981,8 +1136,12 @@ function shell() {
   }).join('') + '<button data-a="menuMas" class="' + (enMas ? 'act' : '') + '"><span class="ico" aria-hidden="true">' + ICO.mas + '</span><span>Más</span></button>';
   return '<a class="skip" href="#contenido" data-a="saltar">Saltar al contenido</a><div class="layout"><nav class="side" aria-label="Principal"><div class="marca">' + MARCA + 'LabControl</div>' +
     '<div class="ambito"><b>' + esc((S.config && S.config.nombre_laboratorio) || 'Laboratorio') + '</b><small>Materias primas y producto terminado</small></div>' + side +
-    '<button class="user-row' + (v === 'perfil' ? ' act' : '') + '" data-a="ir" data-v="perfil">' + avatar(S.usuario.nombre, true) + '<span><b>' + esc(S.usuario.nombre) + '</b><small>' + S.usuario.roles.map(function (r) { return ROL_TXT[r]; }).join(' · ') + '</small></span></button></nav>' +
-    '<main id="contenido">' + contenido() + '</main><nav class="bottom" aria-label="Principal">' + bottom + '</nav></div>';
+    '<button class="user-row' + (v === 'perfil' ? ' act' : '') + '" data-a="ir" data-v="perfil">' + avatar(S.usuario.nombre, true) + '<span><b>' + esc(S.usuario.nombre) + '</b><small>' + S.usuario.roles.map(function (r) { return ROL_TXT[r]; }).join(' · ') + '</small></span></button>' +
+    '<button class="nav-item salir" data-a="salir"><span class="ico" aria-hidden="true">' + ICO.salir + '</span><span>Cerrar sesión</span></button></nav>' +
+    '<div class="col"><header class="topbar"><div class="marca tb-marca">' + MARCA + '<span>LabControl</span></div>' +
+    '<button class="tb-user" data-a="ir" data-v="perfil" aria-label="Mi perfil: ' + esc(S.usuario.nombre) + '">' + avatar(S.usuario.nombre) + '<span>' + esc(primerNombre()) + '</span></button>' +
+    '<button class="tb-salir" data-a="salir"><span class="ico" aria-hidden="true">' + ICO.salir + '</span><span>Cerrar sesión</span></button></header>' +
+    '<main id="contenido">' + contenido() + '</main></div><nav class="bottom" aria-label="Principal">' + bottom + '</nav></div>';
 }
 
 function render() {
@@ -1016,11 +1175,18 @@ function pintar() {
   });
   actualizarNav();
 }
+/** Entrada suave de la pantalla al navegar (no en las actualizaciones automáticas). */
+function entrada() {
+  var m = $('#contenido'); if (!m) return;
+  m.classList.remove('entra'); void m.offsetWidth; m.classList.add('entra');
+  clearTimeout(S._entra); S._entra = setTimeout(function () { m.classList.remove('entra'); }, 500);
+}
 function ir(vista, param) {
   S.vista = vista; S.param = param || null;
   var c = S.vcache[claveVista()];
   S.datos = c ? c.d : null; // la última versión conocida se ve al instante y se refresca enseguida
   if (!$('#contenido')) render(); else pintar();
+  entrada();
   window.scrollTo(0, 0);
   var it = navItems().filter(function (i) { return i[0] === vistaNav(); })[0];
   document.title = (it ? it[1] + ' · ' : '') + 'LabControl';
@@ -1631,6 +1797,7 @@ function celdaResp(a, pub) {
 
 function vPlan(d) {
   var plan = d.plan, edit = !plan || plan.estado === 'BORRADOR', pub = !!plan && plan.estado === 'PUBLICADA', h = semanaNav(d), r = d.resumen || {};
+  if (puede('JEFATURA')) h += '<div class="turn-link">' + ic('turnos') + '<span>Turno día esta semana: <b>' + (d.candidatos || []).filter(function (c) { return d.fechas.some(function (f) { return (d.disponibilidad[f] || []).indexOf(c.id) >= 0; }); }).length + '</b> analistas</span><button class="btn ghost chico" data-a="planTurnos">Asignar turnos de la semana</button></div>';
   var activas = d.catalogo.filter(function (v) { return v.activo; });
   var est = !plan ? '<span class="badge info"><i></i>Sin planificar</span>' : edit ? '<span class="badge info"><i></i>Borrador · pendiente de confirmar</span>' : '<span class="badge hecho"><i></i>Publicada</span>';
   var nota = plan ? (pub ? 'Publicada por ' + esc(plan.publicado_por) + ' · ' + fh(plan.publicado_en) : 'Generada por ' + esc(plan.generado_por) + ' · ' + fh(plan.generado_en)) : '';
@@ -1656,7 +1823,7 @@ function vPlan(d) {
       '<button class="mod" data-a="verifCopia"' + (d.hay_anterior ? '' : ' disabled') + '><b>' + ic('copia') + 'Copiar semana anterior</b><span class="sub">' + (d.hay_anterior ? 'Repite los responsables y señala a quien no esté disponible.' : 'No hay planificación de la semana anterior.') + '</span></button>' +
       '<button class="mod" data-a="verifManual"><b>' + ic('mano') + 'Asignación manual</b><span class="sub">Tú eliges quién hace cada tarea cada día.</span></button></div>';
     h += '<details class="det-disp"><summary>Ajustar disponibilidad antes de generar (opcional)</summary><p class="sub" style="margin:8px 0">Analistas del turno día de MP y PT. Ya se descartaron ausencias y días fuera de turno; ajusta lo que haga falta. Solo afecta a la distribución automática.</p>';
-    if (!d.candidatos.length) h += vacioG('cal', 'No hay analistas con turno día asignado', 'Asigna turnos en Administración → Turnos.');
+    if (!d.candidatos.length) h += vacioG('cal', 'No hay analistas con turno día asignado', 'Asígnalos en «Asignación de turnos».', '<button class="btn sec chico" data-a="planTurnos">Asignar turnos de la semana</button>');
     else {
       h += '<div class="tabla-wrap"><table class="tabla-plan"><thead><tr><th>Analista</th>' + d.fechas.map(function (f) { return '<th class="c" style="text-align:center">' + esc(diaCorto(f)) + '</th>'; }).join('') + '</tr></thead><tbody>' +
         d.candidatos.map(function (u) {
@@ -1744,6 +1911,78 @@ function formVerifCat(id) {
 }
 
 
+/* ---------- Asignación semanal de turnos (v0.6) ---------- */
+function turnoDe(d, id) { return id ? d.opciones.filter(function (o) { return o.id === id; })[0] || null : null; }
+function turnoTipo(d, id) { if (!id) return 'NINGUNO'; var t = turnoDe(d, id); return t ? (t.tipo === 'DIA' || t.tipo === 'NOCHE' ? t.tipo : 'OTRO') : 'OTRO'; }
+function turnoEtq(d, id) {
+  if (!id) return 'Sin turno';
+  var t = turnoDe(d, id); if (!t) return 'Turno inactivo';
+  var mismos = d.opciones.filter(function (o) { return o.tipo === t.tipo; }).length;
+  return mismos === 1 && t.tipo === 'DIA' ? 'Día' : mismos === 1 && t.tipo === 'NOCHE' ? 'Noche' : t.nombre;
+}
+function turnEdic(d) { if (!S.turnEd || S.turnEd.lunes !== d.lunes) S.turnEd = { lunes: d.lunes, v: {} }; return S.turnEd.v; }
+function turnValor(d, a) { var e = S.turnEd && S.turnEd.lunes === d.lunes ? S.turnEd.v : {}; return e[a.id] !== undefined ? e[a.id] : a.turno_id; }
+/** Personas cuyo turno en pantalla difiere de lo guardado (o que aún no tienen la semana guardada). */
+function turnPendientes(d) { return d.analistas.filter(function (a) { return a.fuente !== 'SEMANA' || turnValor(d, a) !== a.turno_id; }); }
+function turnEditados(d) { return d.analistas.filter(function (a) { return turnValor(d, a) !== a.turno_id; }); }
+
+function vTurnos(d) {
+  if (!d || !d.analistas || !d.opciones) return cargandoHtml();
+  var fin = d.domingo, edit = turnEditados(d), pend = turnPendientes(d);
+  var res = { DIA: 0, NOCHE: 0, OTRO: 0, NINGUNO: 0 };
+  d.analistas.forEach(function (a) { res[turnoTipo(d, turnValor(d, a))]++; });
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('turnos') + 'Asignación de turnos</h1><p class="sub" style="margin:4px 0 0">Un turno por analista para toda la semana. Las excepciones por fecha son opcionales.</p></div></header>';
+  h += '<div class="turn-barra"><div class="semana" style="margin:0"><button class="btn sec chico" data-a="turnSem" data-d="-7" aria-label="Semana anterior">' + ic('back') + '</button>' +
+    '<b class="turn-rango"><small>Semana</small>' + esc(diaMes(d.lunes)) + ' – ' + esc(diaMes(fin)) + ' ' + d.lunes.slice(0, 4) + '</b>' +
+    '<button class="btn sec chico" data-a="turnSem" data-d="7" aria-label="Semana siguiente">' + ic('next') + '</button>' +
+    (d.lunes <= d.hoy && d.hoy <= fin ? '' : '<button class="btn ghost chico" data-a="turnSem" data-d="0">Esta semana</button>') + '</div>' +
+    '<label class="turn-ir">Ir a la fecha<input type="date" data-a="turnFecha" value="' + d.lunes + '"></label></div>';
+  // Estado de la semana
+  var estado = d.guardada
+    ? '<span class="badge verde"><i></i>Guardada</span><span class="sub">' + (d.ultimo ? 'Última modificación: ' + esc(d.ultimo.por || '—') + ' · ' + esc(fh(d.ultimo.en)) : '') + (d.completa ? '' : ' · faltan personas por guardar') + '</span>'
+    : '<span class="badge amarillo"><i></i>Sin guardar</span><span class="sub">Se muestran los turnos vigentes por período. Revisa y guarda para confirmar la semana.</span>';
+  h += '<div class="linea turn-estado">' + estado + '</div>';
+  h += '<div class="turn-res" role="status" aria-live="polite">' +
+    '<div class="turn-k dia">' + ic('sol') + '<span><b>' + res.DIA + '</b>Día</span></div>' +
+    '<div class="turn-k noche">' + ic('luna') + '<span><b>' + res.NOCHE + '</b>Noche</span></div>' +
+    (res.OTRO ? '<div class="turn-k otro">' + ic('clock') + '<span><b>' + res.OTRO + '</b>Otro</span></div>' : '') +
+    '<div class="turn-k ninguno">' + ic('user') + '<span><b>' + res.NINGUNO + '</b>Sin turno</span></div></div>';
+  if (d.plan && d.plan.incompatibles) h += '<div class="alerta roja turn-av"><b>' + d.plan.incompatibles + (d.plan.incompatibles === 1 ? ' tarea pendiente del planificador quedó incompatible' : ' tareas pendientes del planificador quedaron incompatibles') + '</b> con estos turnos. Las tareas completadas no se tocan. <button class="btn sec chico" data-a="turnPlan">Revisar y corregir</button></div>';
+  if (!d.analistas.length) return h + vacioG('users', 'No hay analistas registrados', 'Crea usuarios con rol Analista en Administración → Usuarios.');
+  h += '<div class="turn-herr"><button class="btn sec chico" data-a="turnCopiar">' + ic('copia') + 'Copiar semana anterior</button>' +
+    '<button class="btn sec chico" data-a="turnExc">' + ic('cal') + 'Excepción por fecha</button></div>';
+  // Tabla: una fila por analista
+  var excPor = {}; d.excepciones.forEach(function (x) { (excPor[x.usuario_id] = excPor[x.usuario_id] || []).push(x); });
+  h += '<div class="turn-tabla" role="table" aria-label="Turno semanal por analista"><div class="turn-th" role="row"><span role="columnheader">Analista</span><span role="columnheader">Turno semanal</span></div>' +
+    d.analistas.map(function (a) {
+      var v = turnValor(d, a), tipo = turnoTipo(d, v), cambio = v !== a.turno_id;
+      var extra = (excPor[a.id] || []).map(function (x) { return '<span class="turn-exc t-' + x.tipo.toLowerCase() + '">' + esc(diaCorto(x.fecha)) + ': ' + esc(turnoEtq(d, x.turno_id)) + '</span>'; }).join('') +
+        (a.ausencias.length ? '<span class="turn-exc aus">Ausente ' + a.ausencias.map(diaCorto).map(esc).join(', ') + '</span>' : '');
+      var opts = d.opciones.map(function (o) { return '<option value="' + o.id + '"' + (o.id === v ? ' selected' : '') + '>' + esc(turnoEtq(d, o.id)) + ' · ' + o.hora_inicio + '–' + o.hora_fin + '</option>'; }).join('') +
+        (v && !turnoDe(d, v) ? '<option value="' + esc(v) + '" selected>Turno inactivo</option>' : '') +
+        '<option value=""' + (!v ? ' selected' : '') + '>Sin turno</option>';
+      return '<div class="turn-fila t-' + tipo.toLowerCase() + (cambio ? ' cambio' : '') + '" role="row"><div class="turn-quien" role="cell">' + avatar(a.nombre) + '<div><b>' + esc(a.nombre) + '</b>' +
+        '<small>' + esc(AREA_TXT[a.area_habitual] || '') + (cambio ? ' · <em>Cambiado</em>' : a.fuente === 'PERIODO' ? ' · según período' : '') + '</small>' + (extra ? '<div class="turn-excs">' + extra + '</div>' : '') + '</div></div>' +
+        '<div class="turn-sel" role="cell"><span class="turn-pto" aria-hidden="true">' + (tipo === 'NOCHE' ? ICO.luna : tipo === 'DIA' ? ICO.sol : tipo === 'OTRO' ? ICO.clock : '') + '</span><select data-a="turnCambia" data-u="' + a.id + '" aria-label="Turno semanal de ' + esc(a.nombre) + '">' + opts + '</select></div></div>';
+    }).join('') + '</div>';
+  // Acciones
+  var lbl = d.guardada ? (edit.length ? 'Guardar ' + edit.length + (edit.length === 1 ? ' cambio' : ' cambios') : 'Sin cambios') : 'Guardar todos los turnos';
+  h += '<div class="turn-acc"><div class="turn-acc-in">' +
+    '<span class="turn-msg">' + (edit.length ? edit.length + (edit.length === 1 ? ' cambio sin guardar' : ' cambios sin guardar') + ' · <button class="enlace" data-a="turnDescartar">Descartar</button>' : d.guardada ? 'Todo guardado' : pend.length + ' analistas por confirmar') + '</span>' +
+    '<button class="btn turn-guardar" data-a="turnGuardar"' + (d.guardada && !edit.length ? ' disabled' : '') + '>' + ic('check') + lbl + '</button></div></div>';
+  // Excepciones
+  h += '<details class="turn-det"' + (d.excepciones.length ? ' open' : '') + '><summary>Excepciones de la semana<span class="cuenta">' + d.excepciones.length + '</span></summary>' +
+    '<p class="sub" style="margin:8px 0">Un cambio puntual en una fecha. Manda sobre el turno semanal solo ese día.</p>' +
+    (d.excepciones.length ? '<div class="lista">' + d.excepciones.map(function (x) {
+      return '<div class="fila"><div class="crece"><b>' + esc(x.usuario) + '</b> · ' + esc(diaLargo(x.fecha)) + ' → <b>' + esc(turnoEtq(d, x.turno_id)) + '</b>' +
+        '<div class="sub">' + (x.motivo ? esc(x.motivo) + ' · ' : '') + 'registró ' + esc(x.creado_por || '—') + '</div></div><button class="btn ghost chico" data-a="excQuitar" data-id="' + x.id + '">Quitar</button></div>';
+    }).join('') + '</div>' : '<div class="vacio">Sin excepciones esta semana.</div>') + '</details>';
+  h += '<div class="turn-pie"><span class="sub">' + (d.plan ? 'La semana tiene planificación ' + (d.plan.estado === 'PUBLICADA' ? 'publicada' : 'en borrador') + '.' : 'Después de guardar, genera la planificación de verificaciones con estos turnos.') + '</span>' +
+    '<button class="btn sec chico" data-a="turnPlan">' + ic('verif') + 'Ir al planificador de esta semana</button></div>';
+  h += '<p class="nota">Los cambios quedan registrados en la auditoría (quién, cuándo, antes y después). Las asignaciones por período de Administración → Turnos siguen vigentes para las semanas que no se guarden aquí.</p>';
+  return h;
+}
+
 function contenido() {
   var d = S.datos;
   if (S.vista === 'retro') return S.sug ? vRetro() : cargandoHtml();
@@ -1758,6 +1997,7 @@ function contenido() {
     case 'reservas': return vReservas(d);
     case 'encargos': return vEncargos(d);
     case 'admin': return vAdmin(d);
+    case 'turnos': return vTurnos(d);
     case 'perfil': return vPerfil(d);
     case 'verif': return vVerif(d);
     case 'informes': return vInformes(d);
@@ -2077,6 +2317,7 @@ function vAdmin(d) {
       '<div class="acciones"><button class="btn chico">Guardar configuración</button></div></form></div>';
     h += '<div class="card" style="margin-top:12px"><h3>Modo televisor</h3><p class="sub">Panel de solo lectura sin datos personales. Abre este enlace en el navegador del televisor. Si el enlace se filtra, regenéralo.</p>' +
       (c.tv_url ? '<input readonly value="' + esc(c.tv_url) + '" style="width:100%" data-sel="1">' : '<p class="alerta">El enlace aparece después de implementar la aplicación web.</p>') +
+      '<p class="sub" style="margin-top:8px">Tema del televisor: se cambia con el botón del panel (claro, oscuro o automático) y queda guardado en esa pantalla. También puedes fijarlo agregando <b>&amp;tema=claro</b> o <b>&amp;tema=oscuro</b> al final del enlace.</p>' +
       '<div class="acciones"><button class="btn sec chico" data-a="regenerarTv">Regenerar enlace</button></div></div>';
   }
   return h;
@@ -2240,7 +2481,7 @@ var ACC = {
   filtroEq: function (ds) { S.filtroEq = ds.t; pintar(); },
   menuMas: function () {
     var bk = bottomKeys(), items = navItems().filter(function (i) { return bk.indexOf(i[0]) < 0; });
-    modal('<h2>Más</h2><div class="lista">' + items.map(function (i) { return '<button class="fila click" data-a="ir" data-v="' + i[0] + '">' + i[2].replace('<svg', '<svg width="22" height="22"') + '<span class="crece">' + i[1] + '</span></button>'; }).join('') + '</div><div class="acciones"><button class="btn sec" data-a="cerrarModal">Cerrar</button></div>');
+    modal('<h2>Más</h2><div class="lista">' + items.map(function (i) { return '<button class="fila click" data-a="ir" data-v="' + i[0] + '">' + i[2].replace('<svg', '<svg width="22" height="22"') + '<span class="crece">' + i[1] + '</span></button>'; }).join('') + '<button class="fila click" data-a="salir">' + ICO.salir.replace('<svg', '<svg width="22" height="22"') + '<span class="crece">Cerrar sesión</span></button></div><div class="acciones"><button class="btn sec" data-a="cerrarModal">Cerrar</button></div>');
   },
   cerrarModal: function () { if (S._res) { var r = S._res; S._res = null; r(null); } cerrarModal(); },
   resSi: function () { var r = S._res; S._res = null; cerrarModal(); if (r) r(true); },
@@ -2488,6 +2729,85 @@ function generarPlanUI(modalidad, el, titulo, aviso) {
   var con = d.plan ? confirmar('Se reemplazará la propuesta actual (borrador), incluidos los cambios manuales que hayas hecho en ella.', titulo, titulo) : Promise.resolve(true);
   con.then(function (ok) { if (ok) return go(); }).catch(function (e) { toast(e.message, 'error'); }).then(function () { if (el) el.disabled = false; });
 }
+function turnNav(ymd) {
+  var d = S.datos;
+  var ir2 = function () { S.turnSem = ymd; S.turnEd = null; var c = S.vcache[claveVista()]; S.datos = c ? c.d : null; pintar(); cargar(); };
+  if (d && d.analistas && turnEditados(d).length) {
+    confirmar('Tienes cambios sin guardar en esta semana. Si cambias de semana se descartan.', 'Descartar y cambiar', 'Cambios sin guardar').then(function (ok) { if (ok) ir2(); });
+  } else ir2();
+}
+ACC.turnSem = function (ds) {
+  var d = S.datos, base = d && d.lunes;
+  turnNav(ds.d === '0' || !base ? '' : ymdAdd(base, Number(ds.d)));
+};
+ACC.turnFecha = function (ds, el) { if (el.value) turnNav(el.value); };
+ACC.turnCambia = function (ds, el) {
+  var d = S.datos; if (!d || !d.analistas) return;
+  var a = d.analistas.filter(function (x) { return x.id === ds.u; })[0]; if (!a) return;
+  var e = turnEdic(d);
+  if (el.value === a.turno_id) delete e[a.id]; else e[a.id] = el.value;
+  pintar();
+};
+ACC.turnDescartar = function () { S.turnEd = null; pintar(); };
+ACC.turnCopiar = function () {
+  var d = S.datos; if (!d || !d.analistas) return;
+  var aplicarCopia = function () {
+    var e = turnEdic(d);
+    d.analistas.forEach(function (a) { if (a.anterior === a.turno_id) delete e[a.id]; else e[a.id] = a.anterior; });
+    pintar(); toast('Se copió la semana del ' + diaMes(d.anterior.lunes) + '. Revisa y guarda.');
+  };
+  var txt = (d.anterior.guardada ? 'Se pondrán en pantalla los turnos guardados de la semana del ' : 'La semana anterior no se guardó aquí: se usarán sus turnos vigentes por período (semana del ') + diaMes(d.anterior.lunes) + (d.anterior.guardada ? '.' : ').') +
+    ' No se guarda nada hasta que pulses «Guardar».';
+  if (d.guardada || turnEditados(d).length) confirmar(txt + (d.guardada ? '\n\nEsta semana ya tiene turnos guardados: revisa antes de guardar.' : ''), 'Copiar', 'Copiar semana anterior').then(function (ok) { if (ok) aplicarCopia(); });
+  else aplicarCopia();
+};
+ACC.turnGuardar = function (ds, btn) {
+  var d = S.datos; if (!d || !d.analistas) return;
+  var edit = turnEditados(d);
+  var enviar = function () {
+    var base = {}, previo = {};
+    d.analistas.forEach(function (a) { base[a.id] = a.fuente === 'SEMANA' ? a.turno_id : null; previo[a.id] = a.turno_id; });
+    var asign = d.analistas.map(function (a) { return { usuario_id: a.id, turno_id: turnValor(d, a) }; });
+    if (btn) btn.disabled = true;
+    return api('guardarTurnosSemana', { semana: d.lunes, asignaciones: asign, base: base, previo: previo }).then(function (r) {
+      S.turnEd = null;
+      toast(r.cambios ? 'Turnos guardados (' + r.cambios + (r.cambios === 1 ? ' cambio).' : ' cambios).') : 'Turnos confirmados, sin cambios.');
+      cargar();
+      if (r.impacto && r.impacto.incompatibles) {
+        modal('<h2>Revisa el planificador</h2><p>' + r.impacto.incompatibles + (r.impacto.incompatibles === 1 ? ' tarea pendiente quedó asignada a alguien que ya no está' : ' tareas pendientes quedaron asignadas a personas que ya no están') + ' en turno día esos días. Puedes redistribuirlas: las tareas completadas no se tocan.</p>' +
+          '<div class="acciones"><button class="btn sec" data-a="cerrarModal">Más tarde</button><button class="btn" data-a="turnPlan">Ir al planificador</button></div>');
+      }
+    }).catch(function (e) { if (btn) btn.disabled = false; toast(e.message, 'error'); });
+  };
+  if (d.guardada && edit.length) {
+    var lineas = edit.map(function (a) { return '• ' + a.nombre + ': ' + turnoEtq(d, a.turno_id) + ' → ' + turnoEtq(d, turnValor(d, a)); }).join('\n');
+    confirmar('Esta semana ya tenía turnos guardados. Se cambiará:\n\n' + lineas, 'Guardar cambios', 'Confirmar cambios de turno').then(function (ok) { if (ok) enviar(); });
+  } else enviar();
+};
+ACC.turnExc = function () {
+  var d = S.datos; if (!d || !d.analistas) return;
+  modal('<h2>Excepción por fecha</h2><p class="sub">Solo para un día puntual. El turno semanal no cambia.</p><form data-f="excTurno">' +
+    '<label>Analista<select name="usuario_id" required autofocus><option value="">Selecciona…</option>' + d.analistas.map(function (a) { return '<option value="' + a.id + '">' + esc(a.nombre) + ' (' + esc(turnoEtq(d, turnValor(d, a))) + ')</option>'; }).join('') + '</select></label>' +
+    '<label>Fecha<select name="fecha" required>' + d.fechas.map(function (f) { return '<option value="' + f + '"' + (f === d.hoy ? ' selected' : '') + '>' + esc(diaLargo(f)) + '</option>'; }).join('') + '</select></label>' +
+    '<label>Turno ese día<select name="turno_id">' + d.opciones.map(function (o) { return '<option value="' + o.id + '">' + esc(turnoEtq(d, o.id)) + ' · ' + o.hora_inicio + '–' + o.hora_fin + '</option>'; }).join('') + '<option value="">Sin turno (libre)</option></select></label>' +
+    '<label>Motivo <span class="sub">(opcional)</span><input name="motivo" maxlength="160" placeholder="Ej.: cubre a un compañero"></label>' +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Registrar excepción</button></div></form>');
+};
+FORM.excTurno = function (x) { return api('guardarExcepcionTurno', x).then(function () { return 'Excepción registrada.'; }); };
+ACC.excQuitar = function (ds) {
+  confirmar('La persona vuelve a su turno semanal ese día. La excepción queda anulada en el historial.', 'Quitar', 'Quitar excepción').then(function (ok) {
+    if (ok) api('quitarExcepcionTurno', { id: ds.id }).then(function () { toast('Excepción quitada.'); cargar(); }).catch(function (e) { toast(e.message, 'error'); });
+  });
+};
+ACC.turnPlan = function () {
+  var d = S.datos; cerrarModal();
+  S.verifTab = 'plan'; S.verifSemana = d && d.lunes ? d.lunes : '';
+  ir('verif');
+};
+ACC.planTurnos = function () {
+  var d = S.datos; S.turnSem = d && d.lunes ? d.lunes : ''; S.turnEd = null; ir('turnos');
+};
+
 ACC.verifGen = function (ds, el) { generarPlanUI('AUTO', el, 'Regenerar'); };
 ACC.verifCopia = function (ds, el) { generarPlanUI('COPIA', el, 'Copiar de nuevo'); };
 ACC.verifManual = function (ds, el) { generarPlanUI('MANUAL', el, 'Empezar de cero'); };
@@ -2736,34 +3056,172 @@ document.addEventListener('visibilitychange', function () {
   if (!document.hidden && S.token && S.usuario && !S.modal && POLL.indexOf(S.vista) >= 0) cargar(true);
 });
 
-/* ---------- Modo televisor ---------- */
+/* ---------- Modo televisor (v0.6: tema claro/oscuro, cambios animados, sin redibujar todo) ---------- */
+var TVI = {
+  ok: L('<circle cx="12" cy="12" r="9"/><path d="m8.5 12.3 2.4 2.4 4.6-5"/>'),
+  uso: L('<path d="M7 3h10M7 21h10M8 3c0 4 4 5 4 9s-4 5-4 9M16 3c0 4-4 5-4 9s4 5 4 9"/>'),
+  bad: L('<path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L4 16.8V20h3.2l5.3-5.3a4 4 0 0 0 5.2-5.4l-2.4 2.4-2.3-.6-.6-2.3z"/>'),
+  auto: L('<circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor"/>')
+};
+var TV = { d: null, ultOk: 0, desfase: 0, nuevos: {}, inicio: Date.now(), prefTema: 'auto' };
+var TV_EST = { DISPONIBLE: ['st-ok', 'Disponible', 'ok'], OCUPADO: ['st-uso', 'En uso', 'uso'], NO_OPERATIVO: ['st-bad', 'No operativo', 'bad'] };
+function tvLeerTema() {
+  var q = ''; try { q = new URLSearchParams(location.search).get('tema') || ''; } catch (e) { }
+  if (/^(claro|oscuro|auto)$/.test(q)) { try { localStorage.setItem('lc_tv_tema', q); } catch (e) { } return q; }
+  try { var v = localStorage.getItem('lc_tv_tema'); if (/^(claro|oscuro|auto)$/.test(v)) return v; } catch (e) { }
+  return 'auto';
+}
+function tvAplicarTema() {
+  var t = TV.prefTema;
+  if (t === 'auto') { try { t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro'; } catch (e) { t = 'claro'; } }
+  document.documentElement.setAttribute('data-tv-tema', t);
+  var b = document.getElementById('tv-tema');
+  if (b) b.innerHTML = (TV.prefTema === 'claro' ? ICO.sol : TV.prefTema === 'oscuro' ? ICO.luna : TVI.auto) + '<span>' + { claro: 'Tema claro', oscuro: 'Tema oscuro', auto: 'Tema automático' }[TV.prefTema] + '</span>';
+}
+function tvCambiarTema() {
+  TV.prefTema = { auto: 'claro', claro: 'oscuro', oscuro: 'auto' }[TV.prefTema];
+  try { localStorage.setItem('lc_tv_tema', TV.prefTema); } catch (e) { }
+  tvAplicarTema();
+}
+function tvAhora() { return new Date(Date.now() + TV.desfase); }
+function tvDur(iso) {
+  var m = Math.max(0, Math.floor((tvAhora() - new Date(iso)) / 60000));
+  return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + (m % 60) + ' min' : '');
+}
+function tvDet(e) {
+  if (e.estado === 'OCUPADO') return [e.area, e.ensayo, e.inicio ? tvDur(e.inicio) : ''].filter(Boolean).join(' · ');
+  if (e.estado === 'DISPONIBLE' && e.proxima) return 'Reservado desde ' + hora(e.proxima);
+  if (e.estado === 'NO_OPERATIVO') return 'Fuera de servicio';
+  return 'Libre para usar';
+}
+/** El número grande (se lee a distancia, como en el mapa); el prefijo, pequeño. */
+function tvCodigo(c) { var m = /^(.*?)(\d+)$/.exec(String(c)); return m && m[1] ? '<small>' + esc(m[1]) + '</small><span>' + esc(m[2]) + '</span>' : '<span>' + esc(c) + '</span>'; }
+function tvTile(e) {
+  var st = TV_EST[e.estado] || TV_EST.DISPONIBLE;
+  return '<div class="tv-eq ' + st[0] + '" data-k="' + esc(e.codigo) + '" data-estado="' + e.estado + '">' +
+    '<div class="tv-eq-top"><div class="c" title="' + esc(e.codigo) + '">' + tvCodigo(e.codigo) + '</div><span class="tipo" aria-hidden="true">' + icoEq(e) + '</span></div>' +
+    '<div class="tv-eq-mid"><div class="tv-pill">' + TVI[st[2]] + '<span class="e">' + st[1] + '</span></div></div><div class="d">' + esc(tvDet(e)) + '</div></div>';
+}
+function tvAnillo(v, total, color) {
+  var r = 15.5, c = 2 * Math.PI * r, f = total ? v / total : 0;
+  return '<svg class="anillo" viewBox="0 0 36 36" aria-hidden="true" style="--c:' + color + '"><circle class="pista" cx="18" cy="18" r="' + r + '"/><circle class="valor" cx="18" cy="18" r="' + r + '" stroke-dasharray="' + c.toFixed(2) + '" stroke-dashoffset="' + (c * (1 - f)).toFixed(2) + '"/></svg>';
+}
+function tvKpis(d) {
+  var r = d.resumen, hplc = d.equipos.filter(function (e) { return e.tipo === 'HPLC'; }).length, dis = d.equipos.filter(function (e) { return e.tipo === 'DISOLUTOR'; }).length;
+  var uso = r.HPLC.OCUPADO + r.DISOLUTOR.OCUPADO, no = r.HPLC.NO_OPERATIVO + r.DISOLUTOR.NO_OPERATIVO;
+  var k = [
+    ['hplc', tvAnillo(r.HPLC.DISPONIBLE, hplc, 'var(--tv-ok)'), 'HPLC disponibles', r.HPLC.DISPONIBLE + ' <small>/ ' + hplc + '</small>'],
+    ['dis', tvAnillo(r.DISOLUTOR.DISPONIBLE, dis, 'var(--tv-ok)'), 'Disolutores disponibles', r.DISOLUTOR.DISPONIBLE + ' <small>/ ' + dis + '</small>'],
+    ['uso', '<span class="kic" style="--c:var(--tv-uso);--bg:var(--tv-uso-bg)">' + TVI.uso + '</span>', 'En uso ahora', String(uso)],
+    ['no', '<span class="kic" style="--c:var(--tv-bad);--bg:var(--tv-bad-bg)">' + TVI.bad + '</span>', 'No operativos', String(no)],
+    ['mp', '<span class="kic">' + ICO.mp + '</span>', 'Usos activos MP', String(d.actividades.MP)],
+    ['pt', '<span class="kic">' + ICO.pt + '</span>', 'Usos activos PT', String(d.actividades.PT)]
+  ];
+  if (d.verif && d.verif.total) k.push(['ver', tvAnillo(d.verif.realizadas, d.verif.total, 'var(--tv-brand)'), 'Verificaciones de hoy', d.verif.realizadas + ' <small>/ ' + d.verif.total + '</small>']);
+  return k;
+}
+function tvSeccion(id, titulo, ico, lista, leyenda) {
+  return '<div class="tv-sec"><span class="ico" aria-hidden="true">' + ico + '</span><h2>' + titulo + '</h2><span class="tv-cnt">' + lista.length + ' equipos</span>' +
+    (leyenda ? '<div class="tv-leyenda"><span><i style="background:var(--tv-ok)"></i>Disponible</span><span><i style="background:var(--tv-uso)"></i>En uso</span><span><i style="background:var(--tv-bad)"></i>No operativo</span></div>' : '') +
+    '</div><div class="tv-grid" id="tv-g-' + id + '">' + lista.map(tvTile).join('') + '</div>';
+}
+function tvRelojTxt() {
+  var a = tvAhora();
+  return { h: a.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false }), f: cap(a.toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' })) };
+}
+/** Primer dibujo completo; después solo se actualiza lo que cambió (las transiciones de color se ven suaves). */
 function pintarTV(d) {
-  var reloj = new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false });
   if (!d) { $('#app').innerHTML = '<div class="tv-error">Cargando panel…</div>'; return; }
-  var tile = function (e) {
-    var col = EST[e.estado][0];
-    var det = e.estado === 'OCUPADO' ? (e.area ? e.area + ' · ' : '') + (e.ensayo ? esc(e.ensayo) + ' · ' : '') + dur(e.inicio)
-      : e.estado === 'DISPONIBLE' && e.proxima ? 'Reservado desde ' + hora(e.proxima) : '';
-    return '<div class="tv-eq ' + col + '"><span class="ico" aria-hidden="true">' + icoEq(e) + '</span><div class="c">' + esc(e.codigo) + '</div><div class="e">' + EST[e.estado][1] + '</div><div class="d">' + det + '</div></div>';
-  };
-  var r = d.resumen;
   var hplc = d.equipos.filter(function (e) { return e.tipo === 'HPLC'; }), dis = d.equipos.filter(function (e) { return e.tipo === 'DISOLUTOR'; });
-  $('#app').innerHTML = '<div class="tv"><div class="tv-cab"><h1>' + esc(d.laboratorio || 'LabControl') + '</h1><div class="tv-reloj" id="tv-reloj">' + reloj + '</div></div>' +
-    '<div class="tv-res"><div>HPLC disponibles<b>' + r.HPLC.DISPONIBLE + ' / ' + hplc.length + '</b></div><div>Disolutores disponibles<b>' + r.DISOLUTOR.DISPONIBLE + ' / ' + dis.length + '</b></div>' +
-    '<div>No operativos<b>' + (r.HPLC.NO_OPERATIVO + r.DISOLUTOR.NO_OPERATIVO) + '</b></div><div>Usos activos MP<b>' + d.actividades.MP + '</b></div><div>Usos activos PT<b>' + d.actividades.PT + '</b></div>' + (d.verif && d.verif.total ? '<div>Verificaciones de hoy<b>' + d.verif.realizadas + ' / ' + d.verif.total + '</b></div>' : '') + '</div>' +
-    '<div class="tv-leyenda"><span><i style="background:#3fc07a"></i>Disponible</span><span><i style="background:#f0b429"></i>En uso</span><span><i style="background:#e5566f"></i>No operativo</span></div>' +
-    (hplc.length ? '<h2>HPLC</h2><div class="tv-grid">' + hplc.map(tile).join('') + '</div>' : '') +
-    (dis.length ? '<h2>Disolutores</h2><div class="tv-grid">' + dis.map(tile).join('') + '</div>' : '') + '</div>';
+  var firma = d.equipos.map(function (e) { return e.codigo; }).join('|') + '#' + (d.verif && d.verif.total ? 1 : 0);
+  var prev = TV.d, reloj = tvRelojTxt();
+  if (!prev || TV.firma !== firma || !$('#tv-raiz')) {
+    TV.firma = firma;
+    $('#app').innerHTML = '<div class="tv" id="tv-raiz"><div class="tv-cab"><div class="tv-marca">' + MARCA + '<div><h1 id="tv-lab">' + esc(d.laboratorio || 'LabControl') + '</h1><small>Ocupancia de equipos en tiempo real</small></div></div>' +
+      '<span class="tv-vivo" id="tv-vivo" role="status"><i></i><span>En vivo</span></span>' +
+      '<button class="tv-tema" id="tv-tema" type="button" aria-label="Cambiar tema del panel"></button>' +
+      '<div class="tv-hora"><div class="tv-reloj" id="tv-reloj">' + reloj.h + '</div><div class="tv-fecha" id="tv-fecha">' + esc(reloj.f) + '</div></div></div>' +
+      '<div id="tv-aviso"></div>' +
+      '<div class="tv-res" id="tv-res">' + tvKpis(d).map(function (k) { return '<div class="tv-k" data-k="' + k[0] + '">' + k[1] + '<span>' + k[2] + '<b>' + k[3] + '</b></span></div>'; }).join('') + '</div>' +
+      (hplc.length ? tvSeccion('h', 'HPLC', ICO.hplc, hplc, true) : '') + (dis.length ? tvSeccion('d', 'Disolutores', ICO.dis, dis, !hplc.length) : '') + '</div>';
+    tvAplicarTema();
+    TV.d = d;
+    return;
+  }
+  // Indicadores: solo cambia el número (con un leve fundido) y el anillo
+  tvKpis(d).forEach(function (k) {
+    var n = document.querySelector('.tv-k[data-k="' + k[0] + '"]'); if (!n) return;
+    var b = n.querySelector('b');
+    if (b.innerHTML !== k[3]) { b.innerHTML = k[3]; b.classList.remove('cambia'); void b.offsetWidth; b.classList.add('cambia'); }
+    var a = n.querySelector('.anillo .valor'), t = document.createElement('div'); t.innerHTML = k[1];
+    var na = t.querySelector('.anillo .valor');
+    if (a && na && a.getAttribute('stroke-dashoffset') !== na.getAttribute('stroke-dashoffset')) a.setAttribute('stroke-dashoffset', na.getAttribute('stroke-dashoffset'));
+  });
+  // Equipos: se cambia la clase (transición de color) y el texto; un destello único señala el cambio
+  var antes = {}; prev.equipos.forEach(function (e) { antes[e.codigo] = e.estado; });
+  d.equipos.forEach(function (e) {
+    var n = document.querySelector('.tv-eq[data-k="' + (window.CSS && CSS.escape ? CSS.escape(e.codigo) : e.codigo) + '"]'); if (!n) return;
+    var st = TV_EST[e.estado] || TV_EST.DISPONIBLE;
+    if (antes[e.codigo] !== e.estado) {
+      n.className = 'tv-eq ' + st[0]; n.dataset.estado = e.estado;
+      n.querySelector('.tv-pill').innerHTML = TVI[st[2]] + '<span class="e">' + st[1] + '</span>';
+      void n.offsetWidth; n.classList.add('cambio');
+      TV.nuevos[e.codigo] = { hasta: Date.now() + 120000, txt: e.estado === 'DISPONIBLE' ? 'Recién liberado' : e.estado === 'OCUPADO' ? 'Recién ocupado' : 'Recién reportado' };
+      setTimeout(function () { n.classList.remove('cambio'); }, 2000);
+    }
+    tvMarcaNuevo(n, e.codigo);
+    var det = tvDet(e), dn = n.querySelector('.d'); if (dn.textContent !== det) dn.textContent = det;
+  });
+  var lab = $('#tv-lab'); if (lab && lab.textContent !== (d.laboratorio || 'LabControl')) lab.textContent = d.laboratorio || 'LabControl';
+  TV.d = d;
+}
+function tvMarcaNuevo(n, cod) {
+  var x = TV.nuevos[cod], m = n.querySelector('.tv-nuevo');
+  if (x && x.hasta > Date.now()) { if (!m) { m = document.createElement('span'); m.className = 'tv-nuevo'; n.querySelector('.tv-eq-mid').appendChild(m); } if (m.textContent !== x.txt) m.textContent = x.txt; }
+  else { if (m) m.remove(); if (x) delete TV.nuevos[cod]; }
+}
+/** Cada 20 s (sin pedir nada al servidor): reloj, minutos de uso, marcas «recién» y estado de la conexión. */
+function tvTic() {
+  var r = tvRelojTxt(), c = $('#tv-reloj'), f = $('#tv-fecha');
+  if (c && c.textContent !== r.h) c.textContent = r.h;
+  if (f && f.textContent !== r.f) f.textContent = r.f;
+  if (TV.d) TV.d.equipos.forEach(function (e) {
+    var n = document.querySelector('.tv-eq[data-k="' + (window.CSS && CSS.escape ? CSS.escape(e.codigo) : e.codigo) + '"]'); if (!n) return;
+    var dn = n.querySelector('.d'), det = tvDet(e); if (dn && dn.textContent !== det) dn.textContent = det;
+    tvMarcaNuevo(n, e.codigo);
+  });
+  var seg = (TV.d && TV.d.segundos) || 20, viejo = TV.ultOk && Date.now() - TV.ultOk > Math.max(90, seg * 3) * 1000;
+  var v = $('#tv-vivo');
+  if (v) {
+    v.classList.toggle('viejo', !!viejo);
+    var txt = viejo ? 'Sin conexión · datos de las ' + new Date(TV.ultOk + TV.desfase).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false }) : 'En vivo · actualizado ' + Math.max(0, Math.round((Date.now() - TV.ultOk) / 1000)) + ' s';
+    var sp = v.querySelector('span'); if (sp.textContent !== txt) sp.textContent = txt;
+  }
+  // Pantalla encendida todo el día: desplazamiento mínimo para evitar marcas en la pantalla, y recarga diaria de madrugada.
+  var raiz = $('#tv-raiz'), paso = Math.floor(Date.now() / 300000) % 4;
+  if (raiz && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) raiz.style.transform = 'translate(' + [0, 2, 2, 0][paso] + 'px,' + [0, 0, 2, 2][paso] + 'px)';
+  if (Date.now() - TV.inicio > 6 * 3600000 && new Date().getHours() === 4) location.reload();
 }
 function iniciarTV() {
   document.body.classList.add('modo-tv');
+  TV.prefTema = tvLeerTema(); tvAplicarTema();
+  try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { if (TV.prefTema === 'auto') tvAplicarTema(); }); } catch (e) { }
+  document.addEventListener('click', function (ev) { if (ev.target.closest && ev.target.closest('#tv-tema')) tvCambiarTema(); });
+  document.addEventListener('keydown', function (ev) { if (ev.key === 't' || ev.key === 'T') tvCambiarTema(); });
   pintarTV(null);
   var tick = function () {
-    api('tvEstado', { tv: TV_TOKEN }).then(function (d) { pintarTV(d); setTimeout(tick, (d.segundos || 20) * 1000); })
-      .catch(function (e) { $('#app').innerHTML = '<div class="tv-error">' + esc(e.message) + '</div>'; setTimeout(tick, 60000); });
+    api('tvEstado', { tv: TV_TOKEN }).then(function (d) {
+      TV.ultOk = Date.now(); if (d.ahora) TV.desfase = new Date(d.ahora).getTime() - Date.now();
+      pintarTV(d); var av = $('#tv-aviso'); if (av) av.innerHTML = '';
+      tvTic(); setTimeout(tick, (d.segundos || 20) * 1000);
+    }).catch(function (e) {
+      if (TV.d && $('#tv-aviso')) { $('#tv-aviso').innerHTML = '<div class="tv-aviso" role="alert">' + esc(e.message) + ' Se muestran los últimos datos recibidos; se reintenta en 1 minuto.</div>'; tvTic(); }
+      else $('#app').innerHTML = '<div class="tv-error">' + esc(e.message) + '</div>';
+      setTimeout(tick, 60000);
+    });
   };
   tick();
-  setInterval(function () { var c = $('#tv-reloj'); if (c) c.textContent = new Date().toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false }); }, 10000);
+  setInterval(tvTic, 20000);
 }
 
 /* ---------- Arranque ---------- */
