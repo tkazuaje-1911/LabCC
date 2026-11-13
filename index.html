@@ -219,6 +219,8 @@ fieldset{border:0;padding:0;margin:0 0 14px}
 legend{font-weight:500;font-size:14px;margin-bottom:6px;padding:0}
 .seg{display:flex;gap:8px;flex-wrap:wrap}
 .seg legend{width:100%}
+.seg-dis label{min-width:150px;height:auto;min-height:40px;padding:6px 12px}
+.seg-dis{margin-bottom:14px}
 .seg label{flex:1;min-width:130px;margin:0;font-weight:400;border:1px solid var(--control);border-radius:var(--r-ctl);padding:0 12px;height:40px;display:flex;gap:8px;align-items:center;cursor:pointer;background:var(--surface)}
 .seg label:has(input:checked){border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary);font-weight:500}
 .seg input{width:auto;height:auto;margin:0;accent-color:var(--primary)}
@@ -232,6 +234,7 @@ legend{font-weight:500;font-size:14px;margin-bottom:6px;padding:0}
 
 /* ===== Diálogos y avisos ===== */
 .modal-fondo{position:fixed;inset:0;background:rgba(15,20,25,.45);display:flex;align-items:flex-end;justify-content:center;z-index:50;animation:fondo 160ms ease-out}
+.modal:has(.perfil-an){max-width:880px}
 .modal{background:var(--surface);width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:16px 16px 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom));animation:sube 240ms var(--ease)}
 .modal h2{font-size:18px;line-height:24px;margin-bottom:12px}
 @media(min-width:640px){.modal-fondo{align-items:center}.modal{border-radius:12px;animation-name:entra}}
@@ -499,6 +502,11 @@ button.nodo:focus-visible{outline:3px solid var(--rosa-m);outline-offset:1px}
 .aitem-det{padding:4px 16px 14px;display:flex;flex-direction:column;gap:10px;background:#fcf7fa}
 .aitem-det dl.ficha{font-size:13px;gap:4px 14px}
 .segest{display:grid;grid-template-columns:repeat(2,1fr);gap:6px}
+.segest.seg3{grid-template-columns:repeat(3,1fr)}
+.segest.seg3 button[data-e=EN_PROCESO][aria-pressed=true]{border-color:#3b7bd8;box-shadow:inset 0 0 0 1px #3b7bd8;background:#e3edfb;color:#164a96}
+.segest.seg3 button[data-e=INFORMANDO][aria-pressed=true]{border-color:#f08a24;box-shadow:inset 0 0 0 1px #f08a24;background:#fff0e0;color:#9a4300}
+.segest.seg3 button[data-e=FINALIZADO][aria-pressed=true]{border-color:#1f9d5c;box-shadow:inset 0 0 0 1px #1f9d5c;background:var(--ok-bg);color:var(--ok-ink)}
+@media(max-width:420px){.segest.seg3 button{font-size:12px;gap:4px;padding:0 4px}}
 .segest button{display:flex;align-items:center;gap:6px;justify-content:center;height:34px;border:1px solid var(--control);background:var(--surface);border-radius:var(--r-ctl);font-size:13px;transition:transform 140ms var(--ease),background-color 120ms ease}
 .segest button .ico{width:14px;height:14px}
 .segest button:active{transform:scale(.97)}
@@ -543,6 +551,61 @@ button.nodo:focus-visible{outline:3px solid var(--rosa-m);outline-offset:1px}
 .nota-eq{font-size:13px;color:var(--muted)}
 /* v0.5: informes, indicadores, permisos */
 .an-dev{background:#fdecee;color:var(--bad);box-shadow:inset 0 0 0 1px #f5c2c7}
+/* v0.8 */
+.an-sub{background:#f5e8f6;color:#7a1f86;box-shadow:inset 0 0 0 1px #e5c3ea}
+.an-inf{background:#fff0e0;color:#9a4300;box-shadow:inset 0 0 0 1px #ffd2a1}
+.an-inf .ico{animation:none}
+.tipo-an{display:inline-flex;align-items:center;white-space:nowrap;height:20px;padding:0 8px;border-radius:6px;font-size:11px;font-weight:600;letter-spacing:.02em;background:var(--rosa-p,#fcebf3);color:#7a1150;border:1px solid var(--rosa-m,#f4b6d2)}
+.cnt-in{display:inline-grid;place-items:center;min-width:20px;height:18px;padding:0 6px;margin-left:4px;border-radius:999px;background:var(--rosa-p,#fcebf3);color:#7a1150;font-size:11px;font-weight:600}
+.inf-lista{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));margin-bottom:16px}
+.hist{list-style:none;margin:0;padding:0 0 0 14px;border-left:2px solid var(--rosa-m,#f4b6d2);display:flex;flex-direction:column;gap:12px;max-height:56vh;overflow:auto}
+.hist-it{position:relative}
+.hist-it::before{content:"";position:absolute;left:-21px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--hue,#A31968);box-shadow:0 0 0 3px var(--surface,#fff)}
+.hist-cab{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.perfil-res{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.tabla-an{width:100%;border-collapse:collapse;font-size:14px}
+.tabla-an th{text-align:left;font-size:12px;font-weight:600;color:var(--muted);padding:6px 8px;border-bottom:1px solid var(--border)}
+.tabla-an td{padding:8px;border-bottom:1px solid var(--rule,#eef0f3);vertical-align:top}
+.tabla-an td small{display:block;color:var(--muted);font-size:12px}
+.acard-cab .ver-perfil{margin-left:auto}
+@media(max-width:640px){
+  .perfil-an .tabla-wrap{overflow:visible}
+  .perfil-an .tabla-an thead{display:none}
+  .perfil-an .tabla-an,.perfil-an .tabla-an tbody{display:block}
+  .perfil-an .tabla-an tr{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--border)}
+  .perfil-an .tabla-an td{border:0;padding:0}
+  .perfil-an .tabla-an td:first-child,.perfil-an .tabla-an td:last-child{grid-column:1/-1}
+  .perfil-an .tabla-an td[data-l]::before{content:attr(data-l);display:block;font-size:11px;color:var(--muted)}
+}
+.mes-evo{display:flex;align-items:flex-end;gap:2px;height:140px;padding:8px 0 0;border-bottom:1px solid var(--border)}
+.mes-evo .d{flex:1;display:flex;flex-direction:column-reverse;min-width:0;height:100%}
+.mes-evo .d i{display:block;width:100%}
+.mes-evo .e1{background:#3b7bd8}.mes-evo .e2{background:#f08a24}.mes-evo .e3{background:#1f9d5c}
+.mes-ejes{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px}
+.leyenda-an{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+.leyenda-an i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+#imprimible{display:none}
+@media print{
+  body.imprimiendo>*:not(#imprimible){display:none!important}
+  body.imprimiendo #imprimible{display:block!important}
+  body.imprimiendo{background:#fff!important}
+}
+.imp-hoja{font:11px/1.35 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#1d1a1f;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.imp-cab{display:flex;align-items:center;gap:16px;border-bottom:2px solid #A31968;padding-bottom:8px;margin-bottom:10px}
+.imp-marca{display:flex;align-items:center;gap:8px}.imp-marca .marca-svg{width:30px;height:30px}
+.imp-marca b{display:block;font-size:14px}.imp-marca small{display:block;color:#6b6070;font-size:10px}
+.imp-tit{flex:1;text-align:center}.imp-tit h1{font-size:17px;margin:0;font-weight:700}.imp-tit p{margin:2px 0 0;color:#4a4350;font-size:12px}
+.imp-est{font-size:10px;color:#6b6070;text-align:right;max-width:150px}
+.imp-tabla{width:100%;border-collapse:collapse;table-layout:fixed}
+.imp-tabla th,.imp-tabla td{border:1px solid #cfc3cb;padding:5px 6px;vertical-align:top;text-align:left}
+.imp-tabla thead th{background:#fcebf3;font-size:11.5px;text-transform:capitalize}
+.imp-tabla thead th small{display:block;font-weight:400;color:#6b6070;font-size:10px}
+.imp-tabla .imp-t{width:19%}.imp-tabla td.imp-t small{display:block;color:#6b6070;font-size:9.5px}
+.imp-tabla tbody tr:nth-child(even) td{background:#fbf7fa}
+.imp-tabla td div+div{margin-top:2px;padding-top:2px;border-top:1px dotted #e0d4dc}
+.imp-sin{color:#b02a3a;font-style:italic}.imp-no{color:#b3a8b0}
+.imp-des{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px;padding:7px 10px;border:1px solid #cfc3cb;border-radius:6px;background:#fbf7fa}
+.imp-pie{margin-top:10px;color:#6b6070;font-size:9.5px;border-top:1px solid #e6dce3;padding-top:5px}
 .trio-parcial{display:flex;flex-wrap:wrap;justify-content:center}
 .trio-parcial .trio-c{flex:1 1 240px;max-width:340px}
 .inf-filtros{margin:0 0 10px}
@@ -555,7 +618,7 @@ button.nodo:focus-visible{outline:3px solid var(--rosa-m);outline-offset:1px}
 .inf-chips .an{height:30px;padding:0 12px 0 10px;font-size:13px;border:0;cursor:pointer;transition:transform 120ms ease,box-shadow 140ms ease}
 .inf-chips .an.sel{box-shadow:0 0 0 2px var(--hue)}
 .inf-chips .an:active{transform:scale(.97)}
-.inf-tablero{display:grid;gap:14px;grid-template-columns:repeat(4,minmax(0,1fr));align-items:start;margin-bottom:24px}
+.inf-tablero{display:grid;gap:14px;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;margin-bottom:24px}
 .inf-col{background:var(--surface-2,#f1f2f5);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:10px;min-height:120px}
 .inf-col-t{display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;margin:2px 4px 2px;font-weight:600;color:var(--tinta)}
 .inf-col-t .ico{width:16px;height:16px;color:var(--muted)}
@@ -579,7 +642,8 @@ button.nodo:focus-visible{outline:3px solid var(--rosa-m);outline-offset:1px}
 .mes-tabla tr.tot td{border-top:2px solid var(--border)}
 @media(max-width:520px){.mes-graf{gap:3px}.mes-v{font-size:10px}}
 .inf-nota{margin:4px 0 0}
-@media(max-width:1100px){.inf-tablero{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1300px){.inf-tablero{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1000px){.inf-tablero{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.inf-tablero{grid-template-columns:1fr}.inf-col:not(.sel){display:none}.inf-col{background:transparent;padding:0}.inf-col-t{display:none}}
 .ind-rango{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;margin:0 0 14px}
 .ind-fechas{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
@@ -835,7 +899,7 @@ var S = {
   avisos: [], filtroEq: 'TODOS', buscaEq: '', encTab: 'recibidos', adminTab: 'usuarios',
   retro: null, usuariosEnc: null, encDest: null, _res: null,
   vcache: {}, diag: [], _json: null, _min: 0,
-  selEq: null, filtroEst: 'TODOS', verifTab: 'mis', verifSemana: '', verifDisp: null, verifDispKey: '', verifRes: null, encPend: 0, flash: {}, anSel: null, mapaFaltan: [], infArea: 'TODAS', infEst: 'ENTREGADO', infRes: null, indPre: '30', indDesde: '', indHasta: '', indModo: 'resumen', indAnio: '', turnSem: '', turnEd: null
+  selEq: null, filtroEst: 'TODOS', verifTab: 'mis', verifSemana: '', verifDisp: null, verifDispKey: '', verifRes: null, encPend: 0, flash: {}, anSel: null, mapaFaltan: [], infArea: 'TODAS', infEst: 'PENDIENTE_REVISION', infBand: '', infRes: null, indPre: '30', indDesde: '', indHasta: '', indModo: 'resumen', indAnio: '', turnSem: '', turnEd: null
 };
 var ROL_TXT = { ANALISTA: 'Analista', REVISOR: 'Revisor', JEFATURA: 'Jefatura' };
 var AREA_TXT = { MP: 'Materias Primas', PT: 'Producto Terminado', AMBAS: 'Ambas áreas' };
@@ -886,6 +950,9 @@ var ICO = {
   ojoOff: L('<path d="M9.9 5.2A10.4 10.4 0 0 1 12 5c6.4 0 10 7 10 7a17.6 17.6 0 0 1-3.2 4.2M6.6 6.6A17.2 17.2 0 0 0 2 12s3.6 7 10 7a9.9 9.9 0 0 0 5.4-1.6"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18"/>'),
   play: L('<circle cx="12" cy="12" r="10"/><path d="M10 8.5v7l5.5-3.5z"/>'),
   pausa: L('<circle cx="12" cy="12" r="10"/><path d="M10 9v6M14 9v6"/>'),
+  lupa: L('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'),
+  impr: L('<path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/>'),
+  doc: L('<path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l5 5v11a2 2 0 0 1-2 2zM9 13h6M9 17h4"/>'),
   prog: L('<path d="M21 12a9 9 0 1 1-6.2-8.55"/><path d="M21 3v6h-6"/>'),
   edit: L('<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>'),
   trash: L('<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/>'),
@@ -996,13 +1063,13 @@ function toast(msg, tipo) {
 }
 
 /* ---------- Comunicación con Apps Script ---------- */
-var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1, verifMias: 1, verifPlan: 1, analisisLista: 1, informesLista: 1, indicadores: 1, usoAnual: 1, turnosSemana: 1 };
+var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1, verifMias: 1, verifPlan: 1, analisisLista: 1, informesLista: 1, indicadores: 1, usoAnual: 1, turnosSemana: 1, informeHistorial: 1, perfilAnalista: 1, analisisMes: 1 };
 var POLL = ['inicio', 'equipos', 'equipo', 'reservas', 'encargos', 'verif', 'ocup', 'hplc', 'dis', 'mp', 'pt', 'informes'];
 var enCurso = {};
 /** Clave y solicitud de lectura de la pantalla actual (o de la indicada). */
 function claveVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
-  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '') + (v === 'indicadores' ? '|' + S.indModo + '|' + S.indAnio + '|' + S.indDesde + '|' + S.indHasta : '') + (v === 'verif' ? '|' + (tabVerifAct() === 'mis' ? 'mis' : 'plan:' + (S.verifSemana || '')) : '') + (v === 'turnos' ? '|' + (S.turnSem || '') : '');
+  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '') + (v === 'indicadores' ? '|' + S.indModo + '|' + S.indAnio + '|' + S.indDesde + '|' + S.indHasta + '|' + (S.indMes || '') : '') + (v === 'verif' ? '|' + (tabVerifAct() === 'mis' ? 'mis' : 'plan:' + (S.verifSemana || '')) : '') + (v === 'turnos' ? '|' + (S.turnSem || '') : '');
 }
 function pedidoVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
@@ -1012,6 +1079,7 @@ function pedidoVista(v, p) {
   if (v === 'equipo') return { accion: 'equipo', datos: { id: p } };
   if (v === 'informes') return { accion: 'informesLista', datos: {} };
   if (v === 'indicadores' && S.indModo === 'anual') return { accion: 'usoAnual', datos: S.indAnio ? { anio: S.indAnio } : {} };
+  if (v === 'indicadores' && S.indModo === 'analisis') return { accion: 'analisisMes', datos: S.indMes ? { mes: S.indMes } : {} };
   if (v === 'indicadores') return { accion: 'indicadores', datos: S.indDesde ? { desde: S.indDesde, hasta: S.indHasta } : {} };
   if (v === 'reservas') return { accion: 'reservas', datos: {} };
   if (v === 'encargos') return { accion: 'encargos', datos: { todos: S.encTab === 'todos' } };
@@ -1092,7 +1160,7 @@ function modal(html) {
   var f = $('#modal-raiz [autofocus]');
   if (f) setTimeout(function () { f.focus(); }, 30);
 }
-function cerrarModal() { S.modal = false; $('#modal-raiz').innerHTML = ''; }
+function cerrarModal() { S.modal = false; S.perfilId = null; $('#modal-raiz').innerHTML = ''; }
 function confirmar(texto, boton, titulo, peligro) {
   return new Promise(function (res) {
     S._res = res;
@@ -1313,8 +1381,8 @@ function vLogin() {
   return '<div class="login"><div class="card"><div class="marca">' + MARCA + 'LabControl</div><h1>Ingresar</h1><p class="sub">Ocupancia de equipos, análisis, turnos y tareas del laboratorio.</p><br>' +
     '<form data-f="login"><label>Correo<input type="email" name="email" autocomplete="username" required autofocus></label>' +
     '<label>Clave' + inputClave('clave', 'current-password') + '</label>' +
-    '<label class="inline-check"><input type="checkbox" name="recordar" value="1"> Mantener la sesión en este dispositivo</label>' +
-    '<p class="sub" style="margin:4px 0 16px 24px">No lo marques en equipos compartidos.</p>' +
+    '<label class="inline-check"><input type="checkbox" name="recordar" value="1" checked> Mantener la sesión en este dispositivo</label>' +
+    '<p class="sub" style="margin:4px 0 16px 24px">La sesión se mantiene aunque cierres la app o bloquees el teléfono. Desmárcalo en equipos compartidos.</p>' +
     '<button class="btn bloque">Ingresar</button></form>' +
     '<p class="nota">Herramienta de seguimiento operativo. No reemplaza los registros oficiales de calidad.</p></div></div>';
 }
@@ -1479,24 +1547,28 @@ function vMapa(d) {
 }
 
 /* ---------- Materias primas y producto terminado: tarjetas por analista ---------- */
+/* v0.8: tres estados operativos por análisis (azul, naranja, verde). «Sin iniciar» es una asignación que aún no comienza. */
 var AN = {
-  PENDIENTE: ['an-pend', 'Pendiente', 'clock'], EN_PROCESO: ['an-proc', 'En proceso', 'prog'],
-  FINALIZADO: ['an-fin', 'Finalizado', 'disp'], EN_ESPERA: ['an-esp', 'En espera', 'pausa']
+  PENDIENTE: ['an-pend', 'Sin iniciar', 'clock'], EN_PROCESO: ['an-proc', 'En proceso', 'prog'],
+  INFORMANDO: ['an-inf', 'Informando', 'doc'], FINALIZADO: ['an-fin', 'Finalizado', 'disp']
 };
-function anBadge(e) { var x = AN[e] || AN.PENDIENTE; return '<span class="an ' + x[0] + '">' + ic(x[2]) + x[1] + '</span>'; }
+var AN_OP = ['EN_PROCESO', 'INFORMANDO', 'FINALIZADO'], AN_ORD = { PENDIENTE: 0, EN_PROCESO: 1, INFORMANDO: 2, FINALIZADO: 3 };
+function anBadge(e) { var x = AN[e] || AN.EN_PROCESO; return '<span class="an ' + x[0] + '">' + ic(x[2]) + x[1] + '</span>'; }
 function puedeEditarAn(a) { return !!(S.datos && S.datos.puede && S.datos.puede.asignarOtros) || (a.usuario_id === S.usuario.id && puede('ANALISTA', 'JEFATURA')); }
 
 function itemAn(a) {
   var abierto = S.anSel === a.id, editable = puedeEditarAn(a);
-  var sub = [a.lote ? 'Lote ' + a.lote : '', a.ensayo || ''].filter(Boolean).join(' · ');
+  var sub = [a.lote ? 'Lote ' + a.lote : '', a.ensayo || '', a.tipo_analisis || ''].filter(Boolean).join(' · ');
   var h = '<li class="aitem' + (abierto ? ' abierto' : '') + (S.flash[a.id] ? ' flash' : '') + '"><button class="aitem-b" data-a="anSel" data-id="' + a.id + '" aria-expanded="' + (abierto ? 'true' : 'false') + '"><div class="crece"><b>' + esc(a.producto) + '</b><small>' + (sub ? esc(sub) : 'Sin lote ni análisis indicado') + '</small>' +
     (a.equipos && a.equipos.length ? '<small>' + a.equipos.map(function (c) { return '<span class="eqchip">' + ic('hplc') + esc(c) + '</span>'; }).join(' ') + '</small>' : '') + '</div>' + anBadge(a.estado) + '<span class="ico chev" aria-hidden="true">' + ICO.chev + '</span></button>';
   if (abierto) {
-    h += '<div class="aitem-det"><dl class="ficha"><dt>Producto</dt><dd>' + esc(a.producto) + '</dd><dt>Lote</dt><dd>' + esc(a.lote || '—') + '</dd><dt>Análisis</dt><dd>' + esc(a.ensayo || '—') + '</dd>' +
+    h += '<div class="aitem-det"><dl class="ficha"><dt>Producto</dt><dd>' + esc(a.producto) + '</dd><dt>Lote</dt><dd>' + esc(a.lote || '—') + '</dd><dt>Análisis</dt><dd>' + esc(a.ensayo || '—') + '</dd><dt>Tipo</dt><dd>' + (a.tipo_analisis ? '<span class="tipo-an">' + esc(a.tipo_analisis) + '</span>' : '—') + '</dd>' +
+      (a.iniciado_en ? '<dt>Inicio</dt><dd>' + fh(a.iniciado_en) + '</dd>' : '') + (a.informando_en ? '<dt>Informando</dt><dd>' + fh(a.informando_en) + '</dd>' : '') + (a.finalizado_en ? '<dt>Finalizado</dt><dd>' + fh(a.finalizado_en) + '</dd>' : '') +
       (a.nota ? '<dt>Nota</dt><dd>' + esc(a.nota) + '</dd>' : '') + '<dt>Actualizado</dt><dd>' + fh(a.actualizado_en) + (a.actualizado_por ? ' · ' + esc(a.actualizado_por) : '') + '</dd></dl>';
     if (editable) {
-      h += '<div class="segest" role="group" aria-label="Cambiar estado">' + ['PENDIENTE', 'EN_PROCESO', 'EN_ESPERA', 'FINALIZADO'].map(function (e) {
-        return '<button data-a="anEstado" data-id="' + a.id + '" data-e="' + e + '" aria-pressed="' + (a.estado === e ? 'true' : 'false') + '">' + ic(AN[e][2]) + AN[e][1] + '</button>';
+      h += (a.estado === 'PENDIENTE' ? '<p class="sub" style="margin:0">Asignación sin iniciar. Al comenzar, pasa a «En proceso».</p>' : '') +
+        '<div class="segest seg3" role="group" aria-label="Cambiar estado">' + AN_OP.map(function (e) {
+        return '<button data-a="anEstado" data-id="' + a.id + '" data-e="' + e + '" data-antes="' + a.estado + '" data-p="' + esc(a.producto) + '" aria-pressed="' + (a.estado === e ? 'true' : 'false') + '">' + ic(AN[e][2]) + AN[e][1] + '</button>';
       }).join('') + '</div><div class="acciones" style="margin:0;justify-content:flex-start"><button class="btn sec chico" data-a="anEditar" data-id="' + a.id + '">' + ic('edit') + 'Editar</button>' +
         '<button class="btn ghost chico" data-a="anQuitar" data-id="' + a.id + '" data-p="' + esc(a.producto) + '">' + ic('trash') + 'Quitar</button>' + (a.estado === 'FINALIZADO' && a.usuario_id === S.usuario.id && perm('entregar_informes') ? '<button class="btn chico" data-a="infDesde" data-id="' + a.id + '">' + ic('informe') + 'Entregar informe</button>' : '') + '</div>';
     } else h += '<p class="sub" style="margin:0">Solo la persona responsable o jefatura puede cambiar este análisis.</p>';
@@ -1506,7 +1578,10 @@ function itemAn(a) {
 }
 function tarjetaAn(a, area) {
   var n = a.items.length, otra = a.area_habitual && a.area_habitual !== area;
-  return '<article class="acard"><div class="acard-cab">' + avatar(a.nombre, true) + '<div><b>' + esc(a.nombre) + '</b><small>Área habitual: ' + (a.area_habitual ? AREA_TXT[a.area_habitual] : 'sin definir') + (otra ? ' · apoya en esta área' : '') + '</small></div><span class="acard-n" aria-label="' + n + (n === 1 ? ' producto' : ' productos') + '">' + n + '</span></div>' +
+  var r = a.resumen || {};
+  var mini = AN_OP.filter(function (e) { return r[e]; }).map(function (e) { return '<span class="an ' + AN[e][0] + '" style="height:20px;font-size:11px">' + AN[e][1] + ' ' + r[e] + '</span>'; }).join(' ');
+  return '<article class="acard"><div class="acard-cab">' + avatar(a.nombre, true) + '<div style="min-width:0"><b>' + esc(a.nombre) + '</b><small>Área habitual: ' + (a.area_habitual ? AREA_TXT[a.area_habitual] : 'sin definir') + (otra ? ' · apoya en esta área' : '') + '</small>' + (mini ? '<div style="margin-top:4px;display:flex;gap:4px;flex-wrap:wrap">' + mini + '</div>' : '') + '</div><span class="acard-n" aria-label="' + n + (n === 1 ? ' producto' : ' productos') + '">' + n + '</span></div>' +
+    '<div style="padding:0 16px 8px"><button class="btn ghost chico" data-a="anPerfil" data-id="' + a.id + '">' + ic('user') + 'Ver perfil del analista</button></div>' +
     '<ul class="aitems">' + a.items.map(itemAn).join('') + '</ul></article>';
 }
 function vAnalisis(d) {
@@ -1514,7 +1589,7 @@ function vAnalisis(d) {
   var puedeAsig = d.puede && (d.puede.propios || d.puede.asignarOtros);
   var h = '<header class="cab"><div><h1 class="h-ico">' + ic(ico) + AREA_TXT[area] + '</h1><p class="sub" style="margin:4px 0 0">Cada analista agrupa sus productos en una sola tarjeta. Toca un producto para ver el detalle o cambiar su estado.</p></div>' +
     (puedeAsig ? '<button class="btn" data-a="anNuevo">' + ic('plus') + (d.puede.asignarOtros ? 'Asignar producto' : 'Asignarme un producto') + '</button>' : '') + '</header>';
-  h += '<div class="estres" aria-label="Resumen por estado">' + ['EN_PROCESO', 'EN_ESPERA', 'PENDIENTE', 'FINALIZADO'].map(function (e) { return '<span class="an ' + AN[e][0] + '">' + ic(AN[e][2]) + AN[e][1] + ' · ' + d.total[e] + '</span>'; }).join('') + '</div>';
+  h += '<div class="estres" aria-label="Resumen por estado">' + AN_OP.concat(['PENDIENTE']).map(function (e) { return '<span class="an ' + AN[e][0] + '">' + ic(AN[e][2]) + AN[e][1] + ' · ' + (d.total[e] || 0) + '</span>'; }).join('') + '</div>';
   if (!d.analistas.length) h += vacioG(ico, 'Aún no hay productos asignados en ' + AREA_TXT[area], puedeAsig ? 'Asigna un producto para que aparezca la tarjeta del analista.' : 'Cuando un analista tenga productos asignados, aparecerán aquí.', puedeAsig ? '<button class="btn" data-a="anNuevo">' + ic('plus') + 'Asignar producto</button>' : '');
   else h += '<div class="acards">' + d.analistas.map(function (a) { return tarjetaAn(a, area); }).join('') + '</div>';
   if (d.sinAsignar.length) {
@@ -1527,7 +1602,7 @@ function vAnalisis(d) {
 function formAnalisis(area, id, uid) {
   var d = S.datos, it = null;
   if (id) d.analistas.forEach(function (c) { c.items.forEach(function (x) { if (x.id === id) it = x; }); });
-  var v = it || { producto: '', lote: '', ensayo: '', nota: '', estado: 'PENDIENTE', usuario_id: '' };
+  var v = it || { producto: '', lote: '', ensayo: '', nota: '', estado: 'PENDIENTE', usuario_id: '', tipo_analisis_id: '' };
   var sel = '';
   if ((d.puede && d.puede.asignarOtros)) {
     var actual = it ? it.usuario_id : (uid || (puede('ANALISTA') ? S.usuario.id : ''));
@@ -1538,7 +1613,8 @@ function formAnalisis(area, id, uid) {
     '<label>Producto<input name="producto" list="dl-prod" required maxlength="100" value="' + esc(v.producto) + '" autofocus></label>' +
     '<div class="form-grid"><label>Lote <span class="sub">(opcional)</span><input name="lote" maxlength="60" value="' + esc(v.lote) + '" placeholder="L001"></label>' +
     '<label>Análisis <span class="sub">(opcional)</span><input name="ensayo" list="dl-ens-todos" maxlength="100" value="' + esc(v.ensayo) + '" placeholder="Ej.: Valoración"></label></div>' +
-    '<label>Estado<select name="estado">' + Object.keys(AN).map(function (e) { return '<option value="' + e + '"' + (v.estado === e ? ' selected' : '') + '>' + AN[e][1] + '</option>'; }).join('') + '</select></label>' +
+    selectTipoAn(d.tipos, v.tipo_analisis_id || '') +
+    '<label>Estado<select name="estado">' + (v.estado === 'PENDIENTE' || !id ? '<option value="PENDIENTE"' + (v.estado === 'PENDIENTE' ? ' selected' : '') + '>Sin iniciar (asignación pendiente de inicio)</option>' : '') + AN_OP.map(function (e) { return '<option value="' + e + '"' + (v.estado === e ? ' selected' : '') + '>' + AN[e][1] + '</option>'; }).join('') + '</select></label>' +
     '<label>Nota <span class="sub">(opcional)</span><input name="nota" maxlength="300" value="' + esc(v.nota) + '" placeholder="Ej.: falta estándar de referencia"></label>' +
     '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Guardar</button></div></form>');
 }
@@ -1554,21 +1630,25 @@ function perm(k) {
   return puede('JEFATURA');
 }
 
+/* v0.8: cinco estados de informe (orden del flujo). [clase, nombre, icono, plural] */
 var INF = {
-  ENTREGADO: ['an-proc', 'Entregado', 'informe', 'Entregados'],
   PENDIENTE_REVISION: ['an-esp', 'Pendiente de revisión', 'clock', 'Pendientes de revisión'],
-  REVISADO: ['an-fin', 'Revisado', 'disp', 'Revisados'],
-  DEVUELTO: ['an-dev', 'Devuelto con observaciones', 'alerta', 'Devueltos con observaciones']
+  EN_REVISION: ['an-proc', 'En revisión', 'lupa', 'En revisión'],
+  DEVUELTO: ['an-dev', 'Devuelto con observaciones', 'alerta', 'Devueltos con observaciones'],
+  SUBSANACION_PENDIENTE: ['an-sub', 'Subsanación pendiente de revisión', 'undo', 'Subsanaciones pendientes de revisión'],
+  ENTREGADO: ['an-fin', 'Entregado', 'disp', 'Entregados']
 };
-function infBadge(e) { var x = INF[e] || INF.ENTREGADO; return '<span class="an ' + x[0] + '">' + ic(x[2]) + x[1] + '</span>'; }
+var INF_ACC = { ENVIO: 'Envío a revisión', INICIO_REVISION: 'Inicio de revisión', DEVUELTO: 'Devuelto con observaciones', SUBSANACION: 'Subsanación reenviada', ENTREGADO: 'Entregado' };
+var INF_RES = { SIN_OBSERVACIONES: 'Sin observaciones', CON_OBSERVACIONES: 'Con observaciones', OBSERVACIONES_SUBSANADAS: 'Observaciones subsanadas' };
+function infBadge(e) { var x = INF[e] || INF.PENDIENTE_REVISION; return '<span class="an ' + x[0] + '">' + ic(x[2]) + x[1] + '</span>'; }
 
 function tarjetaInformes(j) {
   var rev = j.revisar, n = rev ? j.porRevisar : j.devueltos;
   var cuerpo;
   if (rev) {
-    cuerpo = '<div class="nums"><div class="' + (j.porRevisar ? 'p' : '') + '"><b>' + j.porRevisar + '</b><small>Por revisar</small></div><div><b>' + j.nuevos + '</b><small>Recién entregados</small></div>' + (j.devueltos ? '<div class="p"><b>' + j.devueltos + '</b><small>Tuyos devueltos</small></div>' : '') + '</div>' +
-      (j.porRevisar ? '' : '<p class="sub">No hay informes esperando tu revisión.</p>');
-  } else cuerpo = '<div class="nums"><div class="p"><b>' + j.devueltos + '</b><small>Devueltos con observaciones</small></div></div><p class="sub">Revisa las observaciones, corrige y vuelve a entregar el informe.</p>';
+    cuerpo = '<div class="nums"><div class="' + (j.nuevos ? 'p' : '') + '"><b>' + j.nuevos + '</b><small>Primera revisión</small></div><div class="' + (j.subsanaciones ? 'p' : '') + '"><b>' + (j.subsanaciones || 0) + '</b><small>Subsanaciones</small></div><div><b>' + (j.enRevision || 0) + '</b><small>En revisión</small></div>' + (j.devueltos ? '<div class="p"><b>' + j.devueltos + '</b><small>Tuyos devueltos</small></div>' : '') + '</div>' +
+      (j.porRevisar ? '' : '<p class="sub">No hay informes esperando revisión.</p>');
+  } else cuerpo = '<div class="nums"><div class="p"><b>' + j.devueltos + '</b><small>Devueltos con observaciones</small></div></div><p class="sub">Revisa las observaciones, corrige y reenvía el informe.</p>';
   return '<section class="tarea' + (n ? ' pend' : '') + '"><div class="tarea-cab">' + ic('informe') + '<h2>' + (rev ? 'Informes por revisar' : 'Informes devueltos') + '</h2>' + (n ? '<span class="badge info">' + n + (rev ? ' por revisar' : ' por corregir') + '</span>' : '') + '</div>' + cuerpo +
     '<div class="acciones"><button class="btn' + (n ? '' : ' sec') + '" data-a="ir" data-v="informes">Abrir informes</button></div></section>';
 }
@@ -1576,54 +1656,78 @@ function tarjetaInformes(j) {
 function itemInf(i) {
   var ln = [i.lote ? 'Lote ' + esc(i.lote) : '', i.ensayo ? esc(i.ensayo) : '', i.referencia ? 'N° ' + esc(i.referencia) : ''].filter(Boolean).join(' · ');
   var h = '<article class="inf-c' + (S.flash[i.id] ? ' flash' : '') + '"><div class="inf-top"><b>' + esc(i.producto) + '</b>' + areaChip(i.area) + '</div>' + (ln ? '<div class="sub">' + ln + '</div>' : '') +
-    '<div class="sub">Entregado por ' + esc(i.entregado_por) + ' · ' + fh(i.entregado_en) + (i.ciclo > 1 ? ' · entrega N° ' + i.ciclo : '') + '</div>';
+    (i.tipo_analisis ? '<div><span class="tipo-an">' + esc(i.tipo_analisis) + '</span></div>' : '') +
+    '<div class="sub">Enviado por ' + esc(i.entregado_por) + ' · ' + fh(i.entregado_en) + (i.ciclo > 1 ? ' · ronda ' + i.ciclo : '') + '</div>';
   if (i.nota) h += '<div class="sub">Nota: ' + esc(i.nota) + '</div>';
-  if (i.estado === 'PENDIENTE_REVISION') h += '<div class="sub">En revisión por <b>' + esc(i.revisor) + '</b> desde ' + fh(i.tomado_en) + '</div>';
-  if (i.estado === 'REVISADO') h += '<div class="sub">Revisado por <b>' + esc(i.revisado_por) + '</b> · ' + fh(i.revisado_en) + '</div>';
-  if (i.estado === 'DEVUELTO') h += '<div class="inf-obs"><b>Observaciones de ' + esc(i.devuelto_por) + ' · ' + fh(i.devuelto_en) + '</b><p>' + esc(i.observacion) + '</p></div>';
+  if (i.estado === 'EN_REVISION') h += '<div class="sub">En revisión por <b>' + esc(i.revisor) + '</b> desde ' + fh(i.tomado_en) + '</div>';
+  if (i.estado === 'SUBSANACION_PENDIENTE') h += '<div class="sub">Subsanación reenviada ' + fh(i.subsanado_en) + (i.revisor ? ' · revisando <b>' + esc(i.revisor) + '</b> desde ' + fh(i.tomado_en) : '') + '</div>';
+  if (i.estado === 'ENTREGADO') h += '<div class="sub">Entregado por <b>' + esc(i.revisado_por) + '</b> · ' + fh(i.revisado_en) + '</div>';
+  if (i.estado === 'DEVUELTO' || (i.estado === 'SUBSANACION_PENDIENTE' && i.observacion)) h += '<div class="inf-obs"><b>Observaciones de ' + esc(i.devuelto_por) + ' · ' + fh(i.devuelto_en) + '</b><p>' + esc(i.observacion) + '</p></div>';
   var b = '';
-  if (i.puede.tomar) b += '<button class="btn chico" data-a="infTomar" data-id="' + i.id + '">' + ic('play') + 'Tomar para revisar</button>';
-  if (i.puede.resolver) b += '<button class="btn ' + (i.puede.tomar ? 'sec ' : '') + 'chico" data-a="infRevisado" data-id="' + i.id + '" data-p="' + esc(i.producto) + '">' + ic('check') + 'Marcar revisado</button><button class="btn sec chico" data-a="infDevolver" data-id="' + i.id + '" data-p="' + esc(i.producto) + '">' + ic('undo') + 'Devolver con observaciones</button>';
-  if (i.puede.reentregar) b += '<button class="btn chico" data-a="infReentregar" data-id="' + i.id + '">' + ic('edit') + 'Corregir y volver a entregar</button>';
-  if (b) h += '<div class="botones inf-acc">' + b + '</div>';
-  else if (i.propio && perm('revisar_informes') && (i.estado === 'ENTREGADO' || i.estado === 'PENDIENTE_REVISION')) h += '<p class="sub inf-nota">No puedes revisar tu propio informe: lo revisa otra persona.</p>';
+  if (i.puede.tomar) b += '<button class="btn chico" data-a="infTomar" data-id="' + i.id + '">' + ic('play') + 'Comenzar revisión</button>';
+  if (i.puede.resolver) b += '<button class="btn ' + (i.puede.tomar ? 'sec ' : '') + 'chico" data-a="infRevisado" data-id="' + i.id + '" data-p="' + esc(i.producto) + '" data-sub="' + (i.estado === 'SUBSANACION_PENDIENTE' ? 1 : '') + '">' + ic('check') + (i.estado === 'SUBSANACION_PENDIENTE' ? 'Aceptar correcciones y entregar' : 'Sin observaciones: entregar') + '</button><button class="btn sec chico" data-a="infDevolver" data-id="' + i.id + '" data-p="' + esc(i.producto) + '">' + ic('undo') + 'Devolver con observaciones</button>';
+  if (i.puede.reentregar) b += '<button class="btn chico" data-a="infReentregar" data-id="' + i.id + '">' + ic('edit') + 'Corregir y reenviar</button>';
+  b += '<button class="btn ghost chico" data-a="infHist" data-id="' + i.id + '">' + ic('clock') + 'Historial</button>';
+  h += '<div class="botones inf-acc">' + b + '</div>';
+  if (i.propio && perm('revisar_informes') && ['PENDIENTE_REVISION', 'EN_REVISION', 'SUBSANACION_PENDIENTE'].indexOf(i.estado) >= 0) h += '<p class="sub inf-nota">No puedes revisar tu propio informe: lo revisa otra persona.</p>';
   return h + '</article>';
 }
 
 function vInformes(d) {
   var rev = d.puede.revisar, ent = d.puede.entregar, area = S.infArea;
   var todos = d.informes.filter(function (i) { return area === 'TODAS' || i.area === area; });
-  var por = { ENTREGADO: [], PENDIENTE_REVISION: [], REVISADO: [], DEVUELTO: [] };
-  todos.forEach(function (i) { por[i.estado].push(i); });
+  var por = {}; Object.keys(INF).forEach(function (e) { por[e] = []; });
+  todos.forEach(function (i) { (por[i.estado] = por[i.estado] || []).push(i); });
+  var band = S.infBand || (rev ? 'primera' : 'todos');
+  if (!rev && band !== 'todos') band = 'todos';
   var h = '<header class="cab"><div><h1 class="h-ico">' + ic('informe') + (rev ? 'Informes' : 'Mis informes') + '</h1><p class="sub" style="margin:4px 0 0">' +
-    (rev ? 'Materias Primas y Producto Terminado en una sola bandeja. Nadie revisa su propio informe.' : 'Entrega el informe de cada lote terminado y sigue su revisión.') + '</p></div>' +
-    (ent ? '<button class="btn" data-a="infNuevo">' + ic('plus') + 'Entregar informe</button>' : '') + '</header>';
+    (rev ? 'Primera revisión y subsanaciones van en bandejas separadas. Nadie revisa su propio informe.' : 'Envía el informe de cada lote terminado y sigue su revisión.') + '</p></div>' +
+    (ent ? '<button class="btn" data-a="infNuevo">' + ic('plus') + 'Enviar informe</button>' : '') + '</header>';
   h += '<div class="inf-filtros"><div class="seg-chips" role="group" aria-label="Área">' + [['TODAS', 'Todas las áreas'], ['MP', 'Materias Primas'], ['PT', 'Producto Terminado']].map(function (a) {
     return '<button data-a="infArea" data-v="' + a[0] + '" aria-pressed="' + (area === a[0]) + '">' + a[1] + '</button>';
   }).join('') + '</div></div>';
-  h += '<div class="inf-chips" role="tablist" aria-label="Estado">' + Object.keys(INF).map(function (e) {
-    return '<button role="tab" class="an ' + INF[e][0] + (S.infEst === e ? ' sel' : '') + '" data-a="infEst" data-v="' + e + '" aria-selected="' + (S.infEst === e) + '">' + ic(INF[e][2]) + INF[e][3] + ' · ' + por[e].length + '</button>';
+  if (rev) h += '<div class="tabs inf-band" role="tablist" aria-label="Bandeja">' + [['primera', 'Primera revisión', por.PENDIENTE_REVISION.length], ['subs', 'Revisión de subsanaciones', por.SUBSANACION_PENDIENTE.length], ['todos', 'Todos los estados', todos.length]].map(function (t) {
+    return '<button role="tab" class="' + (band === t[0] ? 'act' : '') + '" data-a="infBand" data-v="' + t[0] + '" aria-selected="' + (band === t[0]) + '">' + t[1] + ' <span class="cnt-in">' + t[2] + '</span></button>';
   }).join('') + '</div>';
-  if (!d.informes.length) h += vacioG('informe', ent ? 'Aún no hay informes' : 'Aún no hay informes entregados', ent ? 'Cuando termines un lote, entrega su informe aquí para que lo revise otra persona.' : 'Cuando una analista entregue un informe, aparecerá aquí.', ent ? '<button class="btn" data-a="infNuevo">' + ic('plus') + 'Entregar informe</button>' : '');
+  if (!d.informes.length) return h + vacioG('informe', ent ? 'Aún no hay informes' : 'Aún no hay informes enviados', ent ? 'Cuando termines un lote, envía su informe aquí para que lo revise otra persona.' : 'Cuando una analista envíe un informe, aparecerá aquí.', ent ? '<button class="btn" data-a="infNuevo">' + ic('plus') + 'Enviar informe</button>' : '');
+  if (band === 'primera' || band === 'subs') {
+    var e = band === 'primera' ? 'PENDIENTE_REVISION' : 'SUBSANACION_PENDIENTE', l = por[e];
+    h += '<p class="sub" style="margin:0 0 10px">' + (band === 'primera' ? 'Informes enviados por primera vez que aún no comienzan su revisión.' : 'Informes corregidos y reenviados después de recibir observaciones. Conservan este estado hasta resolverse.') + '</p>';
+    h += l.length ? '<div class="inf-lista">' + l.map(itemInf).join('') + '</div>' : '<div class="vacio">' + (band === 'primera' ? 'No hay informes esperando primera revisión.' : 'No hay subsanaciones pendientes de revisión.') + '</div>';
+    if (por.EN_REVISION.length && band === 'primera') h += '<h3 class="seccion">En revisión</h3><div class="inf-lista">' + por.EN_REVISION.map(itemInf).join('') + '</div>';
+    return h;
+  }
+  var est = S.infEst && INF[S.infEst] ? S.infEst : 'PENDIENTE_REVISION';
+  h += '<div class="inf-chips" role="tablist" aria-label="Estado">' + Object.keys(INF).map(function (e) {
+    return '<button role="tab" class="an ' + INF[e][0] + (est === e ? ' sel' : '') + '" data-a="infEst" data-v="' + e + '" aria-selected="' + (est === e) + '">' + ic(INF[e][2]) + INF[e][3] + ' · ' + por[e].length + '</button>';
+  }).join('') + '</div>';
   h += '<div class="inf-tablero">' + Object.keys(INF).map(function (e) {
-    return '<section class="inf-col ' + (S.infEst === e ? 'sel' : '') + '" aria-label="' + INF[e][3] + '"><h2 class="inf-col-t">' + ic(INF[e][2]) + INF[e][3] + '<span class="cuenta">' + por[e].length + '</span></h2>' +
+    return '<section class="inf-col ' + (est === e ? 'sel' : '') + '" aria-label="' + INF[e][3] + '"><h2 class="inf-col-t">' + ic(INF[e][2]) + INF[e][3] + '<span class="cuenta">' + por[e].length + '</span></h2>' +
       (por[e].length ? por[e].map(itemInf).join('') : '<div class="inf-vacio">Sin informes</div>') + '</section>';
   }).join('') + '</div>';
   return h;
 }
 
+function selectTipoAn(tipos, actual, nombre) {
+  tipos = tipos || [];
+  return '<label>Tipo de análisis <span class="sub">(opcional)</span><select name="' + (nombre || 'tipo_analisis_id') + '"><option value="">Sin clasificar</option>' + tipos.filter(function (t) { return t.activo || t.id === actual; }).map(function (t) {
+    return '<option value="' + esc(t.id) + '"' + (t.id === actual ? ' selected' : '') + '>' + esc(t.nombre) + (t.activo ? '' : ' (desactivado)') + '</option>';
+  }).join('') + '</select></label>';
+}
+
 function formInforme(pre) {
   pre = pre || {};
   var area = pre.area || (S.usuario.area_habitual === 'PT' ? 'PT' : 'MP');
-  modal('<h2>Entregar informe</h2><p class="sub" style="margin:-6px 0 12px">Quedará pendiente para los revisores. No se adjuntan archivos en esta versión.</p><form data-f="informe" autocomplete="off">' + datalistsBase() +
+  modal('<h2>Enviar informe a revisión</h2><p class="sub" style="margin:-6px 0 12px">Quedará «Pendiente de revisión» para los revisores. No se adjuntan archivos en esta versión.</p><form data-f="informe" autocomplete="off">' + datalistsBase() +
     '<input type="hidden" name="analisis_id" value="' + esc(pre.analisis_id || '') + '">' +
     '<fieldset class="seg"><legend>Área</legend><label><input type="radio" name="area" value="MP"' + (area === 'MP' ? ' checked' : '') + '> Materias Primas</label><label><input type="radio" name="area" value="PT"' + (area === 'PT' ? ' checked' : '') + '> Producto Terminado</label></fieldset>' +
     '<label>Producto<input name="producto" list="dl-prod" required maxlength="100" value="' + esc(pre.producto || '') + '" autofocus></label>' +
     '<div class="form-grid"><label>Lote<input name="lote" required maxlength="60" value="' + esc(pre.lote || '') + '" placeholder="L001"></label>' +
     '<label>Análisis <span class="sub">(opcional)</span><input name="ensayo" list="dl-ens-todos" maxlength="100" value="' + esc(pre.ensayo || '') + '" placeholder="Ej.: Valoración"></label></div>' +
+    selectTipoAn((S.datos && S.datos.tipos) || (S.sug && S.sug.tiposAnalisis), pre.tipo_analisis_id || '') +
     '<label>N° o código del informe <span class="sub">(opcional)</span><input name="referencia" maxlength="60" placeholder="Ej.: INF-0123"></label>' +
     '<label>Nota para quien revisa <span class="sub">(opcional)</span><input name="nota" maxlength="300"></label>' +
-    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Entregar informe</button></div></form>');
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Enviar a revisión</button></div></form>');
 }
 
 /* ---------- Indicadores ---------- */
@@ -1637,7 +1741,7 @@ function hTxt(h) { if (h === null || h === undefined) return '—'; if (h < 1) r
 /* ---------- Indicadores: uso mensual de equipos por año ---------- */
 var MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 function indModos() {
-  return '<div class="ind-rango no-imp"><div class="seg-chips" role="group" aria-label="Tipo de indicadores">' + [['resumen', 'Resumen del período'], ['anual', 'Uso mensual de equipos']].map(function (x) {
+  return '<div class="ind-rango no-imp"><div class="seg-chips" role="group" aria-label="Tipo de indicadores">' + [['resumen', 'Resumen del período'], ['analisis', 'Análisis del mes'], ['anual', 'Uso mensual de equipos']].map(function (x) {
     return '<button data-a="indModo" data-v="' + x[0] + '" aria-pressed="' + (S.indModo === x[0]) + '">' + x[1] + '</button>';
   }).join('') + '</div></div>';
 }
@@ -1706,19 +1810,48 @@ function vIndicadores(d) {
   /* análisis en curso */
   var an = d.analisis;
   h += '<h2 class="sec-t">Análisis en curso <small class="sub">(situación actual)</small></h2><div class="ind-dos"><section class="ind-card"><h3>Por área y estado</h3><div class="tabla-wrap"><table><thead><tr><th>Área</th>' +
-    ['PENDIENTE', 'EN_PROCESO', 'EN_ESPERA', 'FINALIZADO'].map(function (e) { return '<th class="num">' + AN[e][1] + '</th>'; }).join('') + '</tr></thead><tbody>' +
-    ['MP', 'PT'].map(function (a) { return '<tr><td>' + AREA_TXT[a] + '</td>' + ['PENDIENTE', 'EN_PROCESO', 'EN_ESPERA', 'FINALIZADO'].map(function (e) { return '<td class="num">' + an.porArea[a][e] + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div></section>' +
+    ['PENDIENTE', 'EN_PROCESO', 'INFORMANDO', 'FINALIZADO'].map(function (e) { return '<th class="num">' + AN[e][1] + '</th>'; }).join('') + '</tr></thead><tbody>' +
+    ['MP', 'PT'].map(function (a) { return '<tr><td>' + AREA_TXT[a] + '</td>' + ['PENDIENTE', 'EN_PROCESO', 'INFORMANDO', 'FINALIZADO'].map(function (e) { return '<td class="num">' + (an.porArea[a][e] || 0) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div></section>' +
     '<section class="ind-card"><h3>Carga por analista</h3>' + (an.porAnalista.length ? an.porAnalista.map(function (a) {
       var max = an.porAnalista[0].total || 1;
       return '<div class="ind-fila"><span class="ind-n">' + esc(a.nombre) + '</span>' + barraInd(a.total / max * 100, a.nombre + ': ' + a.total + ' productos') + '<span class="ind-v">' + a.total + (a.total === 1 ? ' producto' : ' productos') + (a.enProceso ? ' · ' + a.enProceso + ' en proceso' : '') + '</span></div>';
     }).join('') : '<p class="sub">Aún no hay productos asignados.</p>') + '</section></div>';
 
   /* informes */
-  h += '<h2 class="sec-t">Informes</h2><div class="ind-dos"><section class="ind-card"><h3>Entregados en el período: ' + inf.entregados + '</h3>' +
-    Object.keys(INF).map(function (e) { return '<div class="ind-fila ind-ancha"><span class="ind-n">' + INF[e][1] + '</span>' + barraInd(inf.entregados ? inf.estados[e] / inf.entregados * 100 : 0, INF[e][3] + ': ' + inf.estados[e]) + '<span class="ind-v">' + inf.estados[e] + '</span></div>'; }).join('') +
+  h += '<h2 class="sec-t">Informes</h2><div class="ind-dos"><section class="ind-card"><h3>Enviados en el período: ' + inf.entregados + ' <small class="sub">(estado actual)</small></h3>' +
+    Object.keys(INF).map(function (e) { var n = (inf.estados || {})[e] || 0; return '<div class="ind-fila ind-ancha"><span class="ind-n">' + INF[e][1] + '</span>' + barraInd(inf.entregados ? n / inf.entregados * 100 : 0, INF[e][3] + ': ' + n) + '<span class="ind-v">' + n + '</span></div>'; }).join('') +
     '<p class="sub" style="margin:8px 0 0">' + AREA_TXT.MP + ': ' + inf.porArea.MP + ' · ' + AREA_TXT.PT + ': ' + inf.porArea.PT + '</p></section>' +
-    '<section class="ind-card"><h3>Tiempos de revisión</h3><dl class="ficha"><dt>Revisión media</dt><dd>' + hTxt(inf.horasMediasRevision) + (inf.revisadosEnRango ? ' <span class="sub">(' + inf.revisadosEnRango + ' revisados)</span>' : '') + '</dd><dt>Esperando revisión</dt><dd>' + inf.sinRevisar + '</dd><dt>Espera media</dt><dd>' + hTxt(inf.esperaMediaHoras) + '</dd><dt>Espera más larga</dt><dd>' + hTxt(inf.esperaMaxHoras) + '</dd></dl></section></div>';
+    '<section class="ind-card"><h3>Tiempos de revisión</h3><dl class="ficha"><dt>Del envío a la entrega</dt><dd>' + hTxt(inf.horasMediasRevision) + (inf.revisadosEnRango ? ' <span class="sub">(' + inf.revisadosEnRango + ' entregados' + (inf.conObservaciones ? ', ' + inf.conObservaciones + ' con observaciones' : '') + ')</span>' : '') + '</dd>' + (inf.devueltosEnRango !== undefined ? '<dt>Devoluciones</dt><dd>' + inf.devueltosEnRango + '</dd>' : '') + '<dt>Esperando revisión</dt><dd>' + inf.sinRevisar + '</dd><dt>Espera media</dt><dd>' + hTxt(inf.esperaMediaHoras) + '</dd><dt>Espera más larga</dt><dd>' + hTxt(inf.esperaMaxHoras) + '</dd></dl></section></div>';
   h += '<p class="nota" style="margin-top:20px">Herramienta de seguimiento operativo. Las cifras salen de los registros de la app y no reemplazan los registros oficiales de calidad.</p>';
+  return h;
+}
+
+/* ---------- v0.8: indicadores mensuales de análisis (fechas reales de cada evento) ---------- */
+function vAnalisisMes(d) {
+  var nm = function (m) { var p = m.split('-'); return cap(new Date(Number(p[0]), Number(p[1]) - 1, 1).toLocaleDateString('es-CL', { month: 'long', year: 'numeric' })); };
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('stats') + 'Indicadores</h1><p class="sub" style="margin:4px 0 0">Análisis de ' + esc(nm(d.mes)) + (d.actual ? ' (mes en curso, hasta hoy)' : '') + '. Se cuentan por la fecha real de cada cambio de estado.</p></div>' +
+    '<button class="btn sec chico no-imp" data-a="imprimir">' + ic('informe') + 'Imprimir</button></header>';
+  h += indModos();
+  h += '<div class="ind-rango no-imp"><label style="margin:0">Mes<select data-a="indMes">' + d.meses.map(function (m) { return '<option value="' + m + '"' + (m === d.mes ? ' selected' : '') + '>' + esc(nm(m)) + '</option>'; }).join('') + '</select></label></div>';
+  h += '<div class="kpis ind-kpis">' +
+    '<div class="kpi"><span class="kpi-l">' + ic('prog') + 'En proceso</span><span class="kpi-v" style="color:#164a96">' + d.enProceso + '</span><span class="kpi-s">' + (d.actual ? 'ahora' : 'al cierre del mes') + '</span></div>' +
+    '<div class="kpi"><span class="kpi-l">' + ic('doc') + 'Informando</span><span class="kpi-v" style="color:#9a4300">' + d.informando + '</span><span class="kpi-s">' + (d.actual ? 'ahora' : 'al cierre del mes') + '</span></div>' +
+    '<div class="kpi"><span class="kpi-l">' + ic('disp') + 'Finalizados en el mes</span><span class="kpi-v" style="color:var(--ok-ink)">' + d.finalizados + '</span><span class="kpi-s">MP ' + d.porArea.MP + ' · PT ' + d.porArea.PT + '</span></div>' +
+    '<div class="kpi"><span class="kpi-l">' + ic('play') + 'Iniciados en el mes</span><span class="kpi-v">' + d.iniciados + '</span><span class="kpi-s">' + d.pendientesInicio + ' asignaciones sin iniciar</span></div></div>';
+  var dias = d.dias || [], max = Math.max.apply(null, dias.map(function (x) { return x.enProceso + x.informando + x.finalizados; }).concat([1]));
+  h += '<h2 class="sec-t">Evolución durante el mes</h2><section class="ind-card"><div class="mes-evo" role="img" aria-label="Evolución diaria de análisis en proceso, informando y finalizados">' + dias.map(function (x) {
+    var p = function (n) { return (n / max * 100).toFixed(1) + '%'; };
+    return '<div class="d" title="Día ' + x.dia + ': ' + x.enProceso + ' en proceso, ' + x.informando + ' informando, ' + x.finalizados + ' finalizados"><i class="e3" style="height:' + p(x.finalizados) + '"></i><i class="e2" style="height:' + p(x.informando) + '"></i><i class="e1" style="height:' + p(x.enProceso) + '"></i></div>';
+  }).join('') + '</div><div class="mes-ejes"><span>1</span><span>' + (dias.length ? dias[dias.length - 1].dia : '') + '</span></div>' +
+    '<div class="leyenda-an"><span><i style="background:#3b7bd8"></i>En proceso</span><span><i style="background:#f08a24"></i>Informando</span><span><i style="background:#1f9d5c"></i>Finalizados acumulados del mes</span></div></section>';
+  h += '<div class="ind-dos" style="margin-top:14px"><section class="ind-card"><h3>Distribución por estado</h3>' + [['En proceso', d.enProceso, '#3b7bd8'], ['Informando', d.informando, '#f08a24'], ['Finalizados en el mes', d.finalizados, '#1f9d5c']].map(function (x) {
+    var t = d.enProceso + d.informando + d.finalizados || 1;
+    return '<div class="ind-fila ind-ancha"><span class="ind-n">' + x[0] + '</span><span class="ind-barra" role="img" aria-label="' + x[0] + ': ' + x[1] + '"><i style="width:' + Math.round(x[1] / t * 100) + '%;background:' + x[2] + '"></i></span><span class="ind-v">' + x[1] + '</span></div>';
+  }).join('') + '<p class="sub" style="margin:8px 0 0">Finalizados por área: ' + AREA_TXT.MP + ' ' + d.porArea.MP + ' · ' + AREA_TXT.PT + ' ' + d.porArea.PT + (d.correcciones ? ' · ' + d.correcciones + (d.correcciones === 1 ? ' corrección' : ' correcciones') + ' de estado en el mes' : '') + '</p></section>' +
+    '<section class="ind-card"><h3>Por analista</h3>' + (d.analistas.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Analista</th><th class="num">Finalizados</th><th class="num">En proceso</th><th class="num">Informando</th></tr></thead><tbody>' + d.analistas.map(function (a) {
+      return '<tr><td>' + esc(a.nombre) + '</td><td class="num"><b>' + a.finalizados + '</b></td><td class="num">' + a.enProceso + '</td><td class="num">' + a.informando + '</td></tr>';
+    }).join('') + '</tbody></table></div>' : '<p class="sub">Sin análisis en este mes.</p>') + '</section></div>';
+  h += '<p class="nota" style="margin-top:20px">«Finalizado» es el trabajo del analista; no significa que el informe esté entregado. Un análisis corregido y finalizado otra vez cuenta una sola vez, en su fecha de finalización vigente.</p>';
   return h;
 }
 
@@ -1838,6 +1971,7 @@ function vPlan(d) {
   var botones = '';
   if (plan && (r.incompatibles || r.sinResponsable || Object.keys(d.desfase || {}).length)) botones += '<button class="btn sec" data-a="verifRedis">' + ic('prog') + 'Redistribuir pendientes</button>';
   if (plan && edit && d.asignaciones.length) botones += '<button class="btn" data-a="verifPub" data-id="' + plan.id + '">' + ic('check') + 'Confirmar y publicar</button>';
+  if (plan && d.asignaciones.length) botones += '<button class="btn sec" data-a="planImprimir">' + ic('impr') + 'Imprimir calendario semanal</button>';
   h += '<div class="cab" style="align-items:center"><div class="linea" style="margin:0">' + est + (nota ? '<span class="sub">' + nota + '</span>' : '') + '</div><div class="acciones" style="margin:0">' + botones + '</div></div>';
   if (!activas.length) return h + vacioG('verif', 'El catálogo está vacío', 'Agrega las verificaciones y actividades que se realizan para poder planificarlas.', '<div class="acciones"><button class="btn" data-a="catBase">Cargar las tareas estándar</button><button class="btn sec" data-a="verifTab" data-t="cat">Ir al catálogo</button></div>');
   var des = d.desfase || {}, diasDes = Object.keys(des).sort();
@@ -1856,7 +1990,7 @@ function vPlan(d) {
       '<button class="mod" data-a="verifGen">' + '<b>' + ic('magia') + 'Distribución automática</b><span class="sub">Consulta los turnos día de cada fecha y propone un reparto equitativo y rotativo. Tú revisas y confirmas.</span></button>' +
       '<button class="mod" data-a="verifCopia"' + (d.hay_anterior ? '' : ' disabled') + '><b>' + ic('copia') + 'Copiar semana anterior</b><span class="sub">' + (d.hay_anterior ? 'Repite los responsables y señala a quien no esté disponible.' : 'No hay planificación de la semana anterior.') + '</span></button>' +
       '<button class="mod" data-a="verifManual"><b>' + ic('mano') + 'Asignación manual</b><span class="sub">Tú eliges quién hace cada tarea cada día.</span></button></div>';
-    h += '<details class="det-disp"><summary>Ajustar disponibilidad antes de generar (opcional)</summary><p class="sub" style="margin:8px 0">Analistas del turno día de MP y PT. Ya se descartaron ausencias y días fuera de turno; ajusta lo que haga falta. Solo afecta a la distribución automática.</p>';
+    h += '<details class="det-disp"><summary>Ajustar disponibilidad antes de generar (opcional)</summary><p class="sub" style="margin:8px 0">Solo personas con rol exactamente Analista (sin rol de revisor ni jefatura) y en turno día. Ya se descartaron ausencias y días fuera de turno; ajusta lo que haga falta. Solo afecta a la distribución automática.</p>';
     if (!d.candidatos.length) h += vacioG('cal', 'No hay analistas con turno día asignado', 'Asígnalos en «Asignación de turnos».', '<button class="btn sec chico" data-a="planTurnos">Asignar turnos de la semana</button>');
     else {
       h += '<div class="tabla-wrap"><table class="tabla-plan"><thead><tr><th>Analista</th>' + d.fechas.map(function (f) { return '<th class="c" style="text-align:center">' + esc(diaCorto(f)) + '</th>'; }).join('') + '</tr></thead><tbody>' +
@@ -1887,6 +2021,45 @@ function vPlan(d) {
   return h;
 }
 
+/* ---------- v0.8: impresión del calendario semanal (A4 horizontal, una página) ---------- */
+function htmlImpresionPlan(d) {
+  var dias = d.fechas.filter(function (f) { var w = new Date(f + 'T12:00:00').getDay(); return w >= 1 && w <= 5; });
+  if (!dias.length) dias = d.fechas;
+  var por = {};
+  d.asignaciones.forEach(function (a) { var k = a.fecha + '|' + a.verificacion_id; (por[k] = por[k] || []).push(a); });
+  var tareas = d.catalogo.filter(function (v) { return d.asignaciones.some(function (a) { return a.verificacion_id === v.id && dias.indexOf(a.fecha) >= 0; }); });
+  var largo = function (f) { var x = new Date(f + 'T12:00:00'); return x.toLocaleDateString('es-CL', { weekday: 'long', day: 'numeric', month: 'long' }); };
+  var rango = 'Del ' + largo(dias[0]) + ' al ' + largo(dias[dias.length - 1]) + ' de ' + dias[dias.length - 1].slice(0, 4);
+  var nom = function (a) { return a.usuario_id ? esc(a.usuario || nombreAnalista(d, a.usuario_id)) : '<span class="imp-sin">Sin asignar</span>'; };
+  var tabla = '<table class="imp-tabla"><thead><tr><th class="imp-t">Actividad</th>' + dias.map(function (f) { return '<th>' + esc(cap(largo(f).split(',')[0])) + '<small>' + esc(f.slice(8, 10) + '/' + f.slice(5, 7)) + '</small></th>'; }).join('') + '</tr></thead><tbody>' +
+    tareas.map(function (v) {
+      return '<tr><td class="imp-t"><b>' + esc(v.nombre) + '</b><small>' + (v.categoria === 'ACTIVIDAD' ? 'Actividad' : 'Verificación') + (v.responsables > 1 ? ' · ' + v.responsables + ' responsables' : '') + '</small></td>' + dias.map(function (f) {
+        var rows = por[f + '|' + v.id] || [];
+        return '<td>' + (rows.length ? rows.map(function (a) { return '<div>' + nom(a) + '</div>'; }).join('') : '<span class="imp-no">—</span>') + '</td>';
+      }).join('') + '</tr>';
+    }).join('') + '</tbody></table>';
+  var des = d.catalogo.filter(function (v) { return norm(v.nombre).indexOf('desecho') >= 0; })[0], desH = '';
+  if (des) {
+    var dd = dias.filter(function (f) { return (por[f + '|' + des.id] || []).length; });
+    if (dd.length) desH = '<div class="imp-des"><b>Retiro de desechos</b>' + dd.map(function (f) { return '<span><b>' + esc(cap(largo(f).split(',')[0])) + ':</b> ' + por[f + '|' + des.id].map(nom).join(' y ') + '</span>'; }).join('') + '</div>';
+  }
+  var lab = (S.config && S.config.nombre_laboratorio) || 'Laboratorio de Control de Calidad';
+  return '<div class="imp-hoja"><header class="imp-cab"><div class="imp-marca">' + MARCA + '<div><b>Lab CC</b><small>' + esc(lab) + '</small></div></div><div class="imp-tit"><h1>Calendario semanal de verificaciones y actividades</h1><p>' + esc(rango) + '</p></div>' +
+    '<div class="imp-est">' + (d.plan && d.plan.estado === 'PUBLICADA' ? 'Publicado' + (d.plan.publicado_por ? ' por ' + esc(d.plan.publicado_por) : '') : 'Borrador (sin publicar)') + '</div></header>' + tabla + desH +
+    '<footer class="imp-pie">Impreso el ' + esc(new Date().toLocaleString('es-CL', { dateStyle: 'long', timeStyle: 'short' })) + ' por ' + esc(S.usuario ? S.usuario.nombre : '') + ' · Asignaciones registradas en Lab CC · Herramienta de seguimiento operativo.</footer></div>';
+}
+function planImprimir() {
+  var d = S.datos; if (!d || !d.asignaciones || !d.asignaciones.length) { toast('No hay asignaciones para imprimir en esta semana.', 'error'); return; }
+  var c = document.getElementById('imprimible');
+  if (!c) { c = document.createElement('div'); c.id = 'imprimible'; document.body.appendChild(c); }
+  c.innerHTML = htmlImpresionPlan(d);
+  var st = document.createElement('style'); st.id = 'estilo-imp'; st.textContent = '@page{size:A4 landscape;margin:9mm}';
+  document.head.appendChild(st);
+  document.body.classList.add('imprimiendo');
+  var fin = function () { document.body.classList.remove('imprimiendo'); var x = document.getElementById('estilo-imp'); if (x) x.remove(); window.removeEventListener('afterprint', fin); };
+  window.addEventListener('afterprint', fin);
+  setTimeout(function () { window.print(); setTimeout(fin, 1500); }, 60);
+};
 function vSeg(d) {
   var h = semanaNav(d), plan = d.plan;
   if (!plan) return h + vacioG('stats', 'Esta semana no tiene planificación', 'El seguimiento aparece cuando se publica la planificación.');
@@ -2035,7 +2208,7 @@ function contenido() {
     case 'perfil': return vPerfil(d);
     case 'verif': return vVerif(d);
     case 'informes': return vInformes(d);
-    case 'indicadores': return d.tipos ? vUsoAnual(d) : vIndicadores(d);
+    case 'indicadores': return d.tipos ? vUsoAnual(d) : d.dias && d.mes ? vAnalisisMes(d) : vIndicadores(d);
   }
   return '';
 }
@@ -2128,7 +2301,7 @@ function tarjetaEq(e) {
   if (e.advertencia) cuerpo += '<div class="alerta roja" style="margin:0">' + esc(e.advertencia) + '</div>';
   var det = '';
   if (sel) {
-    if (o) det += '<dl class="ficha"><dt>Producto</dt><dd>' + esc(o.producto) + '</dd>' + (o.lotes ? '<dt>Lotes</dt><dd>' + esc(o.lotes) + '</dd>' : '') + (o.ensayo ? '<dt>Ensayo</dt><dd>' + esc(o.ensayo) + '</dd>' : '') + '<dt>Inicio</dt><dd>' + fh(o.inicio) + '</dd></dl>';
+    if (o) det += '<dl class="ficha"><dt>Producto</dt><dd>' + esc(o.producto) + '</dd>' + (o.lotes ? '<dt>Lotes</dt><dd>' + esc(o.lotes) + '</dd>' : '') + (o.tipo_disolucion ? '<dt>Tipo</dt><dd>' + esc(o.tipo_disolucion) + '</dd>' : '') + (o.ensayo ? '<dt>Ensayo</dt><dd>' + esc(o.ensayo) + '</dd>' : '') + '<dt>Inicio</dt><dd>' + fh(o.inicio) + '</dd></dl>';
     else if (e.estado === 'NO_OPERATIVO' && e.incidencia) det += '<div class="alerta roja" style="margin:0"><b>' + esc(e.incidencia.descripcion) + '</b><div class="sub">Reportado por ' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div></div>';
     var ck = Object.keys(e.caracteristicas || {}), ft = [];
     if (e.marca || e.modelo) ft.push('<dt>Marca / modelo</dt><dd>' + esc([e.marca, e.modelo].filter(Boolean).join(' · ')) + '</dd>');
@@ -2187,7 +2360,7 @@ function vEquipo(d) {
   if (e.estado === 'NO_OPERATIVO' && e.incidencia) h += '<div class="alerta" style="margin-bottom:12px"><b>No operativo:</b> ' + esc(e.incidencia.descripcion) + '<div class="sub">' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div></div>';
   h += '<div class="acciones" style="justify-content:flex-start;margin:0 0 16px">' + acc + '</div>';
   h += '<div class="grid">';
-  h += '<div class="card"><h3>Uso actual</h3>' + (o ? '<dl class="ficha"><dt>Analista</dt><dd>' + esc(o.usuario) + '</dd><dt>Área</dt><dd>' + AREA_TXT[o.area] + '</dd><dt>Producto</dt><dd>' + esc(o.producto) + '</dd><dt>Lotes</dt><dd>' + esc(o.lotes || '—') + '</dd><dt>Ensayo</dt><dd>' + esc(o.ensayo || '—') + '</dd><dt>Inicio</dt><dd>' + fh(o.inicio) + '</dd><dt>Transcurrido</dt><dd>' + dur(o.inicio) + '</dd></dl>' : '<p class="sub">Sin ocupación activa.</p>') + '</div>';
+  h += '<div class="card"><h3>Uso actual</h3>' + (o ? '<dl class="ficha"><dt>Analista</dt><dd>' + esc(o.usuario) + '</dd><dt>Área</dt><dd>' + AREA_TXT[o.area] + '</dd><dt>Producto</dt><dd>' + esc(o.producto) + '</dd>' + (o.tipo_disolucion ? '<dt>Tipo de análisis</dt><dd>' + esc(o.tipo_disolucion) + '</dd>' : '') + '<dt>Lotes</dt><dd>' + esc(o.lotes || '—') + '</dd><dt>Ensayo</dt><dd>' + esc(o.ensayo || '—') + '</dd><dt>Inicio</dt><dd>' + fh(o.inicio) + '</dd><dt>Transcurrido</dt><dd>' + dur(o.inicio) + '</dd></dl>' : '<p class="sub">Sin ocupación activa.</p>') + '</div>';
   h += '<div class="card"><h3>Ficha técnica</h3><dl class="ficha"><dt>Código</dt><dd>' + esc(e.codigo) + '</dd><dt>Marca</dt><dd>' + esc(e.marca || '—') + '</dd><dt>Modelo</dt><dd>' + esc(e.modelo || '—') + '</dd>' +
     carac.map(function (k) { return '<dt>' + esc(k) + '</dt><dd>' + esc(e.caracteristicas[k] || '—') + '</dd>'; }).join('') + '</dl></div>';
   h += '</div>';
@@ -2204,7 +2377,7 @@ function vEquipo(d) {
       var notas = [];
       if (x.modo === 'RETROSPECTIVO') notas.push('Registro retrospectivo');
       if (x.cierre_tercero) notas.push('Liberado por ' + x.finalizado_por + (x.motivo_cierre ? ': ' + x.motivo_cierre : ''));
-      return '<tr><td>' + fh(x.inicio) + '</td><td>' + fh(x.fin) + '</td><td>' + dur(x.inicio, x.fin) + '</td><td>' + esc(x.usuario) + '</td><td>' + esc(x.area) + '</td><td>' + esc(x.producto) + (x.lotes ? '<div class="sub">' + esc(x.lotes) + '</div>' : '') + '</td><td>' + esc(x.ensayo || '—') + '</td><td class="sub">' + esc(notas.join(' · ') || '') + '</td></tr>';
+      return '<tr><td>' + fh(x.inicio) + '</td><td>' + fh(x.fin) + '</td><td>' + dur(x.inicio, x.fin) + '</td><td>' + esc(x.usuario) + '</td><td>' + esc(x.area) + '</td><td>' + esc(x.producto) + (x.lotes ? '<div class="sub">' + esc(x.lotes) + '</div>' : '') + '</td><td>' + (x.tipo_disolucion ? '<b>' + esc(x.tipo_disolucion) + '</b>' + (x.ensayo ? '<div class="sub">' + esc(x.ensayo) + '</div>' : '') : esc(x.ensayo || '—')) + '</td><td class="sub">' + esc(notas.join(' · ') || '') + '</td></tr>';
     }).join('') + '</tbody></table></div>' : '<div class="vacio">Sin usos finalizados.</div>');
   return h;
 }
@@ -2230,7 +2403,7 @@ function vReservas(d) {
 /* ---------- Registro retrospectivo de disolutores ---------- */
 function filaRetroVacia(base) {
   base = base || {};
-  return { equipo_id: base.equipo_id || '', producto: base.producto || '', area: base.area || '', lotes: base.lotes || '', ensayo: base.ensayo || '', inicio: '', fin: '' };
+  return { equipo_id: base.equipo_id || '', producto: base.producto || '', area: base.area || '', lotes: base.lotes || '', ensayo: base.ensayo || '', tipo_disolucion: base.tipo_disolucion || '', inicio: '', fin: '' };
 }
 function vRetro() {
   var dis = S.sug.equipos.filter(function (e) { return e.tipo === 'DISOLUTOR'; });
@@ -2245,6 +2418,7 @@ function vRetro() {
       '<label>Producto<input data-r="' + i + '" data-k="producto" list="dl-prod" value="' + esc(f.producto) + '" autocomplete="off"></label>' +
       '<label>Área<select data-r="' + i + '" data-k="area"><option value="">Selecciona…</option><option value="MP"' + (f.area === 'MP' ? ' selected' : '') + '>Materias Primas</option><option value="PT"' + (f.area === 'PT' ? ' selected' : '') + '>Producto Terminado</option></select></label>' +
       '<label>Lotes<input data-r="' + i + '" data-k="lotes" value="' + esc(f.lotes) + '" placeholder="L001, L002"></label>' +
+      '<label>Tipo de análisis<select data-r="' + i + '" data-k="tipo_disolucion" required><option value="">Selecciona…</option>' + TIPOS_DIS.map(function (t) { return '<option value="' + t[0] + '"' + (f.tipo_disolucion === t[0] ? ' selected' : '') + '>' + t[1] + '</option>'; }).join('') + '</select></label>' +
       '<label>Ensayo<input data-r="' + i + '" data-k="ensayo" list="dl-ens-todos" value="' + esc(f.ensayo) + '" autocomplete="off"></label>' +
       '<label>Inicio<input type="datetime-local" data-r="' + i + '" data-k="inicio" value="' + esc(f.inicio) + '"></label>' +
       '<label>Término<input type="datetime-local" data-r="' + i + '" data-k="fin" value="' + esc(f.fin) + '"></label>' +
@@ -2252,6 +2426,13 @@ function vRetro() {
   }).join('');
   h += '<div class="acciones" style="justify-content:space-between"><button class="btn sec" data-a="retroAgregar">+ Agregar registro</button><button class="btn" data-a="retroGuardar">Guardar ' + S.retro.length + ' registro' + (S.retro.length > 1 ? 's' : '') + '</button></div>';
   return h;
+}
+/** v0.8: tipo de análisis del disolutor (lista fija; solo aparece para disolutores). */
+var TIPOS_DIS = [['TEST', 'Test de disolución'], ['CINETICA', 'Cinética de disolución'], ['ETAPA2', 'Test de disolución etapa 2']];
+function selectTipoDis(actual, nombre, extra) {
+  return '<fieldset class="seg seg-dis"><legend>Tipo de análisis del disolutor</legend>' + TIPOS_DIS.map(function (t) {
+    return '<label><input type="radio" name="' + nombre + '" value="' + t[0] + '"' + (actual === t[0] ? ' checked' : '') + (extra || '') + ' required> ' + t[1] + '</label>';
+  }).join('') + '</fieldset>';
 }
 function datalistsBase() {
   var s = S.sug || { productos: [], ensayos: [] };
@@ -2299,7 +2480,7 @@ function listaEncHtml(arr) {
 
 /* ---------- Administración ---------- */
 function vAdmin(d) {
-  var tabs = [['usuarios', 'Usuarios'], ['turnos', 'Turnos'], ['ausencias', 'Ausencias'], ['equipos', 'Equipos'], ['mensajes', 'Mensajes'], ['permisos', 'Permisos del revisor'], ['config', 'Configuración']];
+  var tabs = [['usuarios', 'Usuarios'], ['turnos', 'Turnos'], ['ausencias', 'Ausencias'], ['equipos', 'Equipos'], ['tiposan', 'Tipos de análisis'], ['mensajes', 'Mensajes'], ['permisos', 'Permisos del revisor'], ['config', 'Configuración']];
   var h = '<div class="cab"><div><h1 class="h-ico">' + ic('cog') + 'Administración</h1><p class="sub">Versión ' + esc(d.version) + '</p></div></div><div class="tabs">' +
     tabs.map(function (t) { return '<button class="' + (S.adminTab === t[0] ? 'act' : '') + '" data-a="adminTab" data-t="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
   var t = S.adminTab;
@@ -2337,6 +2518,14 @@ function vAdmin(d) {
         '<div class="form-grid"><label>Botón<input name="boton" value="' + esc(m.boton) + '" required></label><label class="inline-check" style="margin-top:28px"><input type="checkbox" name="activo" value="1"' + (m.activo ? ' checked' : '') + '> Activo</label></div>' +
         '<div class="acciones"><button class="btn chico">Guardar mensaje</button></div></form></div>';
     }).join('');
+  } else if (t === 'tiposan') {
+    var tl = d.tiposAnalisis || [];
+    h += '<p class="sub">Clasificación de cada análisis (independiente del producto, el lote y el nombre del análisis). Las categorías desactivadas no se ofrecen al registrar, pero se conservan en los registros donde ya se usaron.</p>' +
+      '<div class="acciones" style="justify-content:flex-start;margin:0 0 12px"><button class="btn" data-a="formTipoAn">' + ic('plus') + 'Nueva categoría</button></div>';
+    h += tl.length ? '<div class="lista">' + tl.map(function (x) {
+      return '<div class="fila"><div class="crece"><b>' + esc(x.nombre) + '</b> ' + (x.activo ? '<span class="badge hecho"><i></i>Activa</span>' : '<span class="badge gris">Desactivada</span>') + (x.descripcion ? '<div class="sub">' + esc(x.descripcion) + '</div>' : '') + '</div>' +
+        '<button class="btn ghost chico" data-a="formTipoAn" data-id="' + esc(x.id) + '">Editar</button><button class="btn ghost chico" data-a="tipoAnActivo" data-id="' + esc(x.id) + '" data-on="' + (x.activo ? '' : '1') + '">' + (x.activo ? 'Desactivar' : 'Activar') + '</button></div>';
+    }).join('') + '</div>' : '<div class="vacio">El catálogo está vacío.</div>';
   } else if (t === 'permisos') {
     h += adminPermisos(d);
   } else if (t === 'config') {
@@ -2345,11 +2534,12 @@ function vAdmin(d) {
     var chk = function (nombre, sel) { return '<div class="checks">' + ['ANALISTA', 'REVISOR', 'JEFATURA'].map(function (r) { return '<label><input type="checkbox" name="' + nombre + '" value="' + r + '"' + (sel.indexOf(r) >= 0 ? ' checked' : '') + '> ' + ROL_TXT[r] + '</label>'; }).join('') + '</div>'; };
     h += '<div class="card"><form data-f="config"><div class="form-grid"><label>Nombre del laboratorio<input name="nombre_laboratorio" value="' + esc(c.nombre_laboratorio) + '"></label>' +
       '<label>Zona horaria<input name="zona_horaria" value="' + esc(c.zona_horaria) + '"></label><label>Dirección pública de la app<input name="url_frontend" value="' + esc(c.url_frontend || '') + '" placeholder="https://usuario.github.io/LabCC/"></label><label>Actualización automática (segundos)<input name="segundos_refresco" type="number" min="10" max="120" value="' + esc(c.segundos_refresco) + '"></label></div>' +
+      '<label>Días que se mantiene la sesión sin uso <span class="sub">(con «Mantener la sesión»; 1 a 90)</span><input type="number" name="dias_sesion" min="1" max="90" value="' + esc(c.dias_sesion || 30) + '"></label>' +
       '<fieldset><legend>Pueden liberar equipos registrados por otro analista</legend>' + chk('roles_liberar_tercero', rolesLib) + '</fieldset>' +
       '<fieldset><legend>Pueden devolver un equipo a estado operativo</legend>' + chk('roles_restaurar_equipo', rolesRes) + '</fieldset>' +
       '<label>Avisos por correo (solo dentro del turno del destinatario)<select name="notif_email_activo"><option value="NO"' + (c.notif_email_activo !== 'SI' ? ' selected' : '') + '>Desactivados</option><option value="SI"' + (c.notif_email_activo === 'SI' ? ' selected' : '') + '>Activados</option></select></label>' +
       '<div class="acciones"><button class="btn chico">Guardar configuración</button></div></form></div>';
-    h += '<div class="card" style="margin-top:12px"><h3>Modo televisor</h3><p class="sub">Panel de solo lectura sin datos personales. Abre este enlace en el navegador del televisor. Si el enlace se filtra, regenéralo.</p>' +
+    h += '<div class="card" style="margin-top:12px"><h3>Modo televisor</h3><p class="sub">Panel de solo lectura. Muestra el nombre del analista y el producto de los equipos en uso: úsalo solo en el televisor del laboratorio y no compartas el enlace. Si se filtra, regenéralo.</p>' +
       (c.tv_url ? '<input readonly value="' + esc(c.tv_url) + '" style="width:100%" data-sel="1">' : '<p class="alerta">El enlace aparece después de implementar la aplicación web.</p>') +
       '<p class="sub" style="margin-top:8px">Tema del televisor: se cambia con el botón del panel (claro, oscuro o automático) y queda guardado en esa pantalla. También puedes fijarlo agregando <b>&amp;tema=claro</b> o <b>&amp;tema=oscuro</b> al final del enlace.</p>' +
       '<div class="acciones"><button class="btn sec chico" data-a="regenerarTv">Regenerar enlace</button></div></div>';
@@ -2392,6 +2582,7 @@ function formOcupar(ds) {
     (rec ? '<div class="chips" style="margin:-4px 0 12px">' + rec + '</div>' : '') +
     '<fieldset class="seg"><legend>Área del análisis</legend><label><input type="radio" name="area" value="MP"' + (ult.area === 'MP' ? ' checked' : '') + '> Materias Primas</label><label><input type="radio" name="area" value="PT"' + (ult.area === 'PT' ? ' checked' : '') + '> Producto Terminado</label></fieldset>' +
     '<label>Lotes <span class="sub">(opcional, separados por comas)</span><input name="lotes" placeholder="L001, L002"></label><div class="chips" id="chips-lotes" style="margin:-4px 0 12px"></div>' +
+    (ds.tipo === 'DISOLUTOR' ? selectTipoDis('', 'tipo_disolucion') + '<input type="hidden" name="es_dis" value="1">' : '') +
     '<label>Ensayo <span class="sub">(opcional)</span><input name="ensayo" list="dl-ens" placeholder="Ej.: Valoración de paracetamol"></label>' +
     '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Iniciar ocupación</button></div></form>');
   actualizarSugProd($('#modal-raiz form'));
@@ -2578,7 +2769,7 @@ var ACC = {
   retroAgregar: function () { S.retro.push(filaRetroVacia(S.retro[S.retro.length - 1])); pintar(); },
   retroQuitar: function (ds) { S.retro.splice(Number(ds.r), 1); pintar(); },
   retroGuardar: function (ds, el) {
-    var filas = S.retro.map(function (f) { return { equipo_id: f.equipo_id, producto: f.producto, area: f.area, lotes: f.lotes, ensayo: f.ensayo, inicio: deLocal(f.inicio), fin: deLocal(f.fin) }; });
+    var filas = S.retro.map(function (f) { return { equipo_id: f.equipo_id, producto: f.producto, area: f.area, lotes: f.lotes, ensayo: f.ensayo, tipo_disolucion: f.tipo_disolucion, inicio: deLocal(f.inicio), fin: deLocal(f.fin) }; });
     var enviar = function (forzar) {
       el.disabled = true;
       return api('registroRetrospectivo', { filas: filas, forzar: forzar }).then(function (r) {
@@ -2665,10 +2856,11 @@ function lista(v) { return v === undefined ? [] : (Array.isArray(v) ? v : [v]); 
 
 var FORM = {
   login: function (d) {
-    return api('login', { email: d.email, clave: d.clave }, { luego: { accion: 'inicio', datos: {} }, claveLuego: 'inicio|' }).then(function (r) {
+    return api('login', { email: d.email, clave: d.clave, recordar: !!d.recordar }, { luego: { accion: 'inicio', datos: {} }, claveLuego: 'inicio|' }).then(function (r) {
       S.token = r.token; S.usuario = r.usuario;
       store.set('lc_token', r.token, !!d.recordar);
       store.set('lc_recordar', d.recordar ? '1' : '', true);
+      store.set('lc_renov', String(Date.now()), true);
       S.vista = 'inicio'; S.param = null;
       if (S.usuario.debe_cambiar_clave) { render(); return; }
       render(); return ir('inicio');
@@ -2690,7 +2882,8 @@ var FORM = {
   },
   ocupar: function (d, f) {
     if (!d.area) throw new Error('Selecciona el área del análisis (MP o PT).');
-    var datos = { equipo_id: d.equipo_id, producto: d.producto, area: d.area, lotes: d.lotes, ensayo: d.ensayo, mensaje: d.mensaje };
+    if (d.es_dis && !d.tipo_disolucion) throw new Error('Selecciona el tipo de análisis del disolutor.');
+    var datos = { equipo_id: d.equipo_id, producto: d.producto, area: d.area, lotes: d.lotes, ensayo: d.ensayo, mensaje: d.mensaje, tipo_disolucion: d.tipo_disolucion || '' };
     store.set('lc_ult', JSON.stringify({ producto: d.producto, area: d.area }), true);
     var enviar = function (forzar) {
       datos.forzar = forzar;
@@ -2736,7 +2929,7 @@ var FORM = {
     return api('guardarConfig', {
       nombre_laboratorio: d.nombre_laboratorio, zona_horaria: d.zona_horaria, url_frontend: d.url_frontend, segundos_refresco: d.segundos_refresco,
       roles_liberar_tercero: lista(d.roles_liberar_tercero).join(','), roles_restaurar_equipo: lista(d.roles_restaurar_equipo).join(','),
-      notif_email_activo: d.notif_email_activo
+      notif_email_activo: d.notif_email_activo, dias_sesion: d.dias_sesion
     }).then(function () { return cargarYo().then(function () { return 'Configuración guardada.'; }); });
   }
 };
@@ -2890,50 +3083,119 @@ ACC.verClave = function (ds, el) {
 /* Análisis por analista (MP / PT) */
 ACC.anSel = function (ds) { S.anSel = S.anSel === ds.id ? null : ds.id; pintar(); var b = document.querySelector('[data-a="anSel"][data-id="' + ds.id + '"]'); if (b) b.focus(); };
 ACC.anEstado = function (ds, el) {
-  el.disabled = true;
-  api('cambiarEstadoAnalisis', { id: ds.id, estado: ds.e }).then(function () { S.flash[ds.id] = 1; setTimeout(function () { S.flash = {}; }, 1300); toast('Estado actualizado: ' + AN[ds.e][1] + '.'); return cargar(); })
-    .catch(function (e) { toast(e.message, 'error'); return cargar(); });
+  if (ds.e === ds.antes) return;
+  var pid = $('#modal-raiz .perfil-an') ? S.perfilId : null;
+  var enviar = function (motivo) {
+    if (el) el.disabled = true;
+    return api('cambiarEstadoAnalisis', { id: ds.id, estado: ds.e, motivo: motivo || '' }).then(function () {
+      S.flash[ds.id] = 1; setTimeout(function () { S.flash = {}; }, 1300); toast('Estado actualizado: ' + AN[ds.e][1] + '.');
+      if (pid) ACC.anPerfil({ id: pid }); return cargar();
+    }).catch(function (e) { toast(e.message, 'error'); return cargar(); });
+  };
+  // Volver atrás es una corrección: se pide un motivo breve (opcional) y queda en la trazabilidad.
+  if (AN_ORD[ds.e] < AN_ORD[ds.antes]) {
+    S._anCorr = { ds: ds, enviar: enviar };
+    modal('<h2>Corregir estado</h2><p class="sub">' + esc(ds.p || '') + ': ' + AN[ds.antes][1] + ' → ' + AN[ds.e][1] + '. La corrección queda registrada con tu nombre, fecha y hora.</p><form data-f="anCorr"><label>Motivo de la corrección <span class="sub">(opcional)</span><input name="motivo" maxlength="200" placeholder="Ej.: se marcó finalizado por error" autofocus></label>' +
+      '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Corregir estado</button></div></form>');
+    return;
+  }
+  enviar('');
+};
+FORM.anCorr = function (d) { var x = S._anCorr; S._anCorr = null; cerrarModal(); if (x) x.enviar(d.motivo); return Promise.resolve('silencio'); };
+/** Perfil del analista: productos, lotes, análisis y estado individual de cada uno (ambas áreas). */
+ACC.anPerfil = function (ds) {
+  S.perfilId = ds.id;
+  if (!$('#modal-raiz .perfil-an')) modal('<div class="perfil-an"><h2>Perfil del analista</h2>' + cargandoHtml() + '</div>');
+  api('perfilAnalista', { id: ds.id }).then(function (r) {
+    if (S.perfilId !== ds.id) return;
+    var u = r.usuario, n = r.resumen;
+    var filas = r.items.map(function (a) {
+      var btns = r.puede.editar || a.usuario_id === S.usuario.id ? '<div class="segest seg3" style="margin-top:6px">' + AN_OP.map(function (e) { return '<button data-a="anEstado" data-id="' + a.id + '" data-e="' + e + '" data-antes="' + a.estado + '" data-p="' + esc(a.producto) + '" aria-pressed="' + (a.estado === e) + '">' + ic(AN[e][2]) + AN[e][1] + '</button>'; }).join('') + '</div>' : '';
+      return '<tr><td><b>' + esc(a.producto) + '</b><small>' + AREA_TXT[a.area] + (a.equipos && a.equipos.length ? ' · ' + a.equipos.map(esc).join(', ') : '') + '</small></td><td data-l="Lote">' + esc(a.lote || '—') + '</td><td data-l="Análisis">' + esc(a.ensayo || '—') + (a.tipo_analisis ? '<small><span class="tipo-an">' + esc(a.tipo_analisis) + '</span></small>' : '') + '</td><td>' + anBadge(a.estado) +
+        '<small>' + (a.estado === 'FINALIZADO' ? 'Finalizado ' + fh(a.finalizado_en) : a.estado === 'INFORMANDO' ? 'Desde ' + fh(a.informando_en) : a.estado === 'EN_PROCESO' ? 'Desde ' + fh(a.iniciado_en || a.actualizado_en) : 'Asignado') + '</small>' + btns + '</td></tr>';
+    }).join('');
+    var ocup = (r.ocupaciones || []).map(function (o) { return '<li><b class="mono">' + esc(o.equipo) + '</b> · ' + esc(o.producto) + (o.lotes ? ' · Lote ' + esc(o.lotes) : '') + (o.tipo_disolucion ? ' · ' + esc(o.tipo_disolucion) : (o.ensayo ? ' · ' + esc(o.ensayo) : '')) + ' <span class="sub">desde ' + fh(o.inicio) + '</span></li>'; }).join('');
+    modal('<div class="perfil-an"><div style="display:flex;gap:12px;align-items:center;margin-bottom:10px">' + avatar(u.nombre, true) + '<div><h2 style="margin:0">' + esc(u.nombre) + '</h2><p class="sub" style="margin:2px 0 0">' + rolesChips(u.roles) + ' · Área habitual: ' + (AREA_TXT[u.area_habitual] || 'sin definir') + '</p></div></div>' +
+      '<div class="perfil-res">' + AN_OP.map(function (e) { return '<span class="an ' + AN[e][0] + '">' + ic(AN[e][2]) + AN[e][1] + ' · ' + n[e] + '</span>'; }).join('') + (n.PENDIENTE ? '<span class="an an-pend">' + ic('clock') + 'Sin iniciar · ' + n.PENDIENTE + '</span>' : '') + '<span class="sub" style="align-self:center">Finalizados este mes: <b>' + r.finalizadosMes + '</b></span></div>' +
+      (filas ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Producto</th><th>Lote</th><th>Análisis</th><th>Estado</th></tr></thead><tbody>' + filas + '</tbody></table></div>' : '<p class="sub">No tiene análisis activos.</p>') +
+      (ocup ? '<h3 class="seccion">Equipos en uso ahora</h3><ul class="sub" style="margin:0;padding-left:18px">' + ocup + '</ul>' : '') +
+      '<p class="sub" style="margin-top:10px">Los finalizados se muestran 30 días. Un análisis «Finalizado» no significa que su informe esté entregado.</p>' +
+      '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cerrar</button></div></div>');
+  }).catch(function (e) { cerrarModal(); toast(e.message, 'error'); });
 };
 ACC.anNuevo = function (ds) { formAnalisis(areaVista(), null, ds.u); };
 ACC.anEditar = function (ds) { formAnalisis(areaVista(), ds.id); };
 /* ---------- v0.5: acciones de informes, indicadores y permisos ---------- */
+ACC.formTipoAn = function (ds) {
+  var x = ds.id ? ((S.datos && S.datos.tiposAnalisis) || []).filter(function (t) { return t.id === ds.id; })[0] : null;
+  x = x || { id: '', nombre: '', descripcion: '', activo: true };
+  modal('<h2>' + (x.id ? 'Editar categoría' : 'Nueva categoría') + '</h2><form data-f="tipoAn"><input type="hidden" name="id" value="' + esc(x.id) + '">' +
+    '<label>Nombre<input name="nombre" required maxlength="60" value="' + esc(x.nombre) + '" autofocus></label>' +
+    '<label>Descripción <span class="sub">(opcional)</span><input name="descripcion" maxlength="200" value="' + esc(x.descripcion) + '"></label>' +
+    '<label class="inline-check"><input type="checkbox" name="activo" value="1"' + (x.activo ? ' checked' : '') + '> Activa</label>' +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Guardar</button></div></form>');
+};
+ACC.tipoAnActivo = function (ds, el) {
+  var x = ((S.datos && S.datos.tiposAnalisis) || []).filter(function (t) { return t.id === ds.id; })[0]; if (!x) return;
+  el.disabled = true;
+  api('guardarTipoAnalisis', { id: x.id, nombre: x.nombre, descripcion: x.descripcion, activo: !!ds.on }).then(function () { toast(ds.on ? 'Categoría activada.' : 'Categoría desactivada. Se conserva en los registros históricos.'); cargar(); })
+    .catch(function (e) { el.disabled = false; toast(e.message, 'error'); });
+};
+FORM.tipoAn = function (d) { return api('guardarTipoAnalisis', { id: d.id || '', nombre: d.nombre, descripcion: d.descripcion, activo: !!d.activo }).then(function () { return 'Categoría guardada.'; }); };
 ACC.infEst = function (ds) { S.infEst = ds.v; pintar(); };
+ACC.infBand = function (ds) { S.infBand = ds.v; pintar(); };
+ACC.planImprimir = planImprimir;
+/** Historial completo de un informe (rondas, observaciones, fechas y resultados). */
+ACC.infHist = function (ds) {
+  modal('<h2>Historial del informe</h2>' + cargandoHtml());
+  api('informeHistorial', { id: ds.id }).then(function (r) {
+    var i = r.informe;
+    var filas = r.eventos.map(function (e) {
+      return '<li class="hist-it"><div class="hist-cab"><b>' + esc(INF_ACC[e.accion] || e.accion) + '</b><span class="sub">Ronda ' + e.ronda + ' · ' + fh(e.fecha) + '</span></div>' +
+        '<div class="sub">' + esc(e.usuario) + (e.estado_despues ? ' · ' + (e.estado_antes && INF[e.estado_antes] ? INF[e.estado_antes][1] + ' → ' : '') + (INF[e.estado_despues] ? INF[e.estado_despues][1] : esc(e.estado_despues)) : '') + (e.resultado ? ' · <b>' + esc(INF_RES[e.resultado] || e.resultado) + '</b>' : '') + '</div>' +
+        (e.observacion ? '<div class="inf-obs" style="margin-top:6px"><p>' + esc(e.observacion) + '</p></div>' : '') + '</li>';
+    }).join('');
+    modal('<h2>Historial del informe</h2><p class="sub" style="margin:-6px 0 10px">' + esc(i.producto) + (i.lote ? ' · Lote ' + esc(i.lote) : '') + (i.ensayo ? ' · ' + esc(i.ensayo) : '') + '</p><div style="margin:0 0 12px">' + infBadge(i.estado) + (i.tipo_analisis ? ' <span class="tipo-an">' + esc(i.tipo_analisis) + '</span>' : '') + '</div>' +
+      (filas ? '<ol class="hist">' + filas + '</ol>' : '<p class="sub">Sin eventos registrados.</p>') +
+      '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cerrar</button></div>');
+  }).catch(function (e) { cerrarModal(); toast(e.message, 'error'); });
+};
 ACC.infArea = function (ds) { S.infArea = ds.v; pintar(); };
 ACC.infNuevo = function () { formInforme(); };
 ACC.infDesde = function (ds) {
   var it = null; (S.datos.analistas || []).forEach(function (c) { c.items.forEach(function (x) { if (x.id === ds.id) it = x; }); });
-  if (it) formInforme({ area: it.area, producto: it.producto, lote: it.lote, ensayo: it.ensayo, analisis_id: it.id });
+  if (it) formInforme({ area: it.area, producto: it.producto, lote: it.lote, ensayo: it.ensayo, analisis_id: it.id, tipo_analisis_id: it.tipo_analisis_id });
 };
 function pasoInforme(ds, el, fn, msg) {
   if (el) el.disabled = true;
   return fn().then(function () { S.flash[ds.id] = 1; setTimeout(function () { S.flash = {}; }, 1300); toast(msg); return cargar(); })
     .catch(function (e) { toast(e.message, 'error'); return cargar(); }).then(function () { if (el) el.disabled = false; });
 }
-ACC.infTomar = function (ds, el) { pasoInforme(ds, el, function () { return api('tomarInforme', { id: ds.id }); }, 'Informe tomado: queda pendiente de revisión a tu nombre.'); };
+ACC.infTomar = function (ds, el) { pasoInforme(ds, el, function () { return api('tomarInforme', { id: ds.id }); }, 'Revisión iniciada a tu nombre.'); };
 ACC.infRevisado = function (ds, el) {
-  confirmar('«' + ds.p + '» quedará como Revisado a tu nombre, con fecha y hora. Esta acción queda en el historial de auditoría.', 'Marcar revisado', 'Marcar informe como revisado').then(function (ok) {
-    if (ok) return pasoInforme(ds, el, function () { return api('resolverInforme', { id: ds.id, resultado: 'REVISADO' }); }, 'Informe marcado como revisado.');
+  confirmar('«' + ds.p + '» quedará como Entregado' + (ds.sub ? ' (correcciones aceptadas)' : ' (sin observaciones)') + ' a tu nombre, con fecha y hora. Queda en el historial del informe.', 'Entregar', 'Marcar informe como entregado').then(function (ok) {
+    if (ok) return pasoInforme(ds, el, function () { return api('resolverInforme', { id: ds.id, resultado: 'ENTREGADO' }); }, 'Informe entregado.');
   });
 };
 ACC.infDevolver = function (ds) {
   modal('<h2>Devolver con observaciones</h2><p class="sub">' + esc(ds.p) + '</p><form data-f="infDevolver"><input type="hidden" name="id" value="' + esc(ds.id) + '">' +
-    '<label>Observaciones para la analista<textarea name="observacion" required maxlength="500" rows="4" placeholder="Ej.: falta el cromatograma del estándar" autofocus></textarea></label>' +
+    '<label>Observaciones para la analista<textarea name="observacion" required maxlength="1500" rows="4" placeholder="Ej.: falta el cromatograma del estándar" autofocus></textarea></label>' +
     '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Devolver informe</button></div></form>');
 };
 ACC.infReentregar = function (ds) {
   var i = (S.datos.informes || []).filter(function (x) { return x.id === ds.id; })[0]; if (!i) return;
-  modal('<h2>Corregir y volver a entregar</h2><p class="sub">' + esc(i.producto) + ' · entrega N° ' + (i.ciclo + 1) + '</p><div class="inf-obs"><b>Observaciones de ' + esc(i.devuelto_por) + '</b><p>' + esc(i.observacion) + '</p></div>' +
+  modal('<h2>Corregir y reenviar</h2><p class="sub">' + esc(i.producto) + ' · quedará como «Subsanación pendiente de revisión» (ronda ' + (i.ciclo + 1) + ')</p><div class="inf-obs"><b>Observaciones de ' + esc(i.devuelto_por) + '</b><p>' + esc(i.observacion) + '</p></div>' +
     '<form data-f="infReentregar"><input type="hidden" name="id" value="' + esc(i.id) + '"><div class="form-grid"><label>Lote<input name="lote" required maxlength="60" value="' + esc(i.lote) + '"></label>' +
     '<label>N° o código del informe<input name="referencia" maxlength="60" value="' + esc(i.referencia) + '"></label></div>' +
     '<label>Nota para quien revisa <span class="sub">(qué corregiste)</span><input name="nota" maxlength="300" value="' + esc(i.nota) + '" autofocus></label>' +
-    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Volver a entregar</button></div></form>');
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Reenviar subsanación</button></div></form>');
 };
 FORM.informe = function (d) {
-  return api('entregarInforme', { analisis_id: d.analisis_id || '', area: d.area, producto: d.producto, lote: d.lote, ensayo: d.ensayo, referencia: d.referencia, nota: d.nota })
-    .then(function () { S.sug = null; return 'Informe entregado. Quedó pendiente para los revisores.'; });
+  return api('entregarInforme', { analisis_id: d.analisis_id || '', area: d.area, producto: d.producto, lote: d.lote, ensayo: d.ensayo, referencia: d.referencia, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '' })
+    .then(function () { S.sug = null; return 'Informe enviado: quedó «Pendiente de revisión».'; });
 };
 FORM.infDevolver = function (d) { return api('resolverInforme', { id: d.id, resultado: 'DEVUELTO', observacion: d.observacion }).then(function () { return 'Informe devuelto con observaciones.'; }); };
-FORM.infReentregar = function (d) { return api('reentregarInforme', { id: d.id, lote: d.lote, referencia: d.referencia, nota: d.nota }).then(function () { return 'Informe entregado de nuevo.'; }); };
+FORM.infReentregar = function (d) { return api('reentregarInforme', { id: d.id, lote: d.lote, referencia: d.referencia, nota: d.nota }).then(function () { return 'Subsanación reenviada: quedó pendiente de revisión.'; }); };
 /* Indicadores */
 ACC.indPre = function (ds) {
   var h = hoyYMD(), v = ds.v;
@@ -2950,6 +3212,7 @@ FORM.indRango = function (d) {
 };
 ACC.imprimir = function () { window.print(); };
 /* Uso mensual */
+ACC.indMes = function (ds, el) { S.indMes = el.value; var c = S.vcache[claveVista()]; S.datos = c ? c.d : null; pintar(); cargar(); };
 ACC.indModo = function (ds) {
   S.indModo = ds.v; var c = S.vcache[claveVista()]; S.datos = c ? c.d : null; pintar(); cargar();
 };
@@ -2997,7 +3260,7 @@ ACC.eqTodos = function (ds, el) {
 };
 
 FORM.analisis = function (d) {
-  return api('guardarAnalisis', { id: d.id || '', area: d.area, usuario_id: d.usuario_id || '', producto: d.producto, lote: d.lote, ensayo: d.ensayo, estado: d.estado, nota: d.nota })
+  return api('guardarAnalisis', { id: d.id || '', area: d.area, usuario_id: d.usuario_id || '', producto: d.producto, lote: d.lote, ensayo: d.ensayo, estado: d.estado, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '' })
     .then(function () { S.sug = null; return d.id ? 'Análisis actualizado.' : 'Producto asignado.'; });
 };
 FORM.verifCat = function (d) {
@@ -3072,10 +3335,30 @@ function cargarYo() {
     return d;
   });
 }
+/**
+ * v0.8: renovación segura de la sesión. Al abrir la app o volver a ella (máximo cada 12 h) se pide un token nuevo con
+ * vencimiento extendido; el anterior deja de servir a los 10 minutos. Si la sesión venció o fue revocada, el servidor
+ * responde SESION y se vuelve al ingreso. Un fallo de red no cierra la sesión.
+ */
+function renovarSesion(forzar) {
+  if (!S.token || !S.usuario || S._renovando) return;
+  var ult = Number(store.get('lc_renov') || 0);
+  if (!forzar && Date.now() - ult < 12 * 3600e3) return;
+  S._renovando = true;
+  var anterior = S.token;
+  api('renovarSesion', {}, { luego: null }).then(function (r) {
+    if (r && r.token && S.token === anterior) {
+      S.token = r.token;
+      store.set('lc_token', r.token, persistente());
+      store.set('lc_renov', String(Date.now()), true);
+      guardarSnap();
+    }
+  }).catch(function () { }).then(function () { S._renovando = false; });
+}
 function cerrarLocal() {
   S.token = null; S.usuario = null; S.datos = null; S.sug = null; S.avisos = []; S.retro = null;
   S.vcache = {}; S._json = null; S.verifRes = null; S.encPend = 0; S.selEq = null; S.verifDispKey = '';
-  store.del('lc_token'); store.del('lc_snap');
+  store.del('lc_token'); store.del('lc_snap'); store.del('lc_renov');
   cerrarModal(); render();
 }
 function iniciarPolling() {
@@ -3087,8 +3370,11 @@ function iniciarPolling() {
   }, Math.max(10, (S.config && S.config.segundos_refresco) || 20) * 1000);
 }
 document.addEventListener('visibilitychange', function () {
+  if (!document.hidden && S.token && S.usuario) renovarSesion();
   if (!document.hidden && S.token && S.usuario && !S.modal && POLL.indexOf(S.vista) >= 0) cargar(true);
 });
+// iOS (Safari y app en la pantalla de inicio) restaura la página desde memoria: se trata igual que volver a primer plano.
+window.addEventListener('pageshow', function (ev) { if (ev.persisted && S.token && S.usuario) { renovarSesion(); if (POLL.indexOf(S.vista) >= 0) cargar(true); } });
 
 /* ---------- Modo televisor (v0.6: tema claro/oscuro, cambios animados, sin redibujar todo) ---------- */
 var TVI = {
@@ -3122,8 +3408,10 @@ function tvDur(iso) {
   var m = Math.max(0, Math.floor((tvAhora() - new Date(iso)) / 60000));
   return m < 60 ? m + ' min' : Math.floor(m / 60) + ' h' + (m % 60 ? ' ' + (m % 60) + ' min' : '');
 }
+/** Tipo de análisis del disolutor, abreviado para la TV. */
+function tvTipoDis(e) { return String(e.tipo_disolucion || '').replace('Cinética de disolución', 'Cinética').replace('Test de disolución etapa 2', 'Test etapa 2'); }
 function tvDet(e) {
-  if (e.estado === 'OCUPADO') return [e.area, e.ensayo, e.inicio ? tvDur(e.inicio) : ''].filter(Boolean).join(' · ');
+  if (e.estado === 'OCUPADO') return [e.area, tvTipoDis(e) || e.ensayo, e.inicio ? tvDur(e.inicio) : ''].filter(Boolean).join(' · ');
   if (e.estado === 'DISPONIBLE' && e.proxima) return 'Reservado desde ' + hora(e.proxima);
   if (e.estado === 'NO_OPERATIVO') return 'Fuera de servicio';
   return 'Libre para usar';
@@ -3135,7 +3423,7 @@ function tvIni(n) { var p = String(n || '').trim().split(/\s+/); return ((p[0] |
 function tvDetHtml(e) {
   if (e.analista === '—') e = Object.assign({}, e, { analista: '' });
   if (e.estado === 'OCUPADO' && (e.producto || e.analista)) {
-    var ens = [e.area, e.ensayo].filter(Boolean).join(' · ');
+    var ens = [e.area, tvTipoDis(e) || e.ensayo].filter(Boolean).join(' · ');
     if (e.inicio) ens += ' · ' + tvDur(e.inicio);
     return '<div class="tv-who">' + (e.producto ? '<div class="prod">' + esc(e.producto) + '</div>' : '') +
       (e.analista ? '<div class="ana"><span class="av">' + esc(tvIni(e.analista)) + '</span><span class="nm">' + esc(e.analista) + '</span></div>' : '') +
@@ -3322,6 +3610,7 @@ function boot() {
     contadores('inicio', S.datos);
     render(); // última versión conocida, al instante; se refresca a continuación
     cargar();
+    setTimeout(renovarSesion, 1500);
     return;
   }
   $('#app').innerHTML = '<main style="max-width:1240px;margin:0 auto;padding:24px 16px">' + cargandoHtml() + '</main>';
@@ -3331,6 +3620,7 @@ function boot() {
     contadores('inicio', d);
     render();
     if (!S.usuario.debe_cambiar_clave) ir('inicio');
+    setTimeout(renovarSesion, 1500);
   }).catch(function (e) {
     if (!S.token) return; // la sesión expiró: ya se muestra el ingreso
     $('#app').innerHTML = '<div class="login"><div class="card"><div class="marca">' + MARCA + 'LabControl</div><p>' + esc(e.message) + '</p><button class="btn" onclick="location.reload()">Reintentar</button></div></div>';
