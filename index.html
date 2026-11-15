@@ -222,8 +222,8 @@ legend{font-weight:500;font-size:14px;margin-bottom:6px;padding:0}
 .seg-dis label{min-width:150px;height:auto;min-height:40px;padding:6px 12px}
 .seg-dis{margin-bottom:14px}
 .lotes-multi{border:0;padding:0;margin:0 0 14px}
-.eq-foto{border-radius:12px;overflow:hidden;background:var(--rosa-p,#fcebf3);border:1px solid var(--border);aspect-ratio:4/3;display:grid;place-items:center;margin-bottom:4px;max-width:100%}
-.eq-foto img{width:100%;height:100%;object-fit:cover;display:block}
+.eq-foto{border-radius:12px;overflow:hidden;background:var(--rosa-p,#fcebf3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;min-height:200px;max-height:340px;padding:10px;margin-bottom:4px;max-width:100%;box-sizing:border-box}
+.eq-foto img{display:block;max-width:100%;max-height:318px;width:auto;height:auto;object-fit:contain;border-radius:8px}
 .eq-foto-vacia{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--hue,#A31968)}
 .eq-foto-vacia .ico{width:56px;height:56px;opacity:.55}
 .eq-foto-carga .ico{width:34px;height:34px;color:var(--hue,#A31968);opacity:.5;animation:latido 1.2s ease-in-out infinite}
@@ -671,15 +671,15 @@ button.nodo:focus-visible{outline:3px solid var(--rosa-m);outline-offset:1px}
 .inf-chips .an{height:30px;padding:0 12px 0 10px;font-size:13px;border:0;cursor:pointer;transition:transform 120ms ease,box-shadow 140ms ease}
 .inf-chips .an.sel{box-shadow:0 0 0 2px var(--hue)}
 .inf-chips .an:active{transform:scale(.97)}
-.inf-tablero{display:grid;gap:14px;grid-template-columns:repeat(5,minmax(0,1fr));align-items:start;margin-bottom:24px}
+.inf-tablero{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));align-items:start;margin-bottom:24px}
 .inf-col{background:var(--surface-2,#f1f2f5);border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:10px;min-height:120px}
 .inf-col-t{display:flex;align-items:center;gap:8px;font-size:14px;line-height:20px;margin:2px 4px 2px;font-weight:600;color:var(--tinta)}
 .inf-col-t .ico{width:16px;height:16px;color:var(--muted)}
 .inf-vacio{color:var(--faint);font-size:13px;text-align:center;padding:18px 6px}
 .inf-c{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:5px;min-width:0}
 .inf-c.flash{animation:destello 1.2s ease}
-.inf-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-.inf-top b{font-size:15px;line-height:20px;overflow-wrap:anywhere}
+.inf-top{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.inf-top b{font-size:16px;line-height:22px;font-weight:600;overflow-wrap:break-word;word-break:normal;hyphens:auto;min-width:0;max-width:100%}
 .inf-obs{background:#fdecee;border:1px solid #f5c2c7;border-radius:10px;padding:8px 10px;font-size:13px;line-height:18px;color:#7a1d24}
 .inf-obs p{margin:2px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
 .inf-acc{margin-top:6px;display:flex;flex-wrap:wrap;gap:6px}
@@ -695,8 +695,6 @@ button.nodo:focus-visible{outline:3px solid var(--rosa-m);outline-offset:1px}
 .mes-tabla tr.tot td{border-top:2px solid var(--border)}
 @media(max-width:520px){.mes-graf{gap:3px}.mes-v{font-size:10px}}
 .inf-nota{margin:4px 0 0}
-@media(max-width:1300px){.inf-tablero{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:1000px){.inf-tablero{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.inf-tablero{grid-template-columns:1fr}.inf-col:not(.sel){display:none}.inf-col{background:transparent;padding:0}.inf-col-t{display:none}}
 .ind-rango{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;margin:0 0 14px}
 .ind-fechas{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end}
@@ -1259,13 +1257,14 @@ function pedirMotivoLiberacion(ds) {
 }
 
 /* ---------- Navegación ---------- */
+function lblMisAn() { return puede('JEFATURA') ? 'Mis asignaciones' : 'Mis análisis'; }
 function navItems() {
   var an = puede('ANALISTA', 'JEFATURA'), rev = perm('revisar_informes'), it = [['inicio', 'Inicio', ICO.home]];
   it.push(['panel', 'Panel general', ICO.panel]);
   if (perm('ocupancia')) it.push(['ocup', 'Ocupancia', ICO.ocup]);
   if (perm('mp_pt')) it.push(['mp', 'Materias Primas', ICO.dMP], ['pt', 'Producto Terminado', ICO.dPT]);
   if (an || perm('asignar_verificaciones') || puede('REVISOR')) it.push(['verif', puede('ANALISTA') ? 'Mis tareas' : perm('asignar_verificaciones') ? 'Planificador semanal' : 'Verificaciones', ICO.verif]);
-  if (puede('ANALISTA', 'JEFATURA')) it.push(['misan', 'Mis análisis', ICO.lote]);
+  if (puede('ANALISTA', 'JEFATURA')) it.push(['misan', lblMisAn(), ICO.lote]);
   if (rev || puede('JEFATURA')) it.push(['pend', 'Mis pendientes', ICO.bell]);
   if (perm('entregar_informes') || rev) it.push(['informes', rev ? 'Informes' : 'Mis informes', ICO.informe]);
   if (an) { it.push(['encargos', 'Encargos entre turnos', ICO.enc]); it.push(['retro', 'Registro disolutores', ICO.dis]); }
@@ -1301,7 +1300,7 @@ function shell() {
   var enMas = bk.indexOf(v) < 0;
   var bottom = bk.map(function (k) {
     var i = por[k];
-    return '<button data-a="ir" data-v="' + k + '" class="' + (v === k ? 'act' : '') + '"' + (v === k ? ' aria-current="page"' : '') + '><span class="ico" aria-hidden="true">' + i[2] + '</span><span>' + (CORTO[k] || i[1]) + '</span><span class="cnt-w" data-cnt="' + k + '">' + cnt(k) + '</span></button>';
+    return '<button data-a="ir" data-v="' + k + '" class="' + (v === k ? 'act' : '') + '"' + (v === k ? ' aria-current="page"' : '') + '><span class="ico" aria-hidden="true">' + i[2] + '</span><span>' + (k === 'misan' && i[1] === 'Mis asignaciones' ? 'Asignaciones' : (CORTO[k] || i[1])) + '</span><span class="cnt-w" data-cnt="' + k + '">' + cnt(k) + '</span></button>';
   }).join('') + '<button data-a="menuMas" class="' + (enMas ? 'act' : '') + '"><span class="ico" aria-hidden="true">' + ICO.mas + '</span><span>Más</span></button>';
   return '<a class="skip" href="#contenido" data-a="saltar">Saltar al contenido</a><div class="layout"><nav class="side" aria-label="Principal"><div class="marca">' + MARCA + 'LabControl</div>' +
     '<div class="ambito"><b>' + esc((S.config && S.config.nombre_laboratorio) || 'Laboratorio') + '</b><small>Materias primas y producto terminado</small></div>' + side +
@@ -1711,7 +1710,7 @@ function vMisAnalisis(d) {
   S.misSel = S.misSel || {};
   var ids = {}; d.items.forEach(function (x) { ids[x.id] = 1; });
   Object.keys(S.misSel).forEach(function (k) { if (!ids[k]) delete S.misSel[k]; });
-  var r = d.resumen, h = '<header class="cab"><div><h1 class="h-ico">' + ic('lote') + (d.propio ? 'Mis análisis' : 'Análisis de ' + esc(d.nombre)) + '</h1><p class="sub" style="margin:4px 0 0">Selecciona lotes y elige una acción. Cada lote mantiene su propio estado e historial.</p></div>' +
+  var r = d.resumen, h = '<header class="cab"><div><h1 class="h-ico">' + ic('lote') + (d.propio ? lblMisAn() : (puede('JEFATURA') ? 'Asignaciones de ' : 'Análisis de ') + esc(d.nombre)) + '</h1><p class="sub" style="margin:4px 0 0">Selecciona lotes y elige una acción. Cada lote mantiene su propio estado e historial.</p></div>' +
     '<button class="btn" data-a="misAsignar">' + ic('plus') + (d.analistas && d.analistas.length ? 'Asignar lotes' : 'Asignarme lotes') + '</button></header>';
   if (d.analistas && d.analistas.length) h += '<label class="mis-quien">Analista<select data-a="misUid">' + d.analistas.map(function (a) { return '<option value="' + a.id + '"' + (a.id === d.uid ? ' selected' : '') + '>' + esc(a.nombre) + (a.id === S.usuario.id ? ' (yo)' : '') + '</option>'; }).join('') + '</select></label>';
   h += '<div class="estres">' + AN_OP.map(function (e) { return '<span class="an ' + AN[e][0] + '">' + ic(AN[e][2]) + AN[e][1] + ' · ' + r[e] + '</span>'; }).join('') + '<span class="an an-pend">' + ic('clock') + 'Sin iniciar · ' + r.PENDIENTE + '</span>' + (d.porEnviar ? '<span class="an an-esp">' + ic('informe') + 'Informes por enviar · ' + d.porEnviar + '</span>' : '') + '</div>';
@@ -1794,7 +1793,7 @@ function enviarInformes(ids) {
   }).catch(function (e) { toast(e.message, 'error'); });
 }
 function accEnvioYa(ds, el) { var l = S._envio || []; S._envio = null; if (el) el.disabled = true; cerrarModal(); enviarInformes(l.map(function (x) { return x.id; })); }
-function accEnvioLuego() { S._envio = null; cerrarModal(); toast('Puedes enviarlo después desde «Mis análisis».'); }
+function accEnvioLuego() { S._envio = null; cerrarModal(); toast('Puedes enviarlo después desde «' + lblMisAn() + '».'); }
 function accMisEnviar() { var l = misItems().filter(function (x) { return S.misSel[x.id] && x.estado === 'FINALIZADO' && !x.informe; }); if (l.length) preguntarEnvio(l); }
 function accMisEnviarUno(ds) { var x = misItems().filter(function (y) { return y.id === ds.id; })[0]; if (x) preguntarEnvio([x]); }
 function accMisAsignar() { formAnalisis(null, null, S.datos && S.datos.uid); }
@@ -1962,7 +1961,7 @@ function tarjetaInformes(j) {
 /* ---------- v0.9: espacio de trabajo personal (resúmenes de Inicio) ---------- */
 function tarjetaMisAn(m) {
   var act = m.EN_PROCESO + m.INFORMANDO + m.PENDIENTE, aviso = m.porEnviar;
-  return '<section class="tarea' + (aviso ? ' pend' : '') + '"><div class="tarea-cab">' + ic('lote') + '<h2>Mis análisis</h2>' + (aviso ? '<span class="badge info">' + aviso + (aviso === 1 ? ' informe por enviar' : ' informes por enviar') + '</span>' : '') + '</div>' +
+  return '<section class="tarea' + (aviso ? ' pend' : '') + '"><div class="tarea-cab">' + ic('lote') + '<h2>' + lblMisAn() + '</h2>' + (aviso ? '<span class="badge info">' + aviso + (aviso === 1 ? ' informe por enviar' : ' informes por enviar') + '</span>' : '') + '</div>' +
     (act || aviso ? '<div class="nums"><div><b style="color:#164a96">' + m.EN_PROCESO + '</b><small>En proceso</small></div><div><b style="color:#9a4300">' + m.INFORMANDO + '</b><small>Informando</small></div><div><b>' + m.PENDIENTE + '</b><small>Sin iniciar</small></div>' + (aviso ? '<div class="p"><b>' + aviso + '</b><small>Por enviar</small></div>' : '') + '</div>'
       : '<p class="sub">No tienes análisis asignados en curso.</p>') +
     '<div class="acciones"><button class="btn' + (act || aviso ? '' : ' sec') + '" data-a="ir" data-v="misan">Abrir mis análisis</button></div></section>';
