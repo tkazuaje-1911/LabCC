@@ -1090,6 +1090,9 @@ p.nota{color:var(--muted);font-size:12px;line-height:17px;margin-top:16px}
   .tv-gd{grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce){.tv-pant.entra{animation:none}.tv-np i{transition:none}}
+#lc-nueva{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px);padding:10px 14px;border-radius:12px;background:var(--tinta);color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:14px}
+#lc-nueva .ghost{color:#fff}
+@media(min-width:900px){#lc-nueva{bottom:20px}}
 </style>
 </head>
 <body>
@@ -1437,7 +1440,7 @@ function pedirMotivoLiberacion(ds) {
 }
 
 /* ---------- Navegación ---------- */
-function lblMisAn() { return puede('JEFATURA') ? 'Mis asignaciones' : 'Mis análisis'; }
+function lblMisAn() { return puede('JEFATURA') ? 'Asignar análisis' : 'Mis análisis'; }
 function navItems() {
   var an = puede('ANALISTA', 'JEFATURA'), rev = perm('revisar_informes'), it = [['inicio', 'Inicio', ICO.home]];
   it.push(['panel', 'Panel general', ICO.panel]);
@@ -1480,7 +1483,7 @@ function shell() {
   var enMas = bk.indexOf(v) < 0;
   var bottom = bk.map(function (k) {
     var i = por[k];
-    return '<button data-a="ir" data-v="' + k + '" class="' + (v === k ? 'act' : '') + '"' + (v === k ? ' aria-current="page"' : '') + '><span class="ico" aria-hidden="true">' + i[2] + '</span><span>' + (k === 'misan' && i[1] === 'Mis asignaciones' ? 'Asignaciones' : (CORTO[k] || i[1])) + '</span><span class="cnt-w" data-cnt="' + k + '">' + cnt(k) + '</span></button>';
+    return '<button data-a="ir" data-v="' + k + '" class="' + (v === k ? 'act' : '') + '"' + (v === k ? ' aria-current="page"' : '') + '><span class="ico" aria-hidden="true">' + i[2] + '</span><span>' + (k === 'misan' && i[1] === 'Asignar análisis' ? 'Asignar' : (CORTO[k] || i[1])) + '</span><span class="cnt-w" data-cnt="' + k + '">' + cnt(k) + '</span></button>';
   }).join('') + '<button data-a="menuMas" class="' + (enMas ? 'act' : '') + '"><span class="ico" aria-hidden="true">' + ICO.mas + '</span><span>Más</span></button>';
   return '<a class="skip" href="#contenido" data-a="saltar">Saltar al contenido</a><div class="layout"><nav class="side" aria-label="Principal"><div class="marca">' + MARCA + 'LabControl</div>' +
     '<div class="ambito"><b>' + esc((S.config && S.config.nombre_laboratorio) || 'Laboratorio') + '</b><small>Materias primas y producto terminado</small></div>' + side +
@@ -5089,6 +5092,20 @@ window.addEventListener('resize', function () { if (!(MODO === 'tv' || PANEL.on)
 /* ---------- Arranque ---------- */
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
   window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () { }); });
+  // v0.10.1: la página se abre desde la copia guardada; si llega una versión nueva, se avisa (sin recargar sola).
+  (function () {
+    var tenia = !!navigator.serviceWorker.controller;
+    function aviso() {
+      if (MODO === 'tv' || PANEL.on || document.getElementById('lc-nueva')) return;
+      var d = document.createElement('div'); d.id = 'lc-nueva'; d.setAttribute('role', 'status');
+      d.innerHTML = '<span>Hay una versión nueva de Lab CC.</span><button type="button" class="btn chico" id="lc-nueva-b">Actualizar</button><button type="button" class="btn ghost chico" id="lc-nueva-x" aria-label="Cerrar aviso">Más tarde</button>';
+      document.body.appendChild(d);
+      document.getElementById('lc-nueva-b').onclick = function () { location.reload(); };
+      document.getElementById('lc-nueva-x').onclick = function () { d.remove(); };
+    }
+    navigator.serviceWorker.addEventListener('message', function (ev) { if (ev.data && ev.data.lc === 'nueva') aviso(); });
+    navigator.serviceWorker.addEventListener('controllerchange', function () { if (tenia) aviso(); });
+  })();
 }
 function boot() {
   if (MODO === 'tv') { iniciarTV(); return; }
