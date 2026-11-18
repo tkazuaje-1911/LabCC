@@ -931,6 +931,165 @@ p.nota{color:var(--muted);font-size:12px;line-height:17px;margin-top:16px}
   .turn-herr .btn{flex:1 1 auto}
 }
 @media(min-width:900px){.turn-acc{bottom:12px}}
+/* ===== v0.10: incidencias, documentos, solicitudes, turnos/Semanero, indicadores avanzados y rotación del panel ===== */
+.inc-chip{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;background:var(--warn-bg);border:1px solid var(--warn-line);color:var(--warn-ink);font-size:12px;font-weight:500;white-space:nowrap}
+.inc-chip .ico{width:14px;height:14px}
+.peligro-t{color:var(--bad)!important;border-color:color-mix(in srgb,var(--bad) 35%,var(--border))!important}
+.inc-link{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:10px 0 0;padding:8px 10px;border-radius:var(--r-ctl);background:var(--warn-bg);color:var(--warn-ink);font-size:13px}
+.inc-link .ico{width:16px;height:16px}
+.doc-campo{display:flex;flex-direction:column;gap:4px}
+.doc-tipo{display:inline-block;align-self:flex-start;margin:-2px 0 0;padding:0 6px;border-radius:4px;background:var(--hue-s);color:var(--mag-ink);font-size:11px;font-weight:600;letter-spacing:.04em;vertical-align:1px}
+.doc-in{display:flex;align-items:stretch;border:1px solid var(--control);border-radius:var(--r-ctl);background:var(--surface);overflow:hidden}
+.doc-in:focus-within{border-color:var(--hue);box-shadow:0 0 0 3px color-mix(in srgb,var(--hue) 18%,transparent)}
+.doc-pref{display:flex;align-items:center;padding:0 8px;background:var(--hue-s);color:var(--mag-ink);font-family:var(--mono);font-size:13px;font-weight:600}
+.doc-pref:empty{display:none}
+.doc-in input{flex:1;min-width:0;border:0!important;box-shadow:none!important;outline:0;height:var(--h-ctl);padding:0 10px;background:transparent}
+.doc-chip{display:inline-flex;align-items:center;height:20px;padding:0 6px;border-radius:4px;background:var(--hue-s);color:var(--mag-ink);font-family:var(--mono);font-size:11.5px;font-weight:600;white-space:nowrap;vertical-align:1px}
+.cond{display:inline-flex;align-items:center;gap:4px;height:22px;padding:0 8px;border-radius:999px;font-size:12px;font-weight:500;white-space:nowrap;vertical-align:1px}
+.cond .ico{width:14px;height:14px}
+.c-pausa{background:var(--neu-bg);color:var(--neu-ink)}
+.c-sol{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line)}
+.c-ok{background:var(--ok-bg);color:var(--ok-ink)}
+.c-no{background:var(--bad-bg);color:var(--bad-ink)}
+.mis-it.pausado{background:repeating-linear-gradient(135deg,transparent 0 10px,rgba(91,101,114,.05) 10px 20px)}
+.mis-busca{flex:1 1 220px;min-width:0;height:var(--h-ctl);padding:0 10px;border:1px solid var(--control);border-radius:var(--r-ctl);background:var(--surface)}
+.sol-g{display:flex;flex-direction:column;gap:12px}
+.sol-c{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.sol-cab{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.sol-l{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.sol-l li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--rule)}
+.sol-l .crece{flex:1;min-width:0}
+.sol-rec{display:flex;flex-direction:column;gap:4px;font-size:13px;max-width:360px}
+.sol-lotes{margin:6px 0;padding-left:18px}
+.tchip{display:inline-flex;align-items:center;height:20px;padding:0 7px;border-radius:999px;font-size:11.5px;font-weight:500;white-space:nowrap;background:var(--neu-bg);color:var(--neu-ink)}
+.tchip.t-dia{background:#fff4d6;color:#7a4d00}
+.tchip.t-noche{background:#e6e8fb;color:#2c2f7a}
+.tchip.t-mixto{background:var(--hue-s);color:var(--mag-ink)}
+.tchip.t-nada{background:transparent;color:var(--faint);border:1px dashed var(--control)}
+.tchip.t-aus{background:var(--bad-bg);color:var(--bad-ink)}
+.tchip.t-ok{background:var(--ok-bg);color:var(--ok-ink)}
+.det-disp{margin:0 0 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:10px 14px}
+.det-disp>summary{cursor:pointer;font-weight:600;font-size:13px}
+.det-disp[open]>summary{margin-bottom:8px}
+.turnos-plan .tabla-plan td.c,.turnos-plan .tabla-plan th.c{text-align:center}
+.sync-ok{display:flex;align-items:center;gap:6px;margin:0 0 10px;font-size:12.5px;color:var(--ok)}
+.sync-ok .ico{width:15px;height:15px}
+.sem-cand{margin-top:6px;font-size:13px}
+.sem-cand summary{cursor:pointer;color:var(--mag-ink);font-weight:500}
+.sem-cand ul{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:3px}
+.imp-lista{margin:8px 0 12px;padding-left:18px;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.kpis-mini{margin:8px 0 12px}
+.kpis-mini .kpi{padding:10px 12px}
+/* Indicadores avanzados */
+.ind-dos>*{min-width:0}
+.sec-t>.ico{margin-right:8px;align-self:center}
+.ind-filtros{margin:0 0 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-card);padding:10px 14px}
+.ind-filtros>summary{display:flex;align-items:center;gap:6px;cursor:pointer;font-weight:600}
+.ind-filtros[open]>summary{margin-bottom:10px}
+.ind-fgrid{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));align-items:end}
+.ind-fgrid label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted);min-width:0}
+.ind-fgrid label[hidden]{display:none}
+.ind-fgrid select,.ind-fgrid input{height:34px;min-width:0;width:100%}
+.ind-fgrid .acciones{grid-column:1/-1;display:flex;justify-content:flex-end;gap:8px;margin:0}
+.barra2{display:flex;flex-direction:column;gap:3px}
+.barra2 .ind-barra{height:7px}
+.ind-barra.fin i{background:var(--rosa-m)}
+.ind-pend{list-style:none;margin:6px 0 0;padding:0;display:flex;flex-direction:column;gap:4px;font-size:13px}
+.ind-pend li{display:flex;flex-wrap:wrap;gap:4px 8px;padding:4px 0;border-top:1px solid var(--rule)}
+.ind-card .ficha{margin:0}
+.tabla-wrap .tabla-an td.mono{font-family:var(--mono);font-size:12.5px}
+/* Panel general y televisor: navegación y pantallas 2–4 */
+.tv-nav{align-self:center;margin:-.3em 0 -.2em;display:flex;align-items:center;gap:.3em;padding:.25em;border-radius:999px;background:var(--tv-card);border:1px solid var(--tv-line);box-shadow:var(--tv-sombra);flex:none}
+.tv-nav[hidden]{display:none}
+.tv-nt,.tv-nb,.tv-pausa{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:.4em;height:2.2em;padding:0 .95em;border:0;border-radius:999px;background:transparent;color:var(--tv-muted);font:inherit;font-size:.85em;font-weight:600;cursor:pointer;white-space:nowrap;overflow:hidden;transition:background-color 200ms ease,color 200ms ease,transform 160ms var(--ease)}
+.tv-nt:active,.tv-nb:active,.tv-pausa:active{transform:scale(.96)}
+.tv-nt[aria-pressed="true"]{background:color-mix(in srgb,var(--tv-brand) 14%,transparent);color:var(--tv-brand)}
+.tv-nt .c{display:none}
+.tv-nb{width:2.2em;padding:0}
+.tv-nb svg{width:1.2em;height:1.2em}
+.tv-nb.sig svg{transform:scaleX(-1)}
+.tv-np{position:absolute;left:.9em;right:.9em;bottom:.25em;height:.16em;border-radius:999px;overflow:hidden;background:transparent}
+.tv-np i{display:block;height:100%;background:var(--tv-brand);transform:scaleX(0);transform-origin:left;transition:transform 500ms linear}
+.tv-nt.pausada .tv-np i{background:var(--tv-uso)}
+.tv-pausa{font-weight:500;color:var(--tv-muted);border:1px solid var(--tv-line)}
+.tv-pausa.on{background:var(--tv-uso-bg);border-color:var(--tv-uso-line);color:var(--tv-uso-t)}
+.tv-nt:focus-visible,.tv-nb:focus-visible,.tv-pausa:focus-visible,.tv-gd-sw button:focus-visible{outline:2px solid var(--tv-brand);outline-offset:2px}
+.tv-pant{display:flex;flex-direction:column;gap:.9em;flex:1;min-height:0}
+.tv-pant[hidden]{display:none}
+.tv-pant.entra{animation:tvPant 420ms var(--ease) both}
+@keyframes tvPant{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.tv-an{display:flex;flex-direction:column;gap:.8em;flex:1;min-height:0}
+.tv-an-res{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:.7em}
+.tv-an-k{display:flex;flex-direction:column;gap:.1em;background:var(--tv-card);border:1px solid var(--tv-line);border-radius:.8em;padding:.6em 1em;box-shadow:var(--tv-sombra);border-top:.3em solid var(--c,var(--tv-line))}
+.tv-an-k b{font-size:2em;line-height:1.1;font-weight:700;font-variant-numeric:tabular-nums;color:var(--tv-ink)}
+.tv-an-k span{font-size:.85em;color:var(--tv-muted)}
+.e-proc{--c:var(--tv-brand)}.e-inf{--c:var(--tv-uso)}.e-fin{--c:var(--tv-ok)}.e-sem{--c:color-mix(in srgb,var(--tv-ok) 55%,var(--tv-line))}.e-sin{--c:var(--tv-ico)}.e-pau{--c:var(--tv-muted)}
+.tv-an-fin{grid-column:1/-1}
+.tv-an-g{position:relative;display:grid;grid-template-columns:repeat(auto-fill,minmax(17em,1fr));grid-auto-rows:max-content;align-content:start;gap:.7em;overflow:hidden;scroll-behavior:auto;min-height:0}
+.tv-af{display:flex;flex-direction:column;gap:.35em;background:var(--tv-card);border:1px solid var(--tv-line);border-radius:.9em;padding:.75em 1em;box-shadow:var(--tv-sombra);min-width:0}
+.tv-af-a{display:flex;align-items:center;gap:.5em;font-size:.85em;color:var(--tv-ink);min-width:0}
+.tv-af-a .av{flex:none;display:grid;place-items:center;width:2em;height:2em;border-radius:50%;font-size:.8em;font-weight:700;background:color-mix(in srgb,var(--tv-brand) 16%,transparent);color:var(--tv-brand)}
+.tv-af-a .nm{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.tv-af-a .sub{margin-left:auto;color:var(--tv-muted);font-size:.85em;white-space:nowrap}
+.tv-af-p{font-size:1.15em;font-weight:700;color:var(--tv-ink);line-height:1.2}
+.tv-af-e{display:flex;flex-wrap:wrap;align-items:center;gap:.4em;font-size:.85em;color:var(--tv-muted)}
+.tv-af-e b{color:var(--tv-ink);font-weight:600}
+.tv-af-e .doc{font-family:var(--mono);font-size:.9em;font-weight:600;padding:0 .45em;border-radius:.3em;background:color-mix(in srgb,var(--tv-brand) 12%,transparent);color:var(--tv-brand)}
+.tv-af-n{font-size:.78em;color:var(--tv-muted)}
+.tv-af-l{list-style:none;margin:.1em 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.35em}
+.tv-af-l li{display:inline-flex;align-items:baseline;gap:.4em;padding:.2em .6em;border-radius:.5em;font-size:.82em;background:color-mix(in srgb,var(--c) 14%,var(--tv-card));border:1px solid color-mix(in srgb,var(--c) 40%,var(--tv-line))}
+.tv-af-l li b{font-variant-numeric:tabular-nums;color:var(--tv-ink)}
+.tv-af-l li span{color:var(--tv-muted);font-size:.9em}
+.tv-af-l li.pau{--c:var(--tv-muted);background:repeating-linear-gradient(135deg,var(--tv-card) 0 .4em,color-mix(in srgb,var(--tv-muted) 10%,var(--tv-card)) .4em .8em)}
+.tv-pag{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.tv-nt .pg{font-size:.8em;font-weight:700;padding:0 .45em;border-radius:999px;background:var(--tv-brand);color:#fff;font-variant-numeric:tabular-nums}
+.tv-nt .pg[hidden]{display:none}
+.tv-vacio{display:flex;flex-direction:column;gap:.3em;align-items:center;justify-content:center;text-align:center;flex:1;min-height:8em;padding:1.5em;border:1.5px dashed var(--tv-line);border-radius:.9em;color:var(--tv-muted)}
+.tv-vacio b{font-size:1.25em;color:var(--tv-ink)}
+.tv-vacio.chico{flex:none;min-height:0;padding:1em}
+.tv-vacio.chico b{font-size:1em}
+.tv-gd{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.9em;flex:1;align-items:start}
+.tv-gd-c{display:flex;flex-direction:column;gap:.7em;background:var(--tv-card);border:1px solid var(--tv-line);border-radius:.9em;padding:1em 1.2em;box-shadow:var(--tv-sombra);min-width:0}
+.tv-gd-c h3{display:flex;align-items:center;gap:.6em;margin:0;font-size:1.1em;font-weight:700;color:var(--tv-ink)}
+.tv-gd-c h3 .n{display:grid;place-items:center;width:1.6em;height:1.6em;border-radius:.45em;background:var(--tv-brand);color:#fff;font-size:.8em}
+.tv-gd-tot{display:flex;align-items:baseline;flex-wrap:wrap;gap:.5em}
+.tv-gd-tot b{font-size:2.3em;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:var(--tv-ink)}
+.tv-gd-tot b small{font-size:.5em;color:var(--tv-muted);font-weight:500}
+.tv-gd-tot span{color:var(--tv-muted);font-size:.9em}
+.tv-gd-tot em{margin-left:auto;font-style:normal;font-weight:700;font-size:1.3em;color:var(--tv-brand)}
+.tv-med{height:.5em;border-radius:999px;background:var(--tv-track);overflow:hidden}
+.tv-med i{display:block;height:100%;border-radius:999px;background:var(--tv-ok);transition:width 600ms var(--ease)}
+.tv-gd-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:.7em}
+.tv-gd-l li{display:flex;flex-direction:column;gap:.3em;padding-top:.6em;border-top:1px solid var(--tv-line)}
+.tv-gd-l li:first-child{border-top:0;padding-top:0}
+.tv-gd-l .t{display:flex;justify-content:space-between;gap:.6em;align-items:baseline}
+.tv-gd-l .t b{color:var(--tv-ink);font-weight:600}
+.tv-gd-l .t span{font-weight:700;font-variant-numeric:tabular-nums;color:var(--tv-ink);white-space:nowrap}
+.tv-gd-l .s{font-size:.8em;color:var(--tv-muted)}
+.tv-gd-l li.no .t span{font-weight:500;color:var(--tv-muted)}
+.tv-gd-l li.sem .t span{color:var(--tv-brand)}
+.tv-gd-nota{margin:0;font-size:.75em;color:var(--tv-muted)}
+.tv-gd-sw{display:flex;gap:.3em;padding:.2em;border-radius:999px;background:var(--tv-track)}
+.tv-gd-sw button{flex:1;height:2em;border:0;border-radius:999px;background:transparent;color:var(--tv-muted);font:inherit;font-size:.85em;font-weight:600;cursor:pointer}
+.tv-gd-sw button[aria-pressed="true"]{background:var(--tv-card);color:var(--tv-brand);box-shadow:var(--tv-sombra)}
+.tv-gd-fr{margin:0;font-size:.85em;color:var(--tv-muted)}
+.tv-gd-enc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.6em}
+.tv-gd-enc div{display:flex;flex-direction:column;gap:.15em;padding:.7em .8em;border-radius:.7em;background:var(--tv-bg);border:1px solid var(--tv-line)}
+.tv-gd-enc b{font-size:2em;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:var(--tv-ink)}
+.tv-gd-enc span{font-size:.78em;color:var(--tv-muted)}
+.tv-gd-enc .pend{background:var(--tv-uso-bg);border-color:var(--tv-uso-line)}
+.tv-gd-enc .ok{background:var(--tv-ok-bg);border-color:var(--tv-ok-line)}
+@media(max-width:1200px){.tv-an-res{grid-template-columns:repeat(3,minmax(0,1fr))}.tv-gd{grid-template-columns:1fr 1fr}.tv-gd-c:last-child{grid-column:1/-1}}
+@media(max-width:900px){
+  .tv-nav{align-self:stretch;margin:0;justify-content:space-between}
+  .tv-nt{flex:1;padding:0 .4em}.tv-nt .l{display:none}.tv-nt .c{display:inline}
+  .tv-pausa{order:5;flex-basis:100%;display:none}.tv-pausa.on{display:inline-flex}
+  .tv-nav{flex-wrap:wrap;border-radius:1.1em}
+  .tv-an-res{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tv-an-g{grid-template-columns:1fr}
+  .tv-gd{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){.tv-pant.entra{animation:none}.tv-np i{transition:none}}
 </style>
 </head>
 <body>
@@ -962,6 +1121,9 @@ var EST = { DISPONIBLE: ['verde', 'Disponible'], OCUPADO: ['amarillo', 'Ocupado'
 
 function L(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>'; }
 var ICO = {
+  transf: L('<path d="M4 8h13l-3-3"/><path d="M20 16H7l3 3"/>'),
+  xls: L('<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="m9 12 5 5m0-5-5 5"/>'),
+  filtro: L('<path d="M4 5h16l-6 8v5l-4 2v-7z"/>'),
   sol: L('<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>'),
   luna: L('<path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/>'),
   turnos: L('<rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 3v3M16 3v3"/><circle cx="9" cy="14.5" r="1.6"/><path d="M13 14.5h4"/>'),
@@ -1102,9 +1264,25 @@ function tabVerifAct() {
   if (!t.some(function (x) { return x[0] === S.verifTab; })) S.verifTab = t.length ? t[0][0] : 'mis';
   return S.verifTab;
 }
+/*
+ * v0.10: antes se guardaba aquí una copia completa de la disponibilidad al abrir el planificador y, si después se asignaban
+ * turnos, la «Distribución automática» enviaba esa copia vieja (analistas con turno nuevo quedaban «Sin asignar»).
+ * Ahora solo se guardan los AJUSTES manuales (quitar / agregar personas por día) y se aplican sobre la disponibilidad
+ * vigente que entrega el servidor en cada lectura.
+ */
 function iniciarDisp(d) {
   var k = d.lunes + '|' + (d.plan ? d.plan.id + d.plan.generado_en : 'sin');
-  if (S.verifDispKey !== k) { S.verifDispKey = k; S.verifDisp = JSON.parse(JSON.stringify(d.disponibilidad || {})); }
+  if (S.verifDispKey !== k) { S.verifDispKey = k; S.verifAj = { quitar: {}, agregar: {} }; }
+  S.verifDisp = dispConAjustes(d);
+}
+function dispConAjustes(d) {
+  var aj = S.verifAj || { quitar: {}, agregar: {} }, out = {};
+  (d.fechas || []).forEach(function (f) {
+    var l = ((d.disponibilidad || {})[f] || []).filter(function (u) { return (aj.quitar[f] || []).indexOf(u) < 0; });
+    (aj.agregar[f] || []).forEach(function (u) { if (l.indexOf(u) < 0) l.push(u); });
+    out[f] = l;
+  });
+  return out;
 }
 function cargandoHtml() {
   var fila = '<div class="sk-fila"><span class="sk" style="width:10px;height:10px;border-radius:50%"></span><span class="sk" style="width:110px;height:14px"></span><span class="sk" style="flex:1;height:14px"></span><span class="sk" style="width:72px;height:22px;border-radius:999px"></span></div>';
@@ -1124,13 +1302,13 @@ function toast(msg, tipo) {
 }
 
 /* ---------- Comunicación con Apps Script ---------- */
-var LECTURAS = { yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1, verifMias: 1, verifPlan: 1, analisisLista: 1, informesLista: 1, indicadores: 1, usoAnual: 1, turnosSemana: 1, informeHistorial: 1, perfilAnalista: 1, analisisMes: 1, misAnalisis: 1, misPendientes: 1, panelGeneral: 1, fotoEquipo: 1 };
+var LECTURAS = { indicadoresAvanzados: 1, yo: 1, inicio: 1, equipos: 1, equipo: 1, sugerencias: 1, reservas: 1, usuariosLista: 1, encargos: 1, adminDatos: 1, tvEstado: 1, verifMias: 1, verifPlan: 1, analisisLista: 1, informesLista: 1, indicadores: 1, usoAnual: 1, turnosSemana: 1, informeHistorial: 1, perfilAnalista: 1, analisisMes: 1, misAnalisis: 1, misPendientes: 1, panelGeneral: 1, fotoEquipo: 1 };
 var POLL = ['inicio', 'equipos', 'equipo', 'reservas', 'encargos', 'verif', 'ocup', 'hplc', 'dis', 'mp', 'pt', 'informes'];
 var enCurso = {};
 /** Clave y solicitud de lectura de la pantalla actual (o de la indicada). */
 function claveVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
-  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '') + (v === 'indicadores' ? '|' + S.indModo + '|' + S.indAnio + '|' + S.indDesde + '|' + S.indHasta + '|' + (S.indMes || '') : '') + (v === 'misan' ? '|' + (S.misVer || 'activos') + '|' + (S.misUid || '') : '') + (v === 'verif' ? '|' + (tabVerifAct() === 'mis' ? 'mis' : 'plan:' + (S.verifSemana || '')) : '') + (v === 'turnos' ? '|' + (S.turnSem || '') : '');
+  return v + '|' + (p || '') + (v === 'encargos' ? '|' + S.encTab : '') + (v === 'indicadores' ? '|' + S.indModo + (S.indModo === 'avanzado' ? '|' + JSON.stringify(filtrosIndAv()) : '') + '|' + S.indAnio + '|' + S.indDesde + '|' + S.indHasta + '|' + (S.indMes || '') : '') + (v === 'misan' ? '|' + (S.misVer || 'activos') + '|' + (S.misUid || '') : '') + (v === 'verif' ? '|' + (tabVerifAct() === 'mis' ? 'mis' : 'plan:' + (S.verifSemana || '')) : '') + (v === 'turnos' ? '|' + (S.turnSem || '') : '');
 }
 function pedidoVista(v, p) {
   v = v || S.vista; p = p === undefined ? S.param : p;
@@ -1141,6 +1319,7 @@ function pedidoVista(v, p) {
   if (v === 'informes') return { accion: 'informesLista', datos: {} };
   if (v === 'misan') return { accion: 'misAnalisis', datos: { ver: S.misVer || 'activos', uid: S.misUid || '' } };
   if (v === 'pend') return { accion: 'misPendientes', datos: {} };
+  if (v === 'indicadores' && S.indModo === 'avanzado') return { accion: 'indicadoresAvanzados', datos: filtrosIndAv() };
   if (v === 'indicadores' && S.indModo === 'anual') return { accion: 'usoAnual', datos: S.indAnio ? { anio: S.indAnio } : {} };
   if (v === 'indicadores' && S.indModo === 'analisis') return { accion: 'analisisMes', datos: S.indMes ? { mes: S.indMes } : {} };
   if (v === 'indicadores') return { accion: 'indicadores', datos: S.indDesde ? { desde: S.indDesde, hasta: S.indHasta } : {} };
@@ -1564,7 +1743,7 @@ function numEq(e) { var m = /(\d+)/.exec(e.codigo || '') || /(\d+)/.exec(e.nombr
 
 function vOcup(d) {
   var eqs = d.equipos || [];
-  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('ocup') + 'Ocupancia</h1><p class="sub" style="margin:4px 0 0">Elige qué equipos quieres ver. Los colores se actualizan solos.</p></div></header>';
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('ocup') + 'Ocupancia</h1><p class="sub" style="margin:4px 0 0">Elige qué equipos quieres ver. Los colores se actualizan solos.</p></div>' + (puede('ANALISTA', 'JEFATURA') ? '<button class="btn sec" data-a="incidencia">' + ic('alerta') + 'Registrar incidencia</button>' : '') + '</header>';
   var card = function (vista, tipo) {
     var M = MAPA[tipo];
     return '<button class="ocup-c" data-a="ir" data-v="' + vista + '"><span class="trio-ico">' + ic(M.ico) + '</span><div><h2>' + M.titulo + '</h2>' + estRes(conteo(eqs, tipo)) + '<span class="trio-go">Ver distribución ' + ic('next') + '</span></div></button>';
@@ -1631,11 +1810,11 @@ function puedeEditarAn(a) { return !!(S.datos && S.datos.puede && S.datos.puede.
 
 function itemAn(a) {
   var abierto = S.anSel === a.id, editable = puedeEditarAn(a);
-  var sub = [a.lote ? 'Lote ' + a.lote : '', a.ensayo || '', a.tipo_analisis || ''].filter(Boolean).join(' · ');
+  var sub = [a.documento || '', a.lote ? 'Lote ' + a.lote : '', a.ensayo || '', a.tipo_analisis || '', a.pausado ? 'En pausa autorizada' : ''].filter(Boolean).join(' · ');
   var h = '<li class="aitem' + (abierto ? ' abierto' : '') + (S.flash[a.id] ? ' flash' : '') + '"><button class="aitem-b" data-a="anSel" data-id="' + a.id + '" aria-expanded="' + (abierto ? 'true' : 'false') + '"><div class="crece"><b>' + esc(a.producto) + '</b><small>' + (sub ? esc(sub) : 'Sin lote ni análisis indicado') + '</small>' +
     (a.equipos && a.equipos.length ? '<small>' + a.equipos.map(function (c) { return '<span class="eqchip">' + ic('hplc') + esc(c) + '</span>'; }).join(' ') + '</small>' : '') + '</div>' + anBadge(a.estado) + '<span class="ico chev" aria-hidden="true">' + ICO.chev + '</span></button>';
   if (abierto) {
-    h += '<div class="aitem-det"><dl class="ficha"><dt>Producto</dt><dd>' + esc(a.producto) + '</dd><dt>Lote</dt><dd>' + esc(a.lote || '—') + '</dd><dt>Análisis</dt><dd>' + esc(a.ensayo || '—') + '</dd><dt>Tipo</dt><dd>' + (a.tipo_analisis ? '<span class="tipo-an">' + esc(a.tipo_analisis) + '</span>' : '—') + '</dd>' +
+    h += '<div class="aitem-det"><dl class="ficha">' + (a.documento ? '<dt>Documento</dt><dd><span class="doc-chip">' + esc(a.documento) + '</span></dd>' : '') + '<dt>Producto</dt><dd>' + esc(a.producto) + '</dd><dt>Lote</dt><dd>' + esc(a.lote || '—') + '</dd><dt>Análisis</dt><dd>' + esc(a.ensayo || '—') + '</dd><dt>Tipo</dt><dd>' + (a.tipo_analisis ? '<span class="tipo-an">' + esc(a.tipo_analisis) + '</span>' : '—') + '</dd>' +
       (a.iniciado_en ? '<dt>Inicio</dt><dd>' + fh(a.iniciado_en) + '</dd>' : '') + (a.informando_en ? '<dt>Informando</dt><dd>' + fh(a.informando_en) + '</dd>' : '') + (a.finalizado_en ? '<dt>Finalizado</dt><dd>' + fh(a.finalizado_en) + '</dd>' : '') +
       (a.nota ? '<dt>Nota</dt><dd>' + esc(a.nota) + '</dd>' : '') + '<dt>Actualizado</dt><dd>' + fh(a.actualizado_en) + (a.actualizado_por ? ' · ' + esc(a.actualizado_por) : '') + '</dd></dl>';
     if (editable) {
@@ -1683,7 +1862,8 @@ function formAnalisis(area, id, uid) {
   }
   modal('<h2>' + (id ? 'Editar análisis' : ((d.puede && d.puede.asignarOtros) ? 'Asignar producto y lotes' : 'Asignarme producto y lotes')) + '</h2>' + (area ? '<p class="sub" style="margin:-6px 0 12px">' + AREA_TXT[area] + '</p>' : '') + '<form data-f="analisis" autocomplete="off">' + datalistsBase() +
     '<input type="hidden" name="id" value="' + esc(id || '') + '">' + (area ? '<input type="hidden" name="area" value="' + area + '">' : '<fieldset class="seg"><legend>Área</legend><label><input type="radio" name="area" value="MP" required> Materias Primas</label><label><input type="radio" name="area" value="PT"> Producto Terminado</label></fieldset>') + sel +
-    '<label>Producto<input name="producto" list="dl-prod" required maxlength="100" value="' + esc(v.producto) + '" autofocus></label>' +
+    docCampo(area || (it && it.area) || '', v.documento || '', !!id && !v.documento) +
+    '<label>Producto<input name="producto" list="dl-prod" required maxlength="100" value="' + esc(v.producto) + '"' + (area ? ' autofocus' : '') + '></label>' +
     '<label>Análisis <span class="sub">(opcional)</span><input name="ensayo" list="dl-ens-todos" maxlength="100" value="' + esc(v.ensayo) + '" placeholder="Ej.: Valoración"></label>' +
     (id ? '<label>Lote <span class="sub">(opcional)</span><input name="lote" maxlength="60" value="' + esc(v.lote) + '" placeholder="L001"></label>'
       : '<fieldset class="lotes-multi"><legend>Lotes <span class="sub">(uno por fila; cada lote queda con su propio estado)</span></legend><div id="lotes-filas">' + filaLote('') + '</div>' +
@@ -1694,14 +1874,19 @@ function formAnalisis(area, id, uid) {
     '<div id="an-resumen"></div><div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Guardar</button></div></form>');
   var f = $('#modal-raiz form[data-f="analisis"]');
   if (f) f.addEventListener('input', function () { if (f.dataset.ok) { f.dataset.ok = ''; $('#an-resumen').innerHTML = ''; f.querySelector('.acciones .btn:not(.sec)').textContent = 'Guardar'; } });
+  if (f) f.addEventListener('change', function (ev) { if (ev.target.name === 'area') docPrefijo(f, ev.target.value); });
 }
 /* ---------- v0.9: «Mis análisis» (espacio de trabajo de la analista) con selección múltiple y acciones masivas ---------- */
 var BULK = { EN_PROCESO: { desde: ['PENDIENTE'], txt: 'Iniciar', ico: 'play', hecho: 'iniciados' }, INFORMANDO: { desde: ['EN_PROCESO'], txt: 'Pasar a Informando', ico: 'doc', hecho: 'pasados a Informando' }, FINALIZADO: { desde: ['EN_PROCESO', 'INFORMANDO'], txt: 'Finalizar', ico: 'disp', hecho: 'finalizados' } };
 function misItems() { return (S.datos && S.datos.items) || []; }
+function misClave(x) { return x.area + '|' + x.producto + '|' + (x.ensayo || '') + '|' + (x.documento || ''); }
 function misFiltrados(d) {
-  var f = S.misFiltro || 'TODOS', a = S.misArea || 'TODAS';
+  var f = S.misFiltro || 'TODOS', a = S.misArea || 'TODAS', q = norm(S.misBusca || '');
   return d.items.filter(function (x) {
     if (a !== 'TODAS' && x.area !== a) return false;
+    if (q && norm([x.documento, x.producto, x.lote, x.ensayo, x.tipo_analisis].join(' ')).indexOf(q) < 0) return false;
+    if (f === 'PAUSADO') return x.pausado;
+    if (f === 'SOLICITUD') return !!x.solicitud;
     if (d.ver === 'finalizados' || f === 'TODOS') return true;
     if (f === 'ENVIAR') return x.estado === 'FINALIZADO' && !x.informe;
     return x.estado === f;
@@ -1717,16 +1902,17 @@ function vMisAnalisis(d) {
   h += '<div class="estres">' + AN_OP.map(function (e) { return '<span class="an ' + AN[e][0] + '">' + ic(AN[e][2]) + AN[e][1] + ' · ' + r[e] + '</span>'; }).join('') + '<span class="an an-pend">' + ic('clock') + 'Sin iniciar · ' + r.PENDIENTE + '</span>' + (d.porEnviar ? '<span class="an an-esp">' + ic('informe') + 'Informes por enviar · ' + d.porEnviar + '</span>' : '') + '</div>';
   h += '<div class="tabs" role="tablist">' + [['activos', 'En curso'], ['finalizados', 'Finalizados']].map(function (t) { return '<button role="tab" class="' + (d.ver === t[0] ? 'act' : '') + '" aria-selected="' + (d.ver === t[0]) + '" data-a="misVer" data-v="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
   h += '<div class="inf-filtros"><div class="seg-chips" role="group" aria-label="Área">' + [['TODAS', 'Todas'], ['MP', 'MP'], ['PT', 'PT']].map(function (a) { return '<button data-a="misArea" data-v="' + a[0] + '" aria-pressed="' + ((S.misArea || 'TODAS') === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div>' +
-    (d.ver === 'activos' ? '<div class="seg-chips" role="group" aria-label="Estado">' + [['TODOS', 'Todos'], ['PENDIENTE', 'Sin iniciar'], ['EN_PROCESO', 'En proceso'], ['INFORMANDO', 'Informando'], ['ENVIAR', 'Por enviar informe']].map(function (a) { return '<button data-a="misFiltro" data-v="' + a[0] + '" aria-pressed="' + ((S.misFiltro || 'TODOS') === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div>' : '') + '</div>';
+    (d.ver === 'activos' ? '<div class="seg-chips" role="group" aria-label="Estado">' + [['TODOS', 'Todos'], ['PENDIENTE', 'Sin iniciar'], ['EN_PROCESO', 'En proceso'], ['INFORMANDO', 'Informando'], ['ENVIAR', 'Por enviar informe']].concat(d.items.some(function (x) { return x.pausado; }) ? [['PAUSADO', 'Pausados']] : []).concat(d.items.some(function (x) { return x.solicitud; }) ? [['SOLICITUD', 'Con solicitud']] : []).map(function (a) { return '<button data-a="misFiltro" data-v="' + a[0] + '" aria-pressed="' + ((S.misFiltro || 'TODOS') === a[0]) + '">' + a[1] + '</button>'; }).join('') + '</div>' : '') +
+    '<input type="search" class="mis-busca" data-busca="mis" aria-label="Buscar por documento ELP/EMP, producto o lote" placeholder="Buscar ELP/EMP, producto o lote" value="' + esc(S.misBusca || '') + '"></div>';
   var l = misFiltrados(d);
   if (!d.items.length) return h + vacioG('lote', d.ver === 'activos' ? 'No hay análisis en curso' : 'Sin análisis finalizados en los últimos 120 días', d.ver === 'activos' ? 'Cuando jefatura te asigne lotes (o te los asignes), aparecerán aquí.' : '');
   if (!l.length) return h + '<div class="vacio">No hay lotes con ese filtro.</div>';
   var grupos = {}, orden = [];
-  l.forEach(function (x) { var k = x.area + '|' + x.producto + '|' + (x.ensayo || ''); if (!grupos[k]) { grupos[k] = []; orden.push(k); } grupos[k].push(x); });
+  l.forEach(function (x) { var k = misClave(x); if (!grupos[k]) { grupos[k] = []; orden.push(k); } grupos[k].push(x); });
   h += '<div class="mis-sel-top"><button class="btn ghost chico" data-a="misTodos">' + ic('check') + 'Seleccionar todos</button><button class="btn ghost chico" data-a="misNinguno">Deseleccionar todos</button></div>';
   h += orden.map(function (k) {
     var g = grupos[k], x0 = g[0];
-    return '<section class="mis-g"><div class="mis-g-cab"><label class="mis-chk"><input type="checkbox" data-a="misGrupo" data-k="' + esc(k) + '"' + (g.every(function (x) { return S.misSel[x.id]; }) ? ' checked' : '') + ' aria-label="Seleccionar todos los lotes de ' + esc(x0.producto) + '"></label><div class="crece"><b>' + esc(x0.producto) + '</b><div class="sub">' + [x0.ensayo, AREA_TXT[x0.area], x0.tipo_analisis].filter(Boolean).map(esc).join(' · ') + ' · ' + g.length + (g.length === 1 ? ' lote' : ' lotes') + '</div></div></div>' +
+    return '<section class="mis-g"><div class="mis-g-cab"><label class="mis-chk"><input type="checkbox" data-a="misGrupo" data-k="' + esc(k) + '"' + (g.every(function (x) { return S.misSel[x.id]; }) ? ' checked' : '') + ' aria-label="Seleccionar todos los lotes de ' + esc(x0.producto) + '"></label><div class="crece">' + (x0.documento ? '<span class="doc-chip">' + esc(x0.documento) + '</span> ' : '') + '<b>' + esc(x0.producto) + '</b><div class="sub">' + [x0.ensayo, AREA_TXT[x0.area], x0.tipo_analisis].filter(Boolean).map(esc).join(' · ') + ' · ' + g.length + (g.length === 1 ? ' lote' : ' lotes') + '</div></div></div>' +
       '<ul class="mis-l">' + g.map(itemMis).join('') + '</ul></section>';
   }).join('');
   h += '<div id="mis-barra" class="mis-barra" hidden></div>';
@@ -1736,8 +1922,12 @@ function vMisAnalisis(d) {
 function itemMis(x) {
   var fechas = x.estado === 'FINALIZADO' ? 'Finalizado ' + fh(x.finalizado_en) : x.estado === 'INFORMANDO' ? 'Informando desde ' + fh(x.informando_en) : x.estado === 'EN_PROCESO' ? 'Iniciado ' + fh(x.iniciado_en || x.actualizado_en) : 'Asignado' + (x.asignado_por ? ' por ' + esc(x.asignado_por) : '');
   var inf = x.informe ? infBadge(x.informe.estado) : (x.estado === 'FINALIZADO' ? '<button class="btn chico" data-a="misEnviarUno" data-id="' + x.id + '">' + ic('informe') + 'Enviar informe</button>' : '');
-  return '<li class="mis-it' + (S.misSel[x.id] ? ' sel' : '') + (S.flash[x.id] ? ' flash' : '') + '"><label class="mis-chk"><input type="checkbox" data-a="misChk" data-id="' + x.id + '"' + (S.misSel[x.id] ? ' checked' : '') + ' aria-label="Seleccionar lote ' + esc(x.lote || x.producto) + '"></label>' +
-    '<div class="crece"><b>' + (x.lote ? 'Lote ' + esc(x.lote) : 'Sin lote') + '</b> ' + anBadge(x.estado) + '<div class="sub">' + fechas + (x.equipos && x.equipos.length ? ' · ' + ic('hplc') + ' ' + x.equipos.map(esc).join(', ') : '') + '</div></div><div class="mis-inf">' + inf + '</div></li>';
+  // v0.10: condiciones complementarias (pausa autorizada, solicitud pendiente) y participantes anteriores
+  var cond = (x.pausado ? '<span class="cond c-pausa">' + ic('pausa') + 'Pausado' + (x.pausa_desde ? ' desde ' + fh(x.pausa_desde) : '') + '</span>' : '') +
+    (x.solicitud ? '<span class="cond c-sol">' + ic('clock') + SOL_TXT[x.solicitud.tipo] + '</span>' : '');
+  var part = x.participantes && x.participantes.length ? '<div class="sub">Participó antes: ' + x.participantes.map(esc).join(', ') + '</div>' : '';
+  return '<li class="mis-it' + (S.misSel[x.id] ? ' sel' : '') + (S.flash[x.id] ? ' flash' : '') + (x.pausado ? ' pausado' : '') + '"><label class="mis-chk"><input type="checkbox" data-a="misChk" data-id="' + x.id + '"' + (S.misSel[x.id] ? ' checked' : '') + ' aria-label="Seleccionar lote ' + esc(x.lote || x.producto) + '"></label>' +
+    '<div class="crece"><b>' + (x.lote ? 'Lote ' + esc(x.lote) : 'Sin lote') + '</b> ' + anBadge(x.estado) + cond + '<div class="sub">' + fechas + (x.equipos && x.equipos.length ? ' · ' + ic('hplc') + ' ' + x.equipos.map(esc).join(', ') : '') + '</div>' + part + '</div><div class="mis-inf">' + inf + '<button class="btn ghost chico" data-a="anHist" data-id="' + x.id + '" aria-label="Historial del lote ' + esc(x.lote || '') + '">' + ic('hist') + '</button></div></li>';
 }
 /** Barra de acciones masivas: solo muestra las acciones válidas para lo seleccionado. */
 function barraMis() {
@@ -1745,26 +1935,32 @@ function barraMis() {
   var sel = misItems().filter(function (x) { return S.misSel[x.id]; });
   if (!sel.length) { b.hidden = true; b.innerHTML = ''; return; }
   var btns = Object.keys(BULK).map(function (e) {
-    var n = sel.filter(function (x) { return BULK[e].desde.indexOf(x.estado) >= 0; }).length;
+    var n = sel.filter(function (x) { return BULK[e].desde.indexOf(x.estado) >= 0 && !x.pausado; }).length;
     return n ? '<button class="btn chico" data-a="misAccion" data-e="' + e + '">' + ic(BULK[e].ico) + BULK[e].txt + ' (' + n + ')</button>' : '';
   }).join('');
   var env = sel.filter(function (x) { return x.estado === 'FINALIZADO' && !x.informe; }).length;
   if (env && perm('entregar_informes')) btns += '<button class="btn chico" data-a="misEnviar">' + ic('informe') + 'Enviar a revisión (' + env + ')</button>';
+  // v0.10: pausa, reanudación y transferencia. La analista solicita; jefatura ejecuta directamente.
+  var dir = puede('JEFATURA'), d0 = S.datos || {};
+  if (dir || d0.propio) ['PAUSA', 'REANUDAR', 'TRANSFERIR'].forEach(function (t) {
+    var n = sel.filter(function (x) { return elegibleSol(x, t, dir) === ''; }).length;
+    if (n) btns += '<button class="btn sec chico" data-a="misSolicitar" data-t="' + t + '"' + (dir ? ' data-dir="1"' : '') + '>' + ic(SOL_ICO[t]) + (dir ? SOL_DIR[t] : SOL_PIDE[t]) + ' (' + n + ')</button>';
+  });
   b.innerHTML = '<span class="mis-n"><b>' + sel.length + '</b> ' + (sel.length === 1 ? 'seleccionado' : 'seleccionados') + '</span><div class="mis-b">' + (btns || '<span class="sub">Ninguna acción disponible para esta selección.</span>') + '</div><button class="btn ghost chico" data-a="misNinguno" aria-label="Deseleccionar todos">' + ic('x') + '</button>';
   b.hidden = false;
 }
 function marcarMis(ids, on) {
   ids.forEach(function (id) { if (on) S.misSel[id] = 1; else delete S.misSel[id]; var c = document.querySelector('input[data-a="misChk"][data-id="' + id + '"]'); if (c) { c.checked = on; c.closest('.mis-it').classList.toggle('sel', on); } });
-  document.querySelectorAll('input[data-a="misGrupo"]').forEach(function (g) { var it = misItems().filter(function (x) { return x.area + '|' + x.producto + '|' + (x.ensayo || '') === g.dataset.k; }); g.checked = it.length && it.every(function (x) { return S.misSel[x.id]; }); });
+  document.querySelectorAll('input[data-a="misGrupo"]').forEach(function (g) { var it = misItems().filter(function (x) { return misClave(x) === g.dataset.k; }); g.checked = it.length && it.every(function (x) { return S.misSel[x.id]; }); });
   barraMis();
 }
 function accMisChk(ds, el) { marcarMis([ds.id], el.checked); }
-function accMisGrupo(ds, el) { var d = S.datos; marcarMis(misFiltrados(d).filter(function (x) { return x.area + '|' + x.producto + '|' + (x.ensayo || '') === ds.k; }).map(function (x) { return x.id; }), el.checked); }
+function accMisGrupo(ds, el) { var d = S.datos; marcarMis(misFiltrados(d).filter(function (x) { return misClave(x) === ds.k; }).map(function (x) { return x.id; }), el.checked); }
 function accMisTodos() { marcarMis(misFiltrados(S.datos).map(function (x) { return x.id; }), true); }
 function accMisNinguno() { marcarMis(Object.keys(S.misSel || {}), false); }
 function accMisAccion(ds) {
   var e = ds.e, sel = misItems().filter(function (x) { return S.misSel[x.id]; });
-  var ok = sel.filter(function (x) { return BULK[e].desde.indexOf(x.estado) >= 0; }), no = sel.filter(function (x) { return BULK[e].desde.indexOf(x.estado) < 0; });
+  var ok = sel.filter(function (x) { return BULK[e].desde.indexOf(x.estado) >= 0 && !x.pausado; }), no = sel.filter(function (x) { return BULK[e].desde.indexOf(x.estado) < 0 || x.pausado; });
   if (!ok.length) return;
   var lote = function (x) { return esc(x.lote || x.producto); };
   confirmar(BULK[e].txt + ' ' + ok.length + (ok.length === 1 ? ' lote: ' : ' lotes: ') + ok.map(lote).join(', ') + '.' + (no.length ? ' Se omiten ' + no.length + ' que no admiten este cambio (' + no.map(lote).join(', ') + ').' : '') + ' Queda registrado con tu nombre, fecha y hora en cada lote.', BULK[e].txt, 'Confirmar cambio de estado').then(function (si) {
@@ -1889,6 +2085,7 @@ function alertasEqHtml(a) {
 /* ---------- v0.9: «Mis pendientes» (revisores y jefatura) ---------- */
 function vPendientes(d) {
   var h = '<header class="cab"><div><h1 class="h-ico">' + ic('bell') + 'Mis pendientes</h1><p class="sub" style="margin:4px 0 0">' + (d.informes ? 'Toma voluntariamente un informe de la bandeja común. Primera revisión y subsanaciones van separadas.' : 'Supervisión general del laboratorio.') + '</p></div></header>';
+  if (d.solicitudes) h += solicitudesHtml(d.solicitudes);
   if (d.informes) {
     var l = d.informes.informes, b = S.pendBand || 'primera';
     var g = { primera: l.filter(function (i) { return i.estado === 'PENDIENTE_REVISION'; }), subs: l.filter(function (i) { return i.estado === 'SUBSANACION_PENDIENTE' && !i.revisor; }), mias: l.filter(function (i) { return (i.estado === 'EN_REVISION' || i.estado === 'SUBSANACION_PENDIENTE') && i.revisor_id === d.yo; }) };
@@ -1970,7 +2167,7 @@ function tarjetaMisAn(m) {
 function tarjetaSupervision(s) {
   var a = s.analisis || {}, i = s.informes || {};
   return '<section class="tarea"><div class="tarea-cab">' + ic('users') + '<h2>Supervisión del laboratorio</h2></div>' +
-    '<div class="nums"><div><b>' + (s.analistas || 0) + '</b><small>Analistas con trabajo</small></div><div><b style="color:#164a96">' + (a.EN_PROCESO || 0) + '</b><small>En proceso</small></div><div><b style="color:#9a4300">' + (a.INFORMANDO || 0) + '</b><small>Informando</small></div><div' + ((i.PEND + i.SUB) ? ' class="p"' : '') + '><b>' + ((i.PEND || 0) + (i.SUB || 0)) + '</b><small>Informes por revisar</small></div></div>' +
+    '<div class="nums"><div><b>' + (s.analistas || 0) + '</b><small>Analistas con trabajo</small></div><div><b style="color:#164a96">' + (a.EN_PROCESO || 0) + '</b><small>En proceso</small></div><div><b style="color:#9a4300">' + (a.INFORMANDO || 0) + '</b><small>Informando</small></div><div' + ((i.PEND + i.SUB) ? ' class="p"' : '') + '><b>' + ((i.PEND || 0) + (i.SUB || 0)) + '</b><small>Informes por revisar</small></div>' + (s.solicitudes ? '<div class="p"><b>' + s.solicitudes + '</b><small>Solicitudes por autorizar</small></div>' : '') + '</div>' +
     '<div class="acciones"><button class="btn sec" data-a="ir" data-v="pend">Abrir supervisión</button></div></section>';
 }
 function tarjetaAlertasEq(a) {
@@ -1983,7 +2180,7 @@ function tarjetaAlertasEq(a) {
 
 function itemInf(i) {
   var ln = [i.lote ? 'Lote ' + esc(i.lote) : '', i.ensayo ? esc(i.ensayo) : ''].filter(Boolean).join(' · ');
-  var h = '<article class="inf-c' + (S.flash[i.id] ? ' flash' : '') + '"><div class="inf-top"><b>' + esc(i.producto) + '</b>' + areaChip(i.area) + '</div>' + (ln ? '<div class="sub">' + ln + '</div>' : '') +
+  var h = '<article class="inf-c' + (S.flash[i.id] ? ' flash' : '') + '"><div class="inf-top"><b>' + esc(i.producto) + '</b>' + areaChip(i.area) + '</div>' + (i.documento ? '<div><span class="doc-chip">' + esc(i.documento) + '</span></div>' : '') + (ln ? '<div class="sub">' + ln + '</div>' : '') +
     (i.tipo_analisis ? '<div><span class="tipo-an">' + esc(i.tipo_analisis) + '</span></div>' : '') +
     '<div class="sub">Enviado por ' + esc(i.entregado_por) + ' · ' + fh(i.entregado_en) + (i.ciclo > 1 ? ' · ronda ' + i.ciclo : '') + '</div>';
   if (i.nota) h += '<div class="sub">Nota: ' + esc(i.nota) + '</div>';
@@ -2050,6 +2247,7 @@ function formInforme(pre) {
   modal('<h2>Enviar informe a revisión</h2><p class="sub" style="margin:-6px 0 12px">Quedará «Pendiente de revisión» para los revisores. No se adjuntan archivos en esta versión.</p><form data-f="informe" autocomplete="off">' + datalistsBase() +
     '<input type="hidden" name="analisis_id" value="' + esc(pre.analisis_id || '') + '">' +
     '<fieldset class="seg"><legend>Área</legend><label><input type="radio" name="area" value="MP"' + (area === 'MP' ? ' checked' : '') + '> Materias Primas</label><label><input type="radio" name="area" value="PT"' + (area === 'PT' ? ' checked' : '') + '> Producto Terminado</label></fieldset>' +
+    (pre.analisis_id ? '' : docCampo(area, '', true)) +
     '<label>Producto<input name="producto" list="dl-prod" required maxlength="100" value="' + esc(pre.producto || '') + '" autofocus></label>' +
     '<div class="form-grid"><label>Lote<input name="lote" required maxlength="60" value="' + esc(pre.lote || '') + '" placeholder="L001"></label>' +
     '<label>Análisis <span class="sub">(opcional)</span><input name="ensayo" list="dl-ens-todos" maxlength="100" value="' + esc(pre.ensayo || '') + '" placeholder="Ej.: Valoración"></label></div>' +
@@ -2069,7 +2267,7 @@ function hTxt(h) { if (h === null || h === undefined) return '—'; if (h < 1) r
 /* ---------- Indicadores: uso mensual de equipos por año ---------- */
 var MESES = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
 function indModos() {
-  return '<div class="ind-rango no-imp"><div class="seg-chips" role="group" aria-label="Tipo de indicadores">' + [['resumen', 'Resumen del período'], ['analisis', 'Análisis del mes'], ['anual', 'Uso mensual de equipos']].map(function (x) {
+  return '<div class="ind-rango no-imp"><div class="seg-chips" role="group" aria-label="Tipo de indicadores">' + [['resumen', 'Resumen del período'], ['analisis', 'Análisis del mes'], ['anual', 'Uso mensual de equipos']].concat(puede('JEFATURA') ? [['avanzado', 'Gestión avanzada']] : []).map(function (x) {
     return '<button data-a="indModo" data-v="' + x[0] + '" aria-pressed="' + (S.indModo === x[0]) + '">' + x[1] + '</button>';
   }).join('') + '</div></div>';
 }
@@ -2297,7 +2495,12 @@ function celdaResp(a, pub, lectura) {
 function vPlan(d) {
   var lect = !!d.soloLectura, plan = d.plan, edit = !lect && (!plan || plan.estado === 'BORRADOR'), pub = !!plan && plan.estado === 'PUBLICADA', h = semanaNav(d), r = d.resumen || {};
   if (lect) h += '<p class="sub" style="margin:0 0 10px">' + ic('ojo') + ' Consulta de solo lectura. La planificación la gestiona jefatura.</p>';
-  if (puede('JEFATURA')) h += '<div class="turn-link">' + ic('turnos') + '<span>Turno día esta semana: <b>' + (d.candidatos || []).filter(function (c) { return d.fechas.some(function (f) { return (d.disponibilidad[f] || []).indexOf(c.id) >= 0; }); }).length + '</b> analistas</span><button class="btn ghost chico" data-a="planTurnos">Asignar turnos de la semana</button></div>';
+  if (puede('JEFATURA')) {
+    var tp = (d.turnos && d.turnos.personas) || [], nNoche = tp.filter(function (x) { return x.planificable && (x.tipo === 'NOCHE' || x.tipo === 'MIXTO'); }).length;
+    h += '<div class="turn-link">' + ic('turnos') + '<span>Turno día esta semana: <b>' + (d.candidatos || []).filter(function (c) { return d.fechas.some(function (f) { return (d.disponibilidad[f] || []).indexOf(c.id) >= 0; }); }).length + '</b> analistas · Turno noche: <b>' + nNoche + '</b></span><button class="btn ghost chico" data-a="planTurnos">Asignar turnos de la semana</button></div>';
+  }
+  if (d.sincronizado_en) h += '<p class="sync-ok" role="status">' + ic('check') + 'Turnos leídos del servidor a las ' + esc(new Date(d.sincronizado_en).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' })) + (d.turnos && d.turnos.ultimo ? ' · última modificación de turnos: ' + esc(d.turnos.ultimo.por || '—') + ', ' + esc(fh(d.turnos.ultimo.en)) : '') + '</p>';
+  if (d.turnos && d.turnos.personas && d.turnos.personas.length) h += turnosPlanHtml(d);
   var activas = d.catalogo.filter(function (v) { return v.activo; });
   var est = !plan ? '<span class="badge info"><i></i>Sin planificar</span>' : edit ? '<span class="badge info"><i></i>Borrador · pendiente de confirmar</span>' : '<span class="badge hecho"><i></i>Publicada</span>';
   var nota = plan ? (pub ? 'Publicada por ' + esc(plan.publicado_por) + ' · ' + fh(plan.publicado_en) : 'Generada por ' + esc(plan.generado_por) + ' · ' + fh(plan.generado_en)) : '';
@@ -2317,14 +2520,14 @@ function vPlan(d) {
       return '<li><b>' + esc(diaCorto(f)) + ':</b> ' + p.join(' · ') + '</li>';
     }).join('') + '</ul></div>';
   }
-  if (r.incompatibles && !lect) h += '<div class="alerta roja" style="margin-bottom:12px"><b>' + r.incompatibles + (r.incompatibles === 1 ? ' asignación es incompatible' : ' asignaciones son incompatibles') + '</b> con los turnos (persona ausente o fuera de turno día). Cámbialas a mano o usa «Redistribuir pendientes». Las tareas ya completadas no se tocan.</div>';
+  if (r.incompatibles && !lect) h += '<div class="alerta roja" style="margin-bottom:12px"><b>' + r.incompatibles + (r.incompatibles === 1 ? ' asignación requiere revisión' : ' asignaciones requieren revisión') + '</b>: la persona ya no tiene un turno válido (verificaciones: turno día; Semanero: día o noche) o está ausente. Los registros se conservan; reasígnalos a mano o usa «Redistribuir pendientes». Las tareas ya completadas no se tocan.</div>';
   if (r.sinResponsable && !lect) h += '<div class="alerta" style="margin-bottom:12px"><b>' + r.sinResponsable + (r.sinResponsable === 1 ? ' tarea sin responsable.' : ' tareas sin responsable.') + '</b> ' + (edit ? 'Elige a alguien en la tabla o ajusta la disponibilidad.' : 'Elige a alguien en la tabla.') + '</div>';
   if (edit) {
     h += '<h3 class="seccion" style="margin-top:4px">Cómo quieres planificar la semana</h3><div class="modal-plan">' +
       '<button class="mod" data-a="verifGen">' + '<b>' + ic('magia') + 'Distribución automática</b><span class="sub">Consulta los turnos día de cada fecha y propone un reparto equitativo y rotativo. Tú revisas y confirmas.</span></button>' +
       '<button class="mod" data-a="verifCopia"' + (d.hay_anterior ? '' : ' disabled') + '><b>' + ic('copia') + 'Copiar semana anterior</b><span class="sub">' + (d.hay_anterior ? 'Repite los responsables y señala a quien no esté disponible.' : 'No hay planificación de la semana anterior.') + '</span></button>' +
       '<button class="mod" data-a="verifManual"><b>' + ic('mano') + 'Asignación manual</b><span class="sub">Tú eliges quién hace cada tarea cada día.</span></button></div>';
-    h += '<details class="det-disp"><summary>Ajustar disponibilidad antes de generar (opcional)</summary><p class="sub" style="margin:8px 0">Solo personas con rol exactamente Analista (sin rol de revisor ni jefatura) y en turno día. Ya se descartaron ausencias y días fuera de turno; ajusta lo que haga falta. Solo afecta a la distribución automática.</p>';
+    h += '<details class="det-disp"><summary>Ajustar disponibilidad antes de generar (opcional)</summary><p class="sub" style="margin:8px 0">Verificaciones diarias: solo personas con rol exactamente Analista y en turno día. Se marca según los turnos vigentes; tus cambios se guardan como ajustes y se aplican sobre los turnos actuales al generar. El Semanero se elige entre analistas de turno día o noche.</p>';
     if (!d.candidatos.length) h += vacioG('cal', 'No hay analistas con turno día asignado', 'Asígnalos en «Asignación de turnos».', '<button class="btn sec chico" data-a="planTurnos">Asignar turnos de la semana</button>');
     else {
       h += '<div class="tabla-wrap"><table class="tabla-plan"><thead><tr><th>Analista</th>' + d.fechas.map(function (f) { return '<th class="c" style="text-align:center">' + esc(diaCorto(f)) + '</th>'; }).join('') + '</tr></thead><tbody>' +
@@ -2340,7 +2543,7 @@ function vPlan(d) {
   if (!plan) return h + '<div style="margin-top:14px">' + vacioG('verif', 'Aún no hay planificación para esta semana', lect ? 'Jefatura aún no la prepara.' : 'Elige una de las tres modalidades. Nada se publica hasta que lo confirmes.') + '</div>';
   if (lect && !pub) h += '<div class="alerta" style="margin-bottom:12px">Esta semana está en <b>borrador</b>: puede cambiar antes de publicarse.</div>';
   var sem = (d.semanero || [])[0];
-  if (sem) h += '<div class="sem-banda">' + ic('sem') + '<div><b>Semanero de la semana:</b> ' + (sem.usuario_id ? esc(sem.usuario) : '<span class="sub">sin asignar</span>') + '<div class="sub">Actividad semanal: el mismo responsable de lunes a viernes.</div></div></div>';
+  if (sem) h += semaneroBandaHtml(d, sem);
   var por = {};
   d.asignaciones.forEach(function (a) { var k = a.fecha + '|' + a.verificacion_id; (por[k] = por[k] || []).push(a); });
   var tareas = d.catalogo.filter(function (v) { return v.activo || d.asignaciones.some(function (a) { return a.verificacion_id === v.id; }); });
@@ -2555,7 +2758,7 @@ function contenido() {
     case 'informes': return vInformes(d);
     case 'misan': return vMisAnalisis(d);
     case 'pend': return vPendientes(d);
-    case 'indicadores': return d.tipos ? vUsoAnual(d) : d.dias && d.mes ? vAnalisisMes(d) : vIndicadores(d);
+    case 'indicadores': return d.productividad && d.ocupancia ? vIndAvanzado(d) : d.tipos ? vUsoAnual(d) : d.dias && d.mes ? vAnalisisMes(d) : vIndicadores(d);
   }
   return '';
 }
@@ -2630,18 +2833,23 @@ function areaChip(a) { return a === 'MP' || a === 'PT' ? '<span class="area">' +
 function accionesEq(e) {
   var acc = '';
   if (e.tipo === 'HPLC' && puede('ANALISTA', 'JEFATURA') && e.activo) acc += '<button class="btn sec chico" data-a="nuevaReserva" data-id="' + e.id + '">Reservar</button>';
-  if (puede('ANALISTA', 'JEFATURA') && e.estado !== 'NO_OPERATIVO') acc += '<button class="btn sec chico" data-a="reportar" ' + dsEq(e) + '>Reportar no operativo</button>';
-  if (e.estado === 'NO_OPERATIVO' && puedeRestaurar()) acc += '<button class="btn sec chico" data-a="restaurar" ' + dsEq(e) + '>Marcar operativo</button>';
+  // v0.10: registrar una incidencia no cambia la operatividad. Solo jefatura declara o restablece.
+  if (puede('ANALISTA', 'JEFATURA')) acc += '<button class="btn sec chico" data-a="incidencia" ' + dsEq(e) + '>' + ic('alerta') + 'Registrar incidencia</button>';
+  if (puede('JEFATURA')) acc += e.estado === 'NO_OPERATIVO'
+    ? '<button class="btn sec chico" data-a="operatividad" data-e="OPERATIVO" data-abiertas="' + ((e.incidencia && e.incidencia.abiertas) || 0) + '" ' + dsEq(e) + '>' + ic('check') + 'Restablecer operatividad</button>'
+    : '<button class="btn sec chico peligro-t" data-a="operatividad" data-e="NO_OPERATIVO" ' + dsEq(e) + '>Declarar no operativo</button>';
   return acc;
 }
+/** v0.10: indicador discreto de incidencia abierta (no reemplaza los colores verde / amarillo / rojo). */
+function incChip(e) { return e.incidencia ? '<span class="inc-chip" title="' + esc('Incidencia abierta: ' + e.incidencia.descripcion) + '">' + ic('alerta') + 'Incidencia' + (e.incidencia.abiertas > 1 ? ' · ' + e.incidencia.abiertas : '') + '</span>' : ''; }
 /** Tarjeta de equipo: icono teñido por estado + texto de estado + datos esenciales. */
 function tarjetaEq(e) {
   var col = EST[e.estado][0], o = e.ocupacion, r = e.proxima_reserva, sel = S.selEq === e.id, r0 = '';
-  var cuerpo = '<div class="eqc-linea">' + badge(e.estado) + (o ? '<span class="eqc-t">' + dur(o.inicio) + '</span>' : '') + '</div>';
+  var cuerpo = '<div class="eqc-linea">' + badge(e.estado) + incChip(e) + (o ? '<span class="eqc-t">' + dur(o.inicio) + '</span>' : '') + '</div>';
   if (o) {
     cuerpo += '<div class="eqc-quien">' + avatar(o.usuario) + '<b>' + esc(o.usuario) + '</b></div><div class="eqc-linea">' + areaChip(o.area) + '<span class="eqc-t">desde las ' + hora(o.inicio) + '</span></div>';
   } else if (e.estado === 'NO_OPERATIVO') {
-    cuerpo += '<div class="eqc-nota">' + (e.incidencia ? esc(e.incidencia.descripcion) : 'Fuera de servicio') + '</div>';
+    cuerpo += '<div class="eqc-nota">Fuera de servicio (declarado por jefatura)</div>';
   } else {
     cuerpo += '<div class="eqc-nota">' + (r ? 'Reservado por ' + esc(r.usuario) + ' · ' + fh(r.inicio) : 'Libre para usar') + '</div>' + (e.area_uso === 'MP' || e.area_uso === 'PT' ? areaChip(e.area_uso) : '');
   }
@@ -2649,7 +2857,7 @@ function tarjetaEq(e) {
   var det = '';
   if (sel) {
     if (o) det += '<dl class="ficha"><dt>Producto</dt><dd>' + esc(o.producto) + '</dd>' + (o.lotes ? '<dt>Lotes</dt><dd>' + esc(o.lotes) + '</dd>' : '') + (o.tipo_disolucion ? '<dt>Tipo</dt><dd>' + esc(o.tipo_disolucion) + '</dd>' : '') + (o.ensayo ? '<dt>Ensayo</dt><dd>' + esc(o.ensayo) + '</dd>' : '') + '<dt>Inicio</dt><dd>' + fh(o.inicio) + '</dd></dl>';
-    else if (e.estado === 'NO_OPERATIVO' && e.incidencia) det += '<div class="alerta roja" style="margin:0"><b>' + esc(e.incidencia.descripcion) + '</b><div class="sub">Reportado por ' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div></div>';
+    if (e.incidencia) det += '<div class="alerta" style="margin:0"><b>Incidencia abierta:</b> ' + esc(e.incidencia.descripcion) + '<div class="sub">Reportada por ' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div></div>';
     var ck = Object.keys(e.caracteristicas || {}), ft = [];
     if (e.marca || e.modelo) ft.push('<dt>Marca / modelo</dt><dd>' + esc([e.marca, e.modelo].filter(Boolean).join(' · ')) + '</dd>');
     ck.forEach(function (k) { ft.push('<dt>' + esc(k) + '</dt><dd>' + esc(e.caracteristicas[k] || '—') + '</dd>'); });
@@ -2685,7 +2893,7 @@ function vEquipos(d) {
   var chipsEst = [['TODOS', 'Todos los estados', base.length], ['DISPONIBLE', 'Disponibles', n.DISPONIBLE], ['OCUPADO', 'En uso', n.OCUPADO], ['NO_OPERATIVO', 'No operativos', n.NO_OPERATIVO]].map(function (c) {
     return '<button class="chip ' + (S.filtroEst === c[0] ? 'act' : '') + '" data-a="filtroEst" data-t="' + c[0] + '">' + c[1] + ' <span class="num">' + c[2] + '</span></button>';
   }).join('');
-  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('hplc') + 'Equipos</h1><p class="sub" style="margin:4px 0 0">Estado actual de HPLC y disolutores. Se actualiza solo.</p></div></header>' + LEYENDA_EST +
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('hplc') + 'Equipos</h1><p class="sub" style="margin:4px 0 0">Estado actual de HPLC y disolutores. Se actualiza solo.</p></div>' + (puede('ANALISTA', 'JEFATURA') ? '<button class="btn sec" data-a="incidencia">' + ic('alerta') + 'Registrar incidencia</button>' : '') + '</header>' + LEYENDA_EST +
     '<div class="cab" style="align-items:center;margin-bottom:10px"><div class="chips">' + chips + '</div>' +
     '<input type="search" aria-label="Buscar equipo" placeholder="Buscar equipo, producto o analista" value="' + esc(S.buscaEq) + '" data-busca="eq" style="max-width:340px;width:100%"></div>' +
     '<div class="chips" style="margin-bottom:16px">' + chipsEst + '</div>';
@@ -2705,7 +2913,9 @@ function vEquipo(d) {
   var h = '<button class="btn ghost chico" data-a="ir" data-v="equipos" style="padding-left:0">' + ic('back') + 'Equipos</button>' +
     '<div class="cab" style="align-items:center"><div class="h-ico est-' + EST[e.estado][0] + '" style="gap:14px"><span class="eqc-ico" aria-hidden="true">' + icoEq(e) + '</span><div><h1>' + esc(e.codigo) + ' · ' + esc(e.nombre) + '</h1><p class="sub" style="margin:2px 0 0">' + (e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor') + ' · ' + AREA_TXT[e.area_uso || 'AMBAS'] + (e.activo ? '' : ' · Desactivado') + '</p></div></div>' + badge(e.estado) + '</div>';
   if (e.advertencia) h += '<div class="alerta roja" style="margin-bottom:12px">' + esc(e.advertencia) + '</div>';
-  if (e.estado === 'NO_OPERATIVO' && e.incidencia) h += '<div class="alerta" style="margin-bottom:12px"><b>No operativo:</b> ' + esc(e.incidencia.descripcion) + '<div class="sub">' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + '</div></div>';
+  var opu = (d.operatividad || [])[0];
+  if (e.estado === 'NO_OPERATIVO') h += '<div class="alerta roja" style="margin-bottom:12px"><b>No operativo</b>' + (opu ? ': ' + esc(String(opu.despues).replace(/^No operativo · ?/, '') || 'sin motivo') + '<div class="sub">Declarado por ' + esc(opu.usuario) + ' · ' + fh(opu.fecha) + '</div>' : '') + '</div>';
+  if (e.incidencia) h += '<div class="alerta" style="margin-bottom:12px"><b>' + (e.incidencia.abiertas > 1 ? e.incidencia.abiertas + ' incidencias abiertas' : 'Incidencia abierta') + ':</b> ' + esc(e.incidencia.descripcion) + '<div class="sub">' + esc(e.incidencia.reportado_por) + ' · ' + fh(e.incidencia.reportado_en) + (e.estado !== 'NO_OPERATIVO' ? ' · el equipo sigue ' + (e.estado === 'OCUPADO' ? 'en uso' : 'disponible') + ' mientras jefatura evalúa' : '') + '</div></div>';
   h += '<div class="acciones" style="justify-content:flex-start;margin:0 0 16px">' + acc + '</div>';
   h += '<div class="grid">';
   h += '<div class="card"><h3>Uso actual</h3>' + (o ? '<dl class="ficha"><dt>Analista</dt><dd>' + esc(o.usuario) + '</dd><dt>Área</dt><dd>' + AREA_TXT[o.area] + '</dd><dt>Producto</dt><dd>' + esc(o.producto) + '</dd>' + (o.tipo_disolucion ? '<dt>Tipo de análisis</dt><dd>' + esc(o.tipo_disolucion) + '</dd>' : '') + '<dt>Lotes</dt><dd>' + esc(o.lotes || '—') + '</dd><dt>Ensayo</dt><dd>' + esc(o.ensayo || '—') + '</dd><dt>Inicio</dt><dd>' + fh(o.inicio) + '</dd><dt>Transcurrido</dt><dd>' + dur(o.inicio) + '</dd></dl>' : '<p class="sub">Sin ocupación activa.</p>') + '</div>';
@@ -2717,11 +2927,14 @@ function vEquipo(d) {
   if (e.tipo === 'HPLC') {
     h += '<h3 class="seccion">Próximas reservas</h3>' + (d.reservas.length ? '<div class="lista">' + d.reservas.map(filaReserva).join('') + '</div>' : '<div class="vacio">Sin reservas próximas.</div>');
   }
-  h += '<h3 class="seccion">Incidencias</h3>' + (d.incidencias.length ? '<div class="lista">' + d.incidencias.map(function (i) {
-    return '<div class="fila"><div class="crece"><b>' + esc(i.descripcion) + '</b><div class="sub">' + esc(i.reportado_por) + ' · ' + fh(i.reportado_en) +
-      (i.estado === 'RESUELTA' ? ' · Resuelta por ' + esc(i.resuelto_por) + ' ' + fh(i.resuelto_en) + (i.nota_resolucion ? ': ' + esc(i.nota_resolucion) : '') : '') + '</div></div>' +
-      (i.estado === 'ABIERTA' ? '<span class="badge rojo"><i></i>Abierta</span>' : '<span class="badge hecho"><i></i>Resuelta</span>') + '</div>';
-  }).join('') + '</div>' : '<div class="vacio">Sin incidencias registradas.</div>');
+  var pu = d.puede || {};
+  h += '<div class="cab" style="align-items:center;margin-top:18px"><h3 class="seccion" style="margin:0">Incidencias <span class="cuenta">' + d.incidencias.length + '</span></h3>' + (pu.incidencia ? '<button class="btn sec chico" data-a="incidencia" ' + dsEq(e) + '>' + ic('alerta') + 'Registrar incidencia</button>' : '') + '</div>' +
+    (d.incidencias.length ? '<div class="lista">' + d.incidencias.map(function (i) {
+      return '<div class="fila"><div class="crece"><b>' + esc(i.descripcion) + '</b><div class="sub">' + esc(i.reportado_por) + ' · ' + fh(i.reportado_en) +
+        (i.estado === 'RESUELTA' ? ' · Cerrada por ' + esc(i.resuelto_por) + ' ' + fh(i.resuelto_en) + (i.nota_resolucion ? ': ' + esc(i.nota_resolucion) : '') : '') + '</div></div>' +
+        (i.estado === 'ABIERTA' ? '<span class="badge rojo"><i></i>Abierta</span>' + (pu.operatividad ? '<button class="btn ghost chico" data-a="incResolver" data-id="' + i.id + '">Cerrar</button>' : '') : '<span class="badge hecho"><i></i>Cerrada</span>') + '</div>';
+    }).join('') + '</div>' : '<div class="vacio">Sin incidencias registradas.</div>');
+  if ((d.operatividad || []).length) h += '<details class="mant-hist" style="margin-top:10px"><summary>Historial de operatividad (' + d.operatividad.length + ')</summary><ul>' + d.operatividad.map(function (x) { return '<li>' + esc(x.antes) + ' → <b>' + esc(x.despues) + '</b> <span class="sub">· ' + esc(x.usuario) + ' · ' + fh(x.fecha) + '</span></li>'; }).join('') + '</ul></details>';
   h += '<h3 class="seccion">Historial de uso</h3>' + (d.historial.length ? '<div class="tabla-wrap"><table><thead><tr><th>Inicio</th><th>Término</th><th>Duración</th><th>Analista</th><th>Área</th><th>Producto / lotes</th><th>Ensayo</th><th>Notas</th></tr></thead><tbody>' +
     d.historial.map(function (x) {
       var notas = [];
@@ -2886,7 +3099,9 @@ function vAdmin(d) {
       '<label>Aviso de vencimiento de mantención y calificación<select name="dias_alerta_equipos">' + [15, 30, 60, 90].map(function (n) { return '<option value="' + n + '"' + (Number(c.dias_alerta_equipos || 30) === n ? ' selected' : '') + '>' + n + ' días antes</option>'; }).join('') + '</select></label>' +
       '<label>Días que se mantiene la sesión sin uso <span class="sub">(con «Mantener la sesión»; 1 a 90)</span><input type="number" name="dias_sesion" min="1" max="90" value="' + esc(c.dias_sesion || 30) + '"></label>' +
       '<fieldset><legend>Pueden liberar equipos registrados por otro analista</legend>' + chk('roles_liberar_tercero', rolesLib) + '</fieldset>' +
-      '<fieldset><legend>Pueden devolver un equipo a estado operativo</legend>' + chk('roles_restaurar_equipo', rolesRes) + '</fieldset>' +
+      '<fieldset><legend>Pueden devolver un equipo a estado operativo</legend>' + chk('roles_restaurar_equipo', rolesRes) + '<p class="sub" style="margin:6px 0 0">Desde la versión 0.10, declarar «No operativo» y restablecer la operatividad lo hace solo jefatura; el resto registra incidencias.</p></fieldset>' +
+      '<fieldset><legend>Panel general y televisor</legend><div class="form-grid"><label>Encargos turno día desde<input type="time" name="panel_franja_dia_inicio" value="' + esc(c.panel_franja_dia_inicio || '07:00') + '" required></label><label>hasta<input type="time" name="panel_franja_dia_fin" value="' + esc(c.panel_franja_dia_fin || '17:30') + '" required></label></div><p class="sub" style="margin:6px 0 0">El resto del día se muestra como turno noche. Solo ordena la vista de encargos del panel; no cambia los horarios de las analistas. Hora de Chile.</p></fieldset>' +
+      '<label>Horas disponibles por equipo al día <span class="sub">(denominador de la utilización en indicadores; 1 a 24)</span><input type="number" name="horas_disponibles_equipo" min="1" max="24" step="0.5" value="' + esc(c.horas_disponibles_equipo || 24) + '"></label>' +
       '<label>Avisos por correo (solo dentro del turno del destinatario)<select name="notif_email_activo"><option value="NO"' + (c.notif_email_activo !== 'SI' ? ' selected' : '') + '>Desactivados</option><option value="SI"' + (c.notif_email_activo === 'SI' ? ' selected' : '') + '>Activados</option></select></label>' +
       '<div class="acciones"><button class="btn chico">Guardar configuración</button></div></form></div>';
     h += '<div class="card" style="margin-top:12px"><h3>Modo televisor</h3><p class="sub">Panel de solo lectura. Muestra el nombre del analista y el producto de los equipos en uso: úsalo solo en el televisor del laboratorio y no compartas el enlace. Si se filtra, regenéralo.</p>' +
@@ -2935,7 +3150,9 @@ function formOcupar(ds) {
     '<label>Lotes <span class="sub">(opcional, separados por comas)</span><input name="lotes" placeholder="L001, L002"></label><div class="chips" id="chips-lotes" style="margin:-4px 0 12px"></div>' +
     (ds.tipo === 'DISOLUTOR' ? selectTipoDis('', 'tipo_disolucion') + '<input type="hidden" name="es_dis" value="1">' : '') +
     (ds.tipo === 'DISOLUTOR' ? '' : '<label>Ensayo <span class="sub">(opcional)</span><input name="ensayo" list="dl-ens" placeholder="Ej.: Valoración de paracetamol"></label>') +
+    '<p class="inc-link">' + ic('alerta') + '¿Notaste algo en el equipo? <button type="button" class="enlace" data-a="incidenciaOcupar">Registrar incidencia</button> <span class="sub">(no impide ocupar)</span></p>' +
     '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Iniciar ocupación</button></div></form>');
+  S._ocuparDs = ds;
   actualizarSugProd($('#modal-raiz form'));
 }
 /** v0.9: lotes asignados a la analista para asociarlos a la ocupación (sin volver a escribir producto ni lotes). */
@@ -3050,8 +3267,12 @@ var ACC = {
     var c = S.vcache[claveVista()]; S.datos = c ? c.d : null; pintar(); cargar();
   },
   dispChk: function (ds, el) {
-    var a = S.verifDisp[ds.dia] || (S.verifDisp[ds.dia] = []), i = a.indexOf(ds.u);
-    if (el.checked && i < 0) a.push(ds.u); else if (!el.checked && i >= 0) a.splice(i, 1);
+    var d = S.datos, aj = S.verifAj || (S.verifAj = { quitar: {}, agregar: {} }), f = ds.dia, u = ds.u;
+    var base = ((d && d.disponibilidad) || {})[f] || [], q = aj.quitar[f] || (aj.quitar[f] = []), ag = aj.agregar[f] || (aj.agregar[f] = []);
+    var sacar = function (l) { var i = l.indexOf(u); if (i >= 0) l.splice(i, 1); };
+    if (el.checked) { sacar(q); if (base.indexOf(u) < 0 && ag.indexOf(u) < 0) ag.push(u); }
+    else { sacar(ag); if (base.indexOf(u) >= 0 && q.indexOf(u) < 0) q.push(u); }
+    if (d) S.verifDisp = dispConAjustes(d);
   },
   verifResp: function (ds, el) {
     var uid = el.value, pub = S.datos && S.datos.plan && S.datos.plan.estado === 'PUBLICADA';
@@ -3303,7 +3524,8 @@ var FORM = {
     return api('guardarConfig', {
       nombre_laboratorio: d.nombre_laboratorio, zona_horaria: d.zona_horaria, url_frontend: d.url_frontend, segundos_refresco: d.segundos_refresco,
       roles_liberar_tercero: lista(d.roles_liberar_tercero).join(','), roles_restaurar_equipo: lista(d.roles_restaurar_equipo).join(','),
-      notif_email_activo: d.notif_email_activo, dias_sesion: d.dias_sesion, dias_alerta_equipos: d.dias_alerta_equipos
+      notif_email_activo: d.notif_email_activo, dias_sesion: d.dias_sesion, dias_alerta_equipos: d.dias_alerta_equipos,
+      panel_franja_dia_inicio: d.panel_franja_dia_inicio, panel_franja_dia_fin: d.panel_franja_dia_fin, horas_disponibles_equipo: d.horas_disponibles_equipo
     }).then(function () { return cargarYo().then(function () { return 'Configuración guardada.'; }); });
   }
 };
@@ -3319,7 +3541,7 @@ function textoGenerado(r) {
 function generarPlanUI(modalidad, el, titulo, aviso) {
   var d = S.datos; if (!d || !d.fechas) return;
   var datos = { semana: d.lunes, modalidad: modalidad };
-  if (modalidad === 'AUTO') datos.disponibilidad = S.verifDisp;
+  if (modalidad === 'AUTO') datos.ajustes = S.verifAj || { quitar: {}, agregar: {} }; // el servidor los aplica sobre los turnos vigentes
   var go = function () {
     if (el) el.disabled = true;
     return api('generarPlan', datos).then(function (r) {
@@ -3375,7 +3597,8 @@ ACC.turnGuardar = function (ds, btn) {
       toast(r.cambios ? 'Turnos guardados (' + r.cambios + (r.cambios === 1 ? ' cambio).' : ' cambios).') : 'Turnos confirmados, sin cambios.');
       cargar();
       if (r.impacto && r.impacto.incompatibles) {
-        modal('<h2>Revisa el planificador</h2><p>' + r.impacto.incompatibles + (r.impacto.incompatibles === 1 ? ' tarea pendiente quedó asignada a alguien que ya no está' : ' tareas pendientes quedaron asignadas a personas que ya no están') + ' en turno día esos días. Puedes redistribuirlas: las tareas completadas no se tocan.</p>' +
+        var det = (r.impacto.detalle || []).map(function (x) { return '<li><b>' + esc(x.tarea) + '</b> · ' + esc(x.semanal ? 'toda la semana' : diaCorto(x.fecha)) + ' · ' + esc(x.usuario) + ' <span class="sub">(ahora ' + esc({ DIA: 'turno día', NOCHE: 'turno noche', MIXTO: 'turno mixto', OTRO: 'otro turno' }[x.turno] || 'sin turno') + ')</span></li>'; }).join('');
+        modal('<h2>Revisa el planificador</h2><p>' + r.impacto.incompatibles + (r.impacto.incompatibles === 1 ? ' tarea pendiente requiere revisión o reasignación' : ' tareas pendientes requieren revisión o reasignación') + ': la persona ya no tiene un turno válido para esa tarea. Los registros se conservan; nada se borró.</p>' + (det ? '<ul class="imp-lista">' + det + '</ul>' : '') +
           '<div class="acciones"><button class="btn sec" data-a="cerrarModal">Más tarde</button><button class="btn" data-a="turnPlan">Ir al planificador</button></div>');
       }
     }).catch(function (e) { if (btn) btn.disabled = false; toast(e.message, 'error'); });
@@ -3486,7 +3709,7 @@ ACC.anPerfil = function (ds) {
     var u = r.usuario, n = r.resumen;
     var filas = r.items.map(function (a) {
       var btns = r.puede.editar || a.usuario_id === S.usuario.id ? '<div class="segest seg3" style="margin-top:6px">' + AN_OP.map(function (e) { return '<button data-a="anEstado" data-id="' + a.id + '" data-e="' + e + '" data-antes="' + a.estado + '" data-p="' + esc(a.producto) + '" aria-pressed="' + (a.estado === e) + '">' + ic(AN[e][2]) + AN[e][1] + '</button>'; }).join('') + '</div>' : '';
-      return '<tr><td><b>' + esc(a.producto) + '</b><small>' + AREA_TXT[a.area] + (a.equipos && a.equipos.length ? ' · ' + a.equipos.map(esc).join(', ') : '') + '</small></td><td data-l="Lote">' + esc(a.lote || '—') + '</td><td data-l="Análisis">' + esc(a.ensayo || '—') + (a.tipo_analisis ? '<small><span class="tipo-an">' + esc(a.tipo_analisis) + '</span></small>' : '') + '</td><td>' + anBadge(a.estado) +
+      return '<tr><td><b>' + esc(a.producto) + '</b><small>' + (a.documento ? esc(a.documento) + ' · ' : '') + AREA_TXT[a.area] + (a.equipos && a.equipos.length ? ' · ' + a.equipos.map(esc).join(', ') : '') + (a.pausado ? ' · <b>En pausa</b>' : '') + '</small></td><td data-l="Lote">' + esc(a.lote || '—') + '</td><td data-l="Análisis">' + esc(a.ensayo || '—') + (a.tipo_analisis ? '<small><span class="tipo-an">' + esc(a.tipo_analisis) + '</span></small>' : '') + '</td><td>' + anBadge(a.estado) +
         '<small>' + (a.estado === 'FINALIZADO' ? 'Finalizado ' + fh(a.finalizado_en) : a.estado === 'INFORMANDO' ? 'Desde ' + fh(a.informando_en) : a.estado === 'EN_PROCESO' ? 'Desde ' + fh(a.iniciado_en || a.actualizado_en) : 'Asignado') + '</small>' + btns + '</td></tr>';
     }).join('');
     var ocup = (r.ocupaciones || []).map(function (o) { return '<li><b class="mono">' + esc(o.equipo) + '</b> · ' + esc(o.producto) + (o.lotes ? ' · Lote ' + esc(o.lotes) : '') + (o.tipo_disolucion ? ' · ' + esc(o.tipo_disolucion) : (o.ensayo ? ' · ' + esc(o.ensayo) : '')) + ' <span class="sub">desde ' + fh(o.inicio) + '</span></li>'; }).join('');
@@ -3569,7 +3792,7 @@ ACC.infReentregar = function (ds) {
     '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Reenviar subsanación</button></div></form>');
 };
 FORM.informe = function (d) {
-  return api('entregarInforme', { analisis_id: d.analisis_id || '', area: d.area, producto: d.producto, lote: d.lote, ensayo: d.ensayo, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '' })
+  return api('entregarInforme', { analisis_id: d.analisis_id || '', area: d.area, documento: d.documento || '', producto: d.producto, lote: d.lote, ensayo: d.ensayo, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '' })
     .then(function () { S.sug = null; return 'Informe enviado: quedó «Pendiente de revisión».'; });
 };
 FORM.infDevolver = function (d) { return api('resolverInforme', { id: d.id, resultado: 'DEVUELTO', observacion: d.observacion }).then(function () { return 'Informe devuelto con observaciones.'; }); };
@@ -3655,17 +3878,17 @@ FORM.analisis = function (d, f) {
       if (!f.dataset.ok) {
         var nom = d.usuario_id ? ((S.datos.candidatos || []).filter(function (c) { return c.id === d.usuario_id; })[0] || {}).nombre : S.usuario.nombre;
         var tipo = ((S.datos.tipos || []).filter(function (t) { return t.id === d.tipo_analisis_id; })[0] || {}).nombre;
-        $('#an-resumen').innerHTML = '<div class="resumen-lotes"><b>Revisa antes de confirmar</b><p class="sub" style="margin:4px 0 6px">' + esc(d.producto) + (d.ensayo ? ' · ' + esc(d.ensayo) : '') + (tipo ? ' · ' + esc(tipo) : '') + ' · ' + esc(nom || '') + ' · ' + (AN[d.estado] ? AN[d.estado][1] : '') + '</p><div class="chips">' +
+        $('#an-resumen').innerHTML = '<div class="resumen-lotes"><b>Revisa antes de confirmar</b><p class="sub" style="margin:4px 0 6px">' + (d.documento ? '<span class="doc-chip">' + esc(docTexto(d.area, d.documento)) + '</span> ' : '') + esc(d.producto) + (d.ensayo ? ' · ' + esc(d.ensayo) : '') + (tipo ? ' · ' + esc(tipo) : '') + ' · ' + esc(nom || '') + ' · ' + (AN[d.estado] ? AN[d.estado][1] : '') + '</p><div class="chips">' +
           lotes.map(function (l) { return '<span class="chip">' + esc(l) + '</span>'; }).join('') + '</div><p class="sub" style="margin:6px 0 0">Se crearán <b>' + lotes.length + '</b> análisis independientes, uno por lote.</p></div>';
         f.dataset.ok = '1'; f.querySelector('.acciones .btn:not(.sec)').textContent = 'Confirmar y asignar ' + lotes.length + ' lotes';
         return Promise.resolve('silencio');
       }
-      return api('asignarLotes', { area: d.area, usuario_id: d.usuario_id || '', producto: d.producto, ensayo: d.ensayo, estado: d.estado, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '', lotes: lotes })
+      return api('asignarLotes', { area: d.area, documento: d.documento || '', usuario_id: d.usuario_id || '', producto: d.producto, ensayo: d.ensayo, estado: d.estado, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '', lotes: lotes })
         .then(function (r) { S.sug = null; return r.n + ' lotes asignados. Cada uno tiene su propio estado.'; });
     }
     d.lote = lotes[0] || '';
   }
-  return api('guardarAnalisis', { id: d.id || '', area: d.area, usuario_id: d.usuario_id || '', producto: d.producto, lote: d.lote, ensayo: d.ensayo, estado: d.estado, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '' })
+  return api('guardarAnalisis', { id: d.id || '', area: d.area, documento: d.documento || '', usuario_id: d.usuario_id || '', producto: d.producto, lote: d.lote, ensayo: d.ensayo, estado: d.estado, nota: d.nota, tipo_analisis_id: d.tipo_analisis_id || '' })
     .then(function () { S.sug = null; return d.id ? 'Análisis actualizado.' : 'Producto asignado.'; });
 };
 FORM.verifCat = function (d) {
@@ -3695,6 +3918,13 @@ document.addEventListener('input', function (ev) {
     pintar();
     var n = document.querySelector('[data-busca="eq"]');
     if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (e) { } }
+  }
+  if (el.dataset.busca === 'mis') {
+    S.misBusca = el.value;
+    var pm = el.selectionStart;
+    pintar();
+    var nm = document.querySelector('[data-busca="mis"]');
+    if (nm) { nm.focus(); try { nm.setSelectionRange(pm, pm); } catch (e) { } }
   }
   if (el.dataset.busca === 'enc') {
     S._qEnc = el.value;
@@ -3909,11 +4139,12 @@ function pintarTV(d) {
       '<span class="tv-vivo" id="tv-vivo" role="status"><i></i><span>En vivo</span></span>' +
       '<button class="tv-tema" id="tv-tema" type="button" aria-label="Cambiar tema del panel"></button>' +
       '<div class="tv-hora"><div class="tv-reloj" id="tv-reloj">' + reloj.h + '</div><div class="tv-fecha" id="tv-fecha">' + esc(reloj.f) + '</div></div></div>' +
-      '<div id="tv-aviso"></div>' +
-      '<div class="tv-res" id="tv-res">' + tvKpis(d).map(function (k) { return '<div class="tv-k" data-k="' + k[0] + '">' + k[1] + '<span>' + k[2] + '<b>' + k[3] + '</b></span></div>'; }).join('') + '</div>' +
-      (hplc.length ? tvSeccion('h', 'HPLC', ICO.hplc, hplc, MAPA.HPLC, d, true) : '') + (dis.length ? tvSeccion('d', 'Disolutores', ICO.dis, dis, MAPA.DISOLUTOR, d, false) : '') + '</div>';
+      tvNavHtml() + '<div id="tv-aviso"></div>' +
+      '<div class="tv-pant tv-pant-oc" data-p="0"><div class="tv-res" id="tv-res">' + tvKpis(d).map(function (k) { return '<div class="tv-k" data-k="' + k[0] + '">' + k[1] + '<span>' + k[2] + '<b>' + k[3] + '</b></span></div>'; }).join('') + '</div>' +
+      (hplc.length ? tvSeccion('h', 'HPLC', ICO.hplc, hplc, MAPA.HPLC, d, true) : '') + (dis.length ? tvSeccion('d', 'Disolutores', ICO.dis, dis, MAPA.DISOLUTOR, d, false) : '') + '</div>' + tvPantallasHtml() + '</div>';
     tvAplicarTema();
     TV.d = d;
+    tvPintarExtras(d); tvMostrar(TV.rot.i, true);
     return;
   }
   // Indicadores: solo cambia el número (con un leve fundido) y el anillo
@@ -3943,6 +4174,7 @@ function pintarTV(d) {
   tvResumenCards(d);
   var lab = $('#tv-lab'); if (lab && lab.textContent !== (d.laboratorio || 'LabControl')) lab.textContent = d.laboratorio || 'LabControl';
   TV.d = d;
+  tvPintarExtras(d);
 }
 function tvResumenCards(d) {
   var l = $('#tv-leg'), g = $('#tv-gral'), h;
@@ -3981,7 +4213,7 @@ function tvOyentes() {
   if (TV_OYENTES) return; TV_OYENTES = true;
   try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { if (TV.prefTema === 'auto' && (MODO === 'tv' || PANEL.on)) tvAplicarTema(); }); } catch (e) { }
   document.addEventListener('click', function (ev) { if ((MODO === 'tv' || PANEL.on) && ev.target.closest && ev.target.closest('#tv-tema')) tvCambiarTema(); });
-  document.addEventListener('keydown', function (ev) { if (MODO !== 'tv' && !PANEL.on) return; if (ev.key === 't' || ev.key === 'T') tvCambiarTema(); if (PANEL.on && ev.key === 'Escape') cerrarPanel(); });
+  document.addEventListener('keydown', function (ev) { if (MODO !== 'tv' && !PANEL.on) return; if (ev.key === 't' || ev.key === 'T') tvCambiarTema(); if (PANEL.on && ev.key === 'Escape') cerrarPanel(); tvTeclaRot(ev); });
 }
 /*
  * v0.9 — Panel general: el mismo panel del modo televisor (misma función pintarTV y mismos datos del servidor),
@@ -3993,7 +4225,7 @@ function abrirPanel() {
   PANEL.on = true; S.panelPrev = S.vista;
   TV.d = null; TV.firma = null; TV.nuevos = {}; TV.inicio = Date.now(); TV.ultOk = 0;
   document.body.classList.add('modo-tv', 'modo-panel');
-  TV.prefTema = tvLeerTema(); tvAplicarTema(); tvOyentes();
+  TV.prefTema = tvLeerTema(); tvAplicarTema(); tvOyentes(); tvRotIniciar();
   pintarTV(null); window.scrollTo(0, 0);
   var tick = function () {
     if (!PANEL.on) return;
@@ -4014,7 +4246,7 @@ function abrirPanel() {
 }
 function cerrarPanel() {
   if (!PANEL.on) return;
-  PANEL.on = false; clearTimeout(PANEL.t); clearInterval(PANEL.tic);
+  PANEL.on = false; clearTimeout(PANEL.t); clearInterval(PANEL.tic); clearInterval(TV.rot.t);
   document.body.classList.remove('modo-tv', 'modo-panel');
   document.documentElement.removeAttribute('data-tv-tema');
   TV.d = null; TV.firma = null;
@@ -4026,7 +4258,7 @@ function cerrarPanel() {
 function iniciarTV() {
   document.body.classList.add('modo-tv');
   TV.prefTema = tvLeerTema(); tvAplicarTema();
-  tvOyentes();
+  tvOyentes(); tvRotIniciar();
   pintarTV(null);
   var tick = function () {
     api('tvEstado', { tv: TV_TOKEN }).then(function (d) {
@@ -4042,6 +4274,817 @@ function iniciarTV() {
   tick();
   setInterval(tvTic, 20000);
 }
+
+/* =====================================================================
+ * v0.10 — Semanero día/noche, incidencias, documentos ELP/EMP, pausas y transferencias
+ * ===================================================================== */
+var TT_TXT = { DIA: 'Día', NOCHE: 'Noche', MIXTO: 'Mixto', OTRO: 'Otro', '': 'Sin turno', AUS: 'Ausente' };
+/** Turnos de la semana en el planificador (misma fuente que «Asignación de turnos»). */
+function turnosPlanHtml(d) {
+  var tp = d.turnos.personas;
+  return '<details class="det-disp turnos-plan"><summary>Turnos de la semana <span class="sub">(fuente: Asignación de turnos' + (d.turnos.guardada ? '' : ' · semana sin guardar: se muestran los turnos por período') + ')</span></summary>' +
+    '<div class="tabla-wrap"><table class="tabla-plan"><thead><tr><th>Analista</th>' + d.fechas.map(function (f) { return '<th class="c" style="text-align:center">' + esc(diaCorto(f)) + '</th>'; }).join('') + '<th class="c">Semanero</th></tr></thead><tbody>' +
+    tp.map(function (x) {
+      return '<tr><td class="nom"><b>' + esc(x.nombre) + '</b>' + (!x.planificable ? '<div class="sub">Rol combinado: no entra al planificador</div>' : '') + '</td>' + d.fechas.map(function (f) { var t = x.dias[f] || ''; return '<td class="c"><span class="tchip t-' + (t || 'nada').toLowerCase() + '">' + TT_TXT[t] + '</span></td>'; }).join('') +
+        '<td class="c">' + (x.semanero ? '<span class="tchip t-ok">Disponible</span>' : '<span class="sub">—</span>') + '</td></tr>';
+    }).join('') + '</tbody></table></div><p class="sub" style="margin:6px 0 0">«Sin turno» se muestra solo cuando la persona realmente no tiene un turno asignado ese día.</p></details>';
+}
+function semaneroBandaHtml(d, sem) {
+  var info = d.semaneroInfo || { candidatos: [] };
+  var turno = { DIA: 'turno día', NOCHE: 'turno noche', MIXTO: 'turno mixto' }[sem.turno_tipo] || '';
+  var origen = { AUTO: 'Propuesta automática', COPIA: 'Copia de semana', MANUAL: 'Asignación manual' }[sem.origen] || '';
+  var h = '<div class="sem-banda">' + ic('sem') + '<div class="crece"><b>Semanero de la semana:</b> ' + (sem.usuario_id ? esc(sem.usuario) + (turno ? ' <span class="tchip t-' + sem.turno_tipo.toLowerCase() + '">' + turno + '</span>' : '') : '<span class="sub">sin asignar</span>') +
+    '<div class="sub">Una sola persona de lunes a viernes. Participan analistas de turno día y de turno noche.' + (origen ? ' ' + origen + (sem.asignado_por ? ' · autorizó ' + esc(sem.asignado_por) : '') + (sem.asignado_en ? ' · ' + fh(sem.asignado_en) : '') + '.' : '') + '</div>';
+  if (info.candidatos.length) h += '<details class="sem-cand"><summary>Equidad: veces que cada persona fue Semanero (últimas ' + info.semanas + ' semanas)</summary><ul>' + info.candidatos.map(function (c) {
+    return '<li><b>' + esc(c.nombre) + '</b> <span class="tchip t-' + (c.turno || 'nada').toLowerCase() + '">' + esc(TT_TXT[c.turno] || '') + '</span> · ' + c.veces + (c.veces === 1 ? ' vez' : ' veces') + (c.ultima ? ' · última: semana del ' + esc(fdia(c.ultima)) : ' · nunca') + '</li>';
+  }).join('') + '</ul><p class="sub" style="margin:4px 0 0">La propuesta prioriza a quien tiene menos asignaciones y más tiempo sin serlo, y evita repetir semanas seguidas. Puedes cambiarla en el calendario.</p></details>';
+  return h + '</div></div>';
+}
+
+/* ---------- Documento ELP (PT) / EMP (MP) ---------- */
+var PREF_DOC = { PT: 'ELP', MP: 'EMP' };
+function docNumero(v) { return String(v || '').replace(/^(ELP|EMP)\s*[-–—_.:]?\s*/i, ''); }
+function docTexto(area, v) { var n = docNumero(v).trim(); return n ? (PREF_DOC[area] || 'Doc.') + '-' + n.toUpperCase() : ''; }
+function docCampo(area, valor, opcional) {
+  var pre = PREF_DOC[area] || 'ELP/EMP';
+  return '<label class="doc-campo">Documento <span class="doc-tipo" data-doc-tipo>' + esc(pre) + '</span>' + (opcional ? ' <span class="sub">(opcional)</span>' : '') +
+    '<span class="doc-in"><span class="doc-pref" data-doc-pref>' + esc(PREF_DOC[area] ? pre + '-' : '') + '</span><input name="documento" maxlength="40" inputmode="text" placeholder="Número de documento" value="' + esc(docNumero(valor)) + '"' + (opcional ? '' : ' required') + '></span>' +
+    '<small class="sub">PT usa ELP y MP usa EMP. Se ingresa a mano; la búsqueda automática del producto llegará más adelante.</small></label>';
+}
+function docPrefijo(f, area) {
+  var t = f.querySelector('[data-doc-tipo]'), p = f.querySelector('[data-doc-pref]');
+  if (t) t.textContent = PREF_DOC[area] || 'ELP/EMP';
+  if (p) p.textContent = PREF_DOC[area] ? PREF_DOC[area] + '-' : '';
+}
+
+/* ---------- Incidencias de equipos ---------- */
+function formIncidencia(ds, volver) {
+  var lista = ((S.sug && S.sug.equipos) || []).filter(function (e) { return e.tipo === 'HPLC' || e.tipo === 'DISOLUTOR'; });
+  var conEq = ds && ds.id;
+  modal('<h2>Registrar incidencia</h2><p class="sub" style="margin:-6px 0 12px">Registrar una incidencia <b>no cambia</b> el estado del equipo: puede seguir disponible o en uso mientras jefatura la evalúa.</p><form data-f="incidencia" autocomplete="off">' +
+    (conEq ? '<input type="hidden" name="equipo_id" value="' + esc(ds.id) + '"><label>Equipo<input value="' + esc(ds.codigo) + '" readonly></label>'
+      : '<label>Equipo<input name="equipo_txt" list="dl-eq-inc" required placeholder="Escribe el código, p. ej. CC-ECR-18" autofocus></label><datalist id="dl-eq-inc">' + lista.map(function (e) { return '<option value="' + esc(e.codigo) + '">' + esc((e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor') + ' · ' + e.nombre) + '</option>'; }).join('') + '</datalist>') +
+    '<div class="form-grid"><label>Fecha y hora<input value="Se registran al guardar" readonly></label><label>Reporta<input value="' + esc(S.usuario.nombre) + '" readonly></label></div>' +
+    '<label>Descripción de la incidencia<textarea name="descripcion" required maxlength="500" rows="3" placeholder="Qué ocurrió y cuándo lo notaste"' + (conEq ? ' autofocus' : '') + '></textarea></label>' +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="' + (volver ? 'volverOcupar' : 'cerrarModal') + '">' + (volver ? 'Volver a ocupar' : 'Cancelar') + '</button><button class="btn">Registrar incidencia</button></div></form>');
+}
+FORM.incidencia = function (d) {
+  var id = d.equipo_id;
+  if (!id) { var t = norm(d.equipo_txt); var e = ((S.sug && S.sug.equipos) || []).filter(function (x) { return norm(x.codigo) === t; })[0]; if (!e) throw new Error('Elige un equipo de la lista.'); id = e.id; }
+  return api('reportarIncidencia', { equipo_id: id, descripcion: d.descripcion }).then(function (r) {
+    var msg = 'Incidencia registrada en ' + r.equipo + '. El estado del equipo no cambió.';
+    var volver = S._volverOcupar; S._volverOcupar = null;
+    if (volver) { cerrarModal(); toast(msg); formOcupar(volver); return 'silencio'; }
+    return msg;
+  });
+};
+ACC.incidencia = function (ds) { S._volverOcupar = null; if (ds && ds.id) formIncidencia(ds); else asegurarSug().then(function () { formIncidencia(null); }).catch(function (e) { toast(e.message, 'error'); }); };
+ACC.incidenciaOcupar = function () { var ds = S._ocuparDs; if (!ds) return; S._volverOcupar = ds; formIncidencia(ds, true); };
+ACC.volverOcupar = function () { var ds = S._volverOcupar; S._volverOcupar = null; if (ds) formOcupar(ds); else cerrarModal(); };
+ACC.operatividad = function (ds) {
+  var no = ds.e === 'NO_OPERATIVO', ab = Number(ds.abiertas || 0);
+  modal('<h2>' + (no ? 'Declarar ' + esc(ds.codigo) + ' no operativo' : 'Restablecer operatividad de ' + esc(ds.codigo)) + '</h2><form data-f="operatividad"><input type="hidden" name="equipo_id" value="' + esc(ds.id) + '"><input type="hidden" name="estado" value="' + esc(ds.e) + '">' +
+    '<label>' + (no ? 'Motivo' : 'Nota <span class="sub">(opcional)</span>') + '<textarea name="motivo" maxlength="500" rows="3"' + (no ? ' required placeholder="Ej.: bomba con fuga, en espera de servicio técnico"' : ' placeholder="Ej.: servicio técnico realizado"') + ' autofocus></textarea></label>' +
+    (!no && ab ? '<label class="inline-check"><input type="checkbox" name="resolver" value="1" checked> Cerrar ' + (ab === 1 ? 'la incidencia abierta' : 'las ' + ab + ' incidencias abiertas') + '</label>' : '') +
+    '<p class="sub">Solo jefatura cambia la operatividad. Queda en el historial del equipo con tu nombre, fecha y hora. ' + (no ? 'Una ocupación en curso no se modifica.' : '') + '</p>' +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn' + (no ? ' peligro' : '') + '">' + (no ? 'Declarar no operativo' : 'Restablecer operatividad') + '</button></div></form>');
+};
+FORM.operatividad = function (d) {
+  return api('cambiarOperatividad', { equipo_id: d.equipo_id, estado: d.estado, motivo: d.motivo, resolver_incidencias: !!d.resolver }).then(function (r) {
+    if (r.advertencia) setTimeout(function () { toast(r.advertencia, 'error'); }, 600);
+    return r.estado === 'NO_OPERATIVO' ? 'Equipo declarado no operativo.' : 'Operatividad restablecida' + (r.resueltas ? ' · ' + r.resueltas + (r.resueltas === 1 ? ' incidencia cerrada.' : ' incidencias cerradas.') : '.');
+  });
+};
+ACC.incResolver = function (ds) {
+  modal('<h2>Cerrar incidencia</h2><p class="sub">La operatividad del equipo no cambia. Queda registrado quién la cerró y cuándo.</p><form data-f="incResolver"><input type="hidden" name="id" value="' + esc(ds.id) + '">' +
+    '<label>Nota de cierre <span class="sub">(opcional)</span><textarea name="nota" maxlength="500" rows="2" autofocus></textarea></label>' +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">Cerrar incidencia</button></div></form>');
+};
+FORM.incResolver = function (d) { return api('resolverIncidencia', { id: d.id, nota: d.nota }).then(function () { return 'Incidencia cerrada.'; }); };
+
+/* ---------- Pausas, reanudaciones y transferencias ---------- */
+var SOL_TXT = { PAUSA: 'Pausa solicitada', REANUDAR: 'Reanudación solicitada', TRANSFERIR: 'Transferencia pendiente' };
+var SOL_NOM = { PAUSA: 'Pausa', REANUDAR: 'Reanudación', TRANSFERIR: 'Transferencia' };
+var SOL_ICO = { PAUSA: 'pausa', REANUDAR: 'play', TRANSFERIR: 'transf' };
+var SOL_PIDE = { PAUSA: 'Solicitar pausa', REANUDAR: 'Solicitar reanudación', TRANSFERIR: 'Solicitar transferencia' };
+var SOL_DIR = { PAUSA: 'Pausar', REANUDAR: 'Reanudar', TRANSFERIR: 'Transferir' };
+var MOTIVOS = {
+  PAUSA: ['Prioridad de otro análisis', 'Ausencia', 'Problema operativo', 'Cambio de prioridades', 'Otro'],
+  REANUDAR: ['Fin de la prioridad', 'Regreso de ausencia', 'Problema resuelto', 'Otro'],
+  TRANSFERIR: ['Ausencia del analista', 'Cambio operativo', 'Redistribución de carga', 'Otro']
+};
+/** Motivo por el que un lote no admite la acción ('' si la admite). Con dir (jefatura) una solicitud pendiente no bloquea. */
+function elegibleSol(x, t, dir) {
+  if (!dir && x.solicitud) return 'ya tiene una solicitud pendiente';
+  if (t === 'PAUSA') { if (x.pausado) return 'ya está en pausa'; if (x.estado === 'PENDIENTE') return 'aún no se inicia'; if (x.estado === 'FINALIZADO') return 'ya está finalizado'; }
+  if (t === 'REANUDAR' && !x.pausado) return 'no está en pausa';
+  if (t === 'TRANSFERIR' && x.estado === 'FINALIZADO') return 'ya está finalizado';
+  return '';
+}
+function accMisSolicitar(ds) {
+  var t = ds.t, dir = !!ds.dir, d = S.datos || {};
+  var sel = misItems().filter(function (x) { return S.misSel[x.id]; });
+  var ok = sel.filter(function (x) { return elegibleSol(x, t, dir) === ''; }), no = sel.filter(function (x) { return elegibleSol(x, t, dir) !== ''; });
+  if (!ok.length) return;
+  S._sol = { t: t, dir: dir, ids: ok.map(function (x) { return x.id; }) };
+  var lote = function (x) { return '<span class="chip">' + esc(x.producto) + (x.lote ? ' · ' + esc(x.lote) : '') + '</span>'; };
+  var analistas = (d.analistas && d.analistas.length ? d.analistas : (d.receptores || [])).filter(function (a) { return a.id !== d.uid; });
+  var titulo = dir ? SOL_DIR[t] + ' ' + (ok.length === 1 ? 'lote' : ok.length + ' lotes') : SOL_PIDE[t];
+  modal('<h2>' + esc(titulo) + '</h2><p class="sub" style="margin:-6px 0 10px">' + (dir ? 'Acción directa de jefatura: se aplica de inmediato y queda registrada con tu nombre, fecha y hora en cada lote.' : 'Nada cambia hasta que jefatura lo autorice. ' + (t === 'PAUSA' ? 'La pausa cuenta desde la autorización.' : t === 'TRANSFERIR' ? 'Al aprobarse, los lotes pasan a la persona que elija jefatura.' : '')) + '</p>' +
+    '<div class="sol-lotes"><b>' + ok.length + (ok.length === 1 ? ' lote afectado' : ' lotes afectados') + '</b><div class="chips">' + ok.map(lote).join('') + '</div>' +
+    (no.length ? '<p class="sub" style="margin:6px 0 0">Se omiten ' + no.length + ': ' + no.map(function (x) { return esc((x.lote || x.producto) + ' (' + elegibleSol(x, t, dir) + ')'); }).join(', ') + '. Los demás lotes no cambian.</p>' : '<p class="sub" style="margin:6px 0 0">Los lotes no seleccionados no cambian.</p>') + '</div>' +
+    '<form data-f="solicitud">' +
+    '<label>Motivo' + (t === 'REANUDAR' ? ' <span class="sub">(opcional)</span>' : '') + '<select name="motivo"' + (t === 'REANUDAR' ? '' : ' required') + '><option value="">Elige un motivo…</option>' + MOTIVOS[t].map(function (m) { return '<option>' + esc(m) + '</option>'; }).join('') + '</select></label>' +
+    (t === 'TRANSFERIR' ? '<label>' + (dir ? 'Analista que recibirá los lotes' : 'Analista receptor sugerido <span class="sub">(opcional)</span>') + '<select name="receptor"' + (dir ? ' required' : '') + '><option value="">' + (dir ? 'Elige un analista…' : 'A definir por jefatura') + '</option>' + analistas.map(function (a) { return '<option value="' + esc(a.id) + '">' + esc(a.nombre) + '</option>'; }).join('') + '</select></label>' : '') +
+    '<label>Observación <span class="sub">(opcional; obligatoria si eliges «Otro»)</span><input name="observacion" maxlength="300" placeholder="' + (t === 'TRANSFERIR' ? 'Ej.: ninguna' : 'Ej.: retomo después del análisis urgente') + '"></label>' +
+    (t === 'PAUSA' || t === 'TRANSFERIR' ? '<p class="sub">La ocupación de HPLC o disolutores no cambia: se gestiona aparte en Ocupancia.</p>' : '') +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn">' + (dir ? SOL_DIR[t] : 'Enviar solicitud') + '</button></div></form>');
+}
+FORM.solicitud = function (x) {
+  var s = S._sol; if (!s) return 'silencio';
+  if (x.motivo === 'Otro' && !String(x.observacion || '').trim()) throw new Error('Describe el motivo en la observación.');
+  var datos = { tipo: s.t, ids: s.ids, motivo: x.motivo || '', observacion: x.observacion || '' };
+  if (s.t === 'TRANSFERIR') { if (s.dir) datos.receptor_id = x.receptor || ''; else datos.receptor_sugerido_id = x.receptor || ''; }
+  return api(s.dir ? 'accionDirectaLotes' : 'solicitarAccionLotes', datos).then(function (r) {
+    S._sol = null; s.ids.forEach(function (id) { delete S.misSel[id]; });
+    var n = s.dir ? r.aplicadas.length : r.creadas, om = s.dir ? r.omitidos : r.omitidos;
+    var msg = s.dir ? SOL_NOM[s.t] + ' aplicada a ' + n + (n === 1 ? ' lote.' : ' lotes.') : 'Solicitud de ' + SOL_NOM[s.t].toLowerCase() + ' enviada a jefatura (' + n + (n === 1 ? ' lote).' : ' lotes).');
+    if (om && om.length) msg += ' Se omitieron ' + om.length + ': ' + om.map(function (o) { return o.lote + ' (' + o.motivo + ')'; }).join(', ') + '.';
+    if (r.avisos && r.avisos.length) setTimeout(function () { toast('Ocupación activa sin cambios: ' + r.avisos.map(function (a) { return a.lote + ' en ' + a.equipo; }).join(', ') + '. Gestiónala en Ocupancia si corresponde.'); }, 700);
+    return msg;
+  });
+};
+/** Historial completo de un lote: estados, pausas, transferencias, solicitudes y tiempos registrados. */
+function accAnHist(ds) {
+  modal('<h2>Historial del lote</h2>' + cargandoHtml());
+  api('historialAnalisis', { id: ds.id }).then(function (r) {
+    var a = r.analisis, t = r.tiempos;
+    var ev = [];
+    r.eventos.forEach(function (e) { ev.push({ f: e.fecha, h: '<b>' + (e.antes ? (AN[e.antes] ? AN[e.antes][1] : e.antes) + ' → ' : 'Asignado · ') + (AN[e.despues] ? AN[e.despues][1] : e.despues) + '</b><div class="sub">' + esc(e.usuario) + (e.correccion ? ' · corrección' + (e.motivo ? ': ' + esc(e.motivo) : '') : '') + '</div>' }); });
+    r.solicitudes.forEach(function (x) { ev.push({ f: x.solicitado_en, h: '<b>' + (x.directa ? SOL_NOM[x.tipo] + ' directa de jefatura' : 'Solicitud de ' + SOL_NOM[x.tipo].toLowerCase()) + '</b> <span class="cond ' + (x.estado === 'APROBADA' ? 'c-ok' : x.estado === 'PENDIENTE' ? 'c-sol' : 'c-no') + '">' + esc({ PENDIENTE: 'Pendiente', APROBADA: 'Aprobada', RECHAZADA: 'Rechazada', ANULADA: 'Anulada' }[x.estado] || x.estado) + '</span><div class="sub">' + esc(x.solicitado_por) + (x.motivo ? ' · ' + esc(x.motivo) : '') + (x.observacion ? ' · ' + esc(x.observacion) : '') + (x.receptor_sugerido ? ' · sugiere a ' + esc(x.receptor_sugerido) : '') + (x.resuelto_por && !x.directa ? ' · resolvió ' + esc(x.resuelto_por) + ' ' + fh(x.resuelto_en) + (x.espera_h !== null ? ' (espera ' + horasTxt(x.espera_h) + ')' : '') : '') + (x.nota ? ' · ' + esc(x.nota) : '') + '</div>' }); });
+    r.pausas.forEach(function (p) { ev.push({ f: p.inicio, h: '<b>Pausa autorizada</b><div class="sub">Desde ' + fh(p.inicio) + (p.fin ? ' hasta ' + fh(p.fin) : ' · en curso') + ' · ' + horasTxt(p.horas) + ' · autorizó ' + esc(p.iniciada_por) + (p.motivo ? ' · ' + esc(p.motivo) : '') + '</div>' }); });
+    r.transferencias.forEach(function (x) { ev.push({ f: x.fecha, h: '<b>Transferencia: ' + esc(x.de) + ' → ' + esc(x.a) + '</b><div class="sub">Autorizó ' + esc(x.autorizado_por) + (x.motivo ? ' · ' + esc(x.motivo) : '') + (x.observacion ? ' · ' + esc(x.observacion) : '') + '</div>' }); });
+    ev.sort(function (p, q) { return new Date(p.f) - new Date(q.f); });
+    var tiempos = '<div class="kpis kpis-mini"><div class="kpi"><span class="kpi-l">' + (t.total_h !== null ? 'Tiempo total' : 'Transcurrido') + '</span><span class="kpi-v">' + horasTxt(t.total_h !== null ? t.total_h : t.en_curso_h) + '</span><span class="kpi-s">' + (t.total_h !== null ? 'inicio → finalización' : (a.estado === 'PENDIENTE' ? 'aún no se inicia' : 'en curso')) + '</span></div>' +
+      '<div class="kpi"><span class="kpi-l">Pausado</span><span class="kpi-v">' + horasTxt(t.pausado_h) + '</span><span class="kpi-s">pausas autorizadas</span></div><div class="kpi"><span class="kpi-l">Activo registrado</span><span class="kpi-v">' + horasTxt(t.activo_h) + '</span><span class="kpi-s">total − pausado</span></div></div>' +
+      (t.segmentos.length > 1 ? '<p class="sub"><b>Participación:</b> ' + t.segmentos.map(function (s) { return esc(s.usuario) + ' ' + horasTxt(s.activo_h); }).join(' · ') + '</p>' : '') +
+      '<p class="sub">Estimación basada en eventos de la app; no es una medición automática del trabajo efectivo.</p>';
+    modal('<h2>Historial del lote</h2><p class="sub" style="margin:-6px 0 10px">' + (a.documento ? '<span class="doc-chip">' + esc(a.documento) + '</span> ' : '') + esc(a.producto) + (a.lote ? ' · Lote ' + esc(a.lote) : '') + (a.ensayo ? ' · ' + esc(a.ensayo) : '') + '</p><div style="margin:0 0 10px">' + anBadge(a.estado) + (a.pausado ? ' <span class="cond c-pausa">' + ic('pausa') + 'Pausado</span>' : '') + '</div>' + tiempos +
+      (ev.length ? '<ol class="hist">' + ev.map(function (e) { return '<li class="hist-it"><div class="hist-cab">' + e.h + '<span class="sub">' + fh(e.f) + '</span></div></li>'; }).join('') + '</ol>' : '<p class="sub">Sin eventos registrados.</p>') +
+      '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cerrar</button></div>');
+  }).catch(function (e) { cerrarModal(); toast(e.message, 'error'); });
+}
+function horasTxt(h) {
+  if (h === null || h === undefined || isNaN(h)) return 'Sin datos';
+  if (h < 1) return Math.round(h * 60) + ' min';
+  if (h < 48) return (Math.round(h * 10) / 10).toString().replace('.', ',') + ' h';
+  return (Math.round(h / 24 * 10) / 10).toString().replace('.', ',') + ' d';
+}
+/** Mis pendientes (jefatura): solicitudes agrupadas como las envió la analista; se aprueban o rechazan por lote. */
+function solicitudesHtml(sd) {
+  var g = sd.grupos || [];
+  S.solNo = S.solNo || {};
+  var h = '<h2 class="sec-t">' + ic('clock') + ' Solicitudes por autorizar <span class="cuenta">' + g.reduce(function (s, x) { return s + x.items.length; }, 0) + '</span></h2>';
+  if (!g.length) return h + '<div class="vacio">No hay solicitudes de pausa, reanudación ni transferencia pendientes.</div>';
+  return h + '<div class="sol-g">' + g.map(function (x) {
+    var marcados = x.items.filter(function (i) { return !S.solNo[i.id]; }).length;
+    return '<article class="sol-c" data-g="' + esc(x.grupo_id) + '"><div class="sol-cab"><span class="cond c-sol">' + ic(SOL_ICO[x.tipo]) + SOL_NOM[x.tipo] + '</span><b>' + esc(x.solicitado_por) + '</b><span class="sub">' + fh(x.solicitado_en) + ' · ' + x.items.length + (x.items.length === 1 ? ' lote' : ' lotes') + '</span></div>' +
+      '<div class="sub">' + (x.motivo ? 'Motivo: <b>' + esc(x.motivo) + '</b>' : 'Sin motivo indicado') + (x.observacion ? ' · ' + esc(x.observacion) : '') + (x.tipo === 'TRANSFERIR' ? ' · Receptor sugerido: <b>' + esc(x.receptor_sugerido || 'a definir por jefatura') + '</b>' : '') + '</div>' +
+      '<ul class="sol-l">' + x.items.map(function (i) {
+        return '<li><label class="mis-chk"><input type="checkbox" data-a="solChk" data-id="' + esc(i.id) + '"' + (S.solNo[i.id] ? '' : ' checked') + '></label><div class="crece">' + (i.documento ? '<span class="doc-chip">' + esc(i.documento) + '</span> ' : '') + '<b>' + esc(i.producto) + '</b> · Lote ' + esc(i.lote || '—') + (i.ensayo ? ' · ' + esc(i.ensayo) : '') + '<div class="sub">' + AREA_TXT[i.area] + ' · ' + (AN[i.estado] ? AN[i.estado][1] : i.estado) + (i.pausado ? ' · en pausa' : '') + ' · responsable ' + esc(i.responsable) + '</div></div></li>';
+      }).join('') + '</ul>' +
+      (x.tipo === 'TRANSFERIR' ? '<label class="sol-rec">Analista receptor<select data-a="solRec" data-g="' + esc(x.grupo_id) + '"><option value="">' + (x.receptor_sugerido ? 'Usar sugerido: ' + esc(x.receptor_sugerido) : 'Elige un analista…') + '</option>' + sd.analistas.filter(function (a) { return a.id !== x.solicitado_por_id; }).map(function (a) { return '<option value="' + esc(a.id) + '"' + ((S.solRec || {})[x.grupo_id] === a.id ? ' selected' : '') + '>' + esc(a.nombre) + '</option>'; }).join('') + '</select></label>' : '') +
+      '<div class="botones"><button class="btn chico" data-a="solAprobar" data-g="' + esc(x.grupo_id) + '"' + (marcados ? '' : ' disabled') + '>' + ic('check') + 'Aprobar seleccionadas (' + marcados + ')</button><button class="btn sec chico" data-a="solRechazar" data-g="' + esc(x.grupo_id) + '"' + (marcados ? '' : ' disabled') + '>' + ic('x') + 'Rechazar seleccionadas</button></div></article>';
+  }).join('') + '</div>';
+}
+function solIdsGrupo(gid) {
+  var sd = S.datos && S.datos.solicitudes, g = sd && (sd.grupos || []).filter(function (x) { return x.grupo_id === gid; })[0];
+  return g ? g.items.filter(function (i) { return !S.solNo[i.id]; }).map(function (i) { return i.id; }) : [];
+}
+ACC.solRec = function (ds, el) { S.solRec = S.solRec || {}; S.solRec[ds.g] = el.value; };
+ACC.solChk = function (ds, el) { S.solNo = S.solNo || {}; if (el.checked) delete S.solNo[ds.id]; else S.solNo[ds.id] = 1; pintar(); };
+function resolverSol(gid, decision, nota, el) {
+  var ids = solIdsGrupo(gid); if (!ids.length) return;
+  if (el) el.disabled = true;
+  return api('resolverSolicitudes', { ids: ids, decision: decision, receptor_id: (S.solRec || {})[gid] || '', nota: nota || '' }).then(function (r) {
+    var m = decision === 'APROBAR' ? r.aprobadas.length + (r.aprobadas.length === 1 ? ' aprobada.' : ' aprobadas.') : r.rechazadas.length + (r.rechazadas.length === 1 ? ' rechazada.' : ' rechazadas.');
+    if (r.omitidas.length) m += ' Sin aplicar: ' + r.omitidas.map(function (o) { return (o.lote || 'lote') + ' (' + o.motivo + ')'; }).join(', ') + '.';
+    toast(m, r.omitidas.length && !r.aprobadas.length && !r.rechazadas.length ? 'error' : undefined);
+    if (r.avisos && r.avisos.length) setTimeout(function () { toast('Ocupación activa sin cambios: ' + r.avisos.map(function (a) { return a.lote + ' en ' + a.equipo; }).join(', ') + '.'); }, 700);
+    ids.forEach(function (id) { delete S.solNo[id]; });
+    return cargar();
+  }).catch(function (e) { toast(e.message, 'error'); if (el) el.disabled = false; });
+}
+ACC.solAprobar = function (ds, el) { resolverSol(ds.g, 'APROBAR', '', el); };
+ACC.solRechazar = function (ds) {
+  S._solRech = ds.g;
+  modal('<h2>Rechazar solicitud</h2><p class="sub">Los lotes siguen como están. La analista verá la decisión en el historial del lote.</p><form data-f="solRechazo"><label>Nota para la analista <span class="sub">(opcional)</span><input name="nota" maxlength="300" autofocus></label>' +
+    '<div class="acciones"><button type="button" class="btn sec" data-a="cerrarModal">Cancelar</button><button class="btn peligro">Rechazar</button></div></form>');
+};
+FORM.solRechazo = function (d) { var g = S._solRech; S._solRech = null; cerrarModal(); resolverSol(g, 'RECHAZAR', d.nota); return 'silencio'; };
+ACC.misSolicitar = accMisSolicitar; ACC.anHist = accAnHist;
+
+/* =====================================================================
+ * v0.10 — Generador de Excel (.xlsx real, sin librerías externas)
+ * Tablas nativas con autofiltro, encabezados congelados, fechas y duraciones como valores numéricos de Excel,
+ * fórmulas y gráficos de columnas. Todo se arma en el navegador: no se guarda nada en el servidor.
+ * ===================================================================== */
+var XLSXW = (function () {
+  var CRC = (function () { var t = [], c; for (var n = 0; n < 256; n++) { c = n; for (var k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+  function crc32(u) { var c = 0xFFFFFFFF; for (var i = 0; i < u.length; i++) c = CRC[(c ^ u[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+  var enc = new TextEncoder();
+  function zip(files) {
+    var partes = [], central = [], off = 0, d = new Date();
+    var tm = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1), dt = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+    files.forEach(function (f) {
+      var nom = enc.encode(f.name), data = typeof f.data === 'string' ? enc.encode(f.data) : f.data, crc = crc32(data);
+      var h = new DataView(new ArrayBuffer(30));
+      h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true); h.setUint16(8, 0, true); h.setUint16(10, tm, true); h.setUint16(12, dt, true);
+      h.setUint32(14, crc, true); h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, nom.length, true); h.setUint16(28, 0, true);
+      partes.push(new Uint8Array(h.buffer), nom, data);
+      var c = new DataView(new ArrayBuffer(46));
+      c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true); c.setUint16(10, 0, true); c.setUint16(12, tm, true); c.setUint16(14, dt, true);
+      c.setUint32(16, crc, true); c.setUint32(20, data.length, true); c.setUint32(24, data.length, true); c.setUint16(28, nom.length, true); c.setUint32(42, off, true);
+      central.push(new Uint8Array(c.buffer), nom);
+      off += 30 + nom.length + data.length;
+    });
+    var tamC = central.reduce(function (s, x) { return s + x.length; }, 0);
+    var e = new DataView(new ArrayBuffer(22));
+    e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true); e.setUint32(12, tamC, true); e.setUint32(16, off, true);
+    var todo = partes.concat(central, [new Uint8Array(e.buffer)]), n = todo.reduce(function (s, x) { return s + x.length; }, 0), out = new Uint8Array(n), p = 0;
+    todo.forEach(function (x) { out.set(x, p); p += x.length; });
+    return out;
+  }
+  function x(s) { return String(s == null ? '' : s).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+  function col(n) { var s = ''; n++; while (n > 0) { var m = (n - 1) % 26; s = String.fromCharCode(65 + m) + s; n = Math.floor((n - 1) / 26); } return s; }
+  function serial(v) {
+    var d = v instanceof Date ? v : new Date(v);
+    if (isNaN(d)) return null;
+    return (Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()) - Date.UTC(1899, 11, 30)) / 864e5;
+  }
+  // Estilos (índices de cellXfs)
+  var ST = { normal: 0, cab: 1, titulo: 2, fechaHora: 3, horas: 4, texto: 5, falta: 6, entero: 7, nota: 8, fecha: 9, etiqueta: 10, pct: 11, subtitulo: 12 };
+  var STYLES = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
+    '<numFmts count="4"><numFmt numFmtId="164" formatCode="dd/mm/yyyy hh:mm"/><numFmt numFmtId="165" formatCode="0.0"/><numFmt numFmtId="166" formatCode="dd/mm/yyyy"/><numFmt numFmtId="167" formatCode="0.0&quot; %&quot;"/></numFmts>' +
+    '<fonts count="6"><font><sz val="11"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="16"/><color rgb="FF7A1350"/><name val="Calibri"/><family val="2"/></font><font><i/><sz val="10"/><color rgb="FF7F7F7F"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="11"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="12"/><color rgb="FFA31968"/><name val="Calibri"/><family val="2"/></font></fonts>' +
+    '<fills count="4"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFA31968"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFCEBF3"/><bgColor indexed="64"/></patternFill></fill></fills>' +
+    '<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFE8D5DF"/></left><right style="thin"><color rgb="FFE8D5DF"/></right><top style="thin"><color rgb="FFE8D5DF"/></top><bottom style="thin"><color rgb="FFE8D5DF"/></bottom><diagonal/></border></borders>' +
+    '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="13">' +
+    '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
+    '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment vertical="center" wrapText="1"/></xf>' +
+    '<xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
+    '<xf numFmtId="164" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>' +
+    '<xf numFmtId="165" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>' +
+    '<xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1" applyAlignment="1"><alignment vertical="top" wrapText="1"/></xf>' +
+    '<xf numFmtId="0" fontId="3" fillId="0" borderId="1" xfId="0" applyFont="1" applyBorder="1"/>' +
+    '<xf numFmtId="1" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>' +
+    '<xf numFmtId="0" fontId="3" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
+    '<xf numFmtId="166" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>' +
+    '<xf numFmtId="0" fontId="4" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/>' +
+    '<xf numFmtId="167" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>' +
+    '<xf numFmtId="0" fontId="5" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
+    '</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles><dxfs count="0"/><tableStyles count="0" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="PivotStyleLight16"/></styleSheet>';
+
+  /**
+   * libro = { titulo, hojas: [{ nombre, filas: [[celda]], anchos: [n], congelar: fila, tablas: [{ nombre, desde: [fila, col], cols, filas }], graficos: [{ titulo, cat: 'A5:A16', series: [{ nombre: 'B4', ref: 'B5:B16', color }], ancla: [col, fila, col2, fila2] }] }] }
+   * celda = null | 'texto' | número | { v, t: 's'|'n'|'d'|'f'|'falta', s: estilo, f: fórmula }
+   */
+  function libro(L) {
+    var sst = [], sstI = {}, files = [], ctOver = [], tablaN = 0, dibN = 0, grafN = 0;
+    var cadena = function (s) { s = String(s); if (sstI[s] === undefined) { sstI[s] = sst.length; sst.push(s); } return sstI[s]; };
+    var hojasXml = [];
+    L.hojas.forEach(function (h, hi) {
+      var rels = [], filasXml = [], maxC = 0;
+      h.filas.forEach(function (fila, ri) {
+        if (!fila) return;
+        var cs = [];
+        fila.forEach(function (c, ci) {
+          if (c === null || c === undefined || c === '') return;
+          var ref = col(ci) + (ri + 1);
+          if (typeof c !== 'object') c = typeof c === 'number' ? { v: c, t: 'n' } : { v: c, t: 's' };
+          var s = c.s !== undefined ? ' s="' + c.s + '"' : '';
+          maxC = Math.max(maxC, ci + 1);
+          if (c.t === 'f') cs.push('<c r="' + ref + '"' + s + '><f>' + x(c.f) + '</f>' + (typeof c.v === 'number' ? '<v>' + c.v + '</v>' : '') + '</c>');
+          else if (c.t === 'n' || c.t === 'd') { var v = c.t === 'd' ? serial(c.v) : c.v; if (v === null || v === undefined || isNaN(v)) cs.push('<c r="' + ref + '" s="' + ST.falta + '" t="s"><v>' + cadena('Sin datos') + '</v></c>'); else cs.push('<c r="' + ref + '"' + s + '><v>' + v + '</v></c>'); }
+          else cs.push('<c r="' + ref + '"' + s + ' t="s"><v>' + cadena(c.v) + '</v></c>');
+        });
+        filasXml.push('<row r="' + (ri + 1) + '"' + (h.altos && h.altos[ri] ? ' ht="' + h.altos[ri] + '" customHeight="1"' : '') + '>' + cs.join('') + '</row>');
+      });
+      var cols = (h.anchos || []).map(function (w, i) { return '<col min="' + (i + 1) + '" max="' + (i + 1) + '" width="' + w + '" customWidth="1"/>'; }).join('');
+      var vista = h.congelar ? '<sheetViews><sheetView workbookViewId="0"' + (hi === 0 ? ' tabSelected="1"' : '') + ' zoomScale="100"><pane ySplit="' + h.congelar + '" topLeftCell="A' + (h.congelar + 1) + '" activePane="bottomLeft" state="frozen"/><selection pane="bottomLeft" activeCell="A' + (h.congelar + 1) + '" sqref="A' + (h.congelar + 1) + '"/></sheetView></sheetViews>' : '<sheetViews><sheetView workbookViewId="0"' + (hi === 0 ? ' tabSelected="1"' : '') + ' showGridLines="0"/></sheetViews>';
+      var partsT = '', drawing = '';
+      (h.tablas || []).forEach(function (t) {
+        tablaN++;
+        var r0 = t.desde[0], c0 = t.desde[1], nf = Math.max(1, t.filas), ref = col(c0) + (r0 + 1) + ':' + col(c0 + t.cols.length - 1) + (r0 + 1 + nf);
+        rels.push({ id: 'rId' + (rels.length + 1), type: 'table', target: '../tables/table' + tablaN + '.xml' });
+        t._rid = rels[rels.length - 1].id;
+        files.push({ name: 'xl/tables/table' + tablaN + '.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><table xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" id="' + tablaN + '" name="' + t.nombre + '" displayName="' + t.nombre + '" ref="' + ref + '" totalsRowShown="0"><autoFilter ref="' + ref + '"/><tableColumns count="' + t.cols.length + '">' +
+          t.cols.map(function (c, i) { return '<tableColumn id="' + (i + 1) + '" name="' + x(c) + '"/>'; }).join('') + '</tableColumns><tableStyleInfo name="' + (t.estilo || 'TableStyleMedium3') + '" showFirstColumn="0" showLastColumn="0" showRowStripes="1" showColumnStripes="0"/></table>' });
+        ctOver.push('<Override PartName="/xl/tables/table' + tablaN + '.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.table+xml"/>');
+      });
+      if (h.tablas && h.tablas.length) partsT = '<tableParts count="' + h.tablas.length + '">' + h.tablas.map(function (t) { return '<tablePart r:id="' + t._rid + '"/>'; }).join('') + '</tableParts>';
+      if (h.graficos && h.graficos.length) {
+        dibN++;
+        var drels = [], anchors = [];
+        h.graficos.forEach(function (g, gi) {
+          grafN++;
+          drels.push('<Relationship Id="rId' + (gi + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart" Target="../charts/chart' + grafN + '.xml"/>');
+          var a = g.ancla;
+          anchors.push('<xdr:twoCellAnchor editAs="oneCell"><xdr:from><xdr:col>' + a[0] + '</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>' + a[1] + '</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from><xdr:to><xdr:col>' + a[2] + '</xdr:col><xdr:colOff>0</xdr:colOff><xdr:row>' + a[3] + '</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:to>' +
+            '<xdr:graphicFrame macro=""><xdr:nvGraphicFramePr><xdr:cNvPr id="' + (gi + 2) + '" name="Gráfico ' + (gi + 1) + '"/><xdr:cNvGraphicFramePr/></xdr:nvGraphicFramePr><xdr:xfrm><a:off x="0" y="0"/><a:ext cx="0" cy="0"/></xdr:xfrm><a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/chart"><c:chart xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="rId' + (gi + 1) + '"/></a:graphicData></a:graphic></xdr:graphicFrame><xdr:clientData/></xdr:twoCellAnchor>');
+          files.push({ name: 'xl/charts/chart' + grafN + '.xml', data: graficoXml(g, h.nombre) });
+          ctOver.push('<Override PartName="/xl/charts/chart' + grafN + '.xml" ContentType="application/vnd.openxmlformats-officedocument.drawingml.chart+xml"/>');
+        });
+        files.push({ name: 'xl/drawings/drawing' + dibN + '.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">' + anchors.join('') + '</xdr:wsDr>' });
+        files.push({ name: 'xl/drawings/_rels/drawing' + dibN + '.xml.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + drels.join('') + '</Relationships>' });
+        ctOver.push('<Override PartName="/xl/drawings/drawing' + dibN + '.xml" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/>');
+        rels.push({ id: 'rId' + (rels.length + 1), type: 'drawing', target: '../drawings/drawing' + dibN + '.xml' });
+        drawing = '<drawing r:id="' + rels[rels.length - 1].id + '"/>';
+      }
+      var merges = (h.unir || []).length ? '<mergeCells count="' + h.unir.length + '">' + h.unir.map(function (m) { return '<mergeCell ref="' + m + '"/>'; }).join('') + '</mergeCells>' : '';
+      var dim = 'A1:' + col(Math.max(0, maxC - 1)) + Math.max(1, h.filas.length);
+      files.push({ name: 'xl/worksheets/sheet' + (hi + 1) + '.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><dimension ref="' + dim + '"/>' + vista + '<sheetFormatPr defaultRowHeight="15"/>' + (cols ? '<cols>' + cols + '</cols>' : '') +
+        '<sheetData>' + filasXml.join('') + '</sheetData>' + merges + '<pageMargins left="0.5" right="0.5" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup orientation="landscape" fitToWidth="1" fitToHeight="0"/>' + drawing + partsT + '</worksheet>' });
+      if (rels.length) files.push({ name: 'xl/worksheets/_rels/sheet' + (hi + 1) + '.xml.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + rels.map(function (r) { return '<Relationship Id="' + r.id + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/' + r.type + '" Target="' + r.target + '"/>'; }).join('') + '</Relationships>' });
+      hojasXml.push('<sheet name="' + x(h.nombre) + '" sheetId="' + (hi + 1) + '" r:id="rId' + (hi + 1) + '"/>');
+    });
+    var n = L.hojas.length;
+    files.push({ name: 'xl/workbook.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView xWindow="0" yWindow="0" windowWidth="28800" windowHeight="15000" activeTab="0"/></bookViews><sheets>' + hojasXml.join('') + '</sheets><calcPr calcId="191029" fullCalcOnLoad="1"/></workbook>' });
+    files.push({ name: 'xl/_rels/workbook.xml.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">' + L.hojas.map(function (h, i) { return '<Relationship Id="rId' + (i + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet' + (i + 1) + '.xml"/>'; }).join('') +
+      '<Relationship Id="rId' + (n + 1) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/><Relationship Id="rId' + (n + 2) + '" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/sharedStrings" Target="sharedStrings.xml"/></Relationships>' });
+    files.push({ name: 'xl/styles.xml', data: STYLES });
+    files.push({ name: 'xl/sharedStrings.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><sst xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" count="' + sst.length + '" uniqueCount="' + sst.length + '">' + sst.map(function (s) { return '<si><t xml:space="preserve">' + x(s) + '</t></si>'; }).join('') + '</sst>' });
+    var ahora = new Date().toISOString().replace(/\.\d+Z$/, 'Z');
+    files.push({ name: 'docProps/core.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>' + x(L.titulo) + '</dc:title><dc:creator>Lab CC</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">' + ahora + '</dcterms:created><dcterms:modified xsi:type="dcterms:W3CDTF">' + ahora + '</dcterms:modified></cp:coreProperties>' });
+    files.push({ name: 'docProps/app.xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Properties xmlns="http://schemas.openxmlformats.org/officeDocument/2006/extended-properties"><Application>Lab CC</Application></Properties>' });
+    files.unshift({ name: '_rels/.rels', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/><Relationship Id="rId3" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/extended-properties" Target="docProps/app.xml"/></Relationships>' });
+    files.unshift({ name: '[Content_Types].xml', data: '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/>' +
+      '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>' + L.hojas.map(function (h, i) { return '<Override PartName="/xl/worksheets/sheet' + (i + 1) + '.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'; }).join('') +
+      '<Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/xl/sharedStrings.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml"/>' + ctOver.join('') +
+      '<Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/><Override PartName="/docProps/app.xml" ContentType="application/vnd.openxmlformats-officedocument.extended-properties+xml"/></Types>' });
+    return zip(files);
+  }
+  function refAbs(hoja, r) { return "'" + hoja.replace(/'/g, "''") + "'!" + r.split(':').map(function (p) { var m = /^([A-Z]+)(\d+)$/.exec(p); return '$' + m[1] + '$' + m[2]; }).join(':'); }
+  function graficoXml(g, hoja) {
+    var cat = refAbs(hoja, g.cat), cats = g.catVals || [];
+    var series = g.series.map(function (s, i) {
+      return '<c:ser><c:idx val="' + i + '"/><c:order val="' + i + '"/><c:tx><c:strRef><c:f>' + x(refAbs(hoja, s.nombre)) + '</c:f><c:strCache><c:ptCount val="1"/><c:pt idx="0"><c:v>' + x(s.titulo || '') + '</c:v></c:pt></c:strCache></c:strRef></c:tx>' +
+        '<c:spPr><a:solidFill><a:srgbClr val="' + (s.color || 'A31968') + '"/></a:solidFill></c:spPr><c:invertIfNegative val="0"/>' +
+        '<c:cat><c:strRef><c:f>' + x(cat) + '</c:f><c:strCache><c:ptCount val="' + cats.length + '"/>' + cats.map(function (v, k) { return '<c:pt idx="' + k + '"><c:v>' + x(v) + '</c:v></c:pt>'; }).join('') + '</c:strCache></c:strRef></c:cat>' +
+        '<c:val><c:numRef><c:f>' + x(refAbs(hoja, s.ref)) + '</c:f><c:numCache><c:formatCode>General</c:formatCode><c:ptCount val="' + (s.vals || []).length + '"/>' + (s.vals || []).map(function (v, k) { return v === null || v === undefined ? '' : '<c:pt idx="' + k + '"><c:v>' + v + '</c:v></c:pt>'; }).join('') + '</c:numCache></c:numRef></c:val></c:ser>';
+    }).join('');
+    return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><c:chartSpace xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><c:roundedCorners val="0"/>' +
+      '<c:chart><c:title><c:tx><c:rich><a:bodyPr/><a:lstStyle/><a:p><a:pPr><a:defRPr sz="1200" b="1"/></a:pPr><a:r><a:rPr lang="es-CL" sz="1200" b="1"/><a:t>' + x(g.titulo) + '</a:t></a:r></a:p></c:rich></c:tx><c:overlay val="0"/></c:title><c:autoTitleDeleted val="0"/>' +
+      '<c:plotArea><c:layout/><c:barChart><c:barDir val="' + (g.horizontal ? 'bar' : 'col') + '"/><c:grouping val="clustered"/><c:varyColors val="0"/>' + series +
+      '<c:dLbls><c:showLegendKey val="0"/><c:showVal val="' + (g.valores ? 1 : 0) + '"/><c:showCatName val="0"/><c:showSerName val="0"/><c:showPercent val="0"/><c:showBubbleSize val="0"/></c:dLbls><c:gapWidth val="70"/><c:axId val="50010"/><c:axId val="50020"/></c:barChart>' +
+      '<c:catAx><c:axId val="50010"/><c:scaling><c:orientation val="' + (g.horizontal ? 'maxMin' : 'minMax') + '"/></c:scaling><c:delete val="0"/><c:axPos val="' + (g.horizontal ? 'l' : 'b') + '"/><c:numFmt formatCode="General" sourceLinked="0"/><c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/><c:crossAx val="50020"/><c:crosses val="autoZero"/><c:auto val="1"/><c:lblAlgn val="ctr"/><c:lblOffset val="100"/><c:noMultiLvlLbl val="0"/></c:catAx>' +
+      '<c:valAx><c:axId val="50020"/><c:scaling><c:orientation val="minMax"/></c:scaling><c:delete val="0"/><c:axPos val="' + (g.horizontal ? 'b' : 'l') + '"/><c:majorGridlines><c:spPr><a:ln w="6350"><a:solidFill><a:srgbClr val="EADCE3"/></a:solidFill></a:ln></c:spPr></c:majorGridlines><c:numFmt formatCode="General" sourceLinked="0"/><c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/><c:crossAx val="50010"/><c:crosses val="' + (g.horizontal ? 'max' : 'autoZero') + '"/><c:crossBetween val="between"/></c:valAx></c:plotArea>' +
+      '<c:legend><c:legendPos val="b"/><c:overlay val="0"/></c:legend><c:plotVisOnly val="1"/><c:dispBlanksAs val="gap"/></c:chart><c:spPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:ln><a:noFill/></a:ln></c:spPr></c:chartSpace>';
+  }
+  return { libro: libro, ST: ST, col: col, serial: serial };
+})();
+
+/* =====================================================================
+ * v0.10 — Indicadores avanzados (solo jefatura) y exportación a Excel
+ * Unidad principal: el lote (área + documento + producto + número de lote). Varios ensayos de un mismo lote cuentan
+ * una sola vez dentro de su categoría operativa. «Sin datos» nunca se confunde con cero.
+ * ===================================================================== */
+var EST_TXT = { PENDIENTE: 'Sin iniciar', EN_PROCESO: 'En proceso', INFORMANDO: 'Informando', FINALIZADO: 'Finalizado', PAUSADO: 'Pausado' };
+function indAv() { return S.indAv || (S.indAv = { pre: '30' }); }
+function indAvActivos() { var f = indAv(); return ['area', 'analista', 'revisor', 'producto', 'lote', 'categoria', 'equipo', 'estado'].some(function (k) { return f[k]; }); }
+function filtrosIndAv() {
+  var f = indAv(), h = hoyYMD(), o = {};
+  if (f.pre === 'mes') o.mes = h.slice(0, 7);
+  else if (f.pre === 'mesSel') o.mes = f.mes || h.slice(0, 7);
+  else if (f.pre === 'anio') o.anio = f.anio || h.slice(0, 4);
+  else if (f.pre === 'otro' && f.desde && f.hasta) { o.desde = f.desde; o.hasta = f.hasta; }
+  else { o.desde = ymdAdd(h, -29); o.hasta = h; }
+  ['area', 'analista', 'revisor', 'producto', 'lote', 'categoria', 'equipo', 'estado'].forEach(function (k) { if (f[k]) o[k] = f[k]; });
+  return o;
+}
+function nfx(v, suf) { return v === null || v === undefined || isNaN(v) ? '<span class="sub">Sin datos</span>' : nf(v) + (suf ? ' <small>' + suf + '</small>' : ''); }
+function kpiAv(l, v, s) { return '<div class="kpi"><span class="kpi-l">' + l + '</span><span class="kpi-v">' + v + '</span>' + (s ? '<span class="kpi-s">' + s + '</span>' : '') + '</div>'; }
+function statsTabla(filas) {
+  return '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Tiempo</th><th class="num">Casos</th><th class="num">Promedio</th><th class="num">Mediana</th><th class="num">Mínimo</th><th class="num">Máximo</th></tr></thead><tbody>' +
+    filas.map(function (f) { var e = f[1] || {}; return '<tr><td>' + esc(f[0]) + '</td><td class="num">' + (e.n || 0) + '</td><td class="num">' + horasTxt(e.promedio) + '</td><td class="num">' + horasTxt(e.mediana) + '</td><td class="num">' + horasTxt(e.min) + '</td><td class="num">' + horasTxt(e.max) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+}
+function barrasLista(l, k, fmt) {
+  var max = Math.max.apply(null, l.map(function (x) { return x[k] || 0; }).concat([0.0001]));
+  return l.map(function (x) { return '<div class="ind-fila"><span class="ind-n">' + esc(x.nombre) + '</span>' + barraInd((x[k] || 0) / max * 100, x.nombre + ': ' + (x[k] || 0)) + '<span class="ind-v">' + (fmt ? fmt(x) : x[k]) + '</span></div>'; }).join('') || '<div class="vacio">Sin registros.</div>';
+}
+function vIndAvanzado(d) {
+  var f = indAv(), o = d.opciones || {}, A = d.ocupancia, B = d.productividad, C = d.informes, D = d.esperas, F = d.gestion;
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('stats') + 'Indicadores</h1><p class="sub" style="margin:4px 0 0">Gestión avanzada (solo jefatura) · del ' + esc(fdia(d.filtros.desde)) + ' al ' + esc(fdia(d.filtros.hasta)) + ' (' + d.filtros.dias + (d.filtros.dias === 1 ? ' día' : ' días') + ') · ' + esc(d.filtros.texto) + '</p></div>' +
+    '<div class="botones no-imp"><button class="btn" data-a="indExportar">' + ic('xls') + 'Exportar a Excel</button><button class="btn sec chico" data-a="imprimir">' + ic('impr') + 'Imprimir</button></div></header>';
+  h += indModos();
+  var sel = function (n, lab, ops, v) { return '<label>' + lab + '<select name="' + n + '"><option value="">Todos</option>' + ops.map(function (x) { return '<option value="' + esc(x[0]) + '"' + (v === x[0] ? ' selected' : '') + '>' + esc(x[1]) + '</option>'; }).join('') + '</select></label>'; };
+  var anio = Number(hoyYMD().slice(0, 4)), anios = [anio, anio - 1, anio - 2];
+  h += '<details class="ind-filtros no-imp"' + (S.indAvAbierto || indAvActivos() ? ' open' : '') + '><summary>' + ic('filtro') + 'Filtros</summary><form data-f="indAvFiltros" class="ind-fgrid">' +
+    '<label>Período<select name="pre" data-a="indAvPre"><option value="30"' + (f.pre === '30' ? ' selected' : '') + '>Últimos 30 días</option><option value="mes"' + (f.pre === 'mes' ? ' selected' : '') + '>Este mes</option><option value="mesSel"' + (f.pre === 'mesSel' ? ' selected' : '') + '>Mes y año</option><option value="anio"' + (f.pre === 'anio' ? ' selected' : '') + '>Año completo</option><option value="otro"' + (f.pre === 'otro' ? ' selected' : '') + '>Rango personalizado</option></select></label>' +
+    '<label data-pre="mesSel"' + (f.pre === 'mesSel' ? '' : ' hidden') + '>Mes<input type="month" name="mes" value="' + esc(f.mes || hoyYMD().slice(0, 7)) + '" max="' + hoyYMD().slice(0, 7) + '"></label>' +
+    '<label data-pre="anio"' + (f.pre === 'anio' ? '' : ' hidden') + '>Año<select name="anio">' + anios.map(function (a) { return '<option' + (String(f.anio || anio) === String(a) ? ' selected' : '') + '>' + a + '</option>'; }).join('') + '</select></label>' +
+    '<label data-pre="otro"' + (f.pre === 'otro' ? '' : ' hidden') + '>Desde<input type="date" name="desde" value="' + esc(f.desde || d.filtros.desde) + '"></label><label data-pre="otro"' + (f.pre === 'otro' ? '' : ' hidden') + '>Hasta<input type="date" name="hasta" value="' + esc(f.hasta || d.filtros.hasta) + '"></label>' +
+    sel('area', 'Área', [['MP', 'Materias Primas'], ['PT', 'Producto Terminado']], f.area) +
+    sel('analista', 'Analista', (o.analistas || []).map(function (x) { return [x.id, x.nombre]; }), f.analista) +
+    sel('revisor', 'Revisor', (o.revisores || []).map(function (x) { return [x.id, x.nombre]; }), f.revisor) +
+    sel('categoria', 'Tipo de análisis (categoría)', (o.categorias || []).map(function (x) { return [x.id, x.nombre]; }), f.categoria) +
+    sel('equipo', 'Equipo', (o.equipos || []).map(function (x) { return [x.id, x.codigo]; }), f.equipo) +
+    sel('estado', 'Estado del lote', Object.keys(EST_TXT).map(function (k) { return [k, EST_TXT[k]]; }), f.estado) +
+    '<label>Producto<input name="producto" value="' + esc(f.producto || '') + '" placeholder="Contiene…"></label><label>Lote<input name="lote" value="' + esc(f.lote || '') + '" placeholder="Contiene…"></label>' +
+    '<div class="acciones"><button type="button" class="btn ghost chico" data-a="indAvLimpiar">Limpiar</button><button class="btn chico">Aplicar filtros</button></div></form></details>';
+  h += '<p class="nota" style="margin:0 0 14px">Unidad principal: <b>lote</b> (área + documento ELP/EMP + producto + número de lote). Un lote con varios ensayos cuenta una sola vez dentro de su categoría operativa. «Sin datos» indica información insuficiente: no equivale a cero.</p>';
+
+  /* A. Ocupancia */
+  h += '<h2 class="sec-t">' + ic('hplc') + ' A. Ocupancia de equipos</h2><p class="sub" style="margin:-4px 0 10px">' + esc(A.base.texto) + (A.fuera_sin_datos.length ? ' Sin registros suficientes de fuera de servicio: ' + esc(A.fuera_sin_datos.join(', ')) + '.' : '') + '</p>';
+  h += '<div class="kpis ind-kpis">' + kpiAv('HPLC · horas de uso', nfx(A.HPLC.horas, 'h'), A.HPLC.sesiones + (A.HPLC.sesiones === 1 ? ' sesión · ' : ' sesiones · ') + (A.HPLC.pct === null ? 'utilización sin datos' : nf(A.HPLC.pct) + ' % de utilización')) +
+    kpiAv('Disolutores · horas de uso', nfx(A.DISOLUTOR.horas, 'h'), A.DISOLUTOR.sesiones + (A.DISOLUTOR.sesiones === 1 ? ' sesión · ' : ' sesiones · ') + (A.DISOLUTOR.pct === null ? 'utilización sin datos' : nf(A.DISOLUTOR.pct) + ' % de utilización')) +
+    kpiAv('Duración promedio por sesión', horasTxt(A.duracion_sesion.promedio), 'mediana ' + horasTxt(A.duracion_sesion.mediana) + ' · ' + A.duracion_sesion.n + (A.duracion_sesion.n === 1 ? ' sesión cerrada' : ' sesiones cerradas')) +
+    kpiAv('Incidencias', String(A.HPLC.incidencias + A.DISOLUTOR.incidencias), 'fuera de servicio: ' + horasTxt((A.HPLC.fuera_h || 0) + (A.DISOLUTOR.fuera_h || 0))) + '</div>';
+  h += '<div class="ind-dos"><section class="ind-card"><h3>Por área y franja</h3><dl class="ficha"><dt>HPLC · MP / PT</dt><dd>' + nf(A.HPLC.MP) + ' h / ' + nf(A.HPLC.PT) + ' h</dd><dt>HPLC · día / noche</dt><dd>' + nf(A.HPLC.dia) + ' h / ' + nf(A.HPLC.noche) + ' h</dd><dt>Disolutores · MP / PT</dt><dd>' + nf(A.DISOLUTOR.MP) + ' h / ' + nf(A.DISOLUTOR.PT) + ' h</dd><dt>Disolutores · día / noche</dt><dd>' + nf(A.DISOLUTOR.dia) + ' h / ' + nf(A.DISOLUTOR.noche) + ' h</dd></dl><p class="sub">Franja día: ' + esc(((S.config || {}).panel_franja_dia_inicio || '07:00') + '–' + ((S.config || {}).panel_franja_dia_fin || '17:30')) + ', según la hora de inicio de cada uso.</p></section>' +
+    '<section class="ind-card"><h3>Más y menos utilizados</h3><p><b>Más:</b> ' + (A.mas.length ? A.mas.map(function (e) { return esc(e.codigo) + ' (' + nf(e.horas) + ' h)'; }).join(', ') : 'sin uso') + '</p><p><b>Menos:</b> ' + A.menos.map(function (e) { return esc(e.codigo) + ' (' + nf(e.horas) + ' h)'; }).join(', ') + '</p></section></div>';
+  h += '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Equipo</th><th>Tipo</th><th class="num">Horas</th><th class="num">Utilización</th><th class="num">Sesiones</th><th class="num">Prom. sesión</th><th class="num">MP / PT (h)</th><th class="num">Día / noche (h)</th><th class="num">Incidencias</th><th class="num">Fuera de servicio</th></tr></thead><tbody>' +
+    A.equipos.map(function (e) { return '<tr><td class="mono">' + esc(e.codigo) + '</td><td>' + (e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor') + '</td><td class="num">' + nf(e.horas) + '</td><td class="num">' + (e.pct === null ? '<span class="sub">Sin datos</span>' : nf(e.pct) + ' %') + '</td><td class="num">' + e.sesiones + '</td><td class="num">' + horasTxt(e.promedio_sesion_h) + '</td><td class="num">' + nf(e.MP) + ' / ' + nf(e.PT) + '</td><td class="num">' + nf(e.dia) + ' / ' + nf(e.noche) + '</td><td class="num">' + e.incidencias + '</td><td class="num">' + (e.fuera_sin_datos ? '<span class="sub">Sin datos</span>' : horasTxt(e.fuera_h)) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+
+  /* B. Productividad */
+  h += '<h2 class="sec-t">' + ic('lote') + ' B. Productividad de análisis (por lote)</h2>';
+  h += '<div class="kpis ind-kpis">' + kpiAv('Lotes en el período', String(B.total), B.registros + ' registros de ensayo consolidados' + (B.multicategoria ? ' · ' + B.multicategoria + ' con varias categorías' : '')) + kpiAv('Asignados', String(B.asignados), 'iniciados ' + B.iniciados) + kpiAv('Finalizados', String(B.finalizados), 'en el período') + kpiAv('Pendientes', String(B.pendientes), 'en proceso ' + B.enProceso + ' · informando ' + B.informando + ' · pausados ' + B.pausados) + '</div>';
+  var maxM = Math.max.apply(null, B.meses.map(function (m) { return Math.max(m.asignados, m.finalizados); }).concat([1]));
+  h += '<div class="ind-dos"><section class="ind-card"><h3>Lotes por categoría operativa</h3>' + barrasLista(B.porCategoria, 'n') + '</section><section class="ind-card"><h3>Evolución mensual</h3>' + B.meses.map(function (m) {
+    return '<div class="ind-fila"><span class="ind-n">' + esc(MESES[Number(m.mes.slice(5, 7)) - 1] + ' ' + m.mes.slice(2, 4)) + '</span><div class="barra2">' + barraInd(m.asignados / maxM * 100, 'Asignados ' + m.asignados) + barraInd(m.finalizados / maxM * 100, 'Finalizados ' + m.finalizados, 'fin') + '</div><span class="ind-v">' + m.asignados + ' asig. · ' + m.finalizados + ' fin.</span></div>';
+  }).join('') + '</section></div>';
+  h += '<div class="ind-dos"><section class="ind-card"><h3>Lotes por analista responsable</h3>' + barrasLista(B.porAnalista, 'n') + '</section><section class="ind-card"><h3>Lotes por producto</h3>' + barrasLista(B.porProducto, 'n') + '<p class="sub">MP: ' + B.porArea.MP + ' · PT: ' + B.porArea.PT + '</p></section></div>';
+  h += '<h3 class="seccion">Tiempos de los lotes</h3>' + statsTabla([['Asignación → inicio', B.tiempos.espera], ['Inicio → finalización (total transcurrido)', B.tiempos.total], ['Pausa autorizada', B.tiempos.pausado], ['Tiempo activo registrado', B.tiempos.activo]]) + '<p class="sub">El tiempo activo registrado es una estimación con los eventos de la app (total − pausas autorizadas), no una medición del trabajo efectivo.</p>';
+
+  /* C. Informes */
+  h += '<h2 class="sec-t">' + ic('informe') + ' C. Informes y revisiones</h2>';
+  h += '<div class="kpis ind-kpis">' + kpiAv('Enviados a revisión', String(C.enviados), 'en el período') + kpiAv('Entregados', String(C.entregados), 'ciclos promedio ' + (C.ciclos.promedio === null ? '—' : nf(C.ciclos.promedio))) + kpiAv('Devueltos', String(C.devueltos), C.pct_devueltos === null ? 'sin revisiones resueltas' : nf(C.pct_devueltos) + ' % de los revisados') +
+    kpiAv('Situación actual', String(C.actual.pendientes + C.actual.enRevision + C.actual.subsanaciones), C.actual.pendientes + ' pendientes · ' + C.actual.enRevision + ' en revisión · ' + C.actual.subsanaciones + ' subsanaciones · ' + C.actual.devueltos + ' devueltos') + '</div>';
+  h += statsTabla([['Finalización del análisis → envío', C.tiempos.fin_a_envio], ['Envío → toma por revisor', C.tiempos.envio_a_toma], ['Revisión (toma → resolución)', C.tiempos.revision], ['Devolución → subsanación', C.tiempos.subsanacion], ['Total hasta entrega', C.tiempos.total]]);
+
+  /* D. Esperas */
+  var um = S.indAvUmbral || 0;
+  h += '<h2 class="sec-t">' + ic('clock') + ' D. Tiempos de espera y antigüedad de pendientes</h2>';
+  h += statsTabla([['Asignación → inicio', D.asignacion_inicio], ['Finalización → envío a revisión', D.fin_envio], ['Envío → toma por revisor', D.envio_toma], ['Revisión → devolución o entrega', D.revision], ['Devolución → subsanación', D.devolucion_subsanacion], ['Duración de pausas autorizadas', D.pausas], ['Solicitud → autorización de jefatura', D.solicitud_autorizacion]]);
+  h += '<div class="seg-chips no-imp" role="group" aria-label="Antigüedad" style="margin:10px 0">' + [[0, 'Todos'], [24, 'Más de 24 h'], [48, 'Más de 48 h'], [72, 'Más de 72 h']].map(function (x) { return '<button data-a="indAvUmbral" data-v="' + x[0] + '" aria-pressed="' + (um === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>';
+  h += '<div class="ind-dos">' + D.pendientes.map(function (g) {
+    var it = g.items.filter(function (x) { return x.h > um; });
+    return '<section class="ind-card"><h3>' + esc(g.nombre) + ' <span class="cuenta">' + g.n + '</span></h3><p class="sub">Más de 24 h: ' + g.h24 + ' · 48 h: ' + g.h48 + ' · 72 h: <b>' + g.h72 + '</b>' + (g.max_h !== null ? ' · máx. ' + horasTxt(g.max_h) : '') + '</p>' +
+      (it.length ? '<ul class="ind-pend">' + it.slice(0, 8).map(function (x) { return '<li><b>' + esc(x.ref) + '</b> <span class="sub">' + esc(x.quien) + ' · ' + horasTxt(x.h) + '</span></li>'; }).join('') + '</ul>' : '<p class="sub">Nada con esa antigüedad.</p>') + '</section>';
+  }).join('') + '</div>';
+
+  /* E. Carga */
+  h += '<h2 class="sec-t">' + ic('users') + ' E. Carga de trabajo</h2><p class="sub" style="margin:-4px 0 10px">Los lotes no miden por sí solos el rendimiento individual: no consideran complejidad ni carga. Un lote transferido cuenta una vez y la participación de cada persona se registra aparte.</p>';
+  h += d.carga.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Persona</th><th>Roles</th><th class="num">Lotes</th><th class="num">Finalizados</th><th class="num">Activos</th><th class="num">Con transferencia</th><th class="num">Activo registrado</th><th class="num">Informes enviados</th><th class="num">Revisiones tomadas</th><th class="num">Revisiones completadas</th><th class="num">Carga pendiente</th></tr></thead><tbody>' +
+    d.carga.map(function (p) { return '<tr><td>' + esc(p.nombre) + '</td><td class="sub">' + esc(p.roles) + '</td><td class="num">' + p.lotes + '</td><td class="num">' + p.finalizados + '</td><td class="num">' + p.activos + '</td><td class="num">' + p.transferidos + '</td><td class="num">' + horasTxt(p.activo_h) + '</td><td class="num">' + p.informes + '</td><td class="num">' + p.tomadas + '</td><td class="num">' + p.completadas + '</td><td class="num">' + p.pendiente + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="vacio">Sin registros en el período.</div>';
+
+  /* F. Gestión operativa */
+  var V = F.verificaciones, AC = F.actividades;
+  h += '<h2 class="sec-t">' + ic('verif') + ' F. Gestión operativa</h2>';
+  h += '<div class="kpis ind-kpis">' + kpiAv('Cumplimiento de verificaciones', V.pct === null ? '<span class="sub">Sin datos</span>' : V.pct + '<small>%</small>', V.realizadas + ' de ' + V.evaluadas + ' evaluadas · ' + V.programadas + ' programadas') + kpiAv('Cumplimiento de actividades', AC.pct === null ? '<span class="sub">Sin datos</span>' : AC.pct + '<small>%</small>', AC.realizadas + ' de ' + AC.evaluadas + ' evaluadas') +
+    kpiAv('Encargos', String(F.encargos.registrados), F.encargos.confirmados + ' confirmados · ' + F.encargos.pendientes + ' pendientes') + kpiAv('Mantención / calificación', String(((F.vencimientos || {}).mantVenc || 0) + ((F.vencimientos || {}).califVenc || 0)), 'vencidas · próximas ' + (((F.vencimientos || {}).mantProx || 0) + ((F.vencimientos || {}).califProx || 0))) + '</div>';
+  h += '<div class="ind-dos"><section class="ind-card"><h3>Por tarea</h3>' + (V.porTarea.concat(AC.porTarea).length ? V.porTarea.concat(AC.porTarea).map(function (t) { return '<div class="ind-fila"><span class="ind-n">' + esc(t.nombre) + '</span>' + barraInd(t.pct, t.nombre + ' ' + t.pct + '%') + '<span class="ind-v">' + t.realizadas + '/' + t.total + ' · ' + t.pct + ' %</span></div>'; }).join('') : '<div class="vacio">Sin tareas evaluadas.</div>') + '</section>' +
+    '<section class="ind-card"><h3>Distribución histórica de Semanero <span class="sub">(semanas publicadas hasta el ' + esc(fdia(d.filtros.hasta)) + ')</span></h3>' + (F.semanero.personas.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Analista</th><th class="num">Veces</th><th class="num">En turno día</th><th class="num">En turno noche</th><th>Última</th></tr></thead><tbody>' + F.semanero.personas.map(function (p) { return '<tr><td>' + esc(p.nombre) + '</td><td class="num">' + p.veces + '</td><td class="num">' + p.dia + '</td><td class="num">' + p.noche + '</td><td>' + esc(fdia(p.ultima)) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="vacio">Aún no hay semanas publicadas con Semanero.</div>') + '</section></div>';
+  h += '<div class="ind-dos"><section class="ind-card"><h3>Incidencias por equipo</h3>' + barrasLista(F.incidencias.porEquipo, 'n') + '<p class="sub">' + F.incidencias.registradas + ' registradas · ' + F.incidencias.abiertas + ' abiertas</p></section><section class="ind-card"><h3>Cumplimiento semanal</h3>' + (F.semanas.length ? F.semanas.map(function (s) { return '<div class="ind-fila"><span class="ind-n">' + esc(fdia(s.semana)) + '</span>' + barraInd(s.pct, s.pct + '%') + '<span class="ind-v">' + s.realizadas + '/' + s.total + ' · ' + s.pct + ' %</span></div>'; }).join('') : '<div class="vacio">Sin semanas evaluadas.</div>') + '</section></div>';
+
+  /* Detalle de lotes */
+  h += '<h2 class="sec-t">' + ic('list') + ' Lotes del período <span class="cuenta">' + B.total + '</span></h2>' + (d.lotes.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Documento</th><th>Producto</th><th>Lote</th><th>Categoría</th><th>Responsable</th><th>Estado</th><th class="num">Espera</th><th class="num">Total</th><th class="num">Pausado</th><th class="num">Activo</th></tr></thead><tbody>' +
+    d.lotes.map(function (l) { return '<tr><td class="mono">' + esc(l.documento || '—') + '</td><td>' + esc(l.producto) + (l.registros > 1 ? '<div class="sub">' + l.registros + ' ensayos: ' + esc(l.ensayos.join(', ')) + '</div>' : '') + '</td><td>' + esc(l.lote) + '</td><td>' + esc(l.categoria || '—') + '</td><td>' + esc(l.responsable) + (l.participantes.length ? '<div class="sub">antes: ' + esc(l.participantes.join(', ')) + '</div>' : '') + '</td><td>' + esc(l.estado_txt) + '</td><td class="num">' + horasTxt(l.espera_h) + '</td><td class="num">' + (l.total_h !== null ? horasTxt(l.total_h) : '<span class="sub">' + (l.estado === 'PENDIENTE' ? 'No iniciado' : 'En curso') + '</span>') + '</td><td class="num">' + horasTxt(l.pausado_h) + '</td><td class="num">' + horasTxt(l.activo_h) + '</td></tr>'; }).join('') + '</tbody></table></div>' + (B.total > d.lotes.length ? '<p class="sub">Se muestran los ' + d.lotes.length + ' más recientes. El Excel incluye todos.</p>' : '') : '<div class="vacio">Sin lotes en el período con estos filtros.</div>');
+  return h;
+}
+ACC.indAvPre = function (ds, el) { var fm = el.form; if (!fm) return; Array.prototype.forEach.call(fm.querySelectorAll('[data-pre]'), function (n) { n.hidden = n.dataset.pre !== el.value; }); };
+ACC.indAvLimpiar = function () { S.indAv = { pre: '30' }; S.indAvAbierto = false; S.datos = null; pintar(); cargar(); };
+ACC.indAvUmbral = function (ds) { S.indAvUmbral = Number(ds.v) || 0; pintar(); };
+FORM.indAvFiltros = function (d) {
+  var f = { pre: d.pre || '30' };
+  if (f.pre === 'otro') { if (!d.desde || !d.hasta) throw new Error('Indica desde y hasta.'); if (d.desde > d.hasta) throw new Error('La fecha inicial no puede ser posterior a la final.'); f.desde = d.desde; f.hasta = d.hasta; }
+  if (f.pre === 'mesSel') f.mes = d.mes; if (f.pre === 'anio') f.anio = d.anio;
+  ['area', 'analista', 'revisor', 'producto', 'lote', 'categoria', 'equipo', 'estado'].forEach(function (k) { if (d[k]) f[k] = String(d[k]).trim(); });
+  S.indAv = f; S.indAvAbierto = false; S.datos = null; pintar(); cargar(); return 'silencio';
+};
+ACC.indExportar = function (ds, el) {
+  if (el) el.disabled = true;
+  toast('Preparando el Excel con todos los registros del período…');
+  api('exportarIndicadores', filtrosIndAv(), { luego: null }).then(function (d) {
+    var bin = excelIndicadores(d);
+    var a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([bin], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' }));
+    a.download = 'LabCC-indicadores-' + d.filtros.desde + '-a-' + d.filtros.hasta + '.xlsx';
+    document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    toast('Excel descargado (' + Math.round(bin.length / 1024) + ' KB).');
+  }).catch(function (e) { toast(e.message, 'error'); }).then(function () { if (el) el.disabled = false; });
+};
+
+/** Libro de Excel: 9 hojas pedidas + detalle por ensayo + pausas y transferencias. */
+function excelIndicadores(d) {
+  var ST = XLSXW.ST, C = XLSXW.col;
+  var T = function (v, s) { return v === null || v === undefined || v === '' ? null : { v: String(v), t: 's', s: s === undefined ? ST.texto : s }; };
+  var N = function (v, s) { return { v: v === null || v === undefined || v === '' || isNaN(v) ? null : Number(v), t: 'n', s: s === undefined ? ST.entero : s }; };
+  var Hh = function (v, sinTxt) { return v === null || v === undefined || isNaN(v) ? { v: sinTxt || 'Sin datos', t: 's', s: ST.falta } : { v: Math.round(v * 100) / 100, t: 'n', s: ST.horas }; };
+  var F = function (v, txt) { return v ? { v: v, t: 'd', s: ST.fechaHora } : { v: txt || 'Sin datos', t: 's', s: ST.falta }; };
+  var Fd = function (v) { return v ? { v: v + (v.length === 10 ? 'T12:00:00' : ''), t: 'd', s: ST.fecha } : { v: 'Sin datos', t: 's', s: ST.falta }; };
+  var Ftx = function (v) { return v ? (String(v).length === 10 ? Fd(v) : F(v)) : null; };
+  var gen = new Date(d.generado || Date.now());
+  var cab = 'Período ' + fdia(d.filtros.desde) + ' al ' + fdia(d.filtros.hasta) + ' (' + d.filtros.dias + ' días) · Generado el ' + gen.toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' }) + ' · ' + d.filtros.texto;
+  var hojas = [];
+  var hojaTabla = function (nombre, tablaNom, titulo, cols, filas, anchos) {
+    var rows = [[T(titulo, ST.titulo)], [T(cab, ST.nota)], cols.map(function (c) { return T(c, ST.cab); })];
+    if (!filas.length) filas = [[T('Sin registros en el período con estos filtros.', ST.falta)]];
+    filas.forEach(function (f) { rows.push(f); });
+    hojas.push({ nombre: nombre, filas: rows, anchos: anchos, congelar: 3, altos: { 2: 32 }, tablas: [{ nombre: tablaNom, desde: [2, 0], cols: cols, filas: filas.length }] });
+  };
+  var A = d.ocupancia, B = d.productividad, I = d.informes, D = d.esperas, G = d.gestion;
+  /* 1. Resumen ejecutivo */
+  var kp = [];
+  var k = function (g, n, v, u, det) { kp.push([T(g), T(n, ST.texto), typeof v === 'number' ? N(v, u === 'h' || u === '%' ? ST.horas : ST.entero) : (v === null || v === undefined ? { v: 'Sin datos', t: 's', s: ST.falta } : T(v)), T(u), T(det || '')]); };
+  k('A. Ocupancia', 'Horas de uso HPLC', A.HPLC.horas, 'h', A.HPLC.sesiones + ' sesiones'); k('A. Ocupancia', 'Utilización HPLC', A.HPLC.pct, '%', A.base.texto);
+  k('A. Ocupancia', 'Horas de uso disolutores', A.DISOLUTOR.horas, 'h', A.DISOLUTOR.sesiones + ' sesiones'); k('A. Ocupancia', 'Utilización disolutores', A.DISOLUTOR.pct, '%', '');
+  k('A. Ocupancia', 'Duración promedio por sesión', A.duracion_sesion.promedio, 'h', 'mediana ' + horasTxt(A.duracion_sesion.mediana)); k('A. Ocupancia', 'Equipo más utilizado', A.mas.length ? A.mas[0].codigo + ' (' + A.mas[0].horas + ' h)' : 'Sin uso', '', '');
+  k('A. Ocupancia', 'Tiempo fuera de servicio registrado', (A.HPLC.fuera_h || 0) + (A.DISOLUTOR.fuera_h || 0), 'h', A.fuera_sin_datos.length ? 'Sin registros suficientes: ' + A.fuera_sin_datos.join(', ') : ''); k('A. Ocupancia', 'Incidencias registradas', A.HPLC.incidencias + A.DISOLUTOR.incidencias, 'n.º', '');
+  k('B. Productividad', 'Lotes en el período', B.total, 'lotes', B.registros + ' registros de ensayo consolidados'); k('B. Productividad', 'Lotes asignados', B.asignados, 'lotes'); k('B. Productividad', 'Lotes iniciados', B.iniciados, 'lotes'); k('B. Productividad', 'Lotes finalizados', B.finalizados, 'lotes');
+  k('B. Productividad', 'Lotes sin iniciar', B.pendientes, 'lotes'); k('B. Productividad', 'Lotes en proceso / informando', B.enProceso + B.informando, 'lotes', B.pausados + ' en pausa autorizada');
+  k('B. Productividad', 'Asignación → inicio (mediana)', B.tiempos.espera.mediana, 'h', B.tiempos.espera.n + ' casos'); k('B. Productividad', 'Inicio → finalización (mediana)', B.tiempos.total.mediana, 'h', B.tiempos.total.n + ' casos'); k('B. Productividad', 'Tiempo activo registrado (promedio)', B.tiempos.activo.promedio, 'h', 'total − pausas autorizadas');
+  k('C. Informes', 'Informes enviados a revisión', I.enviados, 'n.º'); k('C. Informes', 'Informes entregados', I.entregados, 'n.º'); k('C. Informes', 'Informes devueltos con observaciones', I.devueltos, 'n.º'); k('C. Informes', 'Porcentaje de informes devueltos', I.pct_devueltos, '%');
+  k('C. Informes', 'Pendientes de revisión (actual)', I.actual.pendientes, 'n.º'); k('C. Informes', 'En revisión (actual)', I.actual.enRevision, 'n.º'); k('C. Informes', 'Subsanaciones pendientes (actual)', I.actual.subsanaciones, 'n.º');
+  k('C. Informes', 'Envío → toma por revisor (mediana)', I.tiempos.envio_a_toma.mediana, 'h'); k('C. Informes', 'Tiempo total hasta entrega (mediana)', I.tiempos.total.mediana, 'h');
+  k('D. Esperas', 'Solicitud → autorización (mediana)', D.solicitud_autorizacion.mediana, 'h'); k('D. Esperas', 'Pendientes con más de 72 h', D.pendientes.reduce(function (s, g) { return s + g.h72; }, 0), 'n.º', D.pendientes.filter(function (g) { return g.h72; }).map(function (g) { return g.nombre + ': ' + g.h72; }).join(' · '));
+  k('F. Gestión', 'Cumplimiento de verificaciones', G.verificaciones.pct, '%', G.verificaciones.realizadas + ' de ' + G.verificaciones.evaluadas); k('F. Gestión', 'Cumplimiento de actividades', G.actividades.pct, '%', G.actividades.realizadas + ' de ' + G.actividades.evaluadas);
+  k('F. Gestión', 'Encargos registrados', G.encargos.registrados, 'n.º', G.encargos.confirmados + ' confirmados · ' + G.encargos.pendientes + ' pendientes'); k('F. Gestión', 'Mantenciones / calificaciones vencidas', ((G.vencimientos || {}).mantVenc || 0) + ((G.vencimientos || {}).califVenc || 0), 'n.º', 'Informativo');
+  var r = [[T('Lab CC · Indicadores de gestión', ST.titulo)], [T((d.laboratorio || 'Laboratorio de Control de Calidad') + ' · ' + cab, ST.nota)], [T('Herramienta de seguimiento operativo. Cifras calculadas con registros reales de la app; «Sin datos» indica información insuficiente (no es cero). No contiene resultados analíticos.', ST.nota)], [], [T('Grupo', ST.cab), T('Indicador', ST.cab), T('Valor', ST.cab), T('Unidad', ST.cab), T('Detalle', ST.cab)]];
+  kp.forEach(function (x) { r.push(x); });
+  var filaMes = r.length + 2;
+  r.push([]); r.push([T('Evolución mensual', ST.subtitulo)]);
+  r.push(['Mes', 'Lotes asignados', 'Lotes finalizados', 'Horas HPLC', 'Horas disolutores'].map(function (c) { return T(c, ST.cab); }));
+  var mesNom = function (m) { return MESES[Number(m.slice(5, 7)) - 1] + ' ' + m.slice(0, 4); };
+  var hm = {}; A.meses.forEach(function (m) { hm[m.mes] = m; });
+  B.meses.forEach(function (m) { r.push([T(mesNom(m.mes)), N(m.asignados), N(m.finalizados), N((hm[m.mes] || {}).HPLC || 0, ST.horas), N((hm[m.mes] || {}).DISOLUTOR || 0, ST.horas)]); });
+  var m0 = filaMes + 1, m1 = filaMes + B.meses.length; // filas (1-based) de datos de meses
+  var sum = function (c, tipo) { var t = 0; B.meses.forEach(function (m, i) { t += tipo === 'a' ? m.asignados : tipo === 'f' ? m.finalizados : ((hm[m.mes] || {})[tipo] || 0); }); return t; };
+  r.push([T('Total', ST.etiqueta), { t: 'f', f: 'SUM(B' + m0 + ':B' + m1 + ')', v: sum(0, 'a'), s: ST.entero }, { t: 'f', f: 'SUM(C' + m0 + ':C' + m1 + ')', v: sum(0, 'f'), s: ST.entero }, { t: 'f', f: 'SUM(D' + m0 + ':D' + m1 + ')', v: Math.round(sum(0, 'HPLC') * 10) / 10, s: ST.horas }, { t: 'f', f: 'SUM(E' + m0 + ':E' + m1 + ')', v: Math.round(sum(0, 'DISOLUTOR') * 10) / 10, s: ST.horas }]);
+  var filaEq = r.length + 2;
+  r.push([]); r.push([T('Uso por equipo', ST.subtitulo)]);
+  r.push(['Equipo', 'Tipo', 'Horas de uso', 'Sesiones', 'Utilización %', 'Horas disponibles', 'Incidencias'].map(function (c) { return T(c, ST.cab); }));
+  A.equipos.forEach(function (e) { r.push([T(e.codigo), T(e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor'), N(e.horas, ST.horas), N(e.sesiones), N(e.pct, ST.pct), N(e.disponibles_h, ST.horas), N(e.incidencias)]); });
+  var e0 = filaEq + 1, e1 = filaEq + Math.max(1, A.equipos.length);
+  hojas.push({
+    nombre: 'Resumen ejecutivo', filas: r, anchos: [22, 42, 14, 12, 52, 18, 12, 3, 12, 12, 12, 12, 12, 12, 12, 12],
+    tablas: [{ nombre: 'TablaResumen', desde: [4, 0], cols: ['Grupo', 'Indicador', 'Valor', 'Unidad', 'Detalle'], filas: kp.length },
+      { nombre: 'TablaMeses', desde: [filaMes - 1, 0], cols: ['Mes', 'Lotes asignados', 'Lotes finalizados', 'Horas HPLC', 'Horas disolutores'], filas: B.meses.length },
+      { nombre: 'TablaEquipos', desde: [filaEq - 1, 0], cols: ['Equipo', 'Tipo', 'Horas de uso', 'Sesiones', 'Utilización %', 'Horas disponibles', 'Incidencias'], filas: Math.max(1, A.equipos.length) }],
+    graficos: [
+      { titulo: 'Lotes asignados y finalizados por mes', cat: 'A' + m0 + ':A' + m1, catVals: B.meses.map(function (m) { return mesNom(m.mes); }), series: [{ nombre: 'B' + filaMes, titulo: 'Lotes asignados', ref: 'B' + m0 + ':B' + m1, vals: B.meses.map(function (m) { return m.asignados; }), color: 'E58BB8' }, { nombre: 'C' + filaMes, titulo: 'Lotes finalizados', ref: 'C' + m0 + ':C' + m1, vals: B.meses.map(function (m) { return m.finalizados; }), color: 'A31968' }], ancla: [8, 3, 16, 21], valores: true },
+      { titulo: 'Horas de uso por equipo', cat: 'A' + e0 + ':A' + e1, catVals: A.equipos.map(function (e) { return e.codigo; }), series: [{ nombre: 'C' + filaEq, titulo: 'Horas de uso', ref: 'C' + e0 + ':C' + e1, vals: A.equipos.map(function (e) { return e.horas; }), color: 'A31968' }], ancla: [8, 23, 16, 44], horizontal: true, valores: true }
+    ]
+  });
+  /* 2. Ocupancia equipos */
+  var det = d.detalle || {};
+  hojaTabla('Ocupancia equipos', 'TablaOcupancia', 'Ocupancia de HPLC y disolutores', ['Equipo', 'Tipo', 'Área', 'Analista', 'Producto', 'Lotes', 'Ensayo o tipo de disolución', 'Inicio', 'Término', 'Duración (h)', 'Horas dentro del período', 'Franja', 'Estado', 'Modo de registro', 'Liberado por tercero'],
+    (det.ocupaciones || []).map(function (o) { return [T(o.equipo), T(o.tipo), T(o.area), T(o.analista), T(o.producto), T(o.lotes), T(o.ensayo), F(o.inicio), F(o.fin, 'En uso'), Hh(o.duracion_h, 'En uso'), Hh(o.horas_periodo), T(o.franja), T(o.estado), T(o.modo), T(o.cierre_tercero)]; }), [12, 10, 7, 22, 26, 18, 24, 17, 17, 11, 12, 8, 11, 13, 10]);
+  /* 3 y 4. Análisis PT / MP (un lote por fila) */
+  var colsLote = ['Área', 'Documento ELP o EMP', 'Producto', 'Número de lote', 'Tipo de análisis operativo', 'Ensayos', 'Registros de ensayo', 'Analista responsable', 'Analistas participantes', 'Fecha de asignación', 'Fecha de inicio', 'Fecha de finalización', 'Estado', 'Tiempo de espera (h)', 'Tiempo total de análisis (h)', 'Tiempo pausado (h)', 'Tiempo activo registrado (h)', 'Fecha de envío del informe', 'Fecha de toma por revisor', 'Fecha de entrega', 'Tiempo de revisión (h)', 'Tiempo total de informe (h)', 'Devoluciones', 'Clave de lote'];
+  var filaLote = function (l) {
+    var noIni = l.estado === 'PENDIENTE';
+    return [T(l.area), T(l.documento || 'Sin documento (registro anterior)', l.documento ? ST.texto : ST.falta), T(l.producto), T(l.lote), T(l.categoria || 'Sin categoría', l.categoria ? ST.texto : ST.falta), T(l.ensayos.join(', ')), N(l.registros), T(l.responsable), T(l.participantes.join(', ') || '—'),
+      F(l.asignado), F(l.iniciado, noIni ? 'No iniciado' : 'Sin datos'), F(l.finalizado, l.estado === 'FINALIZADO' ? 'Sin datos' : 'En curso'), T(l.estado_txt),
+      Hh(l.espera_h, noIni ? 'No iniciado' : 'Sin datos'), Hh(l.total_h, l.estado === 'FINALIZADO' ? 'Sin datos' : 'No calculable (en curso)'), Hh(l.pausado_h, noIni ? 'No iniciado' : 'Sin datos'), Hh(l.total_h !== null ? l.activo_h : null, l.estado === 'FINALIZADO' ? 'Sin datos' : 'No calculable (en curso)'),
+      F(l.envio, 'Sin enviar'), F(l.toma, l.envio ? 'Sin tomar' : 'Sin enviar'), F(l.entrega, l.envio ? 'Sin entregar' : 'Sin enviar'), Hh(l.revision_h, 'No calculable'), Hh(l.informe_total_h, 'No calculable'), N(l.devoluciones), T(l.clave, ST.nota)];
+  };
+  var anchosLote = [6, 14, 26, 13, 18, 24, 9, 20, 20, 16, 16, 16, 12, 11, 12, 11, 12, 16, 16, 16, 11, 11, 10, 36];
+  hojaTabla('Análisis PT', 'TablaPT', 'Análisis de Productos Terminados (un lote por fila)', colsLote, d.lotes.filter(function (l) { return l.area === 'PT'; }).map(filaLote), anchosLote);
+  hojaTabla('Análisis MP', 'TablaMP', 'Análisis de Materias Primas (un lote por fila)', colsLote, d.lotes.filter(function (l) { return l.area === 'MP'; }).map(filaLote), anchosLote);
+  /* 5. Informes */
+  hojaTabla('Informes y revisiones', 'TablaInformes', 'Informes y revisiones', ['Área', 'Documento', 'Producto', 'Lote', 'Ensayo', 'Tipo de análisis', 'Analista', 'Revisor', 'Estado', 'Ciclos de revisión', 'Devoluciones', 'Finalización del análisis', 'Envío a revisión', 'Toma por revisor', 'Última devolución', 'Subsanación', 'Entrega', 'Finalización → envío (h)', 'Envío → toma (h)', 'Tiempo de revisión (h)', 'Tiempo de subsanación (h)', 'Tiempo total hasta entrega (h)'],
+    (det.informes || []).map(function (i) { return [T(i.area), T(i.documento || 'Sin documento', i.documento ? ST.texto : ST.falta), T(i.producto), T(i.lote), T(i.ensayo || '—'), T(i.tipo || '—'), T(i.analista), T(i.revisor || 'Sin revisor', i.revisor ? ST.texto : ST.falta), T(i.estado), N(i.ciclos), N(i.devoluciones), F(i.finalizado, 'Sin datos'), F(i.enviado), F(i.tomado, 'Sin tomar'), F(i.devuelto, 'Sin devolución'), F(i.subsanado, 'Sin subsanación'), F(i.entregado, 'Sin entregar'), Hh(i.fin_a_envio_h), Hh(i.envio_toma_h, 'No calculable'), Hh(i.revision_h, 'No calculable'), Hh(i.subsanacion_h, 'No aplica'), Hh(i.total_h, 'No calculable')]; }),
+    [6, 13, 24, 12, 16, 16, 18, 18, 22, 9, 10, 16, 16, 16, 16, 16, 16, 12, 11, 11, 11, 12]);
+  /* 6. Personas */
+  hojaTabla('Analistas y revisores', 'TablaPersonas', 'Carga de trabajo y participación', ['Persona', 'Roles', 'Lotes como responsable', 'Lotes finalizados en el período', 'Análisis activos', 'Lotes con transferencia (participación)', 'Tiempo activo registrado (h)', 'Informes enviados', 'Revisiones tomadas', 'Revisiones completadas', 'Devoluciones emitidas', 'Carga pendiente (lotes)'],
+    d.carga.map(function (p) { return [T(p.nombre), T(p.roles), N(p.lotes), N(p.finalizados), N(p.activos), N(p.transferidos), Hh(p.activo_h), N(p.informes), N(p.tomadas), N(p.completadas), N(p.devueltas), N(p.pendiente)]; }), [24, 20, 12, 14, 11, 14, 13, 11, 11, 12, 12, 12]);
+  /* 7. Gestión operativa */
+  hojaTabla('Gestión operativa', 'TablaGestion', 'Verificaciones, actividades, Semanero y encargos', ['Tipo', 'Fecha', 'Tarea o descripción', 'Responsable', 'Estado', 'Detalle'],
+    (det.gestion || []).map(function (g) { return [T(g.tipo), Ftx(g.fecha), T(g.nombre), T(g.responsable, g.responsable === 'Sin asignar' ? ST.falta : ST.texto), T(g.estado), T(g.detalle || '')]; }), [12, 16, 36, 22, 22, 40]);
+  /* 8. Incidencias */
+  hojaTabla('Incidencias', 'TablaIncidencias', 'Incidencias por equipo', ['Equipo', 'Tipo', 'Descripción', 'Reportada por', 'Fecha de reporte', 'Estado', 'Cerrada por', 'Fecha de cierre', 'Nota de cierre'],
+    (det.incidencias || []).map(function (i) { return [T(i.equipo), T(i.tipo), T(i.descripcion), T(i.reportado_por), F(i.reportado_en), T(i.estado), T(i.resuelto_por || '—'), F(i.resuelto_en, i.estado === 'Abierta' ? 'Abierta' : 'Sin datos'), T(i.nota || '')]; }), [12, 10, 44, 20, 17, 10, 20, 17, 30]);
+  /* 9. Definiciones */
+  hojaTabla('Definiciones', 'TablaDefiniciones', 'Definiciones y fórmulas de cálculo', ['Indicador', 'Grupo', 'Definición', 'Fórmula o cálculo', 'Unidad'], DEFINICIONES_IND.map(function (x) { return [T(x[0]), T(x[1]), T(x[2]), T(x[3]), T(x[4])]; }), [32, 16, 60, 60, 10]);
+  /* Detalle por ensayo (para lo que no se consolida en una fila) */
+  hojaTabla('Detalle análisis', 'TablaDetalle', 'Detalle por registro de ensayo (relacionado con su lote por la clave)', ['Clave de lote', 'Área', 'Documento', 'Producto', 'Lote', 'Ensayo', 'Tipo de análisis', 'Responsable', 'Participantes anteriores', 'Estado', 'Asignado', 'Iniciado', 'Finalizado', 'Tiempo total (h)', 'Tiempo pausado (h)', 'Tiempo activo registrado (h)'],
+    (det.analisis || []).map(function (a) { return [T(a.clave, ST.nota), T(a.area), T(a.documento || 'Sin documento', a.documento ? ST.texto : ST.falta), T(a.producto), T(a.lote), T(a.ensayo || '—'), T(a.tipo || '—'), T(a.responsable), T(a.participantes || '—'), T(a.estado), F(a.asignado), F(a.iniciado, 'No iniciado'), F(a.finalizado, 'En curso'), Hh(a.total_h, 'No calculable'), Hh(a.pausado_h, 'Sin datos'), Hh(a.total_h !== null ? a.activo_h : null, 'No calculable')]; }), [36, 6, 13, 24, 12, 16, 16, 20, 20, 12, 16, 16, 16, 11, 11, 12]);
+  hojaTabla('Pausas y transferencias', 'TablaPausas', 'Pausas autorizadas y transferencias de responsable', ['Tipo', 'Área', 'Documento', 'Producto', 'Lote', 'Desde', 'Hasta', 'Duración (h)', 'Analista', 'Analista receptor', 'Motivo', 'Autorizado por'],
+    (det.pausas || []).map(function (p) { return [T(p.tipo), T(p.area), T(p.documento || 'Sin documento', p.documento ? ST.texto : ST.falta), T(p.producto), T(p.lote), F(p.desde), F(p.hasta, p.tipo === 'Pausa' ? 'En curso' : 'No aplica'), Hh(p.horas, p.tipo === 'Pausa' ? 'En curso' : 'No aplica'), T(p.de), T(p.a || '—'), T(p.motivo || '—'), T(p.autorizado_por)]; }), [13, 6, 13, 24, 12, 17, 17, 11, 20, 20, 26, 20]);
+  return XLSXW.libro({ titulo: 'Lab CC · Indicadores ' + d.filtros.desde + ' a ' + d.filtros.hasta, hojas: hojas });
+}
+var DEFINICIONES_IND = [
+  ['Lote', 'General', 'Unidad principal de volumen de trabajo. Un lote con varios ensayos (valoración, disolución, uniformidad…) cuenta una sola vez.', 'Clave = área + documento ELP/EMP + producto + número de lote (sin mayúsculas, tildes ni espacios extra).', 'lote'],
+  ['Tipo de análisis (categoría operativa)', 'General', 'Categoría elegida al asignar el lote: Productivo, OS, Investigación, I+T, CC-DOC-56 y demás. No son ensayos analíticos.', 'Se toma la categoría de los registros del lote; si hay varias, se listan juntas.', '—'],
+  ['Horas de uso', 'A. Ocupancia', 'Horas reales de ocupación de cada equipo dentro del período.', 'Suma de (término − inicio) recortado al período; una ocupación en curso cuenta hasta ahora.', 'h'],
+  ['Utilización', 'A. Ocupancia', 'Proporción del tiempo disponible en que el equipo estuvo en uso.', 'Horas de uso ÷ (días del período × horas disponibles por día configuradas − horas fuera de servicio registradas) × 100.', '%'],
+  ['Sesiones y duración por sesión', 'A. Ocupancia', 'Cantidad de usos iniciados en el período y su duración.', 'Duración = término − inicio de cada uso cerrado; se informan promedio y mediana.', 'h'],
+  ['Utilización por franja', 'A. Ocupancia', 'Horas según la franja en que comenzó el uso.', 'Franja día configurable (07:00–17:30 por defecto); el resto es noche.', 'h'],
+  ['Tiempo fuera de servicio', 'A. Ocupancia', 'Horas en que el equipo estuvo declarado «No operativo» por jefatura.', 'Intervalos entre «Declarar no operativo» y «Restablecer operatividad» del historial. Sin registros suficientes = «Sin datos».', 'h'],
+  ['Lotes asignados / iniciados / finalizados', 'B. Productividad', 'Lotes cuya asignación, inicio o finalización ocurrió en el período.', 'Asignación = primera asignación del lote; inicio = primer inicio; finalización = cuando todos sus registros están finalizados.', 'lotes'],
+  ['Tiempo de espera', 'B. Productividad', 'Desde la asignación hasta el inicio del lote.', 'Fecha de inicio − fecha de asignación.', 'h'],
+  ['Tiempo total de análisis', 'B. Productividad', 'Tiempo total transcurrido del lote.', 'Fecha de finalización − fecha de inicio. En lotes en curso: «No calculable».', 'h'],
+  ['Tiempo pausado', 'B. Productividad', 'Suma de las pausas autorizadas por jefatura.', 'Suma de (fin − inicio) de cada pausa, desde la autorización (no desde la solicitud). Pausas superpuestas se cuentan una vez.', 'h'],
+  ['Tiempo activo registrado', 'B. Productividad', 'Estimación basada en eventos de la app; no es una medición automática del trabajo efectivo.', 'Tiempo total transcurrido − tiempo pausado.', 'h'],
+  ['Informes enviados / entregados / devueltos', 'C. Informes', 'Informes cuyo envío, entrega o devolución ocurrió en el período.', 'Según el historial de cada informe (rondas de revisión).', 'n.º'],
+  ['Tiempo envío → toma', 'C. Informes', 'Espera hasta que un revisor toma el informe.', 'Primer inicio de revisión − envío.', 'h'],
+  ['Tiempo de revisión', 'C. Informes', 'Duración de cada ronda de revisión.', 'Resolución (entrega o devolución) − inicio de la revisión de esa ronda.', 'h'],
+  ['Tiempo de subsanación', 'C. Informes', 'Tiempo que tomó corregir un informe devuelto.', 'Reenvío de la subsanación − devolución.', 'h'],
+  ['Tiempo total hasta entrega', 'C. Informes', 'Desde el primer envío hasta la entrega final.', 'Entrega − envío.', 'h'],
+  ['Porcentaje de informes devueltos', 'C. Informes', 'Informes con al menos una devolución entre los revisados en el período.', 'Informes con devolución ÷ informes con alguna resolución en el período × 100.', '%'],
+  ['Ciclos de revisión', 'C. Informes', 'Rondas que necesitó cada informe entregado.', 'Número de ronda del informe al entregarse.', 'n.º'],
+  ['Antigüedad de pendientes', 'D. Esperas', 'Tiempo que lleva esperando cada pendiente (lote sin iniciar, informe sin enviar o sin revisar, pausa en curso, solicitud sin autorizar).', 'Ahora − fecha en que quedó pendiente. Filtros de 24, 48 y 72 h.', 'h'],
+  ['Solicitud → autorización', 'D. Esperas', 'Tiempo que tarda jefatura en resolver una solicitud de pausa, reanudación o transferencia.', 'Fecha de resolución − fecha de solicitud (no incluye acciones directas).', 'h'],
+  ['Participación en lotes transferidos', 'E. Carga', 'Lotes en que la persona fue responsable en algún tramo. El lote se cuenta una sola vez en el total.', 'Cada transferencia cierra el tramo del responsable anterior; a nadie se le atribuye tiempo en que no era responsable.', 'lotes'],
+  ['Revisiones tomadas / completadas', 'E. Carga', 'Revisiones iniciadas y resueltas por cada revisor en el período.', 'Eventos «Inicio de revisión» y «Entregado/Devuelto» del historial.', 'n.º'],
+  ['Cumplimiento de verificaciones / actividades', 'F. Gestión', 'Tareas realizadas entre las evaluables de planificaciones publicadas.', 'Realizadas ÷ (tareas con responsable de días pasados o ya registradas) × 100. El Semanero se cuenta una vez por semana.', '%'],
+  ['Distribución de Semanero', 'F. Gestión', 'Semanas en que cada analista fue Semanero, con su turno (día o noche).', 'Asignaciones semanales publicadas.', 'semanas'],
+  ['Encargos registrados y confirmados', 'F. Gestión', 'Encargos entre turnos creados en el período y su estado.', 'Conteo por fecha de creación.', 'n.º']
+];
+
+/* =====================================================================
+ * v0.10 — Panel General y televisor: cuatro pantallas en rotación (misma lógica en ambos modos)
+ * 1) Ocupancia (sin cambios) 25 s · 2) Análisis PT 20 s · 3) Análisis MP 20 s · 4) Gestión diaria 15 s = ciclo de 80 s.
+ * Si una pantalla de análisis tiene más fichas de las que caben, se muestra por páginas (cada página dura lo mismo):
+ * no se oculta ningún registro. La navegación manual pausa la rotación 60 s y luego se reanuda sola.
+ * ===================================================================== */
+var TV_PANT = [
+  { k: 'ocup', t: 'Ocupancia', c: 'Ocupancia', s: 25, sub: 'Ocupancia de equipos en tiempo real' },
+  { k: 'pt', t: 'Análisis PT', c: 'PT', s: 20, sub: 'Análisis de Productos Terminados' },
+  { k: 'mp', t: 'Análisis MP', c: 'MP', s: 20, sub: 'Análisis de Materias Primas' },
+  { k: 'gd', t: 'Gestión diaria', c: 'Gestión', s: 15, sub: 'Verificaciones, actividades y encargos de hoy' }
+];
+var TV_PAUSA_MANUAL = 60000, TV_PAUSA_BOTON = 180000;
+TV.rot = { i: 0, pag: 0, ini: Date.now(), pausaHasta: 0, t: null, enc: '' };
+function tvNavHtml() {
+  return '<nav class="tv-nav" aria-label="Pantallas del panel"><button type="button" class="tv-nb" data-a="tvPaso" data-v="-1" aria-label="Pantalla anterior">' + ICO.back + '</button>' +
+    TV_PANT.map(function (p, i) { return '<button type="button" class="tv-nt" data-a="tvIr" data-i="' + i + '" aria-pressed="false"><span class="l">' + p.t + '</span><span class="c">' + p.c + '</span><i class="tv-np"><i></i></i></button>'; }).join('') +
+    '<button type="button" class="tv-nb sig" data-a="tvPaso" data-v="1" aria-label="Pantalla siguiente">' + ICO.back + '</button>' +
+    '<button type="button" class="tv-pausa" data-a="tvPausa" aria-live="polite"></button></nav>';
+}
+function tvPantallasHtml() {
+  return '<div class="tv-pant tv-pant-an" data-p="1" hidden><div class="tv-an" id="tv-an-PT"></div></div><div class="tv-pant tv-pant-an" data-p="2" hidden><div class="tv-an" id="tv-an-MP"></div></div><div class="tv-pant" data-p="3" hidden><div class="tv-gd" id="tv-gd"></div></div>';
+}
+var TV_EST_AN = { EN_PROCESO: ['e-proc', 'En proceso'], INFORMANDO: ['e-inf', 'Informando'], FINALIZADO: ['e-fin', 'Finalizado'] };
+function tvAnHtml(ar, A) {
+  var R = A.resumen, nom = ar === 'PT' ? 'Productos Terminados' : 'Materias Primas';
+  var k = [['e-proc', 'En proceso', R.en_proceso], ['e-inf', 'Informando', R.informando], ['e-fin', 'Finalizados hoy', R.fin_hoy], ['e-sem', 'Finalizados esta semana', R.fin_semana], ['e-sin', 'Asignados sin iniciar', R.sin_iniciar], ['e-pau', 'En pausa autorizada', R.pausados]];
+  var h = '<div class="tv-an-res">' + k.map(function (x) { return '<div class="tv-an-k ' + x[0] + '"><b>' + x[2] + '</b><span>' + x[1] + '</span></div>'; }).join('') + '</div>';
+  var fichas = [];
+  A.analistas.forEach(function (a) {
+    a.grupos.forEach(function (g, gi) {
+      var cnt = {}; g.lotes.forEach(function (l) { cnt[l.estado] = (cnt[l.estado] || 0) + 1; });
+      fichas.push('<article class="tv-af">' +
+        '<div class="tv-af-a"><span class="av">' + esc(tvIni(a.nombre)) + '</span><span class="nm">' + esc(a.nombre) + '</span>' + (a.grupos.length > 1 ? '<span class="sub">' + (gi + 1) + ' de ' + a.grupos.length + '</span>' : '') + '</div>' +
+        '<div class="tv-af-p">' + esc(g.producto) + '</div>' +
+        '<div class="tv-af-e">' + (g.ensayo ? 'Análisis: <b>' + esc(g.ensayo) + '</b>' : 'Análisis sin detalle') + (g.documento ? '<span class="doc">' + esc(g.documento) + '</span>' : '') + '</div>' +
+        '<div class="tv-af-n">' + g.n + (g.n === 1 ? ' lote' : ' lotes') + ' · ' + Object.keys(TV_EST_AN).filter(function (e) { return cnt[e]; }).map(function (e) { return cnt[e] + ' ' + TV_EST_AN[e][1].toLowerCase(); }).join(' · ') + '</div>' +
+        '<ul class="tv-af-l">' + g.lotes.map(function (l) { var st = TV_EST_AN[l.estado] || ['', l.estado]; return '<li class="' + st[0] + (l.pausado ? ' pau' : '') + '"><b>' + esc(l.lote) + '</b><span>' + (l.pausado ? 'Pausa autorizada' : st[1]) + '</span></li>'; }).join('') + '</ul></article>');
+    });
+  });
+  h += fichas.length ? '<div class="tv-an-g">' + fichas.join('') + '</div>' : '<div class="tv-vacio"><b>Sin análisis activos de ' + nom + '</b><span>' + (R.sin_iniciar ? R.sin_iniciar + (R.sin_iniciar === 1 ? ' lote asignado espera' : ' lotes asignados esperan') + ' inicio.' : 'Cuando una analista inicie un análisis aparecerá aquí, use o no un equipo.') + '</span></div>';
+  return h + '<div class="tv-pag" aria-live="polite"></div>';
+}
+var DIAS_NOM = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+function tvDiasTxt(d) { if (!d || !d.length) return 'todos los días'; var n = d.map(function (x) { return DIAS_NOM[x % 7]; }); return n.length === 1 ? n[0] : n.slice(0, -1).join(', ') + ' y ' + n[n.length - 1]; }
+function tvMedidor(r, p) { var pct = p ? Math.round(r / p * 100) : 0; return '<div class="tv-med" role="img" aria-label="' + r + ' de ' + p + '"><i style="width:' + pct + '%"></i></div>'; }
+function tvGdHtml(G) {
+  var V = G.verificaciones, enc = G.encargos, ver = TV.rot.enc || enc.actual, E = enc[ver], fr = enc.franja;
+  var h = '<section class="tv-gd-c"><h3><span class="n">A</span>Verificaciones de hoy</h3>';
+  if (V.programadas) {
+    h += '<div class="tv-gd-tot"><b>' + V.realizadas + '<small> / ' + V.programadas + '</small></b><span>realizadas · ' + V.pendientes + ' pendientes' + (V.noRealizadas ? ' · ' + V.noRealizadas + ' no realizadas' : '') + '</span><em>' + V.pct + ' %</em></div>' + tvMedidor(V.realizadas, V.programadas) +
+      '<ul class="tv-gd-l">' + V.grupos.map(function (g) { return '<li><div class="t"><b>' + esc(g.nombre) + '</b><span>' + g.realizadas + ' / ' + g.programadas + '</span></div>' + tvMedidor(g.realizadas, g.programadas) + '<div class="s">' + (g.pendientes ? g.pendientes + ' pendiente' + (g.pendientes === 1 ? '' : 's') : 'Completo') + (g.sinResponsable ? ' · ' + g.sinResponsable + ' sin responsable' : '') + (g.responsables.length ? ' · ' + esc(g.responsables.join(', ')) : '') + '</div></li>'; }).join('') + '</ul>';
+  } else h += '<div class="tv-vacio chico"><b>Sin verificaciones programadas hoy</b><span>Se muestran cuando la planificación de la semana está publicada.</span></div>';
+  h += '<p class="tv-gd-nota">Se cuentan las ejecuciones reales programadas (por ejemplo, cada balanza), no los grupos.</p></section>';
+  h += '<section class="tv-gd-c"><h3><span class="n">B</span>Actividades</h3><ul class="tv-gd-l">' + G.actividades.map(function (a) {
+    var desc = a.dias && a.dias.length ? 'Se realiza ' + tvDiasTxt(a.dias) : 'Actividad diaria';
+    if (!a.aplicaHoy) return '<li class="no"><div class="t"><b>' + esc(a.nombre) + '</b><span>No corresponde hoy</span></div><div class="s">' + desc + '.</div></li>';
+    return '<li><div class="t"><b>' + esc(a.nombre) + '</b><span>' + (a.programadas ? a.realizadas + ' / ' + a.programadas : 'Sin asignar') + '</span></div>' + (a.programadas ? tvMedidor(a.realizadas, a.programadas) : '') + '<div class="s">' + desc + (a.programadas ? ' · ' + (a.realizadas >= a.programadas ? 'Realizada' : a.noRealizadas ? 'No realizada' : 'Pendiente') : ' · no está en la planificación publicada') + (a.responsables.length ? ' · ' + esc(a.responsables.join(', ')) : '') + '</div></li>';
+  }).join('') +
+    '<li class="sem"><div class="t"><b>Semanero</b><span>' + (G.semanero ? esc(G.semanero.nombre) : 'Sin asignar') + '</span></div><div class="s">Una persona responsable de lunes a viernes' + (G.semanero && G.semanero.turno ? ' · turno ' + ({ DIA: 'día', NOCHE: 'noche', MIXTO: 'mixto' }[G.semanero.turno] || '').trim() : '') + '. Se cuenta una sola vez por semana.</div></li></ul></section>';
+  var hm = function (iso) { return new Date(iso).toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'America/Santiago' }); };
+  h += '<section class="tv-gd-c"><h3><span class="n">C</span>Encargos</h3><div class="tv-gd-sw" role="group" aria-label="Franja de encargos">' + [['DIA', 'Turno día'], ['NOCHE', 'Turno noche']].map(function (x) { return '<button type="button" data-a="tvEnc" data-v="' + x[0] + '" aria-pressed="' + (ver === x[0]) + '">' + x[1] + (enc.actual === x[0] ? ' · ahora' : '') + '</button>'; }).join('') + '</div>' +
+    '<p class="tv-gd-fr">' + (ver === 'DIA' ? 'Franja ' + esc(fr.inicio) + '–' + esc(fr.fin) : 'Franja ' + esc(fr.fin) + '–' + esc(fr.inicio) + ' del día siguiente') + ' · ' + hm(E.desde) + ' a ' + hm(E.hasta) + (ver !== enc.actual ? ' · consulta manual' : '') + '</p>' +
+    '<div class="tv-gd-enc"><div><b>' + E.registrados + '</b><span>Registrados</span></div><div class="pend"><b>' + E.pendientes + '</b><span>Pendientes de confirmación</span></div><div class="ok"><b>' + E.confirmados + '</b><span>Confirmados</span></div></div>' +
+    '<p class="tv-gd-nota">Las franjas solo ordenan esta vista; no cambian los horarios reales de las analistas.</p></section>';
+  return h;
+}
+/** Pinta (o actualiza si cambió) las pantallas 2–4; la 1 la sigue pintando pintarTV como antes. */
+function tvPintarExtras(d) {
+  var cambio = false;
+  if (d.analisis) ['PT', 'MP'].forEach(function (ar) { var n = $('#tv-an-' + ar), h; if (n && d.analisis[ar] && n._h !== (h = tvAnHtml(ar, d.analisis[ar]))) { n._h = h; n.innerHTML = h; cambio = true; } });
+  var g = $('#tv-gd'), hg;
+  if (g && d.gestion) {
+    if (TV.rot.encAct && TV.rot.encAct !== d.gestion.encargos.actual) TV.rot.enc = ''; // cambió la franja (07:00 / 17:30): vuelve a la vigente
+    TV.rot.encAct = d.gestion.encargos.actual;
+    if (g._h !== (hg = tvGdHtml(d.gestion))) { g._h = hg; g.innerHTML = hg; }
+  }
+  var nav = document.querySelector('.tv-nav');
+  if (nav) nav.hidden = !(d.analisis && d.gestion);
+  if (cambio) tvPaginar();
+}
+/** Páginas por altura disponible: una ficha nunca queda cortada entre dos páginas. Se mide solo la pantalla visible;
+ *  las ocultas quedan marcadas y se miden al mostrarse (mismo ancho y alto reales). */
+function tvPaginar() {
+  ['PT', 'MP'].forEach(function (ar) {
+    var n = $('#tv-an-' + ar); if (!n) return;
+    if (n.parentNode.hidden) { n._sucio = true; return; }
+    tvPaginarUna(n);
+  });
+  tvMostrarPag();
+}
+function tvPaginarUna(n) {
+  n._sucio = false;
+  var g = n.querySelector('.tv-an-g'); n._pags = [0];
+  if (!g) return;
+  g.style.height = ''; g.scrollTop = 0;
+  var top = g.getBoundingClientRect().top + window.scrollY, alto = Math.max(160, window.innerHeight - top - parseFloat(getComputedStyle(document.body).fontSize) * 1.4);
+  g.style.height = alto + 'px';
+  var fin = g.querySelector('.tv-an-fin'); if (fin) fin.remove();
+  var inicio = 0, pags = [0];
+  Array.prototype.forEach.call(g.children, function (c) {
+    if (c.offsetTop + c.offsetHeight - inicio > alto && c.offsetTop > inicio) { inicio = c.offsetTop; pags.push(inicio); }
+  });
+  // Espacio al final para que la última página pueda quedar arriba aunque tenga menos fichas.
+  if (pags.length > 1) { fin = document.createElement('div'); fin.className = 'tv-an-fin'; fin.setAttribute('aria-hidden', 'true'); fin.style.height = alto + 'px'; g.appendChild(fin); }
+  n._pags = pags;
+}
+function tvPagsAct() { var p = TV_PANT[TV.rot.i]; var n = (p.k === 'pt' || p.k === 'mp') && $('#tv-an-' + p.k.toUpperCase()); return (n && n._pags) || [0]; }
+function tvMostrarPag() {
+  var p = TV_PANT[TV.rot.i]; if (p.k !== 'pt' && p.k !== 'mp') { Array.prototype.forEach.call(document.querySelectorAll('.tv-nt .pg'), function (x) { x.hidden = true; }); return; }
+  var n = $('#tv-an-' + p.k.toUpperCase()); if (!n) return;
+  if (n._sucio && !n.parentNode.hidden) tvPaginarUna(n);
+  var pags = n._pags || [0]; if (TV.rot.pag >= pags.length) TV.rot.pag = 0;
+  var g = n.querySelector('.tv-an-g');
+  if (g) {
+    g.scrollTop = pags[TV.rot.pag];
+    var desde = pags[TV.rot.pag], hasta = TV.rot.pag + 1 < pags.length ? pags[TV.rot.pag + 1] : Infinity;
+    Array.prototype.forEach.call(g.querySelectorAll('.tv-af'), function (c) { var en = c.offsetTop >= desde && c.offsetTop < hasta; c.style.visibility = en ? '' : 'hidden'; });
+  }
+  var t = n.querySelector('.tv-pag'); if (t) t.textContent = pags.length > 1 ? 'Página ' + (TV.rot.pag + 1) + ' de ' + pags.length : '';
+  Array.prototype.forEach.call(document.querySelectorAll('.tv-nt'), function (bt) {
+    var pg = bt.querySelector('.pg'), txt = Number(bt.dataset.i) === TV.rot.i && pags.length > 1 ? (TV.rot.pag + 1) + '/' + pags.length : '';
+    if (!pg && txt) { pg = document.createElement('span'); pg.className = 'pg'; bt.insertBefore(pg, bt.querySelector('.tv-np')); }
+    if (pg) { pg.textContent = txt; pg.hidden = !txt; bt.setAttribute('aria-label', TV_PANT[Number(bt.dataset.i)].t + (txt ? ', página ' + txt.replace('/', ' de ') : '')); }
+  });
+}
+function tvMostrar(i, sinAnim) {
+  TV.rot.i = (i + TV_PANT.length) % TV_PANT.length;
+  Array.prototype.forEach.call(document.querySelectorAll('.tv-pant'), function (n) {
+    var on = Number(n.dataset.p) === TV.rot.i;
+    if (on && n.hidden) { n.hidden = false; if (!sinAnim) { n.classList.remove('entra'); void n.offsetWidth; n.classList.add('entra'); } }
+    else if (!on) n.hidden = true;
+  });
+  Array.prototype.forEach.call(document.querySelectorAll('.tv-nt'), function (b) { b.setAttribute('aria-pressed', String(Number(b.dataset.i) === TV.rot.i)); });
+  var sub = document.querySelector('.tv-marca small'); if (sub) sub.textContent = TV_PANT[TV.rot.i].sub;
+  if (TV_PANT[TV.rot.i].k === 'gd' && TV.rot.enc && !TV.rot.manualEnc) { TV.rot.enc = ''; var g = $('#tv-gd'); if (g && TV.d && TV.d.gestion) { g._h = ''; tvPintarExtras(TV.d); } }
+  TV.rot.manualEnc = false;
+  tvMostrarPag();
+  tvRotUi();
+}
+/** Avanza: primero las páginas de la pantalla actual, luego la siguiente pantalla. */
+function tvAvanzar() {
+  var pags = tvPagsAct();
+  TV.rot.ini = Date.now();
+  if (TV.rot.pag + 1 < pags.length) { TV.rot.pag++; tvMostrarPag(); var p = TV_PANT[TV.rot.i], n = document.querySelector('.tv-pant[data-p="' + TV.rot.i + '"]'); if (n && p) { n.classList.remove('entra'); void n.offsetWidth; n.classList.add('entra'); } tvRotUi(); return; }
+  TV.rot.pag = 0; tvMostrar(TV.rot.i + 1);
+}
+function tvRotTic() {
+  if (!$('#tv-raiz')) return;
+  var ahora = Date.now(), nav = document.querySelector('.tv-nav');
+  if (!nav || nav.hidden) return;
+  if (TV.rot.pausaHasta) { if (ahora < TV.rot.pausaHasta) { tvRotUi(); return; } TV.rot.pausaHasta = 0; TV.rot.ini = ahora; }
+  if (ahora - TV.rot.ini >= TV_PANT[TV.rot.i].s * 1000) tvAvanzar(); else tvRotUi();
+}
+function tvRotUi() {
+  var p = TV_PANT[TV.rot.i], ahora = Date.now(), pausa = TV.rot.pausaHasta > ahora;
+  var f = pausa ? 0 : Math.min(1, (ahora - TV.rot.ini) / (p.s * 1000));
+  Array.prototype.forEach.call(document.querySelectorAll('.tv-nt'), function (b) { var i = b.querySelector('.tv-np i'); if (i) i.style.transform = 'scaleX(' + (Number(b.dataset.i) === TV.rot.i ? (pausa ? 1 : f) : 0) + ')'; b.classList.toggle('pausada', pausa && Number(b.dataset.i) === TV.rot.i); });
+  var bp = document.querySelector('.tv-pausa'); if (!bp) return;
+  var txt = pausa ? 'Rotación en pausa · sigue en ' + Math.ceil((TV.rot.pausaHasta - ahora) / 1000) + ' s' : 'Rotación automática';
+  if (bp.textContent !== txt) bp.textContent = txt;
+  bp.classList.toggle('on', pausa);
+  bp.setAttribute('aria-label', pausa ? txt + '. Reanudar ahora' : 'Pausar la rotación');
+}
+function tvManual(i) { TV.rot.pausaHasta = Date.now() + TV_PAUSA_MANUAL; TV.rot.pag = 0; tvMostrar(i); }
+ACC.tvIr = function (ds) { tvManual(Number(ds.i)); };
+ACC.tvPaso = function (ds) { tvManual(TV.rot.i + Number(ds.v)); };
+ACC.tvPausa = function () { if (TV.rot.pausaHasta > Date.now()) { TV.rot.pausaHasta = 0; TV.rot.ini = Date.now(); } else TV.rot.pausaHasta = Date.now() + TV_PAUSA_BOTON; tvRotUi(); };
+ACC.tvEnc = function (ds) { TV.rot.enc = ds.v === (TV.d && TV.d.gestion && TV.d.gestion.encargos.actual) ? '' : ds.v; TV.rot.manualEnc = true; TV.rot.pausaHasta = Date.now() + TV_PAUSA_MANUAL; var g = $('#tv-gd'); if (g) g._h = ''; if (TV.d) tvPintarExtras(TV.d); tvRotUi(); };
+function tvTeclaRot(ev) {
+  if (ev.target && /INPUT|TEXTAREA|SELECT/.test(ev.target.tagName)) return;
+  var k = ev.key;
+  if (k === 'ArrowRight' || k === 'PageDown' || k === 'MediaTrackNext' || k === 'ChannelDown') { ev.preventDefault(); tvManual(TV.rot.i + 1); }
+  else if (k === 'ArrowLeft' || k === 'PageUp' || k === 'MediaTrackPrevious' || k === 'ChannelUp') { ev.preventDefault(); tvManual(TV.rot.i - 1); }
+  else if (/^[1-4]$/.test(k)) tvManual(Number(k) - 1);
+  else if ((k === ' ' || k === 'MediaPlayPause' || k === 'p' || k === 'P') && !(ev.target && ev.target.tagName === 'BUTTON')) { ev.preventDefault(); ACC.tvPausa(); }
+}
+function tvRotIniciar() {
+  clearInterval(TV.rot.t);
+  TV.rot.i = 0; TV.rot.pag = 0; TV.rot.ini = Date.now(); TV.rot.pausaHasta = 0; TV.rot.enc = '';
+  TV.rot.t = setInterval(tvRotTic, 500);
+}
+var TV_RS = null;
+window.addEventListener('resize', function () { if (!(MODO === 'tv' || PANEL.on)) return; clearTimeout(TV_RS); TV_RS = setTimeout(function () { ['PT', 'MP'].forEach(function (ar) { var n = $('#tv-an-' + ar); if (n) n._sucio = true; }); tvPaginar(); }, 250); });
 
 /* ---------- Arranque ---------- */
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) {
