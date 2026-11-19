@@ -3,7 +3,7 @@
  * Los datos NUNCA se guardan aquí: las consultas al servidor (Apps Script) pasan directo,
  * así el estado de los equipos siempre viene del servidor.
  * Estrategia: la página sale de la copia guardada y se actualiza en segundo plano (ver más abajo). */
-const CACHE = 'labcontrol-v15';
+const CACHE = 'labcontrol-v16';
 const BASE = ['./', './index.html', './manifest.webmanifest', './favicon.svg', './favicon.ico', './icons/icon-192.png', './icons/icon-512.png', './icons/icon.svg'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(BASE)).then(() => self.skipWaiting()));

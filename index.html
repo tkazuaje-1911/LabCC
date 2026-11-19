@@ -1093,6 +1093,25 @@ p.nota{color:var(--muted);font-size:12px;line-height:17px;margin-top:16px}
 #lc-nueva{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(76px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;max-width:calc(100vw - 24px);padding:10px 14px;border-radius:12px;background:var(--tinta);color:#fff;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:14px}
 #lc-nueva .ghost{color:#fff}
 @media(min-width:900px){#lc-nueva{bottom:20px}}
+/* v0.11 indicadores en tres secciones */
+.ind-seis .kpi{border:0;border-left:1px solid var(--rule);border-top:1px solid var(--rule)}.ind-seis .kpi:nth-child(-n+2){border-top:0}.ind-seis .kpi:nth-child(odd){border-left:0}
+@media(min-width:760px){.ind-seis{grid-template-columns:repeat(3,1fr)}.ind-seis .kpi{border-left:1px solid var(--rule);border-top:1px solid var(--rule)}.ind-seis .kpi:nth-child(-n+3){border-top:0}.ind-seis .kpi:nth-child(3n+1){border-left:0}}
+.ind-tabs{margin-top:14px}.ind-tabs button{min-height:44px}
+.gx-grid{display:grid;gap:14px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start;margin-bottom:14px}@media(max-width:820px){.gx-grid{grid-template-columns:1fr}}
+.gx-lista{display:flex;flex-direction:column;gap:2px}
+.gx-fila{display:grid;grid-template-columns:minmax(90px,34%) minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:6px 6px;min-height:44px;color:inherit;font:inherit;cursor:pointer}
+.gx-fila:hover,.gx-fila:focus-visible{background:var(--mag-bg,#FCEBF3)}.gx-fila.sel{background:var(--mag-bg,#FCEBF3);outline:2px solid var(--hue)}
+.gx-n{display:flex;flex-direction:column;min-width:0;font-size:13px;overflow:hidden;text-overflow:ellipsis}.gx-n small{color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gx-b{display:flex;height:12px;border-radius:999px;background:#eceef2;overflow:hidden;min-width:0}.gx-b i,.gx-ley i{display:block;height:100%}.gx-b i.s0,.gx-ley span:nth-child(1) i{background:var(--hue,#A31968)}.gx-b i.s1,.gx-ley span:nth-child(2) i{background:#F4B6D2}
+.gx-v{font-size:13px;white-space:nowrap;text-align:right;font-variant-numeric:tabular-nums}.gx-v small{color:var(--muted)}
+.gx-ley{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 0;font-size:12px;color:var(--muted)}.gx-ley span{display:inline-flex;align-items:center;gap:6px}.gx-ley i{width:12px;height:12px;border-radius:3px}
+@media(max-width:520px){.gx-fila{grid-template-columns:1fr auto;grid-template-areas:"n v" "b b"}.gx-fila .gx-n{grid-area:n}.gx-fila .gx-v{grid-area:v}.gx-fila .gx-b{grid-area:b}}
+.gx-svg{width:100%;height:auto;max-height:260px;display:block}.gx-gl{stroke:var(--border);stroke-width:1}.gx-tx{fill:var(--muted);font-size:11px}.gx-ln{fill:none;stroke:var(--hue,#A31968);stroke-width:2.5;stroke-linejoin:round}.gx-pt{fill:var(--hue,#A31968);stroke:var(--surface,#fff);stroke-width:2}.gx-pt.pocas{fill:var(--surface,#fff);stroke:var(--hue,#A31968)}.gx-pt:focus-visible{outline:2px solid var(--hue);outline-offset:2px}
+.gx-t{margin:16px 0 6px;font-size:14px}.gx-t small{color:var(--muted);font-weight:400}
+.gx-cf{margin:0 0 8px}.gx-cf .chk{display:flex;flex-direction:row;align-items:center;gap:10px;align-self:end;min-height:44px;cursor:pointer}.gx-cf .chk input{width:20px;height:20px;min-height:0;margin:0;padding:0;flex:none;accent-color:var(--acento,#A31968)}.pocas-t{font-size:11px;color:#8a5a00}
+.gx-pct{font-size:36px;line-height:44px;font-weight:500;color:var(--mag-ink,#7A1350)}.gx-pct small{font-size:16px;color:var(--muted)}
+.gx-det{border-color:var(--hue)}.gx-det .acciones{margin-top:10px}.tabla-an tr.sel td{background:var(--mag-bg,#FCEBF3)}
+.ind-mas>summary{cursor:pointer;font-weight:600;min-height:44px;display:flex;align-items:center}
 </style>
 </head>
 <body>
@@ -4526,13 +4545,13 @@ var XLSXW = (function () {
     return (Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes(), d.getSeconds()) - Date.UTC(1899, 11, 30)) / 864e5;
   }
   // Estilos (índices de cellXfs)
-  var ST = { normal: 0, cab: 1, titulo: 2, fechaHora: 3, horas: 4, texto: 5, falta: 6, entero: 7, nota: 8, fecha: 9, etiqueta: 10, pct: 11, subtitulo: 12 };
+  var ST = { normal: 0, cab: 1, titulo: 2, fechaHora: 3, horas: 4, texto: 5, falta: 6, entero: 7, nota: 8, fecha: 9, etiqueta: 10, pct: 11, subtitulo: 12, hora: 13 };
   var STYLES = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">' +
-    '<numFmts count="4"><numFmt numFmtId="164" formatCode="dd/mm/yyyy hh:mm"/><numFmt numFmtId="165" formatCode="0.0"/><numFmt numFmtId="166" formatCode="dd/mm/yyyy"/><numFmt numFmtId="167" formatCode="0.0&quot; %&quot;"/></numFmts>' +
+    '<numFmts count="5"><numFmt numFmtId="168" formatCode="hh:mm"/><numFmt numFmtId="164" formatCode="dd/mm/yyyy hh:mm"/><numFmt numFmtId="165" formatCode="0.0"/><numFmt numFmtId="166" formatCode="dd/mm/yyyy"/><numFmt numFmtId="167" formatCode="0.0&quot; %&quot;"/></numFmts>' +
     '<fonts count="6"><font><sz val="11"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="16"/><color rgb="FF7A1350"/><name val="Calibri"/><family val="2"/></font><font><i/><sz val="10"/><color rgb="FF7F7F7F"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="11"/><name val="Calibri"/><family val="2"/></font><font><b/><sz val="12"/><color rgb="FFA31968"/><name val="Calibri"/><family val="2"/></font></fonts>' +
     '<fills count="4"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FFA31968"/><bgColor indexed="64"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFFCEBF3"/><bgColor indexed="64"/></patternFill></fill></fills>' +
     '<borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFE8D5DF"/></left><right style="thin"><color rgb="FFE8D5DF"/></right><top style="thin"><color rgb="FFE8D5DF"/></top><bottom style="thin"><color rgb="FFE8D5DF"/></bottom><diagonal/></border></borders>' +
-    '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="13">' +
+    '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="14">' +
     '<xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/>' +
     '<xf numFmtId="0" fontId="1" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment vertical="center" wrapText="1"/></xf>' +
     '<xf numFmtId="0" fontId="2" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
@@ -4546,6 +4565,7 @@ var XLSXW = (function () {
     '<xf numFmtId="0" fontId="4" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/>' +
     '<xf numFmtId="167" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>' +
     '<xf numFmtId="0" fontId="5" fillId="0" borderId="0" xfId="0" applyFont="1"/>' +
+    '<xf numFmtId="168" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/>' +
     '</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles><dxfs count="0"/><tableStyles count="0" defaultTableStyle="TableStyleMedium2" defaultPivotStyle="PivotStyleLight16"/></styleSheet>';
 
   /**
@@ -4652,17 +4672,28 @@ var XLSXW = (function () {
  * Unidad principal: el lote (área + documento + producto + número de lote). Varios ensayos de un mismo lote cuentan
  * una sola vez dentro de su categoría operativa. «Sin datos» nunca se confunde con cero.
  * ===================================================================== */
+/* =====================================================================
+ * v0.11 — Indicadores en tres secciones (solo jefatura)
+ * Producción y carga de trabajo · Tiempos de análisis e informes · Ocupancia de equipos
+ * Unidad de volumen: el lote (se cuenta una vez). Unidad de revisión: el informe único. El tiempo de un grupo de lotes
+ * asignados juntos se mide con sus eventos reales y nunca se suman intervalos superpuestos. «Sin datos» / «No calculable» ≠ 0.
+ * ===================================================================== */
+var IND_TABS = [['prod', 'Producción y carga de trabajo'], ['tiempos', 'Tiempos de análisis e informes'], ['equipos', 'Ocupancia de equipos']];
 var EST_TXT = { PENDIENTE: 'Sin iniciar', EN_PROCESO: 'En proceso', INFORMANDO: 'Informando', FINALIZADO: 'Finalizado', PAUSADO: 'Pausado' };
+var IND_CLAVES = ['area', 'analista', 'revisor', 'producto', 'documento', 'lote', 'categoria', 'equipo', 'estado'];
 function indAv() { return S.indAv || (S.indAv = { pre: '30' }); }
-function indAvActivos() { var f = indAv(); return ['area', 'analista', 'revisor', 'producto', 'lote', 'categoria', 'equipo', 'estado'].some(function (k) { return f[k]; }); }
+function indTab() { return S.indTab || 'prod'; }
+function indAvActivos() { var f = indAv(); return IND_CLAVES.some(function (k) { return f[k]; }); }
+function lunesDeYMD(h) { var w = new Date(h + 'T12:00:00').getDay() || 7; return ymdAdd(h, -(w - 1)); }
 function filtrosIndAv() {
   var f = indAv(), h = hoyYMD(), o = {};
-  if (f.pre === 'mes') o.mes = h.slice(0, 7);
+  if (f.pre === 'semana') { o.desde = lunesDeYMD(h); o.hasta = h; }
+  else if (f.pre === 'mes') o.mes = h.slice(0, 7);
   else if (f.pre === 'mesSel') o.mes = f.mes || h.slice(0, 7);
   else if (f.pre === 'anio') o.anio = f.anio || h.slice(0, 4);
   else if (f.pre === 'otro' && f.desde && f.hasta) { o.desde = f.desde; o.hasta = f.hasta; }
   else { o.desde = ymdAdd(h, -29); o.hasta = h; }
-  ['area', 'analista', 'revisor', 'producto', 'lote', 'categoria', 'equipo', 'estado'].forEach(function (k) { if (f[k]) o[k] = f[k]; });
+  IND_CLAVES.forEach(function (k) { if (f[k]) o[k] = f[k]; });
   return o;
 }
 function nfx(v, suf) { return v === null || v === undefined || isNaN(v) ? '<span class="sub">Sin datos</span>' : nf(v) + (suf ? ' <small>' + suf + '</small>' : ''); }
@@ -4675,55 +4706,222 @@ function barrasLista(l, k, fmt) {
   var max = Math.max.apply(null, l.map(function (x) { return x[k] || 0; }).concat([0.0001]));
   return l.map(function (x) { return '<div class="ind-fila"><span class="ind-n">' + esc(x.nombre) + '</span>' + barraInd((x[k] || 0) / max * 100, x.nombre + ': ' + (x[k] || 0)) + '<span class="ind-v">' + (fmt ? fmt(x) : x[k]) + '</span></div>'; }).join('') || '<div class="vacio">Sin registros.</div>';
 }
+
+/* ---------- gráficos interactivos (barras y línea): valores en pantalla, detalle al tocar ---------- */
+function gxBarras(items, o) {
+  if (!items.length) return '<div class="vacio">Sin datos con estos filtros.</div>';
+  var max = Math.max.apply(null, items.map(function (x) { return x.segs.reduce(function (s, y) { return s + (y.v || 0); }, 0); }).concat([0.0001]));
+  return '<div class="gx-lista" role="list">' + items.map(function (x) {
+    var sel = S.indSel && S.indSel.t === o.tipo && S.indSel.k === x.k;
+    return '<button type="button" role="listitem" class="gx-fila' + (sel ? ' sel' : '') + '" data-a="indSel" data-t="' + o.tipo + '" data-k="' + esc(x.k) + '" title="' + esc(x.tip) + '" aria-label="' + esc(x.tip) + '"><span class="gx-n">' + esc(x.nombre) + (x.sub ? '<small>' + esc(x.sub) + '</small>' : '') + '</span>' +
+      '<span class="gx-b">' + x.segs.map(function (y, i) { return y.v > 0 ? '<i class="s' + i + '" style="width:' + (y.v / max * 100) + '%"></i>' : ''; }).join('') + '</span><span class="gx-v">' + x.txt + '</span></button>';
+  }).join('') + '</div>' + (o.ley ? '<p class="gx-ley">' + o.ley.map(function (t, i) { return '<span><i class="s' + i + '"></i>' + esc(t) + '</span>'; }).join('') + '</p>' : '');
+}
+function gxLinea(pts, o) {
+  var ys = pts.filter(function (p) { return typeof p.y === 'number'; });
+  if (!ys.length) return '<div class="vacio">Sin tiempos calculables en el período con estos filtros.</div>';
+  var W = 560, Hh = 200, pl = 44, pr = 14, pt = 14, pb = 30, max = Math.max.apply(null, ys.map(function (p) { return p.y; })) * 1.15 || 1;
+  var X = function (i) { return pts.length === 1 ? (pl + (W - pl - pr) / 2) : pl + i * (W - pl - pr) / (pts.length - 1); }, Y = function (v) { return pt + (Hh - pt - pb) * (1 - v / max); };
+  var g = '', k;
+  for (k = 0; k <= 4; k++) { var v = max * k / 4; g += '<line x1="' + pl + '" x2="' + (W - pr) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" class="gx-gl"/><text x="' + (pl - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end" class="gx-tx">' + nf(Math.round(v * 10) / 10) + '</text>'; }
+  var path = '', pen = false;
+  pts.forEach(function (p, i) { if (typeof p.y !== 'number') { pen = false; return; } path += (pen ? 'L' : 'M') + X(i) + ' ' + Y(p.y) + ' '; pen = true; });
+  var paso = Math.ceil(pts.length / 8);
+  return '<svg class="gx-svg" viewBox="0 0 ' + W + ' ' + Hh + '" role="img" aria-label="' + esc(o.aria) + '" preserveAspectRatio="xMidYMid meet">' + g + '<path d="' + path + '" class="gx-ln"/>' +
+    pts.map(function (p, i) { return (i % paso === 0 || i === pts.length - 1 ? '<text x="' + X(i) + '" y="' + (Hh - 8) + '" text-anchor="middle" class="gx-tx">' + esc(p.x) + '</text>' : '') + (typeof p.y === 'number' ? '<circle cx="' + X(i) + '" cy="' + Y(p.y) + '" r="' + (p.n < 3 ? 4 : 5) + '" class="gx-pt' + (p.n < 3 ? ' pocas' : '') + '" tabindex="0"><title>' + esc(p.tip) + '</title></circle>' : ''); }).join('') + '</svg>';
+}
+
+/* ---------- comparador de grupos ---------- */
+function indCmp() { return S.indCmp || (S.indCmp = { rangos: '1-2, 3-4, 5+', rango: '', prod: '', analista: '', ensayo: '', vista: 'total', transf: false }); }
+function parseRangos(txt) {
+  var out = [];
+  String(txt || '').split(',').forEach(function (p) {
+    p = p.trim(); var m = /^(\d+)\s*[-–]\s*(\d+)$/.exec(p), q = /^(\d+)\s*\+$/.exec(p), u = /^(\d+)$/.exec(p);
+    if (m && +m[1] <= +m[2]) out.push({ min: +m[1], max: +m[2], label: (m[1] === m[2] ? m[1] : m[1] + '–' + m[2]) + (m[1] === m[2] && m[1] === '1' ? ' lote' : ' lotes') });
+    else if (q) out.push({ min: +q[1], max: Infinity, label: q[1] + ' o más lotes' });
+    else if (u) out.push({ min: +u[1], max: +u[1], label: u[1] + (u[1] === '1' ? ' lote' : ' lotes') });
+  });
+  return out.length ? out.slice(0, 4) : parseRangos('1-2, 3-4, 5+');
+}
+function rangoDe(n, rangos) { for (var i = 0; i < rangos.length; i++) if (n >= rangos[i].min && n <= rangos[i].max) return rangos[i].label; return 'Otros'; }
+function mediaDe(a) { return a.length ? a.reduce(function (s, x) { return s + x; }, 0) / a.length : null; }
+function cmpGrupos(d) {
+  var c = indCmp(), rg = parseRangos(c.rangos), tot = (d.grupos || []);
+  var l = tot.filter(function (g) {
+    if (!c.transf && g.transferido) return false;
+    if (c.prod && g.producto !== c.prod) return false;
+    if (c.analista && g.responsable_id !== c.analista) return false;
+    if (c.ensayo && g.ensayos.indexOf(c.ensayo) < 0) return false;
+    if (c.rango && rangoDe(g.n_lotes, rg) !== c.rango) return false;
+    return true;
+  });
+  return { rg: rg, todos: l, calc: l.filter(function (g) { return g.calculable; }), excluidosTransf: tot.filter(function (g) { return g.transferido; }).length };
+}
+function indMuestra(n) { return n < 3 ? ' <span class="pocas-t" title="Muestra pequeña: no sacar conclusiones">muestra pequeña</span>' : ''; }
+function vIndComparador(d) {
+  var c = indCmp(), K = cmpGrupos(d), rg = K.rg, o = d.opciones || {}, vista = c.vista === 'activo' ? 'activo' : 'total';
+  var campo = vista === 'activo' ? 'activo_h' : 'total_h', campoL = vista === 'activo' ? 'h_lote_activo' : 'h_lote';
+  var prods = {}, ens = {}, ans = {};
+  (d.grupos || []).forEach(function (g) { prods[g.producto] = 1; g.ensayos.forEach(function (e) { ens[e] = 1; }); ans[g.responsable_id] = g.responsable; });
+  var sel = function (n, lab, ops, v) { return '<label>' + lab + '<select data-a="indCmpSet" data-c="' + n + '"><option value="">Todos</option>' + ops.map(function (x) { return '<option value="' + esc(x[0]) + '"' + (v === x[0] ? ' selected' : '') + '>' + esc(x[1]) + '</option>'; }).join('') + '</select></label>'; };
+  var h = '<section class="ind-card gx-cmp"><h3>Comparador de grupos de asignación</h3>' +
+    '<p class="sub" style="margin:-4px 0 10px">Un grupo es el conjunto de lotes asignados juntos. El tiempo del grupo se mide con sus eventos reales (inicio del primero, fin del último, pausas autorizadas descontadas); las horas por lote son solo un valor orientativo. No es un ranking: considera ensayos, complejidad, pausas y transferencias.</p>' +
+    '<div class="ind-fgrid gx-cf no-imp">' + sel('prod', 'Producto', Object.keys(prods).sort().map(function (x) { return [x, x]; }), c.prod) + sel('analista', 'Analista', Object.keys(ans).map(function (k) { return [k, ans[k]]; }), c.analista) +
+    sel('ensayo', 'Ensayo', Object.keys(ens).sort().map(function (x) { return [x, x]; }), c.ensayo) +
+    '<label>Cantidad de lotes<select data-a="indCmpSet" data-c="rango"><option value="">Todos</option>' + rg.map(function (r) { return '<option' + (c.rango === r.label ? ' selected' : '') + '>' + esc(r.label) + '</option>'; }).join('') + '</select></label>' +
+    '<label>Tiempo a comparar<select data-a="indCmpSet" data-c="vista"><option value="total"' + (vista === 'total' ? ' selected' : '') + '>Tiempo total del grupo</option><option value="activo"' + (vista === 'activo' ? ' selected' : '') + '>Tiempo activo registrado</option></select></label>' +
+    '<label>Rangos de lotes<input value="' + esc(c.rangos) + '" data-a="indCmpSet" data-c="rangos" placeholder="1-2, 3-4, 5+" aria-describedby="rg-ayuda"></label>' +
+    '<label class="chk"><input type="checkbox" data-a="indCmpSet" data-c="transf"' + (c.transf ? ' checked' : '') + '> Incluir grupos con transferencia (' + K.excluidosTransf + ')</label></div>' +
+    '<p class="sub" id="rg-ayuda" style="margin:0 0 8px">Rangos configurables (ej.: 1-2, 3-5, 6+). Grupos considerados: <b>' + K.calc.length + '</b> con tiempo calculable de ' + K.todos.length + ' que cumplen los filtros' + (K.todos.length > K.calc.length ? ' (los demás siguen en curso o sin fechas: «No calculable»)' : '') + '.</p>';
+  if (!K.calc.length) return h + '<div class="vacio">Ningún grupo con tiempo calculable con estos filtros.</div></section>';
+  // tabla de grupos (orden cronológico: no es un ranking)
+  var ord = K.calc.slice().sort(function (a, b) { return String(b.finalizado).localeCompare(String(a.finalizado)); });
+  h += '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Analista</th><th>Producto</th><th>Documento</th><th class="num">Lotes</th><th class="num">Tiempo total</th><th class="num">Pausado</th><th class="num">Activo registrado</th><th class="num">Horas/lote</th><th>Cierre</th></tr></thead><tbody>' +
+    ord.slice(0, 40).map(function (g) { return '<tr' + (S.indSel && S.indSel.t === 'grupo' && S.indSel.k === g.id ? ' class="sel"' : '') + '><td>' + esc(g.responsable) + (g.transferido ? ' <span class="badge info" title="Con transferencia: el tiempo se reparte entre quienes participaron">transferido</span>' : '') + '</td><td>' + esc(g.producto) + '</td><td class="mono">' + esc(g.documento || '—') + '</td><td class="num">' + g.n_lotes + '</td><td class="num">' + horasTxt(g.total_h) + '</td><td class="num">' + horasTxt(g.pausado_h) + '</td><td class="num">' + horasTxt(g.activo_h) + '</td><td class="num">' + horasTxt(g[campoL]) + '</td><td>' + esc(fdia(g.finalizado.slice(0, 10))) + ' <button class="btn ghost chico" data-a="indSel" data-t="grupo" data-k="' + esc(g.id) + '">Ver</button></td></tr>'; }).join('') + '</tbody></table></div>' +
+    (ord.length > 40 ? '<p class="sub">Se muestran los 40 más recientes de ' + ord.length + '. El Excel incluye todos.</p>' : '');
+  // gráfico 1: tiempo por grupo, con la cantidad de lotes en la etiqueta
+  var barras = ord.slice(0, 12).map(function (g) { return { k: g.id, nombre: g.responsable + ' · ' + g.n_lotes + (g.n_lotes === 1 ? ' lote' : ' lotes'), sub: g.producto, segs: [{ v: g[campo] || 0 }], txt: horasTxt(g[campo]), tip: g.responsable + ' · ' + g.producto + ' · ' + g.n_lotes + ' lotes · ' + (vista === 'activo' ? 'tiempo activo ' : 'tiempo total ') + horasTxt(g[campo]) + ' · ' + horasTxt(g[campoL]) + ' por lote (orientativo)' }; });
+  h += '<h4 class="gx-t">' + (vista === 'activo' ? 'Tiempo activo registrado por grupo' : 'Tiempo total por grupo') + ' <small>(los 12 más recientes; cantidad de lotes en la etiqueta)</small></h4>' + gxBarras(barras, { tipo: 'grupo' });
+  // gráfico 2: grupos comparables — promedio de horas por lote según la cantidad de lotes
+  var pr = rg.map(function (r) { var gg = K.calc.filter(function (g) { return rangoDe(g.n_lotes, rg) === r.label; }), m = mediaDe(gg.map(function (g) { return g[campoL]; }).filter(function (x) { return typeof x === 'number'; })); return { k: r.label, nombre: r.label, sub: gg.length + (gg.length === 1 ? ' grupo' : ' grupos'), segs: [{ v: m || 0 }], txt: (m === null ? 'Sin datos' : horasTxt(m)) + ' <small>n=' + gg.length + '</small>', tip: r.label + ': promedio ' + (m === null ? 'sin datos' : horasTxt(m) + ' por lote') + ' en ' + gg.length + ' grupos' }; }).filter(function (x) { return x.sub.charAt(0) !== '0'; });
+  h += '<h4 class="gx-t">Horas por lote según la cantidad de lotes del grupo <small>(promedio de los grupos de cada rango)</small></h4>' + gxBarras(pr, { tipo: 'rango' });
+  var minN = Math.min.apply(null, pr.map(function (x) { return parseInt(x.sub, 10); }));
+  if (minN < 3) h += '<p class="nota">Hay rangos con menos de 3 grupos: son muestras demasiado pequeñas para sacar conclusiones.</p>';
+  // gráfico 3: evolución histórica del producto o analista elegido (por mes de cierre)
+  var porMes = {}; K.calc.forEach(function (g) { var m = g.finalizado.slice(0, 7); (porMes[m] = porMes[m] || []).push(g); });
+  var meses = Object.keys(porMes).sort();
+  h += '<h4 class="gx-t">Evolución histórica <small>' + (c.prod || c.analista ? '(' + [c.prod, c.analista ? (ans[c.analista] || '') : ''].filter(Boolean).join(' · ') + ')' : '(todos los grupos; elige un producto o analista para afinar)') + '</small></h4>' +
+    gxLinea(meses.map(function (m) { var gg = porMes[m], v = mediaDe(gg.map(function (g) { return g[campoL]; }).filter(function (x) { return typeof x === 'number'; })); return { x: MESES[+m.slice(5, 7) - 1] + ' ' + m.slice(2, 4), y: v, n: gg.length, tip: MESES[+m.slice(5, 7) - 1] + ' ' + m.slice(0, 4) + ': ' + (v === null ? 'sin datos' : nf(Math.round(v * 10) / 10) + ' h por lote') + ' · ' + gg.length + (gg.length === 1 ? ' grupo' : ' grupos') + ' · ' + gg.reduce(function (s, g) { return s + g.n_lotes; }, 0) + ' lotes' }; }), { aria: 'Horas por lote por mes de cierre' }) +
+    '<p class="sub">Cada punto es el promedio de horas por lote de los grupos cerrados en el mes (se indica cuántos grupos); un punto con pocos grupos tiene menos peso.</p></section>';
+  return h;
+}
+
+/* ---------- detalle al tocar un gráfico ---------- */
+function indDetalleSel(d, tab) {
+  var s = S.indSel; if (!s) return '';
+  var h = '', cierra = '<button class="btn ghost chico no-imp" data-a="indSel" data-t="" data-k="">Cerrar detalle</button>';
+  if (s.t === 'analista' && tab === 'prod') {
+    var l = (d.lotes || []).filter(function (x) { return x.responsable.split(', ').indexOf(s.k) >= 0 || (x.participantes || []).indexOf(s.k) >= 0; });
+    h = '<h3>Lotes de ' + esc(s.k) + ' <span class="cuenta">' + l.length + '</span></h3>' + (l.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Documento</th><th>Producto</th><th>Lote</th><th>Categoría</th><th>Grupo</th><th>Estado</th></tr></thead><tbody>' + l.map(function (x) { return '<tr><td class="mono">' + esc(x.documento || '—') + '</td><td>' + esc(x.producto) + '</td><td>' + esc(x.lote) + '</td><td>' + esc(x.categoria || '—') + '</td><td class="mono">' + esc(x.grupo || '—') + '</td><td>' + esc(x.estado_txt) + '</td></tr>'; }).join('') + '</tbody></table></div><p class="sub">Entre los lotes más recientes del período; el Excel incluye todos.</p>' : '<div class="vacio">Sin lotes en la lista reciente.</div>');
+  } else if (s.t === 'persona' && tab === 'prod') {
+    var inf = (d.informes_reg || []).filter(function (x) { return [x.tomada_por, x.decidida_por, x.pendiente_de].join('; ').split('; ').indexOf(s.k) >= 0; });
+    h = '<h3>Informes de ' + esc(s.k) + ' <span class="cuenta">' + inf.length + '</span></h3>' + (inf.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Documento</th><th>Producto</th><th>Lote</th><th>Analista</th><th>Estado</th><th class="num">Devoluciones</th><th class="num">Ciclos</th></tr></thead><tbody>' + inf.map(function (x) { return '<tr><td class="mono">' + esc(x.documento || '—') + '</td><td>' + esc(x.producto) + '</td><td>' + esc(x.lote) + '</td><td>' + esc(x.analista) + '</td><td>' + esc(x.estado) + '</td><td class="num">' + x.devoluciones + '</td><td class="num">' + x.ciclos + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="vacio">Sin informes.</div>');
+  } else if (s.t === 'grupo' && tab === 'tiempos') {
+    var g = (d.grupos || []).filter(function (x) { return x.id === s.k; })[0]; if (!g) return '';
+    h = '<h3>Grupo ' + esc(g.id) + ' <span class="sub">(' + esc(g.origen) + ')</span></h3><dl class="ficha"><dt>Producto</dt><dd>' + esc(g.producto) + ' · ' + esc(g.documento || 'sin documento') + '</dd><dt>Lotes (' + g.n_lotes + ')</dt><dd>' + esc(g.lotes.join(', ')) + '</dd><dt>Ensayos</dt><dd>' + esc(g.ensayos.join(', ') || '—') + '</dd><dt>Responsable</dt><dd>' + esc(g.responsable) + '</dd>' +
+      '<dt>Tiempo total del grupo</dt><dd>' + (g.total_h === null ? '<span class="sub">' + esc(g.nota || 'No calculable') + '</span>' : horasTxt(g.total_h)) + '</dd><dt>Pausas autorizadas</dt><dd>' + g.pausas + ' · ' + horasTxt(g.pausado_h) + '</dd><dt>Tiempo activo registrado</dt><dd>' + horasTxt(g.activo_h) + '</dd><dt>Horas por lote (orientativo)</dt><dd>' + horasTxt(g.h_lote) + '</dd>' +
+      '<dt>Participación</dt><dd>' + (g.part.length ? g.part.map(function (p) { return esc(p.nombre) + ': ' + horasTxt(p.activo_h); }).join(' · ') : '—') + (g.transferido ? ' <span class="sub">(' + g.transferencias + ' transferencias: las horas no se atribuyen a una sola persona)</span>' : '') + '</dd></dl>';
+  } else if (s.t === 'equipo' && tab === 'equipos') {
+    var se = (d.ocupancia.sesiones || []).filter(function (x) { return x.equipo === s.k; });
+    h = '<h3>Sesiones de ' + esc(s.k) + ' <span class="cuenta">' + se.length + '</span></h3>' + indSesionesTabla(se.slice(0, 30));
+  } else return '';
+  return '<section class="ind-card gx-det">' + h + '<div class="acciones">' + cierra + '</div></section>';
+}
+function indSesionesTabla(l) {
+  return l.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Equipo</th><th>Analista</th><th>Producto</th><th>Documento</th><th>Lotes</th><th>Inicio</th><th>Término</th><th class="num">Duración</th></tr></thead><tbody>' + l.map(function (x) { return '<tr><td class="mono">' + esc(x.equipo) + '</td><td>' + esc(x.analista) + '</td><td>' + esc(x.producto) + '</td><td class="mono">' + esc(x.documento || '—') + '</td><td>' + esc(x.lotes || '—') + '</td><td>' + esc(fechaHoraCorta(x.inicio)) + '</td><td>' + (x.fin ? esc(fechaHoraCorta(x.fin)) : 'En uso') + '</td><td class="num">' + (x.duracion_h === null ? 'En uso' : horasTxt(x.duracion_h)) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="vacio">Sin sesiones con estos filtros.</div>';
+}
+function fechaHoraCorta(iso) { if (!iso) return '—'; var t = new Date(iso); return isNaN(t) ? '—' : t.toLocaleString('es-CL', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }); }
+
+/* ---------- pantalla principal ---------- */
 function vIndAvanzado(d) {
-  var f = indAv(), o = d.opciones || {}, A = d.ocupancia, B = d.productividad, C = d.informes, D = d.esperas, F = d.gestion;
-  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('stats') + 'Indicadores</h1><p class="sub" style="margin:4px 0 0">Gestión avanzada (solo jefatura) · del ' + esc(fdia(d.filtros.desde)) + ' al ' + esc(fdia(d.filtros.hasta)) + ' (' + d.filtros.dias + (d.filtros.dias === 1 ? ' día' : ' días') + ') · ' + esc(d.filtros.texto) + '</p></div>' +
+  var f = indAv(), o = d.opciones || {}, A = d.ocupancia, B = d.productividad, C = d.informes, R = d.revisiones, tab = indTab();
+  var h = '<header class="cab"><div><h1 class="h-ico">' + ic('stats') + 'Indicadores</h1><p class="sub" style="margin:4px 0 0">Del ' + esc(fdia(d.filtros.desde)) + ' al ' + esc(fdia(d.filtros.hasta)) + ' (' + d.filtros.dias + (d.filtros.dias === 1 ? ' día' : ' días') + ') · ' + esc(d.filtros.texto) + '</p></div>' +
     '<div class="botones no-imp"><button class="btn" data-a="indExportar">' + ic('xls') + 'Exportar a Excel</button><button class="btn sec chico" data-a="imprimir">' + ic('impr') + 'Imprimir</button></div></header>';
   h += indModos();
   var sel = function (n, lab, ops, v) { return '<label>' + lab + '<select name="' + n + '"><option value="">Todos</option>' + ops.map(function (x) { return '<option value="' + esc(x[0]) + '"' + (v === x[0] ? ' selected' : '') + '>' + esc(x[1]) + '</option>'; }).join('') + '</select></label>'; };
   var anio = Number(hoyYMD().slice(0, 4)), anios = [anio, anio - 1, anio - 2];
-  h += '<details class="ind-filtros no-imp"' + (S.indAvAbierto || indAvActivos() ? ' open' : '') + '><summary>' + ic('filtro') + 'Filtros</summary><form data-f="indAvFiltros" class="ind-fgrid">' +
-    '<label>Período<select name="pre" data-a="indAvPre"><option value="30"' + (f.pre === '30' ? ' selected' : '') + '>Últimos 30 días</option><option value="mes"' + (f.pre === 'mes' ? ' selected' : '') + '>Este mes</option><option value="mesSel"' + (f.pre === 'mesSel' ? ' selected' : '') + '>Mes y año</option><option value="anio"' + (f.pre === 'anio' ? ' selected' : '') + '>Año completo</option><option value="otro"' + (f.pre === 'otro' ? ' selected' : '') + '>Rango personalizado</option></select></label>' +
+  h += '<details class="ind-filtros no-imp"' + (S.indAvAbierto || indAvActivos() ? ' open' : '') + '><summary>' + ic('filtro') + 'Filtros' + (indAvActivos() ? ' <span class="badge info">activos</span>' : '') + '</summary><form data-f="indAvFiltros" class="ind-fgrid">' +
+    '<label>Período<select name="pre" data-a="indAvPre"><option value="30"' + (f.pre === '30' ? ' selected' : '') + '>Últimos 30 días</option><option value="semana"' + (f.pre === 'semana' ? ' selected' : '') + '>Esta semana</option><option value="mes"' + (f.pre === 'mes' ? ' selected' : '') + '>Este mes</option><option value="mesSel"' + (f.pre === 'mesSel' ? ' selected' : '') + '>Mes y año</option><option value="anio"' + (f.pre === 'anio' ? ' selected' : '') + '>Año completo</option><option value="otro"' + (f.pre === 'otro' ? ' selected' : '') + '>Rango personalizado</option></select></label>' +
     '<label data-pre="mesSel"' + (f.pre === 'mesSel' ? '' : ' hidden') + '>Mes<input type="month" name="mes" value="' + esc(f.mes || hoyYMD().slice(0, 7)) + '" max="' + hoyYMD().slice(0, 7) + '"></label>' +
     '<label data-pre="anio"' + (f.pre === 'anio' ? '' : ' hidden') + '>Año<select name="anio">' + anios.map(function (a) { return '<option' + (String(f.anio || anio) === String(a) ? ' selected' : '') + '>' + a + '</option>'; }).join('') + '</select></label>' +
     '<label data-pre="otro"' + (f.pre === 'otro' ? '' : ' hidden') + '>Desde<input type="date" name="desde" value="' + esc(f.desde || d.filtros.desde) + '"></label><label data-pre="otro"' + (f.pre === 'otro' ? '' : ' hidden') + '>Hasta<input type="date" name="hasta" value="' + esc(f.hasta || d.filtros.hasta) + '"></label>' +
-    sel('area', 'Área', [['MP', 'Materias Primas'], ['PT', 'Producto Terminado']], f.area) +
+    sel('area', 'Área', [['MP', 'Materias Primas (MP)'], ['PT', 'Producto Terminado (PT)']], f.area) +
+    sel('producto', 'Producto', (o.productos || []).map(function (x) { return [x, x]; }), f.producto) +
+    sel('documento', 'Documento ELP/EMP', (o.documentos || []).map(function (x) { return [x, x]; }), f.documento) +
+    sel('categoria', 'Categoría operativa', (o.categorias || []).map(function (x) { return [x.id, x.nombre]; }), f.categoria) +
     sel('analista', 'Analista', (o.analistas || []).map(function (x) { return [x.id, x.nombre]; }), f.analista) +
-    sel('revisor', 'Revisor', (o.revisores || []).map(function (x) { return [x.id, x.nombre]; }), f.revisor) +
-    sel('categoria', 'Tipo de análisis (categoría)', (o.categorias || []).map(function (x) { return [x.id, x.nombre]; }), f.categoria) +
-    sel('equipo', 'Equipo', (o.equipos || []).map(function (x) { return [x.id, x.codigo]; }), f.equipo) +
+    '<label>Lote<input name="lote" value="' + esc(f.lote || '') + '" placeholder="Contiene…"></label>' +
+    sel('revisor', 'Revisor o jefatura (informes)', (o.revisores || []).map(function (x) { return [x.id, x.nombre]; }), f.revisor) +
+    sel('equipo', 'Equipo (ocupancia)', (o.equipos || []).map(function (x) { return [x.id, x.codigo]; }), f.equipo) +
     sel('estado', 'Estado del lote', Object.keys(EST_TXT).map(function (k) { return [k, EST_TXT[k]]; }), f.estado) +
-    '<label>Producto<input name="producto" value="' + esc(f.producto || '') + '" placeholder="Contiene…"></label><label>Lote<input name="lote" value="' + esc(f.lote || '') + '" placeholder="Contiene…"></label>' +
     '<div class="acciones"><button type="button" class="btn ghost chico" data-a="indAvLimpiar">Limpiar</button><button class="btn chico">Aplicar filtros</button></div></form></details>';
-  h += '<p class="nota" style="margin:0 0 14px">Unidad principal: <b>lote</b> (área + documento ELP/EMP + producto + número de lote). Un lote con varios ensayos cuenta una sola vez dentro de su categoría operativa. «Sin datos» indica información insuficiente: no equivale a cero.</p>';
 
-  /* A. Ocupancia */
-  h += '<h2 class="sec-t">' + ic('hplc') + ' A. Ocupancia de equipos</h2><p class="sub" style="margin:-4px 0 10px">' + esc(A.base.texto) + (A.fuera_sin_datos.length ? ' Sin registros suficientes de fuera de servicio: ' + esc(A.fuera_sin_datos.join(', ')) + '.' : '') + '</p>';
-  h += '<div class="kpis ind-kpis">' + kpiAv('HPLC · horas de uso', nfx(A.HPLC.horas, 'h'), A.HPLC.sesiones + (A.HPLC.sesiones === 1 ? ' sesión · ' : ' sesiones · ') + (A.HPLC.pct === null ? 'utilización sin datos' : nf(A.HPLC.pct) + ' % de utilización')) +
-    kpiAv('Disolutores · horas de uso', nfx(A.DISOLUTOR.horas, 'h'), A.DISOLUTOR.sesiones + (A.DISOLUTOR.sesiones === 1 ? ' sesión · ' : ' sesiones · ') + (A.DISOLUTOR.pct === null ? 'utilización sin datos' : nf(A.DISOLUTOR.pct) + ' % de utilización')) +
-    kpiAv('Duración promedio por sesión', horasTxt(A.duracion_sesion.promedio), 'mediana ' + horasTxt(A.duracion_sesion.mediana) + ' · ' + A.duracion_sesion.n + (A.duracion_sesion.n === 1 ? ' sesión cerrada' : ' sesiones cerradas')) +
-    kpiAv('Incidencias', String(A.HPLC.incidencias + A.DISOLUTOR.incidencias), 'fuera de servicio: ' + horasTxt((A.HPLC.fuera_h || 0) + (A.DISOLUTOR.fuera_h || 0))) + '</div>';
-  h += '<div class="ind-dos"><section class="ind-card"><h3>Por área y franja</h3><dl class="ficha"><dt>HPLC · MP / PT</dt><dd>' + nf(A.HPLC.MP) + ' h / ' + nf(A.HPLC.PT) + ' h</dd><dt>HPLC · día / noche</dt><dd>' + nf(A.HPLC.dia) + ' h / ' + nf(A.HPLC.noche) + ' h</dd><dt>Disolutores · MP / PT</dt><dd>' + nf(A.DISOLUTOR.MP) + ' h / ' + nf(A.DISOLUTOR.PT) + ' h</dd><dt>Disolutores · día / noche</dt><dd>' + nf(A.DISOLUTOR.dia) + ' h / ' + nf(A.DISOLUTOR.noche) + ' h</dd></dl><p class="sub">Franja día: ' + esc(((S.config || {}).panel_franja_dia_inicio || '07:00') + '–' + ((S.config || {}).panel_franja_dia_fin || '17:30')) + ', según la hora de inicio de cada uso.</p></section>' +
-    '<section class="ind-card"><h3>Más y menos utilizados</h3><p><b>Más:</b> ' + (A.mas.length ? A.mas.map(function (e) { return esc(e.codigo) + ' (' + nf(e.horas) + ' h)'; }).join(', ') : 'sin uso') + '</p><p><b>Menos:</b> ' + A.menos.map(function (e) { return esc(e.codigo) + ' (' + nf(e.horas) + ' h)'; }).join(', ') + '</p></section></div>';
-  h += '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Equipo</th><th>Tipo</th><th class="num">Horas</th><th class="num">Utilización</th><th class="num">Sesiones</th><th class="num">Prom. sesión</th><th class="num">MP / PT (h)</th><th class="num">Día / noche (h)</th><th class="num">Incidencias</th><th class="num">Fuera de servicio</th></tr></thead><tbody>' +
-    A.equipos.map(function (e) { return '<tr><td class="mono">' + esc(e.codigo) + '</td><td>' + (e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor') + '</td><td class="num">' + nf(e.horas) + '</td><td class="num">' + (e.pct === null ? '<span class="sub">Sin datos</span>' : nf(e.pct) + ' %') + '</td><td class="num">' + e.sesiones + '</td><td class="num">' + horasTxt(e.promedio_sesion_h) + '</td><td class="num">' + nf(e.MP) + ' / ' + nf(e.PT) + '</td><td class="num">' + nf(e.dia) + ' / ' + nf(e.noche) + '</td><td class="num">' + e.incidencias + '</td><td class="num">' + (e.fuera_sin_datos ? '<span class="sub">Sin datos</span>' : horasTxt(e.fuera_h)) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+  /* seis tarjetas principales */
+  var sinIni = B.pendientes, noFin = B.pendientes + B.enProceso + B.informando, infPend = C.actual.pendientes + C.actual.enRevision + C.actual.devueltos + C.actual.subsanaciones;
+  h += '<div class="kpis ind-kpis ind-seis">' +
+    kpiAv('Lotes finalizados', String(B.finalizados), 'en el período · de ' + B.total + ' lotes gestionados') +
+    kpiAv('Lotes pendientes', String(noFin), 'sin iniciar ' + sinIni + ' · en proceso ' + B.enProceso + ' · informando ' + B.informando) +
+    kpiAv('Informes pendientes', String(infPend), 'sin tomar ' + (R.sin_tomar) + ' · en revisión ' + C.actual.enRevision + ' · devueltos ' + C.actual.devueltos) +
+    kpiAv('Revisiones completadas', String(R.unicos), 'informes únicos · ' + (R.pct === null ? 'sin devoluciones calculables' : R.devueltos + ' devueltos (' + nf(R.pct) + ' % de ' + R.unicos + ')')) +
+    kpiAv('Tiempo promedio de análisis', B.tiempos.total.promedio === null ? '<span class="sub">Sin datos</span>' : horasTxt(B.tiempos.total.promedio), 'mediana ' + horasTxt(B.tiempos.total.mediana) + ' · ' + B.tiempos.total.n + ' lotes finalizados') +
+    kpiAv('Horas de ocupancia de equipos', nfx(Math.round((A.HPLC.horas + A.DISOLUTOR.horas) * 10) / 10, 'h'), 'HPLC ' + nf(A.HPLC.horas) + ' h · disolutores ' + nf(A.DISOLUTOR.horas) + ' h') + '</div>';
+  h += '<div class="tabs ind-tabs no-imp" role="tablist">' + IND_TABS.map(function (t) { return '<button role="tab" class="' + (tab === t[0] ? 'act' : '') + '" aria-selected="' + (tab === t[0]) + '" data-a="indTab" data-v="' + t[0] + '">' + t[1] + '</button>'; }).join('') + '</div>';
+  h += '<p class="nota" style="margin:0 0 14px">Unidad de volumen: <b>lote</b> (se cuenta una vez aunque tenga varios ensayos o participen varias personas). Unidad de revisión: <b>informe único</b>. «Sin datos» o «No calculable» indica información insuficiente: no equivale a cero.</p>';
+  h += tab === 'tiempos' ? vIndTiempos(d) : tab === 'equipos' ? vIndEquipos(d) : vIndProduccion(d);
+  return h;
+}
 
-  /* B. Productividad */
-  h += '<h2 class="sec-t">' + ic('lote') + ' B. Productividad de análisis (por lote)</h2>';
-  h += '<div class="kpis ind-kpis">' + kpiAv('Lotes en el período', String(B.total), B.registros + ' registros de ensayo consolidados' + (B.multicategoria ? ' · ' + B.multicategoria + ' con varias categorías' : '')) + kpiAv('Asignados', String(B.asignados), 'iniciados ' + B.iniciados) + kpiAv('Finalizados', String(B.finalizados), 'en el período') + kpiAv('Pendientes', String(B.pendientes), 'en proceso ' + B.enProceso + ' · informando ' + B.informando + ' · pausados ' + B.pausados) + '</div>';
-  var maxM = Math.max.apply(null, B.meses.map(function (m) { return Math.max(m.asignados, m.finalizados); }).concat([1]));
-  h += '<div class="ind-dos"><section class="ind-card"><h3>Lotes por categoría operativa</h3>' + barrasLista(B.porCategoria, 'n') + '</section><section class="ind-card"><h3>Evolución mensual</h3>' + B.meses.map(function (m) {
-    return '<div class="ind-fila"><span class="ind-n">' + esc(MESES[Number(m.mes.slice(5, 7)) - 1] + ' ' + m.mes.slice(2, 4)) + '</span><div class="barra2">' + barraInd(m.asignados / maxM * 100, 'Asignados ' + m.asignados) + barraInd(m.finalizados / maxM * 100, 'Finalizados ' + m.finalizados, 'fin') + '</div><span class="ind-v">' + m.asignados + ' asig. · ' + m.finalizados + ' fin.</span></div>';
-  }).join('') + '</section></div>';
-  h += '<div class="ind-dos"><section class="ind-card"><h3>Lotes por analista responsable</h3>' + barrasLista(B.porAnalista, 'n') + '</section><section class="ind-card"><h3>Lotes por producto</h3>' + barrasLista(B.porProducto, 'n') + '<p class="sub">MP: ' + B.porArea.MP + ' · PT: ' + B.porArea.PT + '</p></section></div>';
-  h += '<h3 class="seccion">Tiempos de los lotes</h3>' + statsTabla([['Asignación → inicio', B.tiempos.espera], ['Inicio → finalización (total transcurrido)', B.tiempos.total], ['Pausa autorizada', B.tiempos.pausado], ['Tiempo activo registrado', B.tiempos.activo]]) + '<p class="sub">El tiempo activo registrado es una estimación con los eventos de la app (total − pausas autorizadas), no una medición del trabajo efectivo.</p>';
+/* A. Producción y carga de trabajo */
+function vIndProduccion(d) {
+  var B = d.productividad, R = d.revisiones, C = d.informes, h = '';
+  // 1. lotes por analista
+  var an = d.carga.filter(function (p) { return p.lotes > 0; }).sort(function (a, b) { return b.lotes - a.lotes || a.nombre.localeCompare(b.nombre, 'es'); });
+  var g1 = gxBarras(an.map(function (p) { return { k: p.nombre, nombre: p.nombre, segs: [{ v: p.finalizados }, { v: Math.max(0, p.lotes - p.finalizados) }], txt: p.lotes + ' <small>(' + p.finalizados + ' fin.)</small>', tip: p.nombre + ': ' + p.lotes + ' lotes gestionados, ' + p.finalizados + ' finalizados en el período, ' + p.activos + ' activos' }; }), { tipo: 'analista', ley: ['Finalizados en el período', 'Resto de los lotes'] });
+  // 2. revisiones por persona (revisores y jefatura)
+  var pr = R.personas.filter(function (p) { return p.asignadas > 0 || p.completadas > 0; });
+  var g2 = gxBarras(pr.map(function (p) { return { k: p.nombre, nombre: p.nombre, sub: p.roles, segs: [{ v: p.completadas }, { v: p.pendientes }], txt: p.completadas + ' / ' + p.asignadas, tip: p.nombre + ' (' + p.roles + '): ' + p.asignadas + ' asignadas, ' + p.completadas + ' completadas, ' + p.pendientes + ' pendientes, ' + p.devueltas + ' devueltas' }; }), { tipo: 'persona', ley: ['Completadas', 'Pendientes'] });
+  // 3. tendencia de tiempos
+  var porMes = {}; (d.grupos || []).filter(function (g) { return g.calculable; }).forEach(function (g) { var m = g.finalizado.slice(0, 7); (porMes[m] = porMes[m] || []).push(g); });
+  var meses = Object.keys(porMes).sort();
+  var g3 = gxLinea(meses.map(function (m) { var gg = porMes[m], v = mediaDe(gg.map(function (g) { return g.h_lote; }).filter(function (x) { return typeof x === 'number'; })); return { x: MESES[+m.slice(5, 7) - 1] + ' ' + m.slice(2, 4), y: v, n: gg.length, tip: MESES[+m.slice(5, 7) - 1] + ' ' + m.slice(0, 4) + ': ' + (v === null ? 'sin datos' : nf(Math.round(v * 10) / 10) + ' h por lote') + ' · ' + gg.length + (gg.length === 1 ? ' grupo' : ' grupos') }; }), { aria: 'Tendencia mensual de horas por lote' });
+  h += '<div class="gx-grid"><section class="ind-card"><h3>Lotes por analista</h3>' + g1 + '</section><section class="ind-card"><h3>Revisiones por persona <small class="sub">(revisores y jefatura)</small></h3>' + g2 + '<p class="sub">Completadas / asignadas en el período. Se atribuye a quien tomó o resolvió la revisión.</p></section></div>';
+  h += '<section class="ind-card"><h3>Tendencia de tiempos de análisis <small class="sub">(horas por lote, promedio mensual de los grupos cerrados)</small></h3>' + g3 + '<p class="sub">' + (meses.length ? 'Se promedian ' + meses.reduce(function (s, m) { return s + porMes[m].length; }, 0) + ' grupos cerrados; cada punto indica su cantidad de grupos al pasar el cursor.' : '') + ' El detalle por producto, analista y cantidad de lotes está en «Tiempos de análisis e informes».</p></section>';
+  h += indDetalleSel(d, 'prod');
+  /* lotes y categorías */
+  h += '<h2 class="sec-t">' + ic('lote') + ' Lotes del período</h2><div class="ind-dos"><section class="ind-card"><h3>Por área y categoría operativa</h3><dl class="ficha"><dt>Lotes gestionados</dt><dd>' + B.total + ' <span class="sub">(' + B.registros + ' registros de ensayo)</span></dd><dt>Productos Terminados (PT)</dt><dd>' + B.porArea.PT + '</dd><dt>Materias Primas (MP)</dt><dd>' + B.porArea.MP + '</dd><dt>Asignados / iniciados / finalizados</dt><dd>' + B.asignados + ' / ' + B.iniciados + ' / ' + B.finalizados + '</dd></dl>' + barrasLista(B.porCategoria, 'n') + (B.multicategoria ? '<p class="sub">' + B.multicategoria + ' lotes con más de una categoría.</p>' : '') + '</section>' +
+    '<section class="ind-card"><h3>Informes devueltos con observaciones</h3><div class="gx-pct">' + (R.pct === null ? '<span class="sub">Sin datos</span>' : nf(R.pct) + '<small> %</small>') + '</div><p class="sub">' + R.devueltos + ' informes únicos con al menos una devolución ÷ ' + R.unicos + ' informes únicos con una decisión de revisión entre el ' + esc(fdia(d.filtros.desde)) + ' y el ' + esc(fdia(d.filtros.hasta)) + '. Un informe devuelto y revisado de nuevo cuenta una sola vez.</p></section></div>';
+  /* tabla de revisiones por persona */
+  h += '<h3 class="seccion">Revisiones por persona</h3>' + (R.personas.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Persona</th><th>Rol</th><th class="num">Asignadas</th><th class="num">Completadas</th><th class="num">Pendientes</th><th class="num">Devueltas</th><th class="num">Ciclos adicionales</th></tr></thead><tbody>' + R.personas.map(function (p) { return '<tr><td>' + esc(p.nombre) + '</td><td class="sub">' + esc(p.roles || '—') + '</td><td class="num">' + p.asignadas + '</td><td class="num">' + p.completadas + '</td><td class="num">' + p.pendientes + '</td><td class="num">' + p.devueltas + '</td><td class="num">' + p.ciclos_extra + '</td></tr>'; }).join('') + '</tbody></table></div><p class="sub">' + esc(R.nota) + ' Informes sin tomar por nadie: ' + R.sin_tomar + '.</p>' : '<div class="vacio">Sin revisores en el período.</div>');
+  /* lotes recientes */
+  h += '<h3 class="seccion">Lotes recientes <span class="cuenta">' + B.total + '</span></h3>' + (d.lotes.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Documento</th><th>Producto</th><th>Lote</th><th>Categoría</th><th>Responsable</th><th>Grupo</th><th>Estado</th></tr></thead><tbody>' + d.lotes.map(function (l) { return '<tr><td class="mono">' + esc(l.documento || '—') + '</td><td>' + esc(l.producto) + (l.registros > 1 ? '<div class="sub">' + l.registros + ' ensayos: ' + esc(l.ensayos.join(', ')) + '</div>' : '') + '</td><td>' + esc(l.lote) + '</td><td>' + esc(l.categoria || '—') + '</td><td>' + esc(l.responsable) + (l.participantes.length ? '<div class="sub">antes: ' + esc(l.participantes.join(', ')) + '</div>' : '') + '</td><td class="mono">' + esc(l.grupo || '—') + '</td><td>' + esc(l.estado_txt) + '</td></tr>'; }).join('') + '</tbody></table></div>' + (B.total > d.lotes.length ? '<p class="sub">Se muestran los ' + d.lotes.length + ' más recientes. El Excel incluye todos.</p>' : '') : '<div class="vacio">Sin lotes en el período con estos filtros.</div>');
+  /* detalle adicional (conserva la información de la versión anterior sin sobrecargar la pantalla) */
+  h += '<details class="ind-card ind-mas no-imp"><summary>Gestión operativa, esperas y carga de trabajo (detalle adicional)</summary>' + indDetalleAnterior(d) + '</details>';
+  return h;
+}
 
-  /* C. Informes */
-  h += '<h2 class="sec-t">' + ic('informe') + ' C. Informes y revisiones</h2>';
-  h += '<div class="kpis ind-kpis">' + kpiAv('Enviados a revisión', String(C.enviados), 'en el período') + kpiAv('Entregados', String(C.entregados), 'ciclos promedio ' + (C.ciclos.promedio === null ? '—' : nf(C.ciclos.promedio))) + kpiAv('Devueltos', String(C.devueltos), C.pct_devueltos === null ? 'sin revisiones resueltas' : nf(C.pct_devueltos) + ' % de los revisados') +
-    kpiAv('Situación actual', String(C.actual.pendientes + C.actual.enRevision + C.actual.subsanaciones), C.actual.pendientes + ' pendientes · ' + C.actual.enRevision + ' en revisión · ' + C.actual.subsanaciones + ' subsanaciones · ' + C.actual.devueltos + ' devueltos') + '</div>';
-  h += statsTabla([['Finalización del análisis → envío', C.tiempos.fin_a_envio], ['Envío → toma por revisor', C.tiempos.envio_a_toma], ['Revisión (toma → resolución)', C.tiempos.revision], ['Devolución → subsanación', C.tiempos.subsanacion], ['Total hasta entrega', C.tiempos.total]]);
+/* B. Tiempos de análisis e informes */
+function vIndTiempos(d) {
+  var B = d.productividad, C = d.informes, h = '';
+  h += '<h2 class="sec-t">' + ic('clock') + ' Tiempos del análisis y del informe</h2>';
+  h += statsTabla([['Análisis (inicio → finalización del lote)', B.tiempos.total], ['Elaboración del informe (fin del análisis → envío a revisión)', C.tiempos.fin_a_envio], ['Espera de revisión (envío → toma por revisor o jefatura)', C.tiempos.envio_a_toma], ['Revisión (toma → decisión: entrega o devolución)', C.tiempos.revision], ['Total del proceso (asignación → entrega final)', C.tiempos.total_asig]]) +
+    '<p class="sub">Subsanación tras una devolución (se informa aparte, no se suma a la revisión): ' + horasTxt(C.tiempos.subsanacion.promedio) + ' promedio · ' + C.tiempos.subsanacion.n + ' casos. Las fechas ausentes se muestran como «No calculable», nunca como cero.</p>';
+  h += '<details class="ind-card"><summary><b>Registros individuales de informes</b> <span class="cuenta">' + (C.registros_n || 0) + '</span></summary>' + (d.informes_reg.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Documento</th><th>Producto</th><th>Lote</th><th>Estado</th><th>Revisores</th><th class="num">Elaboración</th><th class="num">Espera</th><th class="num">Revisión</th><th class="num">Total</th><th class="num">Dev.</th><th class="num">Ciclos</th></tr></thead><tbody>' + d.informes_reg.map(function (x) { return '<tr><td class="mono">' + esc(x.documento || '—') + '</td><td>' + esc(x.producto) + '</td><td>' + esc(x.lote) + '</td><td>' + esc(x.estado) + '</td><td>' + esc(x.revisores || '—') + '</td><td class="num">' + horasTxt(x.elaboracion_h) + '</td><td class="num">' + horasTxt(x.espera_h) + '</td><td class="num">' + horasTxt(x.revision_h) + '</td><td class="num">' + horasTxt(x.total_h) + '</td><td class="num">' + x.devoluciones + '</td><td class="num">' + x.ciclos + '</td></tr>'; }).join('') + '</tbody></table></div>' + (C.registros_n > d.informes_reg.length ? '<p class="sub">Se muestran los ' + d.informes_reg.length + ' más recientes. El Excel incluye todos.</p>' : '') : '<div class="vacio">Sin informes en el período.</div>') + '</details>';
+  h += '<h2 class="sec-t">' + ic('lote') + ' Tiempo por producto, analista y cantidad de lotes</h2>' + vIndComparador(d) + indDetalleSel(d, 'tiempos');
+  return h;
+}
 
+/* C. Ocupancia de equipos */
+function vIndEquipos(d) {
+  var A = d.ocupancia, f = indAv(), h = '';
+  h += '<p class="sub" style="margin:0 0 10px">' + esc(A.base.texto) + (A.fuera_sin_datos.length ? ' Sin registros suficientes de fuera de servicio: ' + esc(A.fuera_sin_datos.join(', ')) + '.' : '') + ' La ocupancia de un equipo no es el tiempo activo de trabajo de la analista.</p>';
+  h += '<div class="kpis ind-kpis">' + kpiAv('HPLC · horas de ocupancia', nfx(A.HPLC.horas, 'h'), A.HPLC.sesiones + (A.HPLC.sesiones === 1 ? ' sesión · ' : ' sesiones · ') + (A.HPLC.pct === null ? 'utilización sin datos' : nf(A.HPLC.pct) + ' % de utilización')) +
+    kpiAv('Disolutores · horas de ocupancia', nfx(A.DISOLUTOR.horas, 'h'), A.DISOLUTOR.sesiones + (A.DISOLUTOR.sesiones === 1 ? ' sesión · ' : ' sesiones · ') + (A.DISOLUTOR.pct === null ? 'utilización sin datos' : nf(A.DISOLUTOR.pct) + ' % de utilización')) + '</div>';
+  var barras = function (tipo) {
+    return gxBarras(A.equipos.filter(function (e) { return e.tipo === tipo; }).map(function (e) { return { k: e.codigo, nombre: e.codigo, segs: [{ v: e.horas }], txt: nf(e.horas) + ' h <small>' + (e.pct === null ? 'sin %' : nf(e.pct) + ' %') + '</small>', tip: e.codigo + ': ' + nf(e.horas) + ' h de ocupancia · ' + e.sesiones + ' sesiones · ' + (e.pct === null ? 'utilización sin datos' : nf(e.pct) + ' % de ' + nf(e.disponibles_h) + ' h disponibles') }; }), { tipo: 'equipo' });
+  };
+  h += '<div class="gx-grid"><section class="ind-card"><h3 class="h-ico">' + ic('hplc') + 'Horas por HPLC</h3>' + barras('HPLC') + '</section><section class="ind-card"><h3 class="h-ico">' + ic('dis') + 'Horas por disolutor</h3>' + barras('DISOLUTOR') + '</section></div>';
+  h += indDetalleSel(d, 'equipos');
+  h += '<h3 class="seccion">Equipos</h3><div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Equipo</th><th>Tipo</th><th class="num">Horas</th><th class="num">Utilización</th><th class="num">Sesiones</th><th class="num">Prom. sesión</th><th class="num">Fuera de servicio</th></tr></thead><tbody>' +
+    A.equipos.map(function (e) { return '<tr><td class="mono">' + esc(e.codigo) + '</td><td>' + (e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor') + '</td><td class="num">' + nf(e.horas) + '</td><td class="num">' + (e.pct === null ? '<span class="sub">Sin datos</span>' : nf(e.pct) + ' %') + '</td><td class="num">' + e.sesiones + '</td><td class="num">' + horasTxt(e.promedio_sesion_h) + '</td><td class="num">' + (e.fuera_sin_datos ? '<span class="sub">Sin datos</span>' : horasTxt(e.fuera_h)) + '</td></tr>'; }).join('') + '</tbody></table></div>';
+  var ses = (A.sesiones || []).filter(function (x) { return (!S.indEqSel || x.equipo === S.indEqSel) && (!S.indEqTipo || x.tipo === S.indEqTipo); });
+  h += '<h3 class="seccion">Sesiones <span class="cuenta">' + ses.length + '</span></h3><div class="ind-fgrid gx-cf no-imp"><label>Equipo<select data-a="indEqSet" data-c="indEqSel"><option value="">Todos</option>' + A.equipos.map(function (e) { return '<option' + (S.indEqSel === e.codigo ? ' selected' : '') + '>' + esc(e.codigo) + '</option>'; }).join('') + '</select></label><label>Tipo<select data-a="indEqSet" data-c="indEqTipo"><option value="">Todos</option><option' + (S.indEqTipo === 'HPLC' ? ' selected' : '') + '>HPLC</option><option' + (S.indEqTipo === 'Disolutor' ? ' selected' : '') + '>Disolutor</option></select></label></div>' +
+    indSesionesTabla(ses.slice(0, 50)) + (ses.length > 50 ? '<p class="sub">Se muestran las 50 más recientes de ' + ses.length + '. El Excel incluye todas.</p>' : '') + '<p class="sub">Una sesión con varios lotes aparece una sola vez.</p>';
+  return h;
+}
+
+/** Detalle de la versión anterior (esperas y antigüedad, carga de trabajo, gestión operativa): se conserva, plegado, dentro de «Producción». */
+function indDetalleAnterior(d) {
+  var D = d.esperas, F = d.gestion, h = '';
   /* D. Esperas */
   var um = S.indAvUmbral || 0;
   h += '<h2 class="sec-t">' + ic('clock') + ' D. Tiempos de espera y antigüedad de pendientes</h2>';
@@ -4749,11 +4947,12 @@ function vIndAvanzado(d) {
     '<section class="ind-card"><h3>Distribución histórica de Semanero <span class="sub">(semanas publicadas hasta el ' + esc(fdia(d.filtros.hasta)) + ')</span></h3>' + (F.semanero.personas.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Analista</th><th class="num">Veces</th><th class="num">En turno día</th><th class="num">En turno noche</th><th>Última</th></tr></thead><tbody>' + F.semanero.personas.map(function (p) { return '<tr><td>' + esc(p.nombre) + '</td><td class="num">' + p.veces + '</td><td class="num">' + p.dia + '</td><td class="num">' + p.noche + '</td><td>' + esc(fdia(p.ultima)) + '</td></tr>'; }).join('') + '</tbody></table></div>' : '<div class="vacio">Aún no hay semanas publicadas con Semanero.</div>') + '</section></div>';
   h += '<div class="ind-dos"><section class="ind-card"><h3>Incidencias por equipo</h3>' + barrasLista(F.incidencias.porEquipo, 'n') + '<p class="sub">' + F.incidencias.registradas + ' registradas · ' + F.incidencias.abiertas + ' abiertas</p></section><section class="ind-card"><h3>Cumplimiento semanal</h3>' + (F.semanas.length ? F.semanas.map(function (s) { return '<div class="ind-fila"><span class="ind-n">' + esc(fdia(s.semana)) + '</span>' + barraInd(s.pct, s.pct + '%') + '<span class="ind-v">' + s.realizadas + '/' + s.total + ' · ' + s.pct + ' %</span></div>'; }).join('') : '<div class="vacio">Sin semanas evaluadas.</div>') + '</section></div>';
 
-  /* Detalle de lotes */
-  h += '<h2 class="sec-t">' + ic('list') + ' Lotes del período <span class="cuenta">' + B.total + '</span></h2>' + (d.lotes.length ? '<div class="tabla-wrap"><table class="tabla-an"><thead><tr><th>Documento</th><th>Producto</th><th>Lote</th><th>Categoría</th><th>Responsable</th><th>Estado</th><th class="num">Espera</th><th class="num">Total</th><th class="num">Pausado</th><th class="num">Activo</th></tr></thead><tbody>' +
-    d.lotes.map(function (l) { return '<tr><td class="mono">' + esc(l.documento || '—') + '</td><td>' + esc(l.producto) + (l.registros > 1 ? '<div class="sub">' + l.registros + ' ensayos: ' + esc(l.ensayos.join(', ')) + '</div>' : '') + '</td><td>' + esc(l.lote) + '</td><td>' + esc(l.categoria || '—') + '</td><td>' + esc(l.responsable) + (l.participantes.length ? '<div class="sub">antes: ' + esc(l.participantes.join(', ')) + '</div>' : '') + '</td><td>' + esc(l.estado_txt) + '</td><td class="num">' + horasTxt(l.espera_h) + '</td><td class="num">' + (l.total_h !== null ? horasTxt(l.total_h) : '<span class="sub">' + (l.estado === 'PENDIENTE' ? 'No iniciado' : 'En curso') + '</span>') + '</td><td class="num">' + horasTxt(l.pausado_h) + '</td><td class="num">' + horasTxt(l.activo_h) + '</td></tr>'; }).join('') + '</tbody></table></div>' + (B.total > d.lotes.length ? '<p class="sub">Se muestran los ' + d.lotes.length + ' más recientes. El Excel incluye todos.</p>' : '') : '<div class="vacio">Sin lotes en el período con estos filtros.</div>');
   return h;
 }
+ACC.indTab = function (ds) { S.indTab = ds.v; pintar(); };
+ACC.indSel = function (ds) { var s = S.indSel; S.indSel = !ds.t || (s && s.t === ds.t && s.k === ds.k) ? null : { t: ds.t, k: ds.k }; pintar(); };
+ACC.indCmpSet = function (ds, el) { var c = indCmp(); c[ds.c] = el.type === 'checkbox' ? el.checked : el.value; if (ds.c === 'rangos') { c.rangos = el.value.trim() || '1-2, 3-4, 5+'; c.rango = ''; } pintar(); };
+ACC.indEqSet = function (ds, el) { S[ds.c] = el.value; pintar(); };
 ACC.indAvPre = function (ds, el) { var fm = el.form; if (!fm) return; Array.prototype.forEach.call(fm.querySelectorAll('[data-pre]'), function (n) { n.hidden = n.dataset.pre !== el.value; }); };
 ACC.indAvLimpiar = function () { S.indAv = { pre: '30' }; S.indAvAbierto = false; S.datos = null; pintar(); cargar(); };
 ACC.indAvUmbral = function (ds) { S.indAvUmbral = Number(ds.v) || 0; pintar(); };
@@ -4761,7 +4960,7 @@ FORM.indAvFiltros = function (d) {
   var f = { pre: d.pre || '30' };
   if (f.pre === 'otro') { if (!d.desde || !d.hasta) throw new Error('Indica desde y hasta.'); if (d.desde > d.hasta) throw new Error('La fecha inicial no puede ser posterior a la final.'); f.desde = d.desde; f.hasta = d.hasta; }
   if (f.pre === 'mesSel') f.mes = d.mes; if (f.pre === 'anio') f.anio = d.anio;
-  ['area', 'analista', 'revisor', 'producto', 'lote', 'categoria', 'equipo', 'estado'].forEach(function (k) { if (d[k]) f[k] = String(d[k]).trim(); });
+  IND_CLAVES.forEach(function (k) { if (d[k]) f[k] = String(d[k]).trim(); });
   S.indAv = f; S.indAvAbierto = false; S.datos = null; pintar(); cargar(); return 'silencio';
 };
 ACC.indExportar = function (ds, el) {
@@ -4776,133 +4975,182 @@ ACC.indExportar = function (ds, el) {
   }).catch(function (e) { toast(e.message, 'error'); }).then(function () { if (el) el.disabled = false; });
 };
 
-/** Libro de Excel: 9 hojas pedidas + detalle por ensayo + pausas y transferencias. */
+/** Libro de Excel v0.11: exactamente cuatro hojas (Resumen, Lotes, Informes, Equipos), con tablas estructuradas, fórmulas vinculadas y gráficos nativos. */
 function excelIndicadores(d) {
-  var ST = XLSXW.ST, C = XLSXW.col;
+  var ST = XLSXW.ST, rg = parseRangos(indCmp().rangos);
   var T = function (v, s) { return v === null || v === undefined || v === '' ? null : { v: String(v), t: 's', s: s === undefined ? ST.texto : s }; };
   var N = function (v, s) { return { v: v === null || v === undefined || v === '' || isNaN(v) ? null : Number(v), t: 'n', s: s === undefined ? ST.entero : s }; };
   var Hh = function (v, sinTxt) { return v === null || v === undefined || isNaN(v) ? { v: sinTxt || 'Sin datos', t: 's', s: ST.falta } : { v: Math.round(v * 100) / 100, t: 'n', s: ST.horas }; };
   var F = function (v, txt) { return v ? { v: v, t: 'd', s: ST.fechaHora } : { v: txt || 'Sin datos', t: 's', s: ST.falta }; };
-  var Fd = function (v) { return v ? { v: v + (v.length === 10 ? 'T12:00:00' : ''), t: 'd', s: ST.fecha } : { v: 'Sin datos', t: 's', s: ST.falta }; };
-  var Ftx = function (v) { return v ? (String(v).length === 10 ? Fd(v) : F(v)) : null; };
+  var Fd = function (v) { return v ? { v: v + 'T12:00:00', t: 'd', s: ST.fecha } : { v: 'Sin datos', t: 's', s: ST.falta }; };
+  var num = function (a) { return a.filter(function (x) { return typeof x === 'number' && !isNaN(x); }); };
+  var suma = function (a) { return num(a).reduce(function (s, x) { return s + x; }, 0); };
+  var prom = function (a) { var v = num(a); return v.length ? suma(v) / v.length : null; };
+  var medi = function (a) { var v = num(a).sort(function (x, y) { return x - y; }), m = v.length >> 1; return v.length ? (v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2) : null; };
+  var r1 = function (x) { return x === null ? null : Math.round(x * 100) / 100; };
   var gen = new Date(d.generado || Date.now());
   var cab = 'Período ' + fdia(d.filtros.desde) + ' al ' + fdia(d.filtros.hasta) + ' (' + d.filtros.dias + ' días) · Generado el ' + gen.toLocaleString('es-CL', { dateStyle: 'short', timeStyle: 'short' }) + ' · ' + d.filtros.texto;
-  var hojas = [];
+  var G = {}; (d.grupos || []).forEach(function (g) { G[g.id] = g; });
+  var uniq = function (a) { var m = {}; return a.filter(function (x) { return x && !m[x] && (m[x] = 1); }); };
+  var partes = function (t) { return String(t || '').split('; ').filter(Boolean); };
+
+  /* ---------- Hoja 2: LOTES (una fila por lote único) ---------- */
+  var lotes = d.lotes.slice().sort(function (a, b) { return String(b.asignado).localeCompare(String(a.asignado)) || String(a.grupo).localeCompare(String(b.grupo)) || String(a.lote).localeCompare(String(b.lote), 'es', { numeric: true }); });
+  var colsL = ['Área', 'Documento ELP/EMP', 'Producto', 'Número de lote', 'Categoría operativa', 'ID de grupo de asignación', 'Origen del grupo', 'Cantidad de lotes del grupo', 'Rango de lotes del grupo', 'Analista responsable', 'Participantes históricos', 'Fecha de asignación', 'Fecha de inicio', 'Fecha de finalización', 'Estado',
+    'Tiempo de análisis del lote (h)', 'Tiempo total del grupo (h) · métrica de grupo', 'Tiempo pausado del grupo (h) · métrica de grupo', 'Tiempo activo registrado del grupo (h) · métrica de grupo', 'Horas promedio por lote del grupo (h) · orientativo', 'Fila principal del grupo (1 = sí)', 'Otros grupos del lote'];
+  var LF = lotes.map(function (l) {
+    var g = G[l.grupo], sinG = 'Sin datos', pend = l.estado === 'PENDIENTE';
+    var enC = function (v) { return Hh(v, g ? (g.calculable ? 'Sin datos' : 'No calculable') : sinG); };
+    return [T(l.area), T(l.documento || 'Sin documento (registro anterior)', l.documento ? ST.texto : ST.falta), T(l.producto), T(l.lote), T(l.categoria || 'Sin categoría', l.categoria ? ST.texto : ST.falta), T(l.grupo || 'Sin grupo', l.grupo ? ST.texto : ST.falta), T(g ? g.origen : 'Sin datos'), N(g ? g.n_lotes : null), T(g ? rangoDe(g.n_lotes, rg) : 'Sin datos'),
+      T(l.responsable.split(', ').join('; ')), T(l.participantes.join('; ') || '—'), F(l.asignado), F(l.iniciado, pend ? 'No iniciado' : 'Sin datos'), F(l.finalizado, l.estado === 'FINALIZADO' ? 'Sin datos' : 'En curso'), T(l.estado_txt),
+      Hh(l.total_h, l.estado === 'FINALIZADO' ? 'Sin datos' : (pend ? 'No iniciado' : 'No calculable (en curso)')), enC(g && g.total_h), enC(g && g.pausado_h), enC(g && g.activo_h), enC(g && g.h_lote), N(l.grupo_principal ? 1 : 0), T(l.grupos_otros && l.grupos_otros.length ? l.grupos_otros.join('; ') : '—')];
+  });
+  var nL = Math.max(1, LF.length), L1 = 4, L2 = 3 + nL;
+  var Lr = function (c) { return 'Lotes!$' + c + '$' + L1 + ':$' + c + '$' + L2; };
+
+  /* ---------- Hoja 3: INFORMES (una fila por informe único) ---------- */
+  var infs = (d.detalle && d.detalle.informes) || [];
+  var colsI = ['Documento ELP/EMP', 'Área', 'Producto', 'Lote', 'Analista responsable', 'Revisor o integrante de jefatura (último)', 'Revisores del informe (todos los ciclos)', 'Tomada por (período)', 'Decisión de (período)', 'Devuelta por (período)', 'Pendiente de (actual)', 'Personas con revisión asignada', 'Estado del informe',
+    'Fecha de asignación del análisis', 'Fecha de finalización del análisis', 'Fecha de envío a revisión', 'Fecha de toma de revisión', 'Fecha de decisión', 'Fecha de entrega final', 'Tiempo de elaboración del informe (h)', 'Tiempo de espera de revisión (h)', 'Tiempo de revisión (h)', 'Tiempo total desde asignación hasta entrega (h)',
+    'Cantidad de devoluciones', 'Ciclos de revisión', 'Decisión en el período (1 = sí)', 'Devuelto en el período (1 = sí)'];
+  var asignadaA = function (x) { return uniq(partes(x.tomada_por).concat(partes(x.decidida_por), partes(x.pendiente_de))); };
+  var IF = infs.map(function (x) {
+    return [T(x.documento || 'Sin documento', x.documento ? ST.texto : ST.falta), T(x.area), T(x.producto), T(x.lote), T(x.analista), T(x.revisor || 'Sin revisor', x.revisor ? ST.texto : ST.falta), T(x.revisores || '—'), T(x.tomada_por || '—'), T(x.decidida_por || '—'), T(x.devuelta_por || '—'), T(x.pendiente_de || '—'), T(asignadaA(x).join('; ') || '—'), T(x.estado),
+      F(x.asignado), F(x.finalizado), F(x.enviado), F(x.tomado, 'Sin tomar'), F(x.decision, 'Sin decisión'), F(x.entregado, 'Sin entregar'), Hh(x.elaboracion_h, 'No calculable'), Hh(x.espera_h, 'No calculable'), Hh(x.revision_h, 'No calculable'), Hh(x.total_h, 'No calculable'),
+      N(x.devoluciones), N(x.ciclos), N(x.decidido_periodo), N(x.devuelto_periodo)];
+  });
+  var nI = Math.max(1, IF.length), I1 = 4, I2 = 3 + nI;
+  var Ir = function (c) { return 'Informes!$' + c + '$' + I1 + ':$' + c + '$' + I2; };
+
+  /* ---------- Hoja 4: EQUIPOS (una fila por sesión de ocupancia) ---------- */
+  var ses = (d.ocupancia.sesiones || []).slice().sort(function (a, b) { return String(a.inicio).localeCompare(String(b.inicio)); });
+  var hora = function (iso) { var t = new Date(iso); return isNaN(t) ? null : (t.getHours() * 60 + t.getMinutes()) / 1440; };
+  var colsE = ['Tipo de equipo', 'Identificador del equipo', 'Analista', 'Área', 'Producto', 'Documento ELP/EMP', 'Lote o lotes asociados', 'Fecha', 'Hora de inicio', 'Hora de término', 'Duración de ocupancia (h)', 'Horas dentro del período (h)', 'Estado', 'Ensayo o tipo de disolución'];
+  var EF = ses.map(function (x) {
+    var hi = hora(x.inicio), hf = x.fin ? hora(x.fin) : null;
+    return [T(x.tipo), T(x.equipo), T(x.analista), T(x.area), T(x.producto), T(x.documento || '—'), T(x.lotes || '—'), Fd(aLocal(new Date(x.inicio)).slice(0, 10)), hi === null ? { v: 'Sin datos', t: 's', s: ST.falta } : { v: hi, t: 'n', s: ST.hora }, hf === null ? { v: 'En uso', t: 's', s: ST.falta } : { v: hf, t: 'n', s: ST.hora },
+      Hh(x.duracion_h, 'En uso'), Hh(x.horas_periodo), T(x.estado), T(x.ensayo || '—')];
+  });
+  var nE = Math.max(1, EF.length), E1 = 4, E2 = 3 + nE;
+  var Er = function (c) { return 'Equipos!$' + c + '$' + E1 + ':$' + c + '$' + E2; };
+
+  /* ---------- Hoja 1: RESUMEN (fórmulas vinculadas a las hojas de detalle + gráficos nativos) ---------- */
+  var R = [[T('Lab CC · Indicadores de gestión', ST.titulo)], [T((d.laboratorio || 'Laboratorio de Control de Calidad') + ' · ' + cab, ST.nota)],
+    [T('Herramienta de seguimiento operativo. Cifras calculadas con registros reales de la app y fórmulas vinculadas a las hojas Lotes, Informes y Equipos; «Sin datos» / «No calculable» indica información insuficiente (no es cero). No contiene resultados analíticos.', ST.nota)], []];
+  var tablas = [], graficos = [];
+  var fila = function () { return R.length + 1; }; // fila (1-based) donde se agregará la próxima
+  var cel = function (f, v, s) { return { t: 'f', f: f, v: typeof v === 'number' && !isNaN(v) ? v : undefined, s: s }; };
+  /* --- indicadores consolidados --- */
+  var pt = lotes.filter(function (l) { return l.area === 'PT'; }).length, mp = lotes.filter(function (l) { return l.area === 'MP'; }).length, fin = lotes.filter(function (l) { return l.estado === 'FINALIZADO'; }).length;
+  var nGr = lotes.filter(function (l) { return l.grupo_principal; }).length, dec = suma(infs.map(function (x) { return x.decidido_periodo; })), dev = suma(infs.map(function (x) { return x.devuelto_periodo; }));
+  var entr = infs.filter(function (x) { return x.estado_cod === 'ENTREGADO'; }).length;
+  var tL = lotes.map(function (l) { return l.total_h; }), eqH = function (t) { return suma(ses.filter(function (x) { return x.tipo === t; }).map(function (x) { return x.horas_periodo; })); }, eqN = function (t) { return ses.filter(function (x) { return x.tipo === t; }).length; };
+  var kp = [];
+  var k = function (nom, f, v, u, s, det) { kp.push([T(nom), cel(f, v, s), T(u), T(det || '')]); };
+  var E = ST.entero, Hs = ST.horas;
+  k('Lotes únicos gestionados', 'COUNTA(' + Lr('D') + ')', lotes.length, 'lotes', E, 'Un lote cuenta una sola vez aunque tenga varios ensayos');
+  k('Lotes de Productos Terminados (PT)', 'COUNTIF(' + Lr('A') + ',"PT")', pt, 'lotes', E);
+  k('Lotes de Materias Primas (MP)', 'COUNTIF(' + Lr('A') + ',"MP")', mp, 'lotes', E);
+  k('Lotes finalizados (estado actual)', 'COUNTIF(' + Lr('O') + ',"Finalizado")', fin, 'lotes', E);
+  k('Lotes pendientes (sin iniciar, en proceso o informando)', 'B6-B9', lotes.length - fin, 'lotes', E, 'Total de lotes − finalizados');
+  k('Grupos de asignación', 'SUM(' + Lr('U') + ')', nGr, 'grupos', E, 'Cuenta la fila principal de cada grupo: las métricas de grupo no se suman por lote');
+  k('Informes únicos en el período', 'COUNTA(' + Ir('D') + ')', infs.length, 'informes', E);
+  k('Informes pendientes (no entregados)', 'B12-COUNTIF(' + Ir('M') + ',"Entregado")', infs.length - entr, 'informes', E);
+  k('Revisiones completadas (informes únicos con decisión en el período)', 'SUM(' + Ir('Z') + ')', dec, 'informes', E, 'Denominador del porcentaje de devueltos');
+  k('Informes devueltos con observaciones (únicos)', 'SUM(' + Ir('AA') + ')', dev, 'informes', E, 'Al menos una devolución en el período');
+  k('Porcentaje de informes devueltos', 'IF(B14=0,"No calculable",B15/B14*100)', dec ? dev / dec * 100 : null, '%', ST.pct, 'Devueltos ÷ informes con decisión en el período');
+  k('Tiempo de análisis del lote · promedio', 'IFERROR(AVERAGE(' + Lr('P') + '),"No calculable")', prom(tL), 'h', Hs, 'Inicio → finalización del lote (no se suman lotes simultáneos)');
+  k('Tiempo de análisis del lote · mediana', 'IFERROR(MEDIAN(' + Lr('P') + '),"No calculable")', medi(tL), 'h', Hs);
+  [['Elaboración del informe', 'T', 'elaboracion_h'], ['Espera de revisión', 'U', 'espera_h'], ['Revisión', 'V', 'revision_h'], ['Total asignación → entrega', 'W', 'total_h']].forEach(function (t) {
+    var v = infs.map(function (x) { return x[t[2]]; });
+    k(t[0] + ' · promedio', 'IFERROR(AVERAGE(' + Ir(t[1]) + '),"No calculable")', prom(v), 'h', Hs); k(t[0] + ' · mediana', 'IFERROR(MEDIAN(' + Ir(t[1]) + '),"No calculable")', medi(v), 'h', Hs);
+  });
+  k('Horas de ocupancia HPLC', 'SUMIFS(' + Er('L') + ',' + Er('A') + ',"HPLC")', eqH('HPLC'), 'h', Hs, 'Horas dentro del período'); k('Sesiones HPLC', 'COUNTIF(' + Er('A') + ',"HPLC")', eqN('HPLC'), 'sesiones', E);
+  k('Horas de ocupancia disolutores', 'SUMIFS(' + Er('L') + ',' + Er('A') + ',"Disolutor")', eqH('Disolutor'), 'h', Hs); k('Sesiones disolutores', 'COUNTIF(' + Er('A') + ',"Disolutor")', eqN('Disolutor'), 'sesiones', E);
+  var cabR = ['Indicador', 'Valor', 'Unidad', 'Cálculo o aclaración'];
+  R.push(cabR.map(function (c) { return T(c, ST.cab); }));
+  if (fila() !== 6) throw new Error('Desfase en el resumen: ' + fila()); // las fórmulas B6… dependen de que la tabla empiece en la fila 6
+  kp.forEach(function (x) { R.push(x); });
+  tablas.push({ nombre: 'TablaResumen', desde: [4, 0], cols: cabR, filas: kp.length });
+  /* --- lotes por analista --- */
+  var resp = {}; lotes.forEach(function (l) { l.responsable.split(', ').forEach(function (n) { resp[n] = resp[n] || { n: 0, f: 0 }; resp[n].n++; if (l.estado === 'FINALIZADO') resp[n].f++; }); });
+  var nomA = Object.keys(resp).sort(function (a, b) { return resp[b].n - resp[a].n || a.localeCompare(b, 'es'); });
+  var busca = function (rango, celdaNom) { return 'ISNUMBER(SEARCH("; "&' + celdaNom + '&";","; "&' + rango + '&";"))'; };
+  R.push([]); R.push([T('Lotes por analista', ST.subtitulo)]);
+  var cabA = ['Analista', 'Lotes', 'Finalizados', 'Pendientes'], aIni = fila() + 1; // fila de datos inicial (1-based)
+  R.push(cabA.map(function (c) { return T(c, ST.cab); }));
+  nomA.forEach(function (n, i) { var r = aIni + i; R.push([T(n), cel('SUMPRODUCT(--' + busca(Lr('J'), 'A' + r) + ')', resp[n].n, E), cel('SUMPRODUCT(--' + busca(Lr('J'), 'A' + r) + ',--(' + Lr('O') + '="Finalizado"))', resp[n].f, E), cel('B' + r + '-C' + r, resp[n].n - resp[n].f, E)]); });
+  if (!nomA.length) R.push([T('Sin lotes en el período con estos filtros.', ST.falta)]);
+  var aFin = aIni + Math.max(1, nomA.length) - 1;
+  tablas.push({ nombre: 'TablaAnalistas', desde: [aIni - 2, 0], cols: cabA, filas: Math.max(1, nomA.length) });
+  var ancla = function (r0, ancho) { return [0, r0, ancho || 4, r0 + 16]; };
+  graficos.push({ titulo: 'Lotes por analista', cat: 'A' + aIni + ':A' + aFin, catVals: nomA, series: [{ nombre: 'C' + (aIni - 1), titulo: 'Finalizados', ref: 'C' + aIni + ':C' + aFin, vals: nomA.map(function (n) { return resp[n].f; }), color: 'A31968' }, { nombre: 'D' + (aIni - 1), titulo: 'Pendientes', ref: 'D' + aIni + ':D' + aFin, vals: nomA.map(function (n) { return resp[n].n - resp[n].f; }), color: 'F4B6D2' }], ancla: ancla(aFin + 1), valores: true });
+  for (var q = 0; q < 18; q++) R.push([]);
+  /* --- revisiones por persona --- */
+  var per = d.revisiones.personas.filter(function (p) { return p.asignadas > 0 || p.completadas > 0 || p.pendientes > 0; });
+  var cnt = function (campo, nom) { return infs.filter(function (x) { return (campo === 'asig' ? asignadaA(x) : partes(x[campo])).indexOf(nom) >= 0; }).length; };
+  R.push([T('Revisiones por persona (revisores y jefatura)', ST.subtitulo)]);
+  var cabP = ['Persona', 'Rol', 'Asignadas', 'Completadas', 'Pendientes', 'Devueltas'], pIni = fila() + 1;
+  R.push(cabP.map(function (c) { return T(c, ST.cab); }));
+  per.forEach(function (p, i) { var r = pIni + i; R.push([T(p.nombre), T(p.roles || '—'), cel('SUMPRODUCT(--' + busca(Ir('L'), 'A' + r) + ')', cnt('asig', p.nombre), E), cel('SUMPRODUCT(--' + busca(Ir('I'), 'A' + r) + ')', cnt('decidida_por', p.nombre), E), cel('SUMPRODUCT(--' + busca(Ir('K'), 'A' + r) + ')', cnt('pendiente_de', p.nombre), E), cel('SUMPRODUCT(--' + busca(Ir('J'), 'A' + r) + ')', cnt('devuelta_por', p.nombre), E)]); });
+  if (!per.length) R.push([T('Sin revisiones en el período con estos filtros.', ST.falta)]);
+  var pFin = pIni + Math.max(1, per.length) - 1;
+  tablas.push({ nombre: 'TablaRevisiones', desde: [pIni - 2, 0], cols: cabP, filas: Math.max(1, per.length) });
+  graficos.push({ titulo: 'Revisiones completadas y pendientes por persona', cat: 'A' + pIni + ':A' + pFin, catVals: per.map(function (p) { return p.nombre; }), series: [{ nombre: 'D' + (pIni - 1), titulo: 'Completadas', ref: 'D' + pIni + ':D' + pFin, vals: per.map(function (p) { return cnt('decidida_por', p.nombre); }), color: 'A31968' }, { nombre: 'E' + (pIni - 1), titulo: 'Pendientes', ref: 'E' + pIni + ':E' + pFin, vals: per.map(function (p) { return cnt('pendiente_de', p.nombre); }), color: 'F4B6D2' }], ancla: ancla(pFin + 1), valores: true });
+  for (q = 0; q < 18; q++) R.push([]);
+  /* --- comparación de tiempos por producto y cantidad de lotes (solo la fila principal de cada grupo: sin duplicar) --- */
+  var principales = lotes.filter(function (l) { return l.grupo_principal && G[l.grupo] && G[l.grupo].calculable; });
+  var porProd = {}; principales.forEach(function (l) { porProd[l.producto] = (porProd[l.producto] || 0) + 1; });
+  var prods = Object.keys(porProd).sort(function (a, b) { return porProd[b] - porProd[a] || a.localeCompare(b, 'es'); }).slice(0, 10);
+  R.push([T('Tiempo por producto y cantidad de lotes (horas por lote del grupo, orientativo)', ST.subtitulo)]);
+  var cabC = ['Producto'].concat(rg.map(function (r) { return r.label + ' · h/lote'; }), rg.map(function (r) { return r.label + ' · grupos'; })), cIni = fila() + 1;
+  R.push(cabC.map(function (c) { return T(c, ST.cab); }));
+  var colL = function (i) { return XLSXW.col(i); };
+  var cacheC = prods.map(function () { return []; });
+  prods.forEach(function (p, i) {
+    var r = cIni + i, row = [T(p)], nrow = [];
+    rg.forEach(function (rr, j) {
+      var gg = principales.filter(function (l) { return l.producto === p && rangoDe(G[l.grupo].n_lotes, rg) === rr.label; }), m = prom(gg.map(function (l) { return G[l.grupo].h_lote; }));
+      cacheC[i].push(m === null ? null : r1(m));
+      row.push(cel('IFERROR(AVERAGEIFS(' + Lr('T') + ',' + Lr('U') + ',1,' + Lr('C') + ',$A' + r + ',' + Lr('I') + ',"' + rr.label + '"),"")', m === null ? undefined : r1(m), Hs));
+      nrow.push(cel('COUNTIFS(' + Lr('U') + ',1,' + Lr('C') + ',$A' + r + ',' + Lr('I') + ',"' + rr.label + '",' + Lr('T') + ',">=0")', gg.length, E));
+    });
+    R.push(row.concat(nrow));
+  });
+  if (!prods.length) R.push([T('Sin grupos con tiempo calculable en el período.', ST.falta)]);
+  var cFin = cIni + Math.max(1, prods.length) - 1;
+  tablas.push({ nombre: 'TablaComparacion', desde: [cIni - 2, 0], cols: cabC, filas: Math.max(1, prods.length) });
+  var colores = ['A31968', 'E58BB8', 'F4B6D2', '7A1350'];
+  graficos.push({ titulo: 'Horas por lote según la cantidad de lotes del grupo', cat: 'A' + cIni + ':A' + cFin, catVals: prods, series: rg.map(function (r, j) { return { nombre: colL(1 + j) + (cIni - 1), titulo: r.label, ref: colL(1 + j) + cIni + ':' + colL(1 + j) + cFin, vals: prods.map(function (p, i) { return cacheC[i][j]; }), color: colores[j % 4] }; }), ancla: ancla(cFin + 2, Math.max(4, 1 + rg.length)), valores: false });
+  R.push([T('Basado en el grupo principal (primera asignación) de cada lote; los grupos adicionales de un mismo lote (otros ensayos) se consultan en la aplicación. Interpretar según ensayos, complejidad, pausas y transferencias; no es un ranking.', ST.nota)]);
+  for (q = 0; q < 18; q++) R.push([]);
+  /* --- ocupancia por equipo --- */
+  R.push([T('Ocupancia por equipo', ST.subtitulo)]);
+  var eqs = d.ocupancia.equipos, cabQ = ['Equipo', 'Tipo', 'Horas de ocupancia', 'Sesiones', 'Horas disponibles', 'Utilización (%)'], qIni = fila() + 1;
+  R.push(cabQ.map(function (c) { return T(c, ST.cab); }));
+  var hEq = function (e) { return suma(ses.filter(function (x) { return x.equipo === e.codigo; }).map(function (x) { return x.horas_periodo; })); };
+  eqs.forEach(function (e, i) { var r = qIni + i, h = hEq(e), disp = e.disponibles_h; R.push([T(e.codigo), T(e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor'), cel('SUMIFS(' + Er('L') + ',' + Er('B') + ',A' + r + ')', h, Hs), cel('COUNTIF(' + Er('B') + ',A' + r + ')', ses.filter(function (x) { return x.equipo === e.codigo; }).length, E), disp > 0 ? N(disp, Hs) : { v: 'Sin datos', t: 's', s: ST.falta }, disp > 0 ? cel('C' + r + '/E' + r + '*100', h / disp * 100, ST.pct) : { v: 'Sin datos', t: 's', s: ST.falta }]); });
+  if (!eqs.length) R.push([T('Sin equipos.', ST.falta)]);
+  var qFin = qIni + Math.max(1, eqs.length) - 1;
+  tablas.push({ nombre: 'TablaEquipos', desde: [qIni - 2, 0], cols: cabQ, filas: Math.max(1, eqs.length) });
+  graficos.push({ titulo: 'Horas de ocupancia por equipo', cat: 'A' + qIni + ':A' + qFin, catVals: eqs.map(function (e) { return e.codigo; }), series: [{ nombre: 'C' + (qIni - 1), titulo: 'Horas de ocupancia', ref: 'C' + qIni + ':C' + qFin, vals: eqs.map(hEq).map(function (v) { return r1(v); }), color: 'A31968' }], ancla: ancla(qFin + 1), horizontal: true, valores: true });
+  for (q = 0; q < 18; q++) R.push([]);
+  // alturas fijas: así los gráficos anclados no se desplazan cuando una fila de texto ocupa dos líneas
+  var anchosR = [56, 14, 13, 46, 14, 14, 14, 14, 14, 14, 14], altosR = {};
+  R.forEach(function (f, ri) { var lin = 1; if (ri > 2) (f || []).forEach(function (c, ci) { if (c && c.t === 's' && c.s !== ST.subtitulo && c.s !== ST.nota) lin = Math.max(lin, Math.ceil(String(c.v).length / (anchosR[ci] * 1.05))); }); altosR[ri] = ri < 3 ? (ri === 0 ? 24 : 30) : 15 * Math.min(lin, 4) + 2; });
+  var hojas = [{ nombre: 'Resumen', filas: R, anchos: anchosR, altos: altosR, tablas: tablas, graficos: graficos }];
   var hojaTabla = function (nombre, tablaNom, titulo, cols, filas, anchos) {
     var rows = [[T(titulo, ST.titulo)], [T(cab, ST.nota)], cols.map(function (c) { return T(c, ST.cab); })];
     if (!filas.length) filas = [[T('Sin registros en el período con estos filtros.', ST.falta)]];
     filas.forEach(function (f) { rows.push(f); });
-    hojas.push({ nombre: nombre, filas: rows, anchos: anchos, congelar: 3, altos: { 2: 32 }, tablas: [{ nombre: tablaNom, desde: [2, 0], cols: cols, filas: filas.length }] });
+    hojas.push({ nombre: nombre, filas: rows, anchos: anchos, congelar: 3, altos: { 2: 46 }, tablas: [{ nombre: tablaNom, desde: [2, 0], cols: cols, filas: filas.length }] });
   };
-  var A = d.ocupancia, B = d.productividad, I = d.informes, D = d.esperas, G = d.gestion;
-  /* 1. Resumen ejecutivo */
-  var kp = [];
-  var k = function (g, n, v, u, det) { kp.push([T(g), T(n, ST.texto), typeof v === 'number' ? N(v, u === 'h' || u === '%' ? ST.horas : ST.entero) : (v === null || v === undefined ? { v: 'Sin datos', t: 's', s: ST.falta } : T(v)), T(u), T(det || '')]); };
-  k('A. Ocupancia', 'Horas de uso HPLC', A.HPLC.horas, 'h', A.HPLC.sesiones + ' sesiones'); k('A. Ocupancia', 'Utilización HPLC', A.HPLC.pct, '%', A.base.texto);
-  k('A. Ocupancia', 'Horas de uso disolutores', A.DISOLUTOR.horas, 'h', A.DISOLUTOR.sesiones + ' sesiones'); k('A. Ocupancia', 'Utilización disolutores', A.DISOLUTOR.pct, '%', '');
-  k('A. Ocupancia', 'Duración promedio por sesión', A.duracion_sesion.promedio, 'h', 'mediana ' + horasTxt(A.duracion_sesion.mediana)); k('A. Ocupancia', 'Equipo más utilizado', A.mas.length ? A.mas[0].codigo + ' (' + A.mas[0].horas + ' h)' : 'Sin uso', '', '');
-  k('A. Ocupancia', 'Tiempo fuera de servicio registrado', (A.HPLC.fuera_h || 0) + (A.DISOLUTOR.fuera_h || 0), 'h', A.fuera_sin_datos.length ? 'Sin registros suficientes: ' + A.fuera_sin_datos.join(', ') : ''); k('A. Ocupancia', 'Incidencias registradas', A.HPLC.incidencias + A.DISOLUTOR.incidencias, 'n.º', '');
-  k('B. Productividad', 'Lotes en el período', B.total, 'lotes', B.registros + ' registros de ensayo consolidados'); k('B. Productividad', 'Lotes asignados', B.asignados, 'lotes'); k('B. Productividad', 'Lotes iniciados', B.iniciados, 'lotes'); k('B. Productividad', 'Lotes finalizados', B.finalizados, 'lotes');
-  k('B. Productividad', 'Lotes sin iniciar', B.pendientes, 'lotes'); k('B. Productividad', 'Lotes en proceso / informando', B.enProceso + B.informando, 'lotes', B.pausados + ' en pausa autorizada');
-  k('B. Productividad', 'Asignación → inicio (mediana)', B.tiempos.espera.mediana, 'h', B.tiempos.espera.n + ' casos'); k('B. Productividad', 'Inicio → finalización (mediana)', B.tiempos.total.mediana, 'h', B.tiempos.total.n + ' casos'); k('B. Productividad', 'Tiempo activo registrado (promedio)', B.tiempos.activo.promedio, 'h', 'total − pausas autorizadas');
-  k('C. Informes', 'Informes enviados a revisión', I.enviados, 'n.º'); k('C. Informes', 'Informes entregados', I.entregados, 'n.º'); k('C. Informes', 'Informes devueltos con observaciones', I.devueltos, 'n.º'); k('C. Informes', 'Porcentaje de informes devueltos', I.pct_devueltos, '%');
-  k('C. Informes', 'Pendientes de revisión (actual)', I.actual.pendientes, 'n.º'); k('C. Informes', 'En revisión (actual)', I.actual.enRevision, 'n.º'); k('C. Informes', 'Subsanaciones pendientes (actual)', I.actual.subsanaciones, 'n.º');
-  k('C. Informes', 'Envío → toma por revisor (mediana)', I.tiempos.envio_a_toma.mediana, 'h'); k('C. Informes', 'Tiempo total hasta entrega (mediana)', I.tiempos.total.mediana, 'h');
-  k('D. Esperas', 'Solicitud → autorización (mediana)', D.solicitud_autorizacion.mediana, 'h'); k('D. Esperas', 'Pendientes con más de 72 h', D.pendientes.reduce(function (s, g) { return s + g.h72; }, 0), 'n.º', D.pendientes.filter(function (g) { return g.h72; }).map(function (g) { return g.nombre + ': ' + g.h72; }).join(' · '));
-  k('F. Gestión', 'Cumplimiento de verificaciones', G.verificaciones.pct, '%', G.verificaciones.realizadas + ' de ' + G.verificaciones.evaluadas); k('F. Gestión', 'Cumplimiento de actividades', G.actividades.pct, '%', G.actividades.realizadas + ' de ' + G.actividades.evaluadas);
-  k('F. Gestión', 'Encargos registrados', G.encargos.registrados, 'n.º', G.encargos.confirmados + ' confirmados · ' + G.encargos.pendientes + ' pendientes'); k('F. Gestión', 'Mantenciones / calificaciones vencidas', ((G.vencimientos || {}).mantVenc || 0) + ((G.vencimientos || {}).califVenc || 0), 'n.º', 'Informativo');
-  var r = [[T('Lab CC · Indicadores de gestión', ST.titulo)], [T((d.laboratorio || 'Laboratorio de Control de Calidad') + ' · ' + cab, ST.nota)], [T('Herramienta de seguimiento operativo. Cifras calculadas con registros reales de la app; «Sin datos» indica información insuficiente (no es cero). No contiene resultados analíticos.', ST.nota)], [], [T('Grupo', ST.cab), T('Indicador', ST.cab), T('Valor', ST.cab), T('Unidad', ST.cab), T('Detalle', ST.cab)]];
-  kp.forEach(function (x) { r.push(x); });
-  var filaMes = r.length + 2;
-  r.push([]); r.push([T('Evolución mensual', ST.subtitulo)]);
-  r.push(['Mes', 'Lotes asignados', 'Lotes finalizados', 'Horas HPLC', 'Horas disolutores'].map(function (c) { return T(c, ST.cab); }));
-  var mesNom = function (m) { return MESES[Number(m.slice(5, 7)) - 1] + ' ' + m.slice(0, 4); };
-  var hm = {}; A.meses.forEach(function (m) { hm[m.mes] = m; });
-  B.meses.forEach(function (m) { r.push([T(mesNom(m.mes)), N(m.asignados), N(m.finalizados), N((hm[m.mes] || {}).HPLC || 0, ST.horas), N((hm[m.mes] || {}).DISOLUTOR || 0, ST.horas)]); });
-  var m0 = filaMes + 1, m1 = filaMes + B.meses.length; // filas (1-based) de datos de meses
-  var sum = function (c, tipo) { var t = 0; B.meses.forEach(function (m, i) { t += tipo === 'a' ? m.asignados : tipo === 'f' ? m.finalizados : ((hm[m.mes] || {})[tipo] || 0); }); return t; };
-  r.push([T('Total', ST.etiqueta), { t: 'f', f: 'SUM(B' + m0 + ':B' + m1 + ')', v: sum(0, 'a'), s: ST.entero }, { t: 'f', f: 'SUM(C' + m0 + ':C' + m1 + ')', v: sum(0, 'f'), s: ST.entero }, { t: 'f', f: 'SUM(D' + m0 + ':D' + m1 + ')', v: Math.round(sum(0, 'HPLC') * 10) / 10, s: ST.horas }, { t: 'f', f: 'SUM(E' + m0 + ':E' + m1 + ')', v: Math.round(sum(0, 'DISOLUTOR') * 10) / 10, s: ST.horas }]);
-  var filaEq = r.length + 2;
-  r.push([]); r.push([T('Uso por equipo', ST.subtitulo)]);
-  r.push(['Equipo', 'Tipo', 'Horas de uso', 'Sesiones', 'Utilización %', 'Horas disponibles', 'Incidencias'].map(function (c) { return T(c, ST.cab); }));
-  A.equipos.forEach(function (e) { r.push([T(e.codigo), T(e.tipo === 'HPLC' ? 'HPLC' : 'Disolutor'), N(e.horas, ST.horas), N(e.sesiones), N(e.pct, ST.pct), N(e.disponibles_h, ST.horas), N(e.incidencias)]); });
-  var e0 = filaEq + 1, e1 = filaEq + Math.max(1, A.equipos.length);
-  hojas.push({
-    nombre: 'Resumen ejecutivo', filas: r, anchos: [22, 42, 14, 12, 52, 18, 12, 3, 12, 12, 12, 12, 12, 12, 12, 12],
-    tablas: [{ nombre: 'TablaResumen', desde: [4, 0], cols: ['Grupo', 'Indicador', 'Valor', 'Unidad', 'Detalle'], filas: kp.length },
-      { nombre: 'TablaMeses', desde: [filaMes - 1, 0], cols: ['Mes', 'Lotes asignados', 'Lotes finalizados', 'Horas HPLC', 'Horas disolutores'], filas: B.meses.length },
-      { nombre: 'TablaEquipos', desde: [filaEq - 1, 0], cols: ['Equipo', 'Tipo', 'Horas de uso', 'Sesiones', 'Utilización %', 'Horas disponibles', 'Incidencias'], filas: Math.max(1, A.equipos.length) }],
-    graficos: [
-      { titulo: 'Lotes asignados y finalizados por mes', cat: 'A' + m0 + ':A' + m1, catVals: B.meses.map(function (m) { return mesNom(m.mes); }), series: [{ nombre: 'B' + filaMes, titulo: 'Lotes asignados', ref: 'B' + m0 + ':B' + m1, vals: B.meses.map(function (m) { return m.asignados; }), color: 'E58BB8' }, { nombre: 'C' + filaMes, titulo: 'Lotes finalizados', ref: 'C' + m0 + ':C' + m1, vals: B.meses.map(function (m) { return m.finalizados; }), color: 'A31968' }], ancla: [8, 3, 16, 21], valores: true },
-      { titulo: 'Horas de uso por equipo', cat: 'A' + e0 + ':A' + e1, catVals: A.equipos.map(function (e) { return e.codigo; }), series: [{ nombre: 'C' + filaEq, titulo: 'Horas de uso', ref: 'C' + e0 + ':C' + e1, vals: A.equipos.map(function (e) { return e.horas; }), color: 'A31968' }], ancla: [8, 23, 16, 44], horizontal: true, valores: true }
-    ]
-  });
-  /* 2. Ocupancia equipos */
-  var det = d.detalle || {};
-  hojaTabla('Ocupancia equipos', 'TablaOcupancia', 'Ocupancia de HPLC y disolutores', ['Equipo', 'Tipo', 'Área', 'Analista', 'Producto', 'Lotes', 'Ensayo o tipo de disolución', 'Inicio', 'Término', 'Duración (h)', 'Horas dentro del período', 'Franja', 'Estado', 'Modo de registro', 'Liberado por tercero'],
-    (det.ocupaciones || []).map(function (o) { return [T(o.equipo), T(o.tipo), T(o.area), T(o.analista), T(o.producto), T(o.lotes), T(o.ensayo), F(o.inicio), F(o.fin, 'En uso'), Hh(o.duracion_h, 'En uso'), Hh(o.horas_periodo), T(o.franja), T(o.estado), T(o.modo), T(o.cierre_tercero)]; }), [12, 10, 7, 22, 26, 18, 24, 17, 17, 11, 12, 8, 11, 13, 10]);
-  /* 3 y 4. Análisis PT / MP (un lote por fila) */
-  var colsLote = ['Área', 'Documento ELP o EMP', 'Producto', 'Número de lote', 'Tipo de análisis operativo', 'Ensayos', 'Registros de ensayo', 'Analista responsable', 'Analistas participantes', 'Fecha de asignación', 'Fecha de inicio', 'Fecha de finalización', 'Estado', 'Tiempo de espera (h)', 'Tiempo total de análisis (h)', 'Tiempo pausado (h)', 'Tiempo activo registrado (h)', 'Fecha de envío del informe', 'Fecha de toma por revisor', 'Fecha de entrega', 'Tiempo de revisión (h)', 'Tiempo total de informe (h)', 'Devoluciones', 'Clave de lote'];
-  var filaLote = function (l) {
-    var noIni = l.estado === 'PENDIENTE';
-    return [T(l.area), T(l.documento || 'Sin documento (registro anterior)', l.documento ? ST.texto : ST.falta), T(l.producto), T(l.lote), T(l.categoria || 'Sin categoría', l.categoria ? ST.texto : ST.falta), T(l.ensayos.join(', ')), N(l.registros), T(l.responsable), T(l.participantes.join(', ') || '—'),
-      F(l.asignado), F(l.iniciado, noIni ? 'No iniciado' : 'Sin datos'), F(l.finalizado, l.estado === 'FINALIZADO' ? 'Sin datos' : 'En curso'), T(l.estado_txt),
-      Hh(l.espera_h, noIni ? 'No iniciado' : 'Sin datos'), Hh(l.total_h, l.estado === 'FINALIZADO' ? 'Sin datos' : 'No calculable (en curso)'), Hh(l.pausado_h, noIni ? 'No iniciado' : 'Sin datos'), Hh(l.total_h !== null ? l.activo_h : null, l.estado === 'FINALIZADO' ? 'Sin datos' : 'No calculable (en curso)'),
-      F(l.envio, 'Sin enviar'), F(l.toma, l.envio ? 'Sin tomar' : 'Sin enviar'), F(l.entrega, l.envio ? 'Sin entregar' : 'Sin enviar'), Hh(l.revision_h, 'No calculable'), Hh(l.informe_total_h, 'No calculable'), N(l.devoluciones), T(l.clave, ST.nota)];
-  };
-  var anchosLote = [6, 14, 26, 13, 18, 24, 9, 20, 20, 16, 16, 16, 12, 11, 12, 11, 12, 16, 16, 16, 11, 11, 10, 36];
-  hojaTabla('Análisis PT', 'TablaPT', 'Análisis de Productos Terminados (un lote por fila)', colsLote, d.lotes.filter(function (l) { return l.area === 'PT'; }).map(filaLote), anchosLote);
-  hojaTabla('Análisis MP', 'TablaMP', 'Análisis de Materias Primas (un lote por fila)', colsLote, d.lotes.filter(function (l) { return l.area === 'MP'; }).map(filaLote), anchosLote);
-  /* 5. Informes */
-  hojaTabla('Informes y revisiones', 'TablaInformes', 'Informes y revisiones', ['Área', 'Documento', 'Producto', 'Lote', 'Ensayo', 'Tipo de análisis', 'Analista', 'Revisor', 'Estado', 'Ciclos de revisión', 'Devoluciones', 'Finalización del análisis', 'Envío a revisión', 'Toma por revisor', 'Última devolución', 'Subsanación', 'Entrega', 'Finalización → envío (h)', 'Envío → toma (h)', 'Tiempo de revisión (h)', 'Tiempo de subsanación (h)', 'Tiempo total hasta entrega (h)'],
-    (det.informes || []).map(function (i) { return [T(i.area), T(i.documento || 'Sin documento', i.documento ? ST.texto : ST.falta), T(i.producto), T(i.lote), T(i.ensayo || '—'), T(i.tipo || '—'), T(i.analista), T(i.revisor || 'Sin revisor', i.revisor ? ST.texto : ST.falta), T(i.estado), N(i.ciclos), N(i.devoluciones), F(i.finalizado, 'Sin datos'), F(i.enviado), F(i.tomado, 'Sin tomar'), F(i.devuelto, 'Sin devolución'), F(i.subsanado, 'Sin subsanación'), F(i.entregado, 'Sin entregar'), Hh(i.fin_a_envio_h), Hh(i.envio_toma_h, 'No calculable'), Hh(i.revision_h, 'No calculable'), Hh(i.subsanacion_h, 'No aplica'), Hh(i.total_h, 'No calculable')]; }),
-    [6, 13, 24, 12, 16, 16, 18, 18, 22, 9, 10, 16, 16, 16, 16, 16, 16, 12, 11, 11, 11, 12]);
-  /* 6. Personas */
-  hojaTabla('Analistas y revisores', 'TablaPersonas', 'Carga de trabajo y participación', ['Persona', 'Roles', 'Lotes como responsable', 'Lotes finalizados en el período', 'Análisis activos', 'Lotes con transferencia (participación)', 'Tiempo activo registrado (h)', 'Informes enviados', 'Revisiones tomadas', 'Revisiones completadas', 'Devoluciones emitidas', 'Carga pendiente (lotes)'],
-    d.carga.map(function (p) { return [T(p.nombre), T(p.roles), N(p.lotes), N(p.finalizados), N(p.activos), N(p.transferidos), Hh(p.activo_h), N(p.informes), N(p.tomadas), N(p.completadas), N(p.devueltas), N(p.pendiente)]; }), [24, 20, 12, 14, 11, 14, 13, 11, 11, 12, 12, 12]);
-  /* 7. Gestión operativa */
-  hojaTabla('Gestión operativa', 'TablaGestion', 'Verificaciones, actividades, Semanero y encargos', ['Tipo', 'Fecha', 'Tarea o descripción', 'Responsable', 'Estado', 'Detalle'],
-    (det.gestion || []).map(function (g) { return [T(g.tipo), Ftx(g.fecha), T(g.nombre), T(g.responsable, g.responsable === 'Sin asignar' ? ST.falta : ST.texto), T(g.estado), T(g.detalle || '')]; }), [12, 16, 36, 22, 22, 40]);
-  /* 8. Incidencias */
-  hojaTabla('Incidencias', 'TablaIncidencias', 'Incidencias por equipo', ['Equipo', 'Tipo', 'Descripción', 'Reportada por', 'Fecha de reporte', 'Estado', 'Cerrada por', 'Fecha de cierre', 'Nota de cierre'],
-    (det.incidencias || []).map(function (i) { return [T(i.equipo), T(i.tipo), T(i.descripcion), T(i.reportado_por), F(i.reportado_en), T(i.estado), T(i.resuelto_por || '—'), F(i.resuelto_en, i.estado === 'Abierta' ? 'Abierta' : 'Sin datos'), T(i.nota || '')]; }), [12, 10, 44, 20, 17, 10, 20, 17, 30]);
-  /* 9. Definiciones */
-  hojaTabla('Definiciones', 'TablaDefiniciones', 'Definiciones y fórmulas de cálculo', ['Indicador', 'Grupo', 'Definición', 'Fórmula o cálculo', 'Unidad'], DEFINICIONES_IND.map(function (x) { return [T(x[0]), T(x[1]), T(x[2]), T(x[3]), T(x[4])]; }), [32, 16, 60, 60, 10]);
-  /* Detalle por ensayo (para lo que no se consolida en una fila) */
-  hojaTabla('Detalle análisis', 'TablaDetalle', 'Detalle por registro de ensayo (relacionado con su lote por la clave)', ['Clave de lote', 'Área', 'Documento', 'Producto', 'Lote', 'Ensayo', 'Tipo de análisis', 'Responsable', 'Participantes anteriores', 'Estado', 'Asignado', 'Iniciado', 'Finalizado', 'Tiempo total (h)', 'Tiempo pausado (h)', 'Tiempo activo registrado (h)'],
-    (det.analisis || []).map(function (a) { return [T(a.clave, ST.nota), T(a.area), T(a.documento || 'Sin documento', a.documento ? ST.texto : ST.falta), T(a.producto), T(a.lote), T(a.ensayo || '—'), T(a.tipo || '—'), T(a.responsable), T(a.participantes || '—'), T(a.estado), F(a.asignado), F(a.iniciado, 'No iniciado'), F(a.finalizado, 'En curso'), Hh(a.total_h, 'No calculable'), Hh(a.pausado_h, 'Sin datos'), Hh(a.total_h !== null ? a.activo_h : null, 'No calculable')]; }), [36, 6, 13, 24, 12, 16, 16, 20, 20, 12, 16, 16, 16, 11, 11, 12]);
-  hojaTabla('Pausas y transferencias', 'TablaPausas', 'Pausas autorizadas y transferencias de responsable', ['Tipo', 'Área', 'Documento', 'Producto', 'Lote', 'Desde', 'Hasta', 'Duración (h)', 'Analista', 'Analista receptor', 'Motivo', 'Autorizado por'],
-    (det.pausas || []).map(function (p) { return [T(p.tipo), T(p.area), T(p.documento || 'Sin documento', p.documento ? ST.texto : ST.falta), T(p.producto), T(p.lote), F(p.desde), F(p.hasta, p.tipo === 'Pausa' ? 'En curso' : 'No aplica'), Hh(p.horas, p.tipo === 'Pausa' ? 'En curso' : 'No aplica'), T(p.de), T(p.a || '—'), T(p.motivo || '—'), T(p.autorizado_por)]; }), [13, 6, 13, 24, 12, 17, 17, 11, 20, 20, 26, 20]);
+  hojaTabla('Lotes', 'TablaLotes', 'Lotes (una fila por lote único). Las columnas «métrica de grupo» se repiten en cada lote del grupo: no se suman; usa «Fila principal del grupo = 1» para contar grupos.', colsL, LF, [6, 14, 26, 13, 18, 12, 12, 10, 14, 20, 20, 16, 16, 16, 12, 12, 14, 14, 14, 14, 12, 16]);
+  hojaTabla('Informes', 'TablaInformes', 'Informes (una fila por informe único; las devoluciones y nuevas revisiones se cuentan como ciclos del mismo informe)', colsI, IF, [14, 6, 26, 12, 20, 20, 24, 20, 20, 20, 18, 24, 22, 16, 16, 16, 16, 16, 16, 12, 12, 12, 14, 11, 10, 12, 12]);
+  hojaTabla('Equipos', 'TablaSesiones', 'Sesiones de ocupancia de HPLC y disolutores (una fila por sesión, aunque se asocien varios lotes)', colsE, EF, [12, 14, 20, 6, 26, 14, 22, 12, 10, 10, 12, 12, 11, 24]);
   return XLSXW.libro({ titulo: 'Lab CC · Indicadores ' + d.filtros.desde + ' a ' + d.filtros.hasta, hojas: hojas });
 }
-var DEFINICIONES_IND = [
-  ['Lote', 'General', 'Unidad principal de volumen de trabajo. Un lote con varios ensayos (valoración, disolución, uniformidad…) cuenta una sola vez.', 'Clave = área + documento ELP/EMP + producto + número de lote (sin mayúsculas, tildes ni espacios extra).', 'lote'],
-  ['Tipo de análisis (categoría operativa)', 'General', 'Categoría elegida al asignar el lote: Productivo, OS, Investigación, I+T, CC-DOC-56 y demás. No son ensayos analíticos.', 'Se toma la categoría de los registros del lote; si hay varias, se listan juntas.', '—'],
-  ['Horas de uso', 'A. Ocupancia', 'Horas reales de ocupación de cada equipo dentro del período.', 'Suma de (término − inicio) recortado al período; una ocupación en curso cuenta hasta ahora.', 'h'],
-  ['Utilización', 'A. Ocupancia', 'Proporción del tiempo disponible en que el equipo estuvo en uso.', 'Horas de uso ÷ (días del período × horas disponibles por día configuradas − horas fuera de servicio registradas) × 100.', '%'],
-  ['Sesiones y duración por sesión', 'A. Ocupancia', 'Cantidad de usos iniciados en el período y su duración.', 'Duración = término − inicio de cada uso cerrado; se informan promedio y mediana.', 'h'],
-  ['Utilización por franja', 'A. Ocupancia', 'Horas según la franja en que comenzó el uso.', 'Franja día configurable (07:00–17:30 por defecto); el resto es noche.', 'h'],
-  ['Tiempo fuera de servicio', 'A. Ocupancia', 'Horas en que el equipo estuvo declarado «No operativo» por jefatura.', 'Intervalos entre «Declarar no operativo» y «Restablecer operatividad» del historial. Sin registros suficientes = «Sin datos».', 'h'],
-  ['Lotes asignados / iniciados / finalizados', 'B. Productividad', 'Lotes cuya asignación, inicio o finalización ocurrió en el período.', 'Asignación = primera asignación del lote; inicio = primer inicio; finalización = cuando todos sus registros están finalizados.', 'lotes'],
-  ['Tiempo de espera', 'B. Productividad', 'Desde la asignación hasta el inicio del lote.', 'Fecha de inicio − fecha de asignación.', 'h'],
-  ['Tiempo total de análisis', 'B. Productividad', 'Tiempo total transcurrido del lote.', 'Fecha de finalización − fecha de inicio. En lotes en curso: «No calculable».', 'h'],
-  ['Tiempo pausado', 'B. Productividad', 'Suma de las pausas autorizadas por jefatura.', 'Suma de (fin − inicio) de cada pausa, desde la autorización (no desde la solicitud). Pausas superpuestas se cuentan una vez.', 'h'],
-  ['Tiempo activo registrado', 'B. Productividad', 'Estimación basada en eventos de la app; no es una medición automática del trabajo efectivo.', 'Tiempo total transcurrido − tiempo pausado.', 'h'],
-  ['Informes enviados / entregados / devueltos', 'C. Informes', 'Informes cuyo envío, entrega o devolución ocurrió en el período.', 'Según el historial de cada informe (rondas de revisión).', 'n.º'],
-  ['Tiempo envío → toma', 'C. Informes', 'Espera hasta que un revisor toma el informe.', 'Primer inicio de revisión − envío.', 'h'],
-  ['Tiempo de revisión', 'C. Informes', 'Duración de cada ronda de revisión.', 'Resolución (entrega o devolución) − inicio de la revisión de esa ronda.', 'h'],
-  ['Tiempo de subsanación', 'C. Informes', 'Tiempo que tomó corregir un informe devuelto.', 'Reenvío de la subsanación − devolución.', 'h'],
-  ['Tiempo total hasta entrega', 'C. Informes', 'Desde el primer envío hasta la entrega final.', 'Entrega − envío.', 'h'],
-  ['Porcentaje de informes devueltos', 'C. Informes', 'Informes con al menos una devolución entre los revisados en el período.', 'Informes con devolución ÷ informes con alguna resolución en el período × 100.', '%'],
-  ['Ciclos de revisión', 'C. Informes', 'Rondas que necesitó cada informe entregado.', 'Número de ronda del informe al entregarse.', 'n.º'],
-  ['Antigüedad de pendientes', 'D. Esperas', 'Tiempo que lleva esperando cada pendiente (lote sin iniciar, informe sin enviar o sin revisar, pausa en curso, solicitud sin autorizar).', 'Ahora − fecha en que quedó pendiente. Filtros de 24, 48 y 72 h.', 'h'],
-  ['Solicitud → autorización', 'D. Esperas', 'Tiempo que tarda jefatura en resolver una solicitud de pausa, reanudación o transferencia.', 'Fecha de resolución − fecha de solicitud (no incluye acciones directas).', 'h'],
-  ['Participación en lotes transferidos', 'E. Carga', 'Lotes en que la persona fue responsable en algún tramo. El lote se cuenta una sola vez en el total.', 'Cada transferencia cierra el tramo del responsable anterior; a nadie se le atribuye tiempo en que no era responsable.', 'lotes'],
-  ['Revisiones tomadas / completadas', 'E. Carga', 'Revisiones iniciadas y resueltas por cada revisor en el período.', 'Eventos «Inicio de revisión» y «Entregado/Devuelto» del historial.', 'n.º'],
-  ['Cumplimiento de verificaciones / actividades', 'F. Gestión', 'Tareas realizadas entre las evaluables de planificaciones publicadas.', 'Realizadas ÷ (tareas con responsable de días pasados o ya registradas) × 100. El Semanero se cuenta una vez por semana.', '%'],
-  ['Distribución de Semanero', 'F. Gestión', 'Semanas en que cada analista fue Semanero, con su turno (día o noche).', 'Asignaciones semanales publicadas.', 'semanas'],
-  ['Encargos registrados y confirmados', 'F. Gestión', 'Encargos entre turnos creados en el período y su estado.', 'Conteo por fecha de creación.', 'n.º']
-];
+
 
 /* =====================================================================
  * v0.10 — Panel General y televisor: cuatro pantallas en rotación (misma lógica en ambos modos)
